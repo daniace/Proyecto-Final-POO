@@ -40,12 +40,12 @@ nombre: str = "Pepe"
 lista_numeros: list[int] = [1,2,3]
 def suma(x: int, y:int) -> int:
 ```
- - Usar un Formateador de codigo: Black formatter (Le da formato al documento), Isort (Ordena los imports)
+ - Usar un Formateador de codigo: Ruff, Black formatter (Le da formato al documento), Isort (Ordena los imports)
  - Usar commits convencionales (git commit) https://www.conventionalcommits.org/es/v1.0.0/
  - Paquetes a usar (desarrollo): pygame (Interfaz grafica), mypy (Type Hints, Tipos de datos), pylint (Documentacion, buenas practicas), black (formatear codigo), isort (ordenar imports)
 
 ### EXTENSIONES A USAR (VSCODE)
-
+ - Ruff | https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff
  - Black | https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter
  - Isort | https://marketplace.visualstudio.com/items?itemName=ms-python.isort
  - Conventional Commits | https://marketplace.visualstudio.com/items?itemName=vivaxy.vscode-conventional-commits
@@ -59,6 +59,7 @@ pip install <nombre_paquete>
  - pygame 
  - mypy
  - pylint
+ - ruff
  - black
  - isort
 
