@@ -46,11 +46,8 @@ def suma(x: int, y:int) -> int:
 
 ### EXTENSIONES A USAR (VSCODE)
  - Ruff | https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff
- - Black | https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter
- - Isort | https://marketplace.visualstudio.com/items?itemName=ms-python.isort
  - Conventional Commits | https://marketplace.visualstudio.com/items?itemName=vivaxy.vscode-conventional-commits
  - Mypy | https://marketplace.visualstudio.com/items?itemName=ms-python.mypy-type-checker
- - Pylint | https://marketplace.visualstudio.com/items?itemName=ms-python.pylint
 
 ### PAQUETES (PYTHON)
 ```Bash
@@ -58,10 +55,7 @@ pip install <nombre_paquete>
 ```
  - pygame 
  - mypy
- - pylint
  - ruff
- - black
- - isort
 
 ```Bash
 pip install -r requirements-dev.txt
