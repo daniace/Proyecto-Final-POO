@@ -40,9 +40,9 @@ nombre: str = "Pepe"
 lista_numeros: list[int] = [1,2,3]
 def suma(x: int, y:int) -> int:
 ```
- - Usar un Formateador de codigo: Ruff, Black formatter (Le da formato al documento), Isort (Ordena los imports)
+ - Usar un Formateador de codigo: Ruff, (Le da formato al documento)
  - Usar commits convencionales (git commit) https://www.conventionalcommits.org/es/v1.0.0/
- - Paquetes a usar (desarrollo): pygame (Interfaz grafica), mypy (Type Hints, Tipos de datos), pylint (Documentacion, buenas practicas), black (formatear codigo), isort (ordenar imports)
+ - Paquetes a usar (desarrollo): pygame-ce (Interfaz grafica), mypy (Type Hints, Tipos de datos), ruff (Formatear codigo).
 
 ### EXTENSIONES A USAR (VSCODE)
  - Ruff | https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff
@@ -53,13 +53,10 @@ def suma(x: int, y:int) -> int:
 ```Bash
 pip install <nombre_paquete>
 ```
- - pygame 
+ - pygame-ce 
  - mypy
  - ruff
 
 ```Bash
 pip install -r requirements-dev.txt
 ```
-   
-
-   
