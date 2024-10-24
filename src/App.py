@@ -1,5 +1,5 @@
 # Example file showing a basic pygame "game loop"
-from cgitb import text
+# from cgitb import text
 
 import pygame
 
