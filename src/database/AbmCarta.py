@@ -1,46 +1,59 @@
 from Singleton import Database
+from DaoInterfaz import DaoInterfaz
 
 
-class AbmCarta:
+class AbmCarta(DaoInterfaz):
     def __init__(self):
-        self.database = Database()
+        self.__database = (
+            Database()
+        )  # Aca se hace la conexion a la base de datos mediante singleton
 
-    def agregar_jugador(
-        self,
-        nombre_corto,
-        dorsal,
-        posicion,
-        equipo,
-        nacionalidad,
-        quimica,
-        velocidad,
-        disparo,
-        pase,
-        gambeta,
-        defensa,
-        fisico,
-    ):
-        query = "INSERT INTO carta(short_name,team_jersey_number,team_positions,club_name,nationality,overall,pace,shooting,passing,dribbling,defending,physical) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)"
-        self.database.query(
-            query,
+    def get_por_id(self, id):  # obtiene una carta por su id
+        self.__database.query("SELECT * FROM cartas WHERE id = ?", (id,))
+        return self.__database.fetchone()
+
+    def get_all(self):  # obtiene todas las cartas
+        self.__database.query("SELECT * FROM cartas")
+        return self.__database.fetchall()
+
+    def insertar(self, objeto):  # inserta una nueva carta
+        self.__database.query(
+            "INSERT INTO cartas (short_name,team_jersey_number,team_positions,club_name,nationality,overall,pace,shooting,passing,dribbling,defending,physical) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
             (
-                nombre_corto,
-                dorsal,
-                posicion,
-                equipo,
-                nacionalidad,
-                quimica,
-                velocidad,
-                disparo,
-                pase,
-                gambeta,
-                defensa,
-                fisico,
+                objeto.get_nombre(),
+                objeto.get_dorsal(),
+                objeto.get_posicion(),
+                objeto.get_club(),
+                objeto.get_nacionalidad(),
+                objeto.get_quimica(),
+                objeto.get_velocidad(),
+                objeto.get_disparo(),
+                objeto.get_pase(),
+                objeto.get_gambeta(),
+                objeto.get_defensa(),
+                objeto.get_fisico(),
             ),
         )
-        self.database.commit()
+        self.__database.commit()
 
-    def obtener_jugadores(self):
-        query = "SELECT * FROM carta"
-        self.database.query(query)
-        return self.database.fetchall()
+    def actualizar(self, objeto):  # actualiza las estadisticas de una carta
+        self.__database.query(
+            "UPDATE INTO carta SET overall=?, pace=?, shooting=?,passing=?,dribbling=?,physical=? WHERE sofifa_id=?",
+            (
+                objeto.get_quimica(),
+                objeto.get_velocidad(),
+                objeto.get_disparo(),
+                objeto.get_pase(),
+                objeto.get_gambeta(),
+                objeto.get_defensa(),
+                objeto.get_fisico(),
+                objeto.get_id(),
+            ),
+        )
+        self.__database.commit()
+
+    def borrar(self, id):  # Borrado logico de una carta
+        self.__database.query(
+            "UPDATE FROM cartas SET desabilitado = 1 WHERE id = ?", (id,)
+        )
+        self.__database.commit()
