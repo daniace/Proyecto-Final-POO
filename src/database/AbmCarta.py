@@ -1,5 +1,5 @@
-from Singleton import Database
 from DaoInterfaz import DaoInterfaz
+from Singleton import Database
 
 
 class AbmCarta(DaoInterfaz):
