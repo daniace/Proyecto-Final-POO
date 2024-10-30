@@ -26,9 +26,9 @@ class Carta:
         self.__gambeta = gambeta
         self.__defensa = defensa
         self.__fisico = fisico
-        self.__quimica = self.quimica()
+        self.__quimica = self.valoracion()
 
-    def quimica(self):
+    def valoracion(self):
         return (
             self.__velocidad
             + self.__disparo
