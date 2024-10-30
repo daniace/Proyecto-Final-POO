@@ -54,6 +54,6 @@ class AbmCarta(DaoInterfaz):
 
     def borrar(self, id):  # Borrado logico de una carta
         self.__database.query(
-            "UPDATE FROM cartas SET desabilitado = 1 WHERE id = ?", (id,)
+            "UPDATE FROM cartas SET deshabilitado = 1 WHERE id = ?", (id,)
         )
         self.__database.commit()
