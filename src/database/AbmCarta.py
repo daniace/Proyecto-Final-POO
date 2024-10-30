@@ -1,5 +1,5 @@
-from Singleton import Database
 from DaoInterfaz import DaoInterfaz
+from Singleton import Database
 
 
 class AbmCarta(DaoInterfaz):
@@ -18,7 +18,7 @@ class AbmCarta(DaoInterfaz):
 
     def insertar(self, objeto):  # inserta una nueva carta
         self.__database.query(
-            "INSERT INTO cartas (short_name,team_jersey_number,team_positions,club_name,nationality,overall,pace,shooting,passing,dribbling,defending,physical) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+            "INSERT INTO cartas (short_name,team_jersey_number,player_positions,club_name,nationality,overall,pace,shooting,passing,dribbling,defending,physical) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
             (
                 objeto.get_nombre(),
                 objeto.get_dorsal(),
