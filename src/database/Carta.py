@@ -1,18 +1,18 @@
 class Carta:
     def __init__(
         self,
-        id_carta: int,
-        nombre: str,
-        dorsal: int,
-        posicion: str,
-        club: str,
-        nacionalidad: str,
-        velocidad: int,
-        disparo: int,
-        pase: int,
-        gambeta: int,
-        defensa: int,
-        fisico: int,
+        id_carta=None,
+        nombre: str = "",
+        dorsal: int = 0,
+        posicion: str = "",
+        club: str = "",
+        nacionalidad: str = "",
+        velocidad: int = 0,
+        disparo: int = 0,
+        pase: int = 0,
+        gambeta: int = 0,
+        defensa: int = 0,
+        fisico: int = 0,
     ):
         self.__id_carta: int = id_carta
         self.__nombre: str = nombre
