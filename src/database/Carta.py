@@ -1,6 +1,3 @@
-from turtle import st
-
-
 class Carta:
     def __init__(
         self,
@@ -29,7 +26,7 @@ class Carta:
         self.__gambeta: int = gambeta
         self.__defensa: int = defensa
         self.__fisico: int = fisico
-        self.__quimica: int = self.valoracion()
+        self.__valoracion: int = self.valoracion()
 
     def valoracion(self):
         return int(
