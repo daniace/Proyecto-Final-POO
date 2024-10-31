@@ -1,34 +1,41 @@
 from DaoInterfaz import DaoInterfaz
+from Jugador import Jugador
 from Singleton import Database
 
 
 class AbmJugador(DaoInterfaz):
     def __init__(self) -> None:
         self.__database = Database()
+        self.__database.connect()
 
     def get_por_id(self, id: int) -> tuple:
-        self.__database.query("SELECT * FROM jugadores WHERE id_usuario = ?", (id,))
-        return self.__database.fetchone()
+        resultado = self.__database.execute_query(
+            "SELECT * FROM usuario WHERE id_usuario = ? AND baja_usuario = 0", (id,)
+        )
+        return (
+            resultado[0] if resultado else None
+        )  # Devuelve el primer elemento de la lista si hay resultados, sino None
 
     def get_all(self):
-        self.__database.query("SELECT * FROM jugadores")
-        return self.__database.fetchall()
+        return self.__database.execute_query(
+            "SELECT * FROM usuario WHERE baja_usuario = 0"
+        )
 
     def insertar(self, objeto):
-        self.__database.query(
-            "INSERT INTO jugadores (nombre_usuario, password, admin, baja_usuario) VALUES (?,?,?,?)",
+        self.__database.execute_non_query(
+            "INSERT INTO usuario (id_usuario, nombre_usuario, password, admin, baja_usuario) VALUES (?,?,?,?,?)",
             (
+                objeto.get_id(),
                 objeto.get_nombre(),
                 objeto.get_password(),
                 objeto.get_admin(),
                 objeto.get_bajaUsuario(),
             ),
         )
-        self.__database.commit()
 
     def actualizar(self, objeto):
-        self.__database.query(
-            "UPDATE jugadores SET nombre_usuario = ?, password = ?, admin = ?, baja_usuario = ? WHERE id_usuario = ?",
+        self.__database.execute_non_query(
+            "UPDATE usuario SET nombre_usuario = ?, password = ?, admin = ?, baja_usuario = ? WHERE id_usuario = ?",
             (
                 objeto.get_nombre(),
                 objeto.get_password(),
@@ -37,9 +44,9 @@ class AbmJugador(DaoInterfaz):
                 objeto.get_id(),
             ),
         )
-        self.__database.commit()
 
     def borrar(self, id):
-        self.__database.query(
-            "UPDATE FROM jugadores SET baja_usuario = 1 WHERE id_usuario = ?", (id,)
+        self.__database.execute_non_query(
+            "UPDATE usuario SET baja_usuario = 1 WHERE id_usuario = ? AND baja_usuario = 0",
+            (id,),
         )
