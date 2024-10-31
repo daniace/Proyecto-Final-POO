@@ -1,44 +1,68 @@
 import sqlite3
+from sqlite3 import Error
 
 
-class Singleton(type):
-    _instances: dict = {}
+class Database:
+    """Clase Singleton para la base de datos.
+    Se encarga de establecer la conexión, ejecutar consultas y operaciones,
+    y cerrar la conexión a la base de datos."""
 
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            instance = super().__call__(*args, **kwargs)
-            cls._instances[cls] = instance
-        return cls._instances[cls]
+    _instance = None
 
+    def __new__(cls, db_path="src\database\heroesdelbalon.db"):
+        if cls._instance is None:
+            cls._instance = super(Database, cls).__new__(cls)
+            cls._instance.connection = None
+            cls._instance.db_path = db_path
+        return cls._instance
 
-class Database(metaclass=Singleton):
-    def __init__(self):
-        self.connection = sqlite3.connect("heroesdelbalon.db")
-        self.cursor = self.connection.cursor()
+    def connect(self):
+        """Establece la conexión a la base de datos."""
+        if self.connection is None:
+            try:
+                self.connection = sqlite3.connect(self.db_path)
+                print("Conexión a la base de datos establecida.")
+            except Error as e:
+                print(f"Error al conectar a la base de datos: {e}")
+        return self.connection
 
-    def __del__(self):
-        self.connection.close()
+    def close_connection(self):
+        """Cierra la conexión a la base de datos."""
+        if self.connection:
+            self.connection.close()
+            self.connection = None
+            print("Conexión a la base de datos cerrada.")
 
-    def query(self, query, params=()):
-        return self.cursor.execute(query, params)
+    def execute_query(self, query):
+        """Ejecuta una consulta a la base de datos.
+        Por ejemplo: SELECT."""
+        if self.connection is None:
+            print("Conexión no establecida. Llama a 'connect' primero.")
+            return
 
-    def commit(self):
-        self.connection.commit()
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            results = cursor.fetchall()
+            for row in results:
+                print(row)
+        except Error as e:
+            print(f"Error al ejecutar la consulta: {e}")
 
-    def fetchall(self):
-        return self.cursor.fetchall()
+    def execute_non_query(self, query, parameters=None):
+        """Ejecuta una operación que no devuelve resultados.
+        Por ejemplo: INSERT, UPDATE, DELETE."""
+        if self.connection is None:
+            print("Conexión no establecida. Llama a 'connect' primero.")
+            return
 
-    def fetchone(self):
-        return self.cursor.fetchone()
-
-    def fetchmany(self, size):
-        return self.cursor.fetchmany(size)
-
-    def close(self):
-        self.connection.close()
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.close()
+        cursor = self.connection.cursor()
+        try:
+            if parameters:
+                cursor.execute(query, parameters)
+            else:
+                cursor.execute(query)
+            self.connection.commit()
+            print("Operación ejecutada exitosamente.")
+        except Error as e:
+            print(f"Error al ejecutar la operación: {e}")

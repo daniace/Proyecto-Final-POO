@@ -18,7 +18,7 @@ class AbmCarta(DaoInterfaz):
 
     def insertar(self, objeto):  # inserta una nueva carta
         self.__database.query(
-            "INSERT INTO cartas (short_name,team_jersey_number,player_positions,club_name,nationality,overall,pace,shooting,passing,dribbling,defending,physical) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+            "INSERT INTO carta (short_name,team_jersey_number,player_positions,club_name,nationality,overall,pace,shooting,passing,dribbling,defending,physical) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
             (
                 objeto.get_nombre(),
                 objeto.get_dorsal(),
@@ -57,3 +57,6 @@ class AbmCarta(DaoInterfaz):
             "UPDATE FROM cartas SET deshabilitado = 1 WHERE id = ?", (id,)
         )
         self.__database.commit()
+
+    def cerrar(self):
+        self.__database.close()

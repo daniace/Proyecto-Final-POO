@@ -1,42 +1,48 @@
+from turtle import st
+
+
 class Carta:
     def __init__(
         self,
-        id_carta,
-        nombre,
-        dorsal,
-        posicion,
-        club,
-        nacionalidad,
-        velocidad,
-        disparo,
-        pase,
-        gambeta,
-        defensa,
-        fisico,
+        id_carta: int,
+        nombre: str,
+        dorsal: int,
+        posicion: str,
+        club: str,
+        nacionalidad: str,
+        velocidad: int,
+        disparo: int,
+        pase: int,
+        gambeta: int,
+        defensa: int,
+        fisico: int,
     ):
-        self.__id_carta = id_carta
-        self.__nombre = nombre
-        self.__dorsal = dorsal
-        self.__posicion = posicion
-        self.__club = club
-        self.__nacionalidad = nacionalidad
-        self.__velocidad = velocidad
-        self.__disparo = disparo
-        self.__pase = pase
-        self.__gambeta = gambeta
-        self.__defensa = defensa
-        self.__fisico = fisico
-        self.__quimica = self.valoracion()
+        self.__id_carta: int = id_carta
+        self.__nombre: str = nombre
+        self.__dorsal: int = dorsal
+        self.__posicion: str = posicion
+        self.__club: str = club
+        self.__nacionalidad: str = nacionalidad
+        self.__velocidad: int = velocidad
+        self.__disparo: int = disparo
+        self.__pase: int = pase
+        self.__gambeta: int = gambeta
+        self.__defensa: int = defensa
+        self.__fisico: int = fisico
+        self.__quimica: int = self.valoracion()
 
     def valoracion(self):
-        return (
-            self.__velocidad
-            + self.__disparo
-            + self.__pase
-            + self.__gambeta
-            + self.__defensa
-            + self.__fisico
-        ) / 6
+        return int(
+            (
+                self.__velocidad
+                + self.__disparo
+                + self.__pase
+                + self.__gambeta
+                + self.__defensa
+                + self.__fisico
+            )
+            / 6
+        )
 
     def get_nombre(self):
         return self.__nombre
