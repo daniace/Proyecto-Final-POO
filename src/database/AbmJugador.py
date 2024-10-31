@@ -1,5 +1,4 @@
 from DaoInterfaz import DaoInterfaz
-from Jugador import Jugador
 from Singleton import Database
 
 
@@ -13,7 +12,9 @@ class AbmJugador(DaoInterfaz):
             "SELECT * FROM usuario WHERE id_usuario = ? AND baja_usuario = 0", (id,)
         )
         return (
-            resultado[0] if resultado else None
+            resultado[0]
+            if resultado
+            else print(f"No se encontro el usuario con ese id: {id}")
         )  # Devuelve el primer elemento de la lista si hay resultados, sino None
 
     def get_all(self):
