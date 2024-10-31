@@ -1,6 +1,3 @@
-from turtle import st
-
-
 class Carta:
     def __init__(
         self,

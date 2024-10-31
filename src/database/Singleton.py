@@ -33,16 +33,25 @@ class Database:
             self.connection = None
             print("Conexión a la base de datos cerrada.")
 
-    def execute_query(self, query):
+    def execute_query(self, query, parameters=None):
         """Ejecuta una consulta a la base de datos.
         Por ejemplo: SELECT."""
         if self.connection is None:
             print("Conexión no establecida. Llama a 'connect' primero.")
-            return
+            return None
 
         cursor = self.connection.cursor()
         try:
-            cursor.execute(query)
+            if parameters:
+                # Asegura que los parámetros se pasen como una tupla, incluso si es un solo valor
+                cursor.execute(
+                    query,
+                    parameters
+                    if isinstance(parameters, (tuple, list))
+                    else (parameters,),
+                )
+            else:
+                cursor.execute(query)
             results = cursor.fetchall()
             for row in results:
                 print(row)
@@ -59,7 +68,12 @@ class Database:
         cursor = self.connection.cursor()
         try:
             if parameters:
-                cursor.execute(query, parameters)
+                cursor.execute(
+                    query,
+                    parameters
+                    if isinstance(parameters, (tuple, list))
+                    else (parameters,),
+                )
             else:
                 cursor.execute(query)
             self.connection.commit()
