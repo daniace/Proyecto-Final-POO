@@ -15,7 +15,7 @@ BUTTON_COLOR = (200, 200, 170)
 BUTTON_HOVER_COLOR = (180, 180, 150)
 
 # Cargar imagen de fondo
-background_image = pygame.image.load(r"C:\Users\hachazo\Documents\GitHub\POO-final\gutbol.jpg")
+background_image = pygame.image.load(r"vista\options.png")
 background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
 
 # Fuentes
@@ -43,9 +43,11 @@ while running:
     screen.blit(background_image, (0, 0))  # Dibujar imagen de fondo
     
     # Dibujar botones
-    play_button = draw_button("JUGAR", WIDTH // 2 - 100, HEIGHT // 2 - 130, 200, 50, BUTTON_COLOR, BUTTON_HOVER_COLOR)
-    options_button = draw_button("OPCIONES", WIDTH // 2 - 100, HEIGHT // 2 - 17, 200, 50, BUTTON_COLOR, BUTTON_HOVER_COLOR)
-    quit_button = draw_button("SALIR", WIDTH // 2 - 100, HEIGHT // 2 + 90, 200, 50, BUTTON_COLOR, BUTTON_HOVER_COLOR)
+    volver_button = draw_button("Volver", WIDTH // 2 - 350, HEIGHT // 2 - 250, 100, 50, BUTTON_COLOR, BUTTON_HOVER_COLOR)
+    play_button = draw_button("Dificultad", WIDTH // 2 - 300, HEIGHT // 2 - 130, 200, 50, BUTTON_COLOR, BUTTON_HOVER_COLOR)
+    options_button = draw_button("Sonido", WIDTH // 2 - 300, HEIGHT // 2 - 17, 200, 50, BUTTON_COLOR, BUTTON_HOVER_COLOR)
+    quit_button = draw_button("Controles", WIDTH // 2 - 300, HEIGHT // 2 + 90, 200, 50, BUTTON_COLOR, BUTTON_HOVER_COLOR)
+    
     
     # Eventos
     for event in pygame.event.get():
