@@ -1,6 +1,8 @@
-import pygame
 import sys
-from button import *
+
+import pygame
+from button import draw_button
+
 # Inicialización de Pygame
 pygame.init()
 
@@ -19,34 +21,58 @@ background_image = pygame.image.load(r"src\assets\images\gutbol.jpg")
 background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
 
 # Fuentes
-font = pygame.font.Font(None, 36)
+font = pygame.font.Font(r"src\assets\font\Pixeltype.ttf", 36)
 
 # Función para dibujar botones
 # def draw_button(text, x, y, w, h, color, hover_color):
 #     mouse_pos = pygame.mouse.get_pos()
 #     button_rect = pygame.Rect(x, y, w, h)
-    
+
 #     if button_rect.collidepoint(mouse_pos):
 #         pygame.draw.rect(screen, hover_color, button_rect)
 #     else:
 #         pygame.draw.rect(screen, color, button_rect)
-    
+
 #     text_surface = font.render(text, True, WHITE)
 #     text_rect = text_surface.get_rect(center=(x + w / 2, y + h / 2))
 #     screen.blit(text_surface, text_rect)
-    
-    # return button_rect
+
+# return button_rect
 
 # Main loop
 running = True
 while running:
     screen.blit(background_image, (0, 0))  # Dibujar imagen de fondo
-    
+
     # Dibujar botones
-    play_button = draw_button("JUGAR", WIDTH // 2 - 100, HEIGHT // 2 - 130, 200, 50, BUTTON_COLOR, BUTTON_HOVER_COLOR)
-    options_button = draw_button("OPCIONES", WIDTH // 2 - 100, HEIGHT // 2 - 17, 200, 50, BUTTON_COLOR, BUTTON_HOVER_COLOR)
-    quit_button = draw_button("SALIR", WIDTH // 2 - 100, HEIGHT // 2 + 90, 200, 50, BUTTON_COLOR, BUTTON_HOVER_COLOR)
-    
+    play_button = draw_button(
+        "JUGAR",
+        WIDTH // 2 - 100,
+        HEIGHT // 2 - 130,
+        200,
+        50,
+        BUTTON_COLOR,
+        BUTTON_HOVER_COLOR,
+    )
+    options_button = draw_button(
+        "OPCIONES",
+        WIDTH // 2 - 100,
+        HEIGHT // 2 - 17,
+        200,
+        50,
+        BUTTON_COLOR,
+        BUTTON_HOVER_COLOR,
+    )
+    quit_button = draw_button(
+        "SALIR",
+        WIDTH // 2 - 100,
+        HEIGHT // 2 + 90,
+        200,
+        50,
+        BUTTON_COLOR,
+        BUTTON_HOVER_COLOR,
+    )
+
     # Eventos
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
