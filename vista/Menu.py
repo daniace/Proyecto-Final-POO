@@ -1,6 +1,6 @@
 import pygame
 import sys
-
+import os
 # Inicialización de Pygame
 pygame.init()
 
@@ -15,7 +15,7 @@ BUTTON_COLOR = (200, 200, 170)
 BUTTON_HOVER_COLOR = (180, 180, 150)
 
 # Cargar imagen de fondo
-background_image = pygame.image.load(r"C:\Users\hachazo\Documents\GitHub\POO-final\gutbol.jpg")
+background_image = pygame.image.load(r"src\assets\images\gutbol.jpg")
 background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
 
 # Fuentes
