@@ -1,5 +1,6 @@
-from AbmJugador import AbmJugador
+from AbmCarta import AbmCarta
 
-abm = AbmJugador()
-jugador = abm.get_por_id(1)
-abm.close()
+abm = AbmCarta()
+jugador = abm.get_por_id(41)
+print(jugador)
+# abm.close()

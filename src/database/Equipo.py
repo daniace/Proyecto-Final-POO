@@ -12,3 +12,7 @@ class Equipo:
 
     def get_idUsuario(self):
         return self.__idUsuario
+
+    def equipo_random (self):
+        "Esto va aca o en otra clase?"
+        pass
