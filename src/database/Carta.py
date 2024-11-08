@@ -29,7 +29,8 @@ class Carta:
         self.__defensa: int = defensa
         self.__fisico: int = fisico
         self.__valoracion: int = self.valoracion()
-            
+        self.__tenencia = False
+
     def valoracion(self):
         return int(
             (
@@ -81,6 +82,13 @@ class Carta:
 
     def get_id(self):
         return self.__id_carta
+    
+    def set_tenencia(self):
+        if not self.__tenencia:
+            self.__tenencia = True
+        else:   
+            self.__tenencia = False 
+
 
 
 class Delantero (Carta):
@@ -155,3 +163,4 @@ class Portero (Carta):
             return False
 "Es la mejor forma o hay otra forma mejor?"
 "SEPARAR ESTO EN DISTINTAS CLASES "
+    
