@@ -41,7 +41,7 @@ class AbmEquipo(DaoInterfaz):
     def actualizar(self, objeto):
         self.__database.execute_non_query(
             "UPDATE equipo SET nombreEquipo = ?, bajaEquipo = ? WHERE idEquipo = ?",
-            (objeto.get_nombre(), objeto.get_bajaEquipo(), objeto.get_idEquipo),
+            (objeto.get_nombre(), objeto.get_bajaEquipo(), objeto.get_idEquipo()),
         )
 
     def borrar(self, id):
