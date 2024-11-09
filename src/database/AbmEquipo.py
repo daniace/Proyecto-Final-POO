@@ -34,18 +34,18 @@ class AbmEquipo(DaoInterfaz):
 
     def insertar(self, objeto):
         self.__database.execute_non_query(
-            "INSERT INTO equipo (idEquipo, nombreEquipo, idUsuario) VALUES (?,?,?)",
+            "INSERT INTO equipo (id_equipo, nombre_equipo, id_usuario) VALUES (?,?,?)",
             (objeto.get_idEquipo(), objeto.get_nombre(), objeto.get_idUsuario()),
         )
 
     def actualizar(self, objeto):
         self.__database.execute_non_query(
-            "UPDATE equipo SET nombreEquipo = ?, bajaEquipo = ? WHERE idEquipo = ?",
+            "UPDATE equipo SET nombre_equipo = ?, baja_equipo = ? WHERE id_equipo = ?",
             (objeto.get_nombre(), objeto.get_bajaEquipo(), objeto.get_idEquipo()),
         )
 
     def borrar(self, id):
         self.__database.execute_non_query(
-            "UPDATE equipo SET bajaEquipo = 1 WHERE idEquipo = ? AND bajaEquipo = 0",
+            "UPDATE equipo SET baja_equipo = 1 WHERE id_equipo = ? AND baja_equipo = 0",
             (id),
         )
