@@ -40,13 +40,13 @@ class AbmEquipo(DaoInterfaz):
             (objeto.get_id_equipo(), objeto.get_nombre(), objeto.get_id_usuario()),
         )
 
-    def actualizar(self, objeto):
+    def actualizar(self, objeto):  # FUNCIONA
         self.__database.execute_non_query(
             "UPDATE equipo SET nombre_equipo = ?, baja_equipo = ? WHERE id_equipo = ?",
             (objeto.get_nombre(), objeto.get_baja_equipo(), objeto.get_id_equipo()),
         )
 
-    def borrar(self, id):
+    def borrar(self, id):  # FUNCIONA
         self.__database.execute_non_query(
             "UPDATE equipo SET baja_equipo = 1 WHERE id_equipo = ? AND baja_equipo = 0",
             (id),
