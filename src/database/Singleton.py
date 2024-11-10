@@ -53,8 +53,10 @@ class Database:
             else:
                 cursor.execute(query)
             results = cursor.fetchall()
-            for row in results:
-                print(row)
+            return results
+            #for row in results:
+                #return row
+                #print(row)
         except Error as e:
             print(f"Error al ejecutar la consulta: {e}")
 

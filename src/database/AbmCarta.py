@@ -16,7 +16,7 @@ class AbmCarta(DaoInterfaz):
         return (
             resultado[0]
             if resultado
-            else print(f"No se encontro la carta con ese id: {id}")
+            else print(f"No se encontró la carta con el id: {id}")
         )  # Devuelve el primer elemento de la lista si hay resultados, sino None
 
     def get_all(self):  # obtiene todas las cartas
