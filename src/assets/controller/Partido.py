@@ -1,26 +1,26 @@
 import random
 "IDEAS PARA LA PARTE DE ZONAS, MAPA Y MOVIMIENTO"
 
-class Zona:
-    def __init__(self, nombre, dificultad_pase, dificultad_tiro):
-        self.nombre = nombre
-        self.dificultad_pase = dificultad_pase
-        self.dificultad_tiro = dificultad_tiro 
-        "Esto esta bueno, si es que cada jugador puede hacer todas las acciones"
-        
-    def calcular_exito(self,habilidad_jugador, dificultad_zona):
-        # Porcentaje de éxito en función de la habilidad y la dificultad de la zona
-        chance_exito = habilidad_jugador - dificultad_zona
-        return random.randint(0, 100) < chance_exito
+# class Zona:
+#     def __init__(self, nombre, dificultad_pase, dificultad_tiro):
+#         self.nombre = nombre
+#         self.dificultad_pase = dificultad_pase
+#         self.dificultad_tiro = dificultad_tiro 
+#         "Esto esta bueno, si es que cada jugador puede hacer todas las acciones"
+#
+#     def calcular_exito(self,habilidad_jugador, dificultad_zona):
+#         # Porcentaje de éxito en función de la habilidad y la dificultad de la zona
+#         chance_exito = habilidad_jugador - dificultad_zona
+#         return random.randint(0, 100) < chance_exito
 
-    def mover_jugador(self,jugador, zona_actual, zona_destino):
-        # Calcular si el jugador puede moverse a la zona destino
-        exito = self.calcular_exito(jugador.habilidad_pase, zona_actual.dificultad_pase)
-        if exito:
-            return zona_destino
-        else:
-            return zona_actual  # Se mantiene en la zona actual si falla
-        "SE MUEVE DE UNA ZONA A OTRA, NO POR COORDENADAS"
+#     def mover_jugador(self,jugador, zona_actual, zona_destino):
+#         # Calcular si el jugador puede moverse a la zona destino
+#         exito = self.calcular_exito(jugador.habilidad_pase, zona_actual.dificultad_pase)
+#         if exito:
+#             return zona_destino
+#         else:
+#             return zona_actual  # Se mantiene en la zona actual si falla
+#         "SE MUEVE DE UNA ZONA A OTRA, NO POR COORDENADAS"
 
 class Mapa:
     def __init__(self):
@@ -80,7 +80,6 @@ def obtener_jugadores_adyacentes(zona, posicion_actual):
     
     return jugadores_cercanos
 
-   
 
 
 def obtener_receptores_disponibles(zona, jugador_con_balon):
