@@ -1,25 +1,23 @@
 from DaoInterfaz import DaoInterfaz
 from Singleton import Database
-from Jugador import Jugador
+from Usuario import Usuario
 
 
-class AbmJugador(DaoInterfaz):
+class AbmUsuario(DaoInterfaz):
     def __init__(self) -> None:
         self.__database = Database()
         self.__database.connect()
 
-    def get_por_id(self, id: int) -> tuple:  # ESTO ANDA
+    def get_por_id(self, id: int) -> None | Usuario:  # ESTO ANDA
         resultado = self.__database.execute_query(
             "SELECT * FROM usuario WHERE id_usuario = ? AND baja_usuario = 0",
             (id,),  # Devuelve una lista de tuplas
         )
-        if (
-            not resultado
-        ):  # Si no se encontro la id o esta dado de baja, devuelve una lista vacia(Aunque solo busques un usuario) y se imprime un mensaje.
+        if not resultado:  # Si no se encontro la id o esta dado de baja, devuelve una lista vacia(Aunque solo busques un usuario) y se imprime un mensaje.
             print(f"No se encontró el usuario con el id: {id}, o está dado de baja")
             return None
         else:
-            return Jugador(
+            return Usuario(
                 resultado[0][0],
                 resultado[0][1],
                 resultado[0][2],
@@ -38,7 +36,7 @@ class AbmJugador(DaoInterfaz):
             print("No se encontraron usuarios")
         else:
             for jugador in resultado:
-                objeto = Jugador(
+                objeto = Usuario(
                     jugador[0], jugador[1], jugador[2], jugador[3], jugador[4]
                 )
                 jugadores.append(objeto)
