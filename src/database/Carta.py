@@ -1,5 +1,6 @@
 import random
 
+
 class Carta:
     def __init__(
         self,
@@ -82,85 +83,85 @@ class Carta:
 
     def get_id(self):
         return self.__id_carta
-    
+
     def set_tenencia(self):
         if not self.__tenencia:
             self.__tenencia = True
-        else:   
-            self.__tenencia = False 
+        else:
+            self.__tenencia = False
+
+    def __str__(self) -> str:
+        return f"{self.__id_carta} - {self.__nombre}"
 
 
-
-class Delantero (Carta):
-        
+class Delantero(Carta):
     def get_posicion(self):
         return "Delantero"
-    
+
     def tirar_arco(self):
         "Esta funcion tira al arco"
-        if random.randint (1,100) < self.__disparo:
+        if random.randint(1, 100) < self.__disparo:
             return True
         else:
             return False
-    
+
     def hacer_regate(self):
         "Esta funcion hace una gambeta"
-        if random.randint (1,100) < self.__gambeta:
+        if random.randint(1, 100) < self.__gambeta:
             return True
         else:
             return False
-    
-class Mediocampista (Carta):
 
 
+class Mediocampista(Carta):
     def get_posicion(self):
         return "Mediocampista"
-    
+
     def hacer_pase(self):
         "ESTA FUNCION HACE UN PASE"
-        if random.randint (1,100) < self.__pase: 
+        if random.randint(1, 100) < self.__pase:
             return True
-        else: 
+        else:
             return False
-        
+
     def interceptar(self):
         "Esta funcion intercepta un pase"
-        if random.randint (1,100) < self.__defensa:
+        if random.randint(1, 100) < self.__defensa:
             return True
         else:
             return False
-        
 
-class Defensor (Carta):
-    
+
+class Defensor(Carta):
     def get_posicion(self):
         return "Defensor"
-    
-    def interceptar (self):
+
+    def interceptar(self):
         "Esta funcion intercepta un pase"
-        if random.randint (1,100) < self.__defensa:
-            return True
-        else:
-            return False
-    
-    def hacer_tackle(self):
-        "Esta funcion intercepta un pase"
-        if random.randint (1,100) < self.__defensa:
+        if random.randint(1, 100) < self.__defensa:
             return True
         else:
             return False
 
-class Portero (Carta):
-    
-    def get_posicion(self):
-        return "Portero"
-    
-    def atajar(self):
-        "Esta funcion ataja un tiro"
-        if random.randint (1,100) < self.__defensa:
+    def hacer_tackle(self):
+        "Esta funcion intercepta un pase"
+        if random.randint(1, 100) < self.__defensa:
             return True
         else:
             return False
+
+
+class Portero(Carta):
+    def get_posicion(self):
+        return "Portero"
+
+    def atajar(self):
+        "Esta funcion ataja un tiro"
+        if random.randint(1, 100) < self.__defensa:
+            return True
+        else:
+            return False
+
+
 "Es la mejor forma o hay otra forma mejor?"
 "SEPARAR ESTO EN DISTINTAS CLASES "
-    
