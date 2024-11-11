@@ -15,6 +15,10 @@ scene_bg = pygame.image.load("src/assets/images/scene.jpg")
 BG = pygame.transform.scale(scene_bg, (ANCHO, ALTO))
 bg_opciones = pygame.image.load("src/assets/images/options.png")
 BG_OPCIONES = pygame.transform.scale(bg_opciones, (ANCHO, ALTO))
+pygame.mixer.init()
+pygame.mixer.music.load("src/assets/audio/soundtrack.wav")
+pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.play(-1)
 
 
 def get_font(size):
@@ -188,6 +192,10 @@ def opciones():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
+                if SONIDO_ON.checkForInput(OPCIONES_POS_MOUSE):
+                    pygame.mixer.music.set_volume(0.5)
+                if SONIDO_OFF.checkForInput(OPCIONES_POS_MOUSE):
+                    pygame.mixer.music.set_volume(0)
                 if OPCIONES_ATRAS.checkForInput(OPCIONES_POS_MOUSE):
                     menu_principal()
 
