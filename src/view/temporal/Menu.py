@@ -1,7 +1,7 @@
 import sys
 
 import pygame
-from button import draw_button
+from view.temporal.button import draw_button
 
 # Inicialización de Pygame
 pygame.init()
