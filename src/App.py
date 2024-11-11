@@ -1,5 +1,4 @@
 import sys
-from re import A
 
 import pygame
 
