@@ -15,6 +15,8 @@ scene_bg = pygame.image.load("src/assets/images/scene.jpg")
 BG = pygame.transform.scale(scene_bg, (ANCHO, ALTO))
 bg_opciones = pygame.image.load("src/assets/images/options.png")
 BG_OPCIONES = pygame.transform.scale(bg_opciones, (ANCHO, ALTO))
+bg_jugar = pygame.image.load("src/assets/images/scene.jpg")
+BG_JUGAR = pygame.transform.scale(bg_jugar, (ANCHO, ALTO))
 pygame.mixer.init()
 pygame.mixer.music.load("src/assets/audio/soundtrack.wav")
 pygame.mixer.music.set_volume(0.5)
@@ -43,8 +45,8 @@ def jugar():
 
     while True:
         JUGAR_POS_MOUSE = pygame.mouse.get_pos()
-
-        SCREEN.fill("black")
+        SCREEN.blit(BG_JUGAR, (0, 0))
+        #SCREEN.fill("black")
 
         TEXTO_JUGAR = get_font(45).render("VENTANA JUGANDO", True, "White")
         JUGAR_RECT = TEXTO_JUGAR.get_rect(center=(ANCHO // 2, 50))
@@ -61,7 +63,18 @@ def jugar():
 
         JUGAR_ATRAS.changeColor(JUGAR_POS_MOUSE)
         JUGAR_ATRAS.update(SCREEN)
-
+        #------------
+        JUGAR_FORMACION = Boton(
+            image=None,
+            pos=(ANCHO // 4.7 - 100, ALTO // 3.2 - 130),
+            text_input="FORMACIONES:",
+            font=get_font(75),
+            base_color="White",
+            hovering_color="Green",
+        )
+        JUGAR_FORMACION.changeColor(JUGAR_POS_MOUSE)
+        JUGAR_FORMACION.update(SCREEN)
+        #------------
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
