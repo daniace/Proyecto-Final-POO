@@ -1,4 +1,4 @@
-class Jugador:  # Clase que representa a un usuario del juego o un administrador
+class Usuario:  # Clase que representa a un usuario del juego o un administrador
     def __init__(
         self,
         idUsuario=None,
