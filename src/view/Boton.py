@@ -18,6 +18,7 @@ class Boton:
 
     def update(self, screen):
         if self.imagen is not None:
+            pygame.transform.scale(self.imagen, self.text_rect.size)
             screen.blit(self.imagen, self.rect)
         screen.blit(self.texto, self.text_rect)
 

@@ -1,36 +1,34 @@
 import sys
-from webbrowser import get
 
 import pygame
 
+from settings import *
 from view.Boton import Boton
 
 # pygame setup
 pygame.init()
-ANCHO = 1280
-ALTO = 720
-SCREEN = pygame.display.set_mode((ANCHO, ALTO))
+SCREEN = pygame.display.set_mode(TAMANIO_PANTALLA)
 clock = pygame.time.Clock()
 pygame.display.set_caption("Héroes Del Balón")
-scene_bg = pygame.image.load("src/assets/images/scene.jpg")
-BG = pygame.transform.scale(scene_bg, (ANCHO, ALTO))
-bg_opciones = pygame.image.load("src/assets/images/options.png")
-BG_OPCIONES = pygame.transform.scale(bg_opciones, (ANCHO, ALTO))
-bg_jugar = pygame.image.load("src/assets/images/scene.jpg")
-BG_JUGAR = pygame.transform.scale(bg_jugar, (ANCHO, ALTO))
+scene_bg = pygame.image.load(IMAGEN_FONDO)
+BG = pygame.transform.scale(scene_bg, TAMANIO_PANTALLA)
+bg_opciones = pygame.image.load(IMAGEN_FONDO_OPCIONES)
+BG_OPCIONES = pygame.transform.scale(bg_opciones, TAMANIO_PANTALLA)
+bg_jugar = pygame.image.load(IMAGEN_FONDO)
+BG_JUGAR = pygame.transform.scale(bg_jugar, TAMANIO_PANTALLA)
 pygame.mixer.init()
-pygame.mixer.music.load("src/assets/audio/soundtrack.wav")
+pygame.mixer.music.load(SONIDO_FONDO)
 pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1)
 
 
 def get_fuente(tamanio):
-    return pygame.font.Font("src/assets/font/Pixeltype.ttf", tamanio)
+    return pygame.font.Font(FUENTE, tamanio)
 
 
 clock = pygame.time.Clock()
 
-boton_surface = pygame.image.load("src/assets/images/boton4.png")
+boton_surface = pygame.image.load(IMAGEN_BOTON4)
 boton_surface = pygame.transform.scale(boton_surface, (250, 80))
 
 
@@ -90,6 +88,24 @@ def opciones():
         OPCIONES_RECT = TEXTO_OPCIONES.get_rect(center=(ANCHO // 2, 50))
         SCREEN.blit(TEXTO_OPCIONES, OPCIONES_RECT)
 
+        TEXTO_CONTROLES = get_fuente(75).render("CONTROLES", True, "White")
+        CONTROLES_RECT = TEXTO_CONTROLES.get_rect(
+            center=(int(ANCHO * 0.15), int(ALTO * 0.6))
+        )
+        SCREEN.blit(TEXTO_CONTROLES, CONTROLES_RECT)
+
+        TEXTO_DIFICULTAD = get_fuente(75).render("DIFICULTAD", True, "White")
+        DIFICULTAD_RECT = TEXTO_DIFICULTAD.get_rect(
+            center=(int(ANCHO * 0.15), int(ALTO * 0.3))
+        )
+        SCREEN.blit(TEXTO_DIFICULTAD, DIFICULTAD_RECT)
+
+        TEXTO_SONIDO = get_fuente(75).render("SONIDO", True, "White")
+        SONIDO_RECT = TEXTO_SONIDO.get_rect(
+            center=(int(ANCHO * 0.15), int(ALTO * 0.45))
+        )
+        SCREEN.blit(TEXTO_SONIDO, SONIDO_RECT)
+
         control1_img = pygame.image.load("src/assets/images/control1.png")
         control1_img = pygame.transform.scale(control1_img, (300, 300))
 
@@ -98,15 +114,6 @@ def opciones():
 
         SCREEN.blit(control1_img, (int(ANCHO * 0.3), int(ALTO * 0.4)))
         SCREEN.blit(control2_img, (int(ANCHO * 0.7), int(ALTO * 0.4)))
-
-        OPCIONES_DIFICULTAD = Boton(
-            None,
-            (int(ANCHO * 0.15), int(ALTO * 0.3)),
-            "DIFICULTAD",
-            get_fuente(75),
-            "White",
-            "Black",
-        )
 
         FACIL = Boton(
             boton_surface,
@@ -135,15 +142,6 @@ def opciones():
             "White",
         )
 
-        OPCIONES_SONIDO = Boton(
-            None,
-            (int(ANCHO * 0.15), int(ALTO * 0.45)),
-            "SONIDO",
-            get_fuente(75),
-            "White",
-            "Black",
-        )
-
         SONIDO_ON = Boton(
             boton_surface,
             (int(ANCHO * 0.4), int(ALTO * 0.45)),
@@ -162,18 +160,9 @@ def opciones():
             "White",
         )
 
-        OPCIONES_CONTROLES = Boton(
-            None,
-            (int(ANCHO * 0.15), int(ALTO * 0.60)),
-            "CONTROLES",
-            get_fuente(75),
-            "White",
-            "Black",
-        )
-
         OPCIONES_ATRAS = Boton(
             boton_surface,
-            (int(ANCHO * 0.15), int(ALTO * 0.1)),
+            (int(ANCHO * 0.5), int(ALTO * 0.9)),
             "ATRAS",
             get_fuente(75),
             "Black",
@@ -181,14 +170,11 @@ def opciones():
         )
 
         for boton in [
-            OPCIONES_DIFICULTAD,
             FACIL,
             NORMAL,
             DIFICIL,
-            OPCIONES_SONIDO,
             SONIDO_ON,
             SONIDO_OFF,
-            OPCIONES_CONTROLES,
             OPCIONES_ATRAS,
         ]:
             boton.changeColor(OPCIONES_POS_MOUSE)
@@ -257,16 +243,16 @@ def menu_principal():
             (int(ANCHO * 0.5), int(ALTO * 0.5)),
             "JUGAR",
             get_fuente(75),
-            "White",
-            "Dark Gray",
+            BLANCO,
+            NEGRO,
         )
         BOTON_OPCIONES = Boton(
             boton_surface,
             (int(ANCHO * 0.5), int(ALTO * 0.5 + 90)),
             "OPCIONES",
             get_fuente(75),
-            "White",
-            "Dark Gray",
+            BLANCO,
+            NEGRO,
         )
 
         BOTON_RANKING = Boton(
@@ -274,8 +260,8 @@ def menu_principal():
             (int(ANCHO * 0.5), int(ALTO * 0.5 + 180)),
             "RANKING",
             get_fuente(75),
-            "White",
-            "Dark Gray",
+            BLANCO,
+            NEGRO,
         )
 
         BOTON_SALIR = Boton(
@@ -283,8 +269,8 @@ def menu_principal():
             (int(ANCHO * 0.5), int(ALTO * 0.5 + 270)),
             "SALIR",
             get_fuente(75),
-            "White",
-            "Dark Gray",
+            BLANCO,
+            NEGRO,
         )
 
         SCREEN.blit(MENU_TEXTO, MENU_RECT)
