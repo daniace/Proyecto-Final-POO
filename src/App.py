@@ -2,34 +2,33 @@ import sys
 
 import pygame
 
+from settings import *
 from view.Boton import Boton
 
 # pygame setup
 pygame.init()
-ANCHO = 1280
-ALTO = 720
-SCREEN = pygame.display.set_mode((ANCHO, ALTO))
+SCREEN = pygame.display.set_mode(TAMANIO_PANTALLA)
 clock = pygame.time.Clock()
 pygame.display.set_caption("Héroes Del Balón")
-scene_bg = pygame.image.load("src/assets/images/scene.jpg")
-BG = pygame.transform.scale(scene_bg, (ANCHO, ALTO))
-bg_opciones = pygame.image.load("src/assets/images/options.png")
-BG_OPCIONES = pygame.transform.scale(bg_opciones, (ANCHO, ALTO))
-bg_jugar = pygame.image.load("src/assets/images/scene.jpg")
-BG_JUGAR = pygame.transform.scale(bg_jugar, (ANCHO, ALTO))
+scene_bg = pygame.image.load(IMAGEN_FONDO)
+BG = pygame.transform.scale(scene_bg, TAMANIO_PANTALLA)
+bg_opciones = pygame.image.load(IMAGEN_FONDO_OPCIONES)
+BG_OPCIONES = pygame.transform.scale(bg_opciones, TAMANIO_PANTALLA)
+bg_jugar = pygame.image.load(IMAGEN_FONDO)
+BG_JUGAR = pygame.transform.scale(bg_jugar, TAMANIO_PANTALLA)
 pygame.mixer.init()
-pygame.mixer.music.load("src/assets/audio/soundtrack.wav")
+pygame.mixer.music.load(SONIDO_FONDO)
 pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1)
 
 
 def get_fuente(tamanio):
-    return pygame.font.Font("src/assets/font/Pixeltype.ttf", tamanio)
+    return pygame.font.Font(FUENTE, tamanio)
 
 
 clock = pygame.time.Clock()
 
-boton_surface = pygame.image.load("src/assets/images/boton4.png")
+boton_surface = pygame.image.load(IMAGEN_BOTON4)
 boton_surface = pygame.transform.scale(boton_surface, (250, 80))
 
 
@@ -244,16 +243,16 @@ def menu_principal():
             (int(ANCHO * 0.5), int(ALTO * 0.5)),
             "JUGAR",
             get_fuente(75),
-            "White",
-            "Dark Gray",
+            BLANCO,
+            NEGRO,
         )
         BOTON_OPCIONES = Boton(
             boton_surface,
             (int(ANCHO * 0.5), int(ALTO * 0.5 + 90)),
             "OPCIONES",
             get_fuente(75),
-            "White",
-            "Dark Gray",
+            BLANCO,
+            NEGRO,
         )
 
         BOTON_RANKING = Boton(
@@ -261,8 +260,8 @@ def menu_principal():
             (int(ANCHO * 0.5), int(ALTO * 0.5 + 180)),
             "RANKING",
             get_fuente(75),
-            "White",
-            "Dark Gray",
+            BLANCO,
+            NEGRO,
         )
 
         BOTON_SALIR = Boton(
@@ -270,8 +269,8 @@ def menu_principal():
             (int(ANCHO * 0.5), int(ALTO * 0.5 + 270)),
             "SALIR",
             get_fuente(75),
-            "White",
-            "Dark Gray",
+            BLANCO,
+            NEGRO,
         )
 
         SCREEN.blit(MENU_TEXTO, MENU_RECT)
