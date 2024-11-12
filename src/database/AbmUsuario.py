@@ -13,9 +13,7 @@ class AbmUsuario(DaoInterfaz):
             "SELECT * FROM usuario WHERE id_usuario = ? AND baja_usuario = 0",
             (id,),  # Devuelve una lista de tuplas
         )
-        if (
-            not resultado
-        ):  # Si no se encontro la id o esta dado de baja, devuelve una lista vacia(Aunque solo busques un usuario) y se imprime un mensaje.
+        if not resultado:  # Si no se encontro la id o esta dado de baja, devuelve una lista vacia(Aunque solo busques un usuario) y se imprime un mensaje.
             print(f"No se encontró el usuario con el id: {id}, o está dado de baja")
             return None
         else:
@@ -25,6 +23,7 @@ class AbmUsuario(DaoInterfaz):
                 resultado[0][2],
                 resultado[0][3],
                 resultado[0][4],
+                resultado[0][5],
             )
 
     def get_all(self):  # ESTO ANDA
@@ -44,13 +43,14 @@ class AbmUsuario(DaoInterfaz):
                     jugador[2],
                     jugador[3],
                     jugador[4],
+                    jugador[5],
                 )
                 jugadores.append(objeto)
             return jugadores
 
     def insertar(self, objeto):  # ESTO ANDA
         self.__database.execute_non_query(
-            "INSERT INTO usuario (id_usuario, nombre_usuario, password, admin, baja_usuario) VALUES (?,?,?,?,?)",
+            "INSERT INTO usuario (id_usuario, nombre_usuario, password, admin, baja_usuario, score) VALUES (?,?,?,?,?)",
             (
                 objeto.get_id(),
                 objeto.get_nombre(),
@@ -62,12 +62,13 @@ class AbmUsuario(DaoInterfaz):
 
     def actualizar(self, objeto):  # ESTO ANDA
         self.__database.execute_non_query(
-            "UPDATE usuario SET nombre_usuario = ?, password = ?, admin = ?, baja_usuario = ? WHERE id_usuario = ?",
+            "UPDATE usuario SET nombre_usuario = ?, password = ?, admin = ?, baja_usuario = ?, score = ? WHERE id_usuario = ?",
             (
                 objeto.get_nombre(),
                 objeto.get_password(),
                 objeto.get_admin(),
                 objeto.get_bajaUsuario(),
+                objeto.get_score(),
                 objeto.get_id(),
             ),
         )

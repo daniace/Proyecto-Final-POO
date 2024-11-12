@@ -6,13 +6,14 @@ class Usuario:  # Clase que representa a un usuario del juego o un administrador
         password: str = "",
         admin: int = 0,
         bajaUsuario: int = 0,
+        score: int = 0,
     ) -> None:
         self.__idUsuario: int = idUsuario
         self.__nombreUsuario: str = nombreUsuario
         self.__password: str = password
         self.__admin: int = admin
         self.__bajaUsuario: int = bajaUsuario
-        self.__score: int = 0
+        self.__score: int = score
 
     def get_id(self):
         return self.__idUsuario
@@ -32,5 +33,11 @@ class Usuario:  # Clase que representa a un usuario del juego o un administrador
     def get_bajaUsuario(self):
         return self.__bajaUsuario
 
+    def get_score(self):
+        return self.__score
+
+    def set_score(self, score):
+        self.__score = score
+
     def __str__(self) -> str:
-        return f"ID: {self.__idUsuario}, Nombre: {self.__nombreUsuario}, Password: {self.__password}, Admin: {self.__admin}, Baja: {self.__bajaUsuario}"
+        return f"ID: {self.__idUsuario}, Nombre: {self.__nombreUsuario}, Password: {self.__password}, Admin: {self.__admin}, Baja: {self.__bajaUsuario}, Score: {self.__score}"
