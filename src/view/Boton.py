@@ -1,33 +1,42 @@
+import pygame
+
+
 class Boton:
-    def __init__(self, image, pos, text_input, font, base_color, hovering_color):
-        self.image = image
+    def __init__(self, imagen, pos, texto_input, fuente, color_base, hovering_color):
+        self.imagen = imagen
         self.x_pos = pos[0]
         self.y_pos = pos[1]
-        self.font = font
-        self.base_color, self.hovering_color = base_color, hovering_color
-        self.text_input = text_input
-        self.text = self.font.render(self.text_input, True, self.base_color)
-        if self.image is None:
-            self.image = self.text
-        self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
-        self.text_rect = self.text.get_rect(center=(self.x_pos, self.y_pos))
+        self.fuente = fuente
+        self.color_base, self.hovering_color = color_base, hovering_color
+        self.texto_input = texto_input
+        self.texto = self.fuente.render(self.texto_input, True, self.color_base)
+        if self.imagen is None:
+            self.imagen = self.texto
+        self.rect = self.imagen.get_rect(center=(self.x_pos, self.y_pos))
+        self.text_rect = self.texto.get_rect(center=(self.x_pos, self.y_pos))
+        self.clickeado = False
 
     def update(self, screen):
-        if self.image is not None:
-            screen.blit(self.image, self.rect)
-        screen.blit(self.text, self.text_rect)
+        if self.imagen is not None:
+            screen.blit(self.imagen, self.rect)
+        screen.blit(self.texto, self.text_rect)
 
-    def checkForInput(self, position):
-        if position[0] in range(self.rect.left, self.rect.right) and position[
+    def checkForInput(self, posicion) -> bool:
+        accionado = False
+        if self.rect.collidepoint(posicion):
+            if pygame.mouse.get_pressed()[0] == 1 and self.clickeado == False:
+                self.clickeado = True
+                accionado = True
+
+            if pygame.mouse.get_pressed()[0] == 0:
+                self.clickeado = False
+
+        return accionado
+
+    def changeColor(self, posicion):
+        if posicion[0] in range(self.rect.left, self.rect.right) and posicion[
             1
         ] in range(self.rect.top, self.rect.bottom):
-            return True
-        return False
-
-    def changeColor(self, position):
-        if position[0] in range(self.rect.left, self.rect.right) and position[
-            1
-        ] in range(self.rect.top, self.rect.bottom):
-            self.text = self.font.render(self.text_input, True, self.hovering_color)
+            self.texto = self.fuente.render(self.texto_input, True, self.hovering_color)
         else:
-            self.text = self.font.render(self.text_input, True, self.base_color)
+            self.texto = self.fuente.render(self.texto_input, True, self.color_base)
