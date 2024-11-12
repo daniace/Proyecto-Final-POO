@@ -22,7 +22,9 @@ IMAGEN_BOTON1 = "src/assets/images/boton.png"
 IMAGEN_BOTON2 = "src/assets/images/boton2.png"
 IMAGEN_BOTON3 = "src/assets/images/boton3.png"
 IMAGEN_BOTON4 = "src/assets/images/boton4.png"
-
+#
+IMAGEN_BOTON5 = "src/assets/images/boton5.png"
+IMAGEN_RANKING = "src/assets/images/ranking.jpg"
 # Fuentes
 FUENTE = "src/assets/font/Pixeltype.ttf"
 
