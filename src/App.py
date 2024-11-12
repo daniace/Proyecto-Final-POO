@@ -2,41 +2,35 @@ import sys
 
 import pygame
 
+from settings import *
 from view.Boton import Boton
 
 # pygame setup
 pygame.init()
-ANCHO = 1280
-ALTO = 720
-SCREEN = pygame.display.set_mode((ANCHO, ALTO))
+SCREEN = pygame.display.set_mode(TAMANIO_PANTALLA)
 clock = pygame.time.Clock()
 pygame.display.set_caption("Héroes Del Balón")
-scene_bg = pygame.image.load("src/assets/images/scene.jpg")
-BG = pygame.transform.scale(scene_bg, (ANCHO, ALTO))
-bg_opciones = pygame.image.load("src/assets/images/options.png")
-BG_OPCIONES = pygame.transform.scale(bg_opciones, (ANCHO, ALTO))
-bg_jugar = pygame.image.load("src/assets/images/scene.jpg")
-BG_JUGAR = pygame.transform.scale(bg_jugar, (ANCHO, ALTO))
+scene_bg = pygame.image.load(IMAGEN_FONDO)
+BG = pygame.transform.scale(scene_bg, TAMANIO_PANTALLA)
+bg_opciones = pygame.image.load(IMAGEN_FONDO_OPCIONES)
+BG_OPCIONES = pygame.transform.scale(bg_opciones, TAMANIO_PANTALLA)
+bg_jugar = pygame.image.load(IMAGEN_FONDO)
+BG_JUGAR = pygame.transform.scale(bg_jugar, TAMANIO_PANTALLA)
+bg_ranking = pygame.image.load(IMAGEN_RANKING)
+BG_RANKING = pygame.transform.scale(bg_ranking, TAMANIO_PANTALLA)   
 pygame.mixer.init()
-pygame.mixer.music.load("src/assets/audio/soundtrack.wav")
+pygame.mixer.music.load(SONIDO_FONDO)
 pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1)
 
 
-def get_font(size):
-    return pygame.font.Font("src/assets/font/Pixeltype.ttf", size)
+def get_fuente(tamanio):
+    return pygame.font.Font(FUENTE, tamanio)
 
 
 clock = pygame.time.Clock()
 
-# Fuentes
-font = pygame.font.Font(None, 36)
-# Colores
-WHITE = (255, 255, 255)
-BUTTON_COLOR = (200, 200, 170)
-BUTTON_HOVER_COLOR = (180, 180, 150)
-
-boton_surface = pygame.image.load("src/assets/images/boton4.png")
+boton_surface = pygame.image.load(IMAGEN_BOTON4)
 boton_surface = pygame.transform.scale(boton_surface, (250, 80))
 
 
@@ -46,39 +40,39 @@ def jugar():
     while True:
         JUGAR_POS_MOUSE = pygame.mouse.get_pos()
         SCREEN.blit(BG_JUGAR, (0, 0))
-        #SCREEN.fill("black")
+        # SCREEN.fill("black")
 
-        TEXTO_JUGAR = get_font(45).render("VENTANA JUGANDO", True, "White")
+        TEXTO_JUGAR = get_fuente(45).render("VENTANA JUGANDO", True, "White")
         JUGAR_RECT = TEXTO_JUGAR.get_rect(center=(ANCHO // 2, 50))
         SCREEN.blit(TEXTO_JUGAR, JUGAR_RECT)
 
         JUGAR_ATRAS = Boton(
-            image=None,
-            pos=(ANCHO // 2 - 100, ALTO // 2 - 130),
-            text_input="ATRAS",
-            font=get_font(75),
-            base_color="White",
-            hovering_color="Green",
+            boton_surface,
+            (ANCHO * 0.88 , ALTO * 0.9),
+            "ATRAS",
+            get_fuente(75),
+            "White",
+            "Green",
         )
-
         JUGAR_ATRAS.changeColor(JUGAR_POS_MOUSE)
         JUGAR_ATRAS.update(SCREEN)
-        #------------
+        # ------------
         JUGAR_FORMACION = Boton(
-            image=None,
-            pos=(ANCHO // 4.7 - 100, ALTO // 3.2 - 130),
-            text_input="FORMACIONES:",
-            font=get_font(75),
-            base_color="White",
-            hovering_color="Green",
+            None,
+            (ANCHO // 4.7 - 100, ALTO // 3.2 - 130),
+            "FORMACIONES:",
+            get_fuente(75),
+            "White",
+            "Green",
         )
         JUGAR_FORMACION.changeColor(JUGAR_POS_MOUSE)
         JUGAR_FORMACION.update(SCREEN)
-        #------------
+        # ------------
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                sys.exit()
+                sys.exit() #ESTE FOR SE TENDRA QUE IMPLEMENTAR EN EL CONTROLADOR
+                #Y ACA SOLO LLAMAMOS A LA VARIABLE/FUNCION DE DICHO CONTROLADOR Y SUS PARAMETROS
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if JUGAR_ATRAS.checkForInput(JUGAR_POS_MOUSE):
                     menu_principal()
@@ -92,9 +86,59 @@ def opciones():
 
         SCREEN.blit(BG_OPCIONES, (0, 0))
 
-        TEXTO_OPCIONES = get_font(100).render("OPCIONES", True, "Black")
+        TEXTO_OPCIONES = get_fuente(100).render("OPCIONES", True, "Black")
         OPCIONES_RECT = TEXTO_OPCIONES.get_rect(center=(ANCHO // 2, 50))
         SCREEN.blit(TEXTO_OPCIONES, OPCIONES_RECT)
+        
+        #
+        COLOR_FONDO = (128,128,128)
+        TEXTO_CONTROLES = get_fuente(75).render("CONTROLES:", True, "White")
+        CONTROLES_RECT = TEXTO_CONTROLES.get_rect(
+            center=(int(ANCHO * 0.15), int(ALTO * 0.6))
+        )
+        margen = 20  
+        fondo_rect = CONTROLES_RECT.inflate(margen * 2, margen * 2)
+        pygame.draw.rect(SCREEN, COLOR_FONDO, fondo_rect, border_radius=15)
+        SCREEN.blit(TEXTO_CONTROLES, CONTROLES_RECT)
+
+        #
+        #TEXTO_CONTROLES = get_fuente(75).render("CONTROLES", True, "White")
+        #CONTROLES_RECT = TEXTO_CONTROLES.get_rect(
+        #    center=(int(ANCHO * 0.15), int(ALTO * 0.6))
+        #)
+        #SCREEN.blit(TEXTO_CONTROLES, CONTROLES_RECT)
+        
+        COLOR_FONDO = (128,128,128)
+        TEXTO_DIFICULTAD = get_fuente(75).render("DIFICULTAD:", True, "White")
+        CONTROLES_RECT = TEXTO_DIFICULTAD.get_rect(
+            center=(int(ANCHO * 0.15), int(ALTO * 0.3))
+        )
+        margen = 20  
+        fondo_rect = CONTROLES_RECT.inflate(margen * 2, margen * 2)
+        pygame.draw.rect(SCREEN, COLOR_FONDO, fondo_rect, border_radius=15)
+        SCREEN.blit(TEXTO_DIFICULTAD, CONTROLES_RECT)
+        
+        #TEXTO_DIFICULTAD = get_fuente(75).render("DIFICULTAD", True, "White")
+        #DIFICULTAD_RECT = TEXTO_DIFICULTAD.get_rect(
+        #    center=(int(ANCHO * 0.15), int(ALTO * 0.3))
+        #)
+        #SCREEN.blit(TEXTO_DIFICULTAD, DIFICULTAD_RECT)
+
+        COLOR_FONDO = (128, 128, 128)  
+        TEXTO_SONIDO = get_fuente(75).render("SONIDO:", True, "White")
+        CONTROLES_RECT = TEXTO_SONIDO.get_rect(
+            center=(int(ANCHO * 0.15), int(ALTO * 0.45))
+        )
+        margen = 20  
+        fondo_rect = CONTROLES_RECT.inflate(margen * 2, margen * 2)
+        pygame.draw.rect(SCREEN, COLOR_FONDO, fondo_rect, border_radius=15)
+        SCREEN.blit(TEXTO_SONIDO, CONTROLES_RECT)
+        
+        #TEXTO_SONIDO = get_fuente(75).render("SONIDO", True, "White")
+        #SONIDO_RECT = TEXTO_SONIDO.get_rect(
+        #    center=(int(ANCHO * 0.15), int(ALTO * 0.45))
+        #)
+        #SCREEN.blit(TEXTO_SONIDO, SONIDO_RECT)
 
         control1_img = pygame.image.load("src/assets/images/control1.png")
         control1_img = pygame.transform.scale(control1_img, (300, 300))
@@ -105,97 +149,86 @@ def opciones():
         SCREEN.blit(control1_img, (int(ANCHO * 0.3), int(ALTO * 0.4)))
         SCREEN.blit(control2_img, (int(ANCHO * 0.7), int(ALTO * 0.4)))
 
-        OPCIONES_DIFICULTAD = Boton(
-            image=None,
-            pos=(int(ANCHO * 0.15), int(ALTO * 0.3)),
-            text_input="DIFICULTAD",
-            font=get_font(75),
-            base_color="White",
-            hovering_color="Black",
-        )
-
         FACIL = Boton(
-            image=boton_surface,
-            pos=(int(ANCHO * 0.4), int(ALTO * 0.3)),
-            text_input="FACIL",
-            font=get_font(75),
-            base_color="Black",
-            hovering_color="White",
+            boton_surface,
+            (int(ANCHO * 0.4), int(ALTO * 0.3)),
+            "FACIL",
+            get_fuente(75),
+            "Black",
+            "White",
         )
-
+        
         NORMAL = Boton(
-            image=boton_surface,
-            pos=(int(ANCHO * 0.6), int(ALTO * 0.3)),
-            text_input="NORMAL",
-            font=get_font(75),
-            base_color="Black",
-            hovering_color="White",
+            boton_surface,
+            (int(ANCHO * 0.6), int(ALTO * 0.3)),
+            "NORMAL",
+            get_fuente(75),
+            "Black",
+            "White",
         )
 
         DIFICIL = Boton(
-            image=boton_surface,
-            pos=(int(ANCHO * 0.8), int(ALTO * 0.3)),
-            text_input="DIFICIL",
-            font=get_font(75),
-            base_color="Black",
-            hovering_color="White",
-        )
-
-        OPCIONES_SONIDO = Boton(
-            image=None,
-            pos=(int(ANCHO * 0.15), int(ALTO * 0.45)),
-            text_input="SONIDO",
-            font=get_font(75),
-            base_color="White",
-            hovering_color="Black",
+            boton_surface,
+            (int(ANCHO * 0.8), int(ALTO * 0.3)),
+            "DIFICIL",
+            get_fuente(75),
+            "Black",
+            "White",
         )
 
         SONIDO_ON = Boton(
-            image=boton_surface,
-            pos=(int(ANCHO * 0.4), int(ALTO * 0.45)),
-            text_input="ON",
-            font=get_font(75),
-            base_color="Black",
-            hovering_color="White",
+            boton_surface,
+            (int(ANCHO * 0.4), int(ALTO * 0.45)),
+            "ON",
+            get_fuente(75),
+            "Black",
+            "White",
         )
 
         SONIDO_OFF = Boton(
-            image=boton_surface,
-            pos=(int(ANCHO * 0.6), int(ALTO * 0.45)),
-            text_input="OFF",
-            font=get_font(75),
-            base_color="Black",
-            hovering_color="White",
-        )
-
-        OPCIONES_CONTROLES = Boton(
-            image=None,
-            pos=(int(ANCHO * 0.15), int(ALTO * 0.60)),
-            text_input="CONTROLES",
-            font=get_font(75),
-            base_color="White",
-            hovering_color="Black",
+            boton_surface,
+            (int(ANCHO * 0.6), int(ALTO * 0.45)),
+            "OFF",
+            get_fuente(75),
+            "Black",
+            "White",
         )
 
         OPCIONES_ATRAS = Boton(
-            image=boton_surface,
-            pos=(int(ANCHO * 0.15), int(ALTO * 0.1)),
-            text_input="ATRAS",
-            font=get_font(75),
-            base_color="Black",
-            hovering_color="White",
+            boton_surface,
+            (int(ANCHO * 0.88), int(ALTO * 0.9)),
+            "ATRAS",
+            get_fuente(75),
+            "Black",
+            "White",
         )
+        
+        #JUGAR_ATRAS = Boton(
+        #    boton_surface,
+        #    (int(ANCHO * 4.7), int(ALTO * 3.2)),
+        #    "ATRAS",
+        #    get_fuente(75),
+        #    "Black",
+        #    "White",
+        #)
+        #RANKING_ATRAS = Boton(
+        #    boton_surface,
+        #    (int(ANCHO * 0.5), int(ALTO * 0.9)),
+        #    "ATRAS",
+        #    get_fuente(75),
+        #    "Black",
+        #    "White",
+        #)
 
         for boton in [
-            OPCIONES_DIFICULTAD,
             FACIL,
             NORMAL,
             DIFICIL,
-            OPCIONES_SONIDO,
             SONIDO_ON,
             SONIDO_OFF,
-            OPCIONES_CONTROLES,
             OPCIONES_ATRAS,
+            #JUGAR_ATRAS,
+            #RANKING_ATRAS
         ]:
             boton.changeColor(OPCIONES_POS_MOUSE)
             boton.update(SCREEN)
@@ -211,6 +244,10 @@ def opciones():
                     pygame.mixer.music.set_volume(0)
                 if OPCIONES_ATRAS.checkForInput(OPCIONES_POS_MOUSE):
                     menu_principal()
+                #if JUGAR_ATRAS.checkForInput(OPCIONES_POS_MOUSE):
+                #    menu_principal()
+                #if RANKING_ATRAS.checkForInput(OPCIONES_POS_MOUSE):
+                #    menu_principal()
 
         clock.tick(60)
         pygame.display.update()
@@ -220,19 +257,19 @@ def ranking():
     while True:
         SCREEN.fill("black")
 
-        TEXTO_RANKING = get_font(45).render("VENTANA RANKING", True, "White")
+        TEXTO_RANKING = get_fuente(45).render("VENTANA RANKING", True, "White")
         RANKING_RECT = TEXTO_RANKING.get_rect(center=(ANCHO // 2, 50))
         SCREEN.blit(TEXTO_RANKING, RANKING_RECT)
-
+        SCREEN.blit(BG_RANKING, (0, 0))
         RANKING_POS_MOUSE = pygame.mouse.get_pos()
 
         RANKING_ATRAS = Boton(
-            image=None,
-            pos=(int(ANCHO * 0.1), int(ALTO * 0.1)),
-            text_input="ATRAS",
-            font=get_font(75),
-            base_color="white",
-            hovering_color="Green",
+            boton_surface,
+            (ANCHO * 0.88, ALTO * 0.9),
+            "ATRAS",
+            get_fuente(75),
+            "white",
+            "Green",
         )
 
         RANKING_ATRAS.changeColor(RANKING_POS_MOUSE)
@@ -255,42 +292,42 @@ def menu_principal():
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        MENU_TEXTO = get_font(120).render("HEROES DEL BALON", True, "White")
+        MENU_TEXTO = get_fuente(120).render("HEROES DEL BALON", True, "White")
         MENU_RECT = MENU_TEXTO.get_rect(center=(int(ANCHO * 0.5), 180))
 
         BOTON_JUGAR = Boton(
-            image=boton_surface,
-            pos=(int(ANCHO * 0.5), int(ALTO * 0.5)),
-            text_input="JUGAR",
-            font=get_font(75),
-            base_color="White",
-            hovering_color="Dark Gray",
+            boton_surface,
+            (int(ANCHO * 0.5), int(ALTO * 0.5)),
+            "JUGAR",
+            get_fuente(75),
+            BLANCO,
+            NEGRO,
         )
         BOTON_OPCIONES = Boton(
-            image=boton_surface,
-            pos=(int(ANCHO * 0.5), int(ALTO * 0.5 + 90)),
-            text_input="OPCIONES",
-            font=get_font(75),
-            base_color="White",
-            hovering_color="Dark Gray",
+            boton_surface,
+            (int(ANCHO * 0.5), int(ALTO * 0.5 + 90)),
+            "OPCIONES",
+            get_fuente(75),
+            BLANCO,
+            NEGRO,
         )
 
         BOTON_RANKING = Boton(
-            image=boton_surface,
-            pos=(int(ANCHO * 0.5), int(ALTO * 0.5 + 180)),
-            text_input="RANKING",
-            font=get_font(75),
-            base_color="White",
-            hovering_color="Dark Gray",
+            boton_surface,
+            (int(ANCHO * 0.5), int(ALTO * 0.5 + 180)),
+            "RANKING",
+            get_fuente(75),
+            BLANCO,
+            NEGRO,
         )
 
         BOTON_SALIR = Boton(
-            image=boton_surface,
-            pos=(int(ANCHO * 0.5), int(ALTO * 0.5 + 270)),
-            text_input="SALIR",
-            font=get_font(75),
-            base_color="White",
-            hovering_color="Dark Gray",
+            boton_surface,
+            (int(ANCHO * 0.5), int(ALTO * 0.5 + 270)),
+            "SALIR",
+            get_fuente(75),
+            BLANCO,
+            NEGRO,
         )
 
         SCREEN.blit(MENU_TEXTO, MENU_RECT)
