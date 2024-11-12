@@ -16,6 +16,8 @@ bg_opciones = pygame.image.load(IMAGEN_FONDO_OPCIONES)
 BG_OPCIONES = pygame.transform.scale(bg_opciones, TAMANIO_PANTALLA)
 bg_jugar = pygame.image.load(IMAGEN_FONDO)
 BG_JUGAR = pygame.transform.scale(bg_jugar, TAMANIO_PANTALLA)
+bg_formacion = pygame.image.load(IMAGEN_FORMACION)
+BG_FORMACION = pygame.transform.scale(bg_formacion, TAMANIO_PANTALLA)       
 bg_ranking = pygame.image.load(IMAGEN_RANKING)
 BG_RANKING = pygame.transform.scale(bg_ranking, TAMANIO_PANTALLA)   
 pygame.mixer.init()
@@ -39,7 +41,7 @@ def jugar():
 
     while True:
         JUGAR_POS_MOUSE = pygame.mouse.get_pos()
-        SCREEN.blit(BG_JUGAR, (0, 0))
+        SCREEN.blit(BG_FORMACION, (0, 0))
         # SCREEN.fill("black")
 
         TEXTO_JUGAR = get_fuente(45).render("VENTANA JUGANDO", True, "White")
