@@ -12,6 +12,7 @@ class Usuario:  # Clase que representa a un usuario del juego o un administrador
         self.__password: str = password
         self.__admin: int = admin
         self.__bajaUsuario: int = bajaUsuario
+        self.__score: int = 0
 
     def get_id(self):
         return self.__idUsuario
