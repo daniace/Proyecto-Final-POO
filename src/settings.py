@@ -17,6 +17,7 @@ FPS = 60
 
 # Recursos
 IMAGEN_FONDO = "src/assets/images/scene.jpg"
+IMAGEN_FORMACION = "src/assets/images/formacion.jpg"
 IMAGEN_FONDO_OPCIONES = "src/assets/images/options.png"
 IMAGEN_BOTON1 = "src/assets/images/boton.png"
 IMAGEN_BOTON2 = "src/assets/images/boton2.png"
