@@ -11,7 +11,8 @@ class Partido():
         self._cancha=Cancha()
     
     def mapear_cancha(self):
-        pass
+        self._cancha.agregar_plantilla_uno(self._jugador1)
+        self._cancha.agregar_plantilla_dos(self._jugador2)
     
     def jugar_partido(self):
         self._partido_en_curso=True

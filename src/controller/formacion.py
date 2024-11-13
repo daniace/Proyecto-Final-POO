@@ -3,12 +3,30 @@ from typing import List
 from database.Carta import Carta
 
 class FormacionStartegy(ABC):
-    def __init__(self,equipo:List[Carta]) -> None:
-        self._equipo: List[Carta] =equipo
+    def __init__(self,equipo:List[Carta]) -> None: 
+        self._equipo: List[Carta]=equipo    
         self._matriz=[[0,0,0,0,0,0,0],#arquero#
                       [0,0,0,0,0,0,0],#defensa#
                       [0,0,0,0,0,0,0],#mediocampo#
                       [0,0,0,0,0,0,0]]#delanteros#
+    
+
+    @property
+    def equipo(self):
+        return self._equipo
+
+    @equipo.setter
+    def equipo(self, value):
+        self._equipo = value
+
+    @property
+    def matriz(self):
+        return self._matriz
+
+    @matriz.setter
+    def matriz(self, value):
+        self._matriz = value
+
     @abstractmethod
     def formar(self, equipo):
         pass
