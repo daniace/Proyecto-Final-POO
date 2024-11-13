@@ -2,37 +2,30 @@ from abc import ABC ,abstractmethod
 from typing import List
 import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))) #se agerego para que pueda leer la clase carta xd
 from database.Carta import Carta
 
 class FormacionStartegy(ABC):
     def __init__(self,equipo:List[Carta]) -> None: 
+        self._formacion=''
         self._equipo: List[Carta]=equipo    
         self._matriz=[[0,0,0,0,0,0,0],#arquero#
                       [0,0,0,0,0,0,0],#defensa#
                       [0,0,0,0,0,0,0],#mediocampo#
                       [0,0,0,0,0,0,0]]#delanteros#
+
     
-
-    @property
-    def equipo(self):
-        return self._equipo
-
-    @equipo.setter
-    def equipo(self, value):
-        self._equipo = value
-
-    @property
-    def matriz(self):
-        return self._matriz
-
-    @matriz.setter
-    def matriz(self, value):
-        self._matriz = value
+    def get_formacion(self):
+        return self._formacion
 
     @abstractmethod
     def formar(self, equipo):
         pass
+    
+    def reset(self):
+        for i in range(len(self._matriz)):           # Recorre las filas
+            for j in range(len(self._matriz[i])):    # Recorre las columnas de cada fila
+                self._matriz[i][j] = 0   
     
     def mostrar_formacion(self):
         print("Formación en el campo:")
@@ -97,5 +90,5 @@ class Formacion433(FormacionStartegy):
 # formacio2=Formacion433(team)
 # formacio2.formar()
 # formacio2.mostrar_formacion()
-frommm=Formacion442([1,1,1,1,1,1,1,1,1,1])
-print(frommm._formacion)
+# formacio2.reset()
+# formacio2.mostrar_formacion()
