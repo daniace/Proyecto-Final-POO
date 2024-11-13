@@ -1,8 +1,12 @@
+import pygame
+
 # Configuracion de la pantalla
 ANCHO = 1280
 ALTO = 720
 TAMANIO_PANTALLA = (ANCHO, ALTO)
 FULLSCREEN = False
+SCREEN = pygame.display.set_mode(TAMANIO_PANTALLA)
+clock = pygame.time.Clock()
 
 # Colores en RGB
 NEGRO = (0, 0, 0)
@@ -37,3 +41,21 @@ def get_fuente(tamanio):
 # Sonidos
 SONIDO_FONDO = "src/assets/audio/soundtrack.wav"
 SONIDO_PELE = "src/assets/audio/reypele.wav"
+
+scene_bg = pygame.image.load(IMAGEN_FONDO)
+BG = pygame.transform.scale(scene_bg, TAMANIO_PANTALLA)
+bg_opciones = pygame.image.load(IMAGEN_FONDO_OPCIONES)
+BG_OPCIONES = pygame.transform.scale(bg_opciones, TAMANIO_PANTALLA)
+bg_jugar = pygame.image.load(IMAGEN_FONDO)
+BG_JUGAR = pygame.transform.scale(bg_jugar, TAMANIO_PANTALLA)
+bg_formacion = pygame.image.load(IMAGEN_FORMACION)
+BG_FORMACION = pygame.transform.scale(bg_formacion, TAMANIO_PANTALLA)
+bg_ranking = pygame.image.load(IMAGEN_RANKING)
+BG_RANKING = pygame.transform.scale(bg_ranking, TAMANIO_PANTALLA)
+
+clock = pygame.time.Clock()
+
+boton_surface = pygame.image.load(IMAGEN_BOTON4)
+boton_surface = pygame.transform.scale(boton_surface, (250, 80))
+
+POS_MOUSE = pygame.mouse.get_pos()
