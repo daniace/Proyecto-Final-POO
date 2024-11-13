@@ -328,9 +328,6 @@ def opciones():
         pygame.display.update()
 
 
-
-
-
 def ranking():
     while True:
         SCREEN.fill("black")
@@ -387,6 +384,15 @@ def menu_principal():
         MENU_TEXTO = get_fuente(120).render("HEROES DEL BALON", True, "White")
         MENU_RECT = MENU_TEXTO.get_rect(center=(int(ANCHO * 0.5), 180))
 
+        BOTON_LOGIN = Boton(
+            boton_cuadrado,
+            (int(ANCHO * 0.1), int(ALTO * 0.1)),
+            "👤",
+            pygame.font.Font(EMOJIS, 50),
+            BLANCO,
+            NEGRO,
+        )
+
         BOTON_JUGAR = Boton(
             boton_surface,
             (int(ANCHO * 0.5), int(ALTO * 0.5)),
@@ -424,7 +430,13 @@ def menu_principal():
 
         SCREEN.blit(MENU_TEXTO, MENU_RECT)
 
-        for boton in [BOTON_JUGAR, BOTON_OPCIONES, BOTON_RANKING, BOTON_SALIR]:
+        for boton in [
+            BOTON_JUGAR,
+            BOTON_OPCIONES,
+            BOTON_RANKING,
+            BOTON_SALIR,
+            BOTON_LOGIN,
+        ]:
             boton.changeColor(MENU_MOUSE_POS)
             boton.update(SCREEN)
 
