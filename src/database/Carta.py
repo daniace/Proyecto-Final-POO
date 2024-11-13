@@ -122,6 +122,14 @@ class Carta:
         else:
             return f"{self.__nombre} ({self.__club}) - {self.__posicion} - {self.__valoracion} - {self.__velocidad} - {self.__disparo} - {self.__pase} - {self.__gambeta} - {self.__defensa} - {self.__fisico}"
 
+    def get_str(self):
+        return (
+            f"{self.__nombre} \n"
+            f"  {self.__velocidad}-{self.__disparo} \n"
+            f"  {self.__pase}-{self.__gambeta} \n"
+            f"  {self.__defensa}-{self.__fisico} \n"
+        )
+
 
 class Delantero(Carta):
     def get_posicion(self):
