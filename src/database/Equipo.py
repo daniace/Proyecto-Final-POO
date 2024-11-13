@@ -1,12 +1,14 @@
-from database.AbmCarta import AbmCarta
-import sys
 import os
+import sys
+
+from AbmCarta import AbmCarta
 
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 )  # se agerego para que pueda leer la clase carta xd
-from controller.formacion import *
 import random
+
+from controller.formacion import *
 
 
 class Equipo:

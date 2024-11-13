@@ -1,12 +1,14 @@
-from AbmCarta import AbmCarta
-from AbmEquipo import AbmEquipo
-from Equipo import Equipo
+# from database.AbmCarta import AbmCarta
+# from database.AbmEquipo import AbmEquipo
+# from database.Equipo import Equipo
+from Usuario import Usuario
+from AbmUsuario import AbmUsuario
 
 ########## ABM CARTA ##########
 
-abmC = AbmCarta()
-jugador = abmC.get_por_id(41)
-print(jugador, type(jugador))
+# abmC = AbmCarta()
+# jugador = abmC.get_por_id(41)
+# print(jugador, type(jugador))
 # abm.close()
 
 ########## ABM EQUIPO ##########
@@ -37,3 +39,9 @@ print(jugador, type(jugador))
 
 # # Borrado lógico de equipo en la BDD
 # # abmE.borrar(200)
+
+########## ABM USUARIO ##########
+
+usuario = Usuario(None, "EL PEPE")
+abmU = AbmUsuario()
+abmU.insertar(usuario)

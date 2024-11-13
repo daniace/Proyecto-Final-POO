@@ -1,6 +1,6 @@
-from database.DaoInterfaz import DaoInterfaz
-from database.Singleton import Database
-from database.Usuario import Usuario
+from DaoInterfaz import DaoInterfaz
+from Singleton import Database
+from Usuario import Usuario
 
 
 class AbmUsuario(DaoInterfaz):
@@ -31,7 +31,7 @@ class AbmUsuario(DaoInterfaz):
     def get_all(self):  # ESTO ANDA
         jugadores = []
         resultado = self.__database.execute_query(
-            "SELECT * FROM usuario WHERE baja_usuario = 0"
+            "SELECT * FROM usuario WHERE baja_usuario = 0 ORDER BY score DESC"  # devuelve los usuarios por score
         )
         if (
             resultado is None
@@ -52,13 +52,14 @@ class AbmUsuario(DaoInterfaz):
 
     def insertar(self, objeto):  # ESTO ANDA
         self.__database.execute_non_query(
-            "INSERT INTO usuario (id_usuario, nombre_usuario, password, admin, baja_usuario, score) VALUES (?,?,?,?,?)",
+            "INSERT INTO usuario (id_usuario, nombre_usuario, password, admin, baja_usuario, score) VALUES (?,?,?,?,?,?)",
             (
                 objeto.get_id(),
                 objeto.get_nombre(),
                 objeto.get_password(),
                 objeto.get_admin(),
-                objeto.get_bajaUsuario(),
+                objeto.get_baja_usuario(),
+                objeto.get_score(),
             ),
         )
 
@@ -69,7 +70,7 @@ class AbmUsuario(DaoInterfaz):
                 objeto.get_nombre(),
                 objeto.get_password(),
                 objeto.get_admin(),
-                objeto.get_bajaUsuario(),
+                objeto.get_baja_usuario(),
                 objeto.get_score(),
                 objeto.get_id(),
             ),
