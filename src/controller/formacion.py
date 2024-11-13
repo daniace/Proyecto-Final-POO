@@ -1,6 +1,9 @@
 from abc import ABC ,abstractmethod
-from database.Carta import Carta
 from typing import List
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from database.Carta import Carta
 
 class FormacionStartegy(ABC):
     def __init__(self,equipo:List[Carta]) -> None: 
