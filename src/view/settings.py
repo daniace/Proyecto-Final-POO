@@ -2,6 +2,7 @@ import pygame
 
 from database.AbmCarta import AbmCarta
 from database.AbmUsuario import AbmUsuario
+from database.Usuario import Usuario
 
 # Configuracion de la pantalla
 ANCHO = 1280
@@ -43,6 +44,7 @@ IMAGEN_BOTON6 = "src/assets/images/boton6.png"
 FUENTE = "src/assets/font/Pixeltype.ttf"
 EMOJIS = "src/assets/font/NotoEmoji-Regular.ttf"
 IMAGEN_CANCHA_OFICIAL = "src/assets/images/canchafubo.jpeg"
+
 
 def get_fuente(tamanio):
     return pygame.font.Font(FUENTE, tamanio)
@@ -96,21 +98,23 @@ abmcarta = AbmCarta()
 defensores = abmcarta.get_defensores()
 abmusuario = AbmUsuario()
 usuarios = abmusuario.get_all()
+usuario = Usuario()
 
 POS_MOUSE = pygame.mouse.get_pos()
 
 # Dificultad
 
+
 class dificultad:
-    def __init__(self, facil=70, normal=50 ,dificil=30):
+    def __init__(self, facil=70, normal=50, dificil=30):
         self._facil = facil
         self._normal = normal
         self._dificil = dificil
-        
+
     def dificil(self):
         self._facil -= 10
         self._dificil -= 10
-    
+
     def facil(self):
         self._facil += 10
         self._dificil += 10

@@ -393,13 +393,25 @@ def ranking():
         )
         SCREEN.blit(TEXTO_TABLA, TEXTO_TABLA_RECT)
 
+        RANKING_ACTUALIZAR = Boton(
+            boton_cuadrado,
+            (ANCHO * 0.73, ALTO * 0.9),
+            "🔄",
+            pygame.font.FontType(EMOJIS, 50),
+            BLANCO,
+            NEGRO,
+        )
+
+        RANKING_ACTUALIZAR.changeColor(RANKING_POS_MOUSE)
+        RANKING_ACTUALIZAR.update(SCREEN)
+
         RANKING_ATRAS = Boton(
             boton_surface,
             (ANCHO * 0.88, ALTO * 0.9),
             "ATRAS",
             get_fuente(75),
-            "white",
-            "Green",
+            BLANCO,
+            NEGRO,
         )
 
         RANKING_ATRAS.changeColor(RANKING_POS_MOUSE)
@@ -410,6 +422,9 @@ def ranking():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
+                if RANKING_ACTUALIZAR.checkForInput(RANKING_POS_MOUSE):
+                    # wip
+                    pass
                 if RANKING_ATRAS.checkForInput(RANKING_POS_MOUSE):
                     menu_principal()
         clock.tick(60)
@@ -502,6 +517,7 @@ def menu_principal():
 
 
 def login():
+    texto_usuario = ""
     while True:
         SCREEN.blit(BG, (0, 0))
         IMAGEN_TABLA = pygame.image.load("src/assets/images/tabla.png")
@@ -524,12 +540,20 @@ def login():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_BACKSPACE:
+                    texto_usuario = texto_usuario[:-1]
+                else:
+                    texto_usuario += event.unicode
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if LOGIN.checkForInput(pygame.mouse.get_pos()):
+                    usuario.set_nombre(texto_usuario)
+                    abmusuario.insertar(usuario)
                     menu_principal()
-
+        superficie_texto = get_fuente(50).render(texto_usuario, True, NEGRO)
+        SCREEN.blit(superficie_texto, (int(ANCHO * 0.4), int(ALTO * 0.5)))
+        pygame.display.flip()
         clock.tick(60)
-        pygame.display.update()
 
 
 menu_principal()
