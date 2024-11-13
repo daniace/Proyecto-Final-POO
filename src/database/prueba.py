@@ -42,6 +42,6 @@ from AbmUsuario import AbmUsuario
 
 ########## ABM USUARIO ##########
 
-usuario = Usuario(None, "EL PEPE")
+usuario = Usuario(None, "user")
 abmU = AbmUsuario()
 abmU.insertar(usuario)
