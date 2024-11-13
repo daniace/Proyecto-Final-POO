@@ -1,4 +1,6 @@
 import pygame
+from database.AbmCarta import AbmCarta
+from database.AbmUsuario import AbmUsuario
 
 # Configuracion de la pantalla
 ANCHO = 1280
@@ -61,4 +63,19 @@ clock = pygame.time.Clock()
 boton_surface = pygame.image.load(IMAGEN_BOTON4)
 boton_surface = pygame.transform.scale(boton_surface, (250, 80))
 
+def get_fuente(tamanio):
+    return pygame.font.Font(FUENTE, tamanio)
+
+
+clock = pygame.time.Clock()
+
+boton_surface = pygame.image.load(IMAGEN_BOTON4)
+boton_surface = pygame.transform.scale(boton_surface, (250, 80))
+
+abmcarta = AbmCarta()
+defensores = abmcarta.get_defensores()
+abmusuario = AbmUsuario()
+usuarios = abmusuario.get_all()
+
 POS_MOUSE = pygame.mouse.get_pos()
+
