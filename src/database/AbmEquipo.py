@@ -1,5 +1,5 @@
-from DaoInterfaz import DaoInterfaz
-from Equipo import Equipo
+from .DaoInterfaz import DaoInterfaz
+from .Equipo import Equipo
 from database.Singleton import Database
 
 
