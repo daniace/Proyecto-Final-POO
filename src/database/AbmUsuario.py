@@ -31,7 +31,7 @@ class AbmUsuario(DaoInterfaz):
     def get_all(self):  # ESTO ANDA
         jugadores = []
         resultado = self.__database.execute_query(
-            "SELECT * FROM usuario WHERE baja_usuario = 0"
+            "SELECT * FROM usuario WHERE baja_usuario = 0 ORDER BY score DESC"  # devuelve los usuarios por score
         )
         if (
             resultado is None
