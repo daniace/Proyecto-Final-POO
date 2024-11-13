@@ -6,44 +6,46 @@ class Carta:
         self,
         id_carta=None,
         nombre: str = "",
-        dorsal: int = 0,
-        posicion: str = "",
-        club: str = "",
         nacionalidad: str = "",
+        club: str = "",
+        valoracion: int = 0,
+        posicion: str = "",
+        posicion_equipo: str = "",
+        dorsal: int = 0,
         velocidad: int = 0,
         disparo: int = 0,
         pase: int = 0,
         gambeta: int = 0,
         defensa: int = 0,
         fisico: int = 0,
+        gk_diving: int = 0,
+        gk_handling: int = 0,
+        gk_kicking: int = 0,
+        gk_reflexes: int = 0,
+        gk_speed: int = 0,
+        gk_positioning: int = 0,
     ):
         self.__id_carta: int = id_carta
         self.__nombre: str = nombre
-        self.__dorsal: int = dorsal
-        self._posicion: str = posicion
-        self.__club: str = club
         self.__nacionalidad: str = nacionalidad
+        self.__club: str = club
+        self.__valoracion: int = valoracion
+        self.__posicion: str = posicion
+        self.__posicion_equipo: str = posicion_equipo
+        self.__dorsal: int = dorsal
         self.__velocidad: int = velocidad
         self.__disparo: int = disparo
         self.__pase: int = pase
         self.__gambeta: int = gambeta
         self.__defensa: int = defensa
         self.__fisico: int = fisico
-        self.__valoracion: int = self.valoracion()
+        self.__gk_diving: int = gk_diving
+        self.__gk_handling: int = gk_handling
+        self.__gk_kicking: int = gk_kicking
+        self.__gk_reflexes: int = gk_reflexes
+        self.__gk_speed: int = gk_speed
+        self.__gk_positioning: int = gk_positioning
         self.__tenencia = False
-
-    def valoracion(self):
-        return int(
-            (
-                self.__velocidad
-                + self.__disparo
-                + self.__pase
-                + self.__gambeta
-                + self.__defensa
-                + self.__fisico
-            )
-            / 6
-        )
 
     def get_nombre(self):
         return self.__nombre
@@ -54,14 +56,14 @@ class Carta:
     def get_posicion(self):
         return self.__posicion
 
+    def get_posicion_equipo(self):
+        return self.__posicion_equipo
+
     def get_club(self):
         return self.__club
 
     def get_nacionalidad(self):
         return self.__nacionalidad
-
-    def get_quimica(self):
-        return self.__quimica
 
     def get_velocidad(self):
         return self.__velocidad
@@ -81,6 +83,30 @@ class Carta:
     def get_fisico(self):
         return self.__fisico
 
+    def get_gk_diving(self):
+        return self.__gk_diving
+
+    def get_gk_handling(self):
+        return self.__gk_handling
+
+    def get_gk_kicking(self):
+        return self.__gk_kicking
+
+    def get_gk_reflexes(self):
+        return self.__gk_reflexes
+
+    def get_gk_speed(self):
+        return self.__gk_speed
+
+    def get_gk_positioning(self):
+        return self.__gk_positioning
+
+    def get_tenencia(self):
+        return self.__tenencia
+
+    def get_valoracion(self):
+        return self.__valoracion
+
     def get_id(self):
         return self.__id_carta
 
@@ -91,7 +117,10 @@ class Carta:
             self.__tenencia = False
 
     def __str__(self) -> str:
-        return f"{self.__id_carta} - {self.__nombre}"
+        if self.__posicion == "GK":
+            return f"{self.__nombre} ({self.__club}) - {self.__posicion} - {self.__valoracion} - {self.__gk_diving} - {self.__gk_handling} - {self.__gk_kicking} - {self.__gk_reflexes} - {self.__gk_speed} - {self.__gk_positioning}"
+        else:
+            return f"{self.__nombre} ({self.__club}) - {self.__posicion} - {self.__valoracion} - {self.__velocidad} - {self.__disparo} - {self.__pase} - {self.__gambeta} - {self.__defensa} - {self.__fisico}"
 
 
 class Delantero(Carta):
