@@ -1,6 +1,6 @@
-from DaoInterfaz import DaoInterfaz
-from Equipo import Equipo
-from Singleton import Database
+from database.DaoInterfaz import DaoInterfaz
+from database.Equipo import Equipo
+from database.Singleton import Database
 
 
 class AbmEquipo(DaoInterfaz):

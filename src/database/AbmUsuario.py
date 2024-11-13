@@ -1,6 +1,6 @@
-from DaoInterfaz import DaoInterfaz
-from Singleton import Database
-from Usuario import Usuario
+from database.DaoInterfaz import DaoInterfaz
+from database.Singleton import Database
+from database.Usuario import Usuario
 
 
 class AbmUsuario(DaoInterfaz):
