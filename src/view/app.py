@@ -126,6 +126,18 @@ def jugar():
         FORMACION_RECT = TEXTO_FORMACION.get_rect(
             center=(int(ANCHO * 0.5), int(ALTO * 0.1))
         )
+        #-------------
+        JUGAR_COMIENZA = Boton(
+            boton_surface,
+            (ANCHO * 0.88, ALTO * 0.75),
+            "COMIENZA",
+            get_fuente(75),
+            "White",
+            "Green",
+        )
+        JUGAR_COMIENZA.changeColor(JUGAR_POS_MOUSE)
+        JUGAR_COMIENZA.update(SCREEN)
+        #-------------
         margen = 20
         fondo_rect = FORMACION_RECT.inflate(margen * 2, margen * 2)
         pygame.draw.rect(SCREEN, COLOR_FONDO, fondo_rect, border_radius=15)
