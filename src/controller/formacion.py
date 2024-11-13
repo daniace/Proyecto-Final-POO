@@ -1,6 +1,6 @@
 from abc import ABC ,abstractmethod
-from typing import List
 from database.Carta import Carta
+from typing import List
 
 class FormacionStartegy(ABC):
     def __init__(self,equipo:List[Carta]) -> None: 
@@ -39,6 +39,10 @@ class FormacionStartegy(ABC):
 
 class Formacion442(FormacionStartegy):
     
+    def __init__(self, equipo: List[Carta]) -> None:
+        super().__init__(equipo)
+        self._formacion='4-4-2'
+        
     def formar(self):
         #arquero#
         self._matriz[0][3]=self._equipo[0]
@@ -60,6 +64,10 @@ class Formacion442(FormacionStartegy):
 
 class Formacion433(FormacionStartegy):
     
+    def __init__(self, equipo: List[Carta]) -> None:
+        super().__init__(equipo)
+        self._formacion='4-3-3'
+        
     def formar(self):
         #arquero#
         self._matriz[0][3]=self._equipo[0]
@@ -86,3 +94,5 @@ class Formacion433(FormacionStartegy):
 # formacio2=Formacion433(team)
 # formacio2.formar()
 # formacio2.mostrar_formacion()
+frommm=Formacion442([1,1,1,1,1,1,1,1,1,1])
+print(frommm._formacion)
