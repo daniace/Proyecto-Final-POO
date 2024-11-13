@@ -14,6 +14,8 @@ pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1)
 
 dificultadd = dificultad()
+
+
 def jugar():
     pygame.display.set_caption("JUGANDO")
 
@@ -148,7 +150,7 @@ def jugar():
         )
         # DADO.changeColor(JUGAR_POS_MOUSE)
         DADO.update(SCREEN)
-        # -------------
+        #  -------------
         margen = 20
         fondo_rect = FORMACION_RECT.inflate(margen * 2, margen * 2)
         pygame.draw.rect(SCREEN, COLOR_FONDO, fondo_rect, border_radius=15)
@@ -460,6 +462,8 @@ def menu_principal():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
+                if BOTON_LOGIN.checkForInput(MENU_MOUSE_POS):
+                    login()
                 if BOTON_JUGAR.checkForInput(MENU_MOUSE_POS):
                     jugar()
                 if BOTON_OPCIONES.checkForInput(MENU_MOUSE_POS):
@@ -469,6 +473,37 @@ def menu_principal():
                 if BOTON_SALIR.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
                     sys.exit()
+        clock.tick(60)
+        pygame.display.update()
+
+
+def login():
+    while True:
+        SCREEN.blit(BG, (0, 0))
+        IMAGEN_TABLA = pygame.image.load("src/assets/images/tabla.png")
+        IMAGEN_TABLA = pygame.transform.scale(IMAGEN_TABLA, (650, 340))
+        SCREEN.blit(IMAGEN_TABLA, (int(ANCHO * 0.25), int(ALTO * 0.3)))
+
+        LOGIN = Boton(
+            boton_surface,
+            (int(ANCHO * 0.5), int(ALTO * 0.5 + 90)),
+            "LOGIN",
+            get_fuente(75),
+            BLANCO,
+            NEGRO,
+        )
+
+        LOGIN.changeColor(pygame.mouse.get_pos())
+        LOGIN.update(SCREEN)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if LOGIN.checkForInput(pygame.mouse.get_pos()):
+                    menu_principal()
+
         clock.tick(60)
         pygame.display.update()
 
