@@ -29,6 +29,11 @@ IMAGEN_RANKING = "src/assets/images/ranking.jpg"
 # Fuentes
 FUENTE = "src/assets/font/Pixeltype.ttf"
 
+
+def get_fuente(tamanio):
+    return pygame.font.Font(FUENTE, tamanio)
+
+
 # Sonidos
 SONIDO_FONDO = "src/assets/audio/soundtrack.wav"
 SONIDO_PELE = "src/assets/audio/reypele.wav"
