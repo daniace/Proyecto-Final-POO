@@ -316,9 +316,6 @@ def opciones():
         pygame.display.update()
 
 
-
-
-
 def ranking():
     while True:
         SCREEN.fill("black")
