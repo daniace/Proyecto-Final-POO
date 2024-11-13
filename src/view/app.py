@@ -61,7 +61,7 @@ def jugar():
         # ------------
         JUGAR_FORMACION = Boton(
             None,
-            (ANCHO // 4.7 - 100, ALTO // 3.2 - 130),
+            (ANCHO // 4.49 - 100, ALTO // 3.2 - 130),
             "FORMACIONES:",
             get_fuente(75),
             "White",
