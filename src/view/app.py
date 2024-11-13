@@ -138,6 +138,17 @@ def jugar():
         JUGAR_COMIENZA.changeColor(JUGAR_POS_MOUSE)
         JUGAR_COMIENZA.update(SCREEN)
         # -------------
+        DADO = Boton(
+            boton_dado,
+            (ANCHO * 0.88, ALTO * 0.6),
+            "",
+            get_fuente(75),
+            "White",
+            "Green",
+        )
+        # DADO.changeColor(JUGAR_POS_MOUSE)
+        DADO.update(SCREEN)
+        # -------------
         margen = 20
         fondo_rect = FORMACION_RECT.inflate(margen * 2, margen * 2)
         pygame.draw.rect(SCREEN, COLOR_FONDO, fondo_rect, border_radius=15)
