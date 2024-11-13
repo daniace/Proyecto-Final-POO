@@ -2,13 +2,13 @@ import pygame
 
 
 class Boton:
-    def __init__(self, imagen, pos, texto_input, fuente, color_base, hovering_color):
-        self.imagen = imagen
+    def __init__(self, image, pos, text_input, font, base_color, hovering_color):
+        self.imagen = image
         self.x_pos = pos[0]
         self.y_pos = pos[1]
-        self.fuente = fuente
-        self.color_base, self.hovering_color = color_base, hovering_color
-        self.texto_input = texto_input
+        self.fuente = font
+        self.color_base, self.hovering_color = base_color, hovering_color
+        self.texto_input = text_input
         self.texto = self.fuente.render(self.texto_input, True, self.color_base)
         if self.imagen is None:
             self.imagen = self.texto

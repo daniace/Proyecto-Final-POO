@@ -1,6 +1,6 @@
 import sys
 import pygame as pg
-from src.view.app import menu_principal
+from view.app import menu_principal
 
 
 if __name__=='__main__':
