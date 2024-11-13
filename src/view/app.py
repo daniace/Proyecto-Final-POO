@@ -139,13 +139,7 @@ def jugar():
         )
         JUGAR_COMIENZA.changeColor(JUGAR_POS_MOUSE)
         JUGAR_COMIENZA.update(SCREEN)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit() 
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if JUGAR_COMIENZA.checkForInput(JUGAR_POS_MOUSE):
-                    cancha()
+
         # -------------
         DADO = Boton(
             boton_dado,
@@ -163,6 +157,16 @@ def jugar():
         pygame.draw.rect(SCREEN, COLOR_FONDO, fondo_rect, border_radius=15)
         SCREEN.blit(TEXTO_FORMACION, FORMACION_RECT)
         # ------------
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if JUGAR_COMIENZA.checkForInput(JUGAR_POS_MOUSE):
+                    cancha()
+
+        clock.tick(FPS)
+        pygame.display.update()
         # for event in pygame.event.get():
         #     if event.type == pygame.QUIT:
         #         pygame.quit()
@@ -173,11 +177,20 @@ def jugar():
         #             menu_principal()
         # clock.tick(60)
         # pygame.display.update()
-def cancha ():
+
+
+def cancha():
     while True:
         SCREEN.blit(BG_CANCHA_OFICIAL, (0, 0))
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
         clock.tick(60)
         pygame.display.update()
+
 
 def opciones():
     while True:
