@@ -3,7 +3,7 @@ import sys
 import pygame
 
 from .settings import *
-from .Boton import *
+from .boton import *
 
 # pygame setup
 pygame.init()
