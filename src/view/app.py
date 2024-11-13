@@ -2,7 +2,7 @@ import sys
 
 import pygame
 
-from .Boton import *
+from .boton import *
 from .settings import *
 
 # pygame setup
@@ -12,6 +12,8 @@ pygame.mixer.init()
 pygame.mixer.music.load(SONIDO_FONDO)
 pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1)
+
+dificultadd = dificultad()
 
 
 def jugar():
@@ -111,12 +113,12 @@ def jugar():
         SCREEN.blit(NOMBRE_JUGADOR, NOMBRE_PORTERO)
 
         JUGAR_ATRAS = Boton(
-            boton_surface,
-            (ANCHO * 0.88, ALTO * 0.9),
-            "ATRAS",
-            get_fuente(75),
-            "White",
-            "Green",
+            boton_rojo_cuadrado,
+            (ANCHO * 0.045, ALTO * 0.08),
+            "🔙",
+            pygame.font.Font(EMOJIS, 75),
+            BLANCO,
+            ROJO,
         )
         JUGAR_ATRAS.changeColor(JUGAR_POS_MOUSE)
         JUGAR_ATRAS.update(SCREEN)
@@ -128,8 +130,8 @@ def jugar():
         )
         # -------------
         JUGAR_COMIENZA = Boton(
-            boton_surface,
-            (ANCHO * 0.88, ALTO * 0.75),
+            boton_verde,
+            (ANCHO * 0.88, ALTO * 0.90),
             "COMIENZA",
             get_fuente(75),
             "White",
@@ -138,6 +140,17 @@ def jugar():
         JUGAR_COMIENZA.changeColor(JUGAR_POS_MOUSE)
         JUGAR_COMIENZA.update(SCREEN)
         # -------------
+        DADO = Boton(
+            boton_dado,
+            (ANCHO * 0.88, ALTO * 0.6),
+            "",
+            get_fuente(75),
+            "White",
+            "Green",
+        )
+        # DADO.changeColor(JUGAR_POS_MOUSE)
+        DADO.update(SCREEN)
+        #  -------------
         margen = 20
         fondo_rect = FORMACION_RECT.inflate(margen * 2, margen * 2)
         pygame.draw.rect(SCREEN, COLOR_FONDO, fondo_rect, border_radius=15)
@@ -319,6 +332,10 @@ def opciones():
                     pygame.mixer.music.set_volume(0)
                 if OPCIONES_ATRAS.checkForInput(OPCIONES_POS_MOUSE):
                     menu_principal()
+                if DIFICIL.checkForInput(OPCIONES_POS_MOUSE):
+                    dificultadd.dificil()
+                if FACIL.checkForInput(OPCIONES_POS_MOUSE):
+                    dificultadd.facil()
                 # if JUGAR_ATRAS.checkForInput(OPCIONES_POS_MOUSE):
                 #    menu_principal()
                 # if RANKING_ATRAS.checkForInput(OPCIONES_POS_MOUSE):
