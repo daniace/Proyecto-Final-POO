@@ -2,7 +2,7 @@ import sys
 
 import pygame
 
-from .Boton import *
+from .boton import *
 from .settings import *
 
 # pygame setup
@@ -13,7 +13,7 @@ pygame.mixer.music.load(SONIDO_FONDO)
 pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1)
 
-
+dificultadd = dificultad()
 def jugar():
     pygame.display.set_caption("JUGANDO")
 
@@ -330,6 +330,10 @@ def opciones():
                     pygame.mixer.music.set_volume(0)
                 if OPCIONES_ATRAS.checkForInput(OPCIONES_POS_MOUSE):
                     menu_principal()
+                if DIFICIL.checkForInput(OPCIONES_POS_MOUSE):
+                    dificultadd.dificil()
+                if FACIL.checkForInput(OPCIONES_POS_MOUSE):
+                    dificultadd.facil()
                 # if JUGAR_ATRAS.checkForInput(OPCIONES_POS_MOUSE):
                 #    menu_principal()
                 # if RANKING_ATRAS.checkForInput(OPCIONES_POS_MOUSE):

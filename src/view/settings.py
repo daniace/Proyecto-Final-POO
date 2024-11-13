@@ -87,3 +87,19 @@ abmusuario = AbmUsuario()
 usuarios = abmusuario.get_all()
 
 POS_MOUSE = pygame.mouse.get_pos()
+
+# Dificultad
+
+class dificultad:
+    def __init__(self, facil=70, normal=50 ,dificil=30):
+        self._facil = facil
+        self._normal = normal
+        self._dificil = dificil
+        
+    def dificil(self):
+        self._facil -= 10
+        self._dificil -= 10
+    
+    def facil(self):
+        self._facil += 10
+        self._dificil += 10
