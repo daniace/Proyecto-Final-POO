@@ -13,7 +13,9 @@ class AbmUsuario(DaoInterfaz):
             "SELECT * FROM usuario WHERE id_usuario = ? AND baja_usuario = 0",
             (id,),  # Devuelve una lista de tuplas
         )
-        if not resultado:  # Si no se encontro la id o esta dado de baja, devuelve una lista vacia(Aunque solo busques un usuario) y se imprime un mensaje.
+        if (
+            not resultado
+        ):  # Si no se encontro la id o esta dado de baja, devuelve una lista vacia(Aunque solo busques un usuario) y se imprime un mensaje.
             print(f"No se encontró el usuario con el id: {id}, o está dado de baja")
             return None
         else:

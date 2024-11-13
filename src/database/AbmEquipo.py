@@ -36,7 +36,7 @@ class AbmEquipo(DaoInterfaz):
 
     def insertar(self, objeto):  # FUNCIONA
         self.__database.execute_non_query(
-            "INSERT INTO equipo (id_equipo, nombre_equipo, id_usuario) VALUES (?,?,?)",
+            "INSERT INTO equipo (id_equipo, id_usuario, nombre_equipo, id_carta1, id_carta2, id_carta3, id_carta4, id_carta6, id_carta7_, id_carta8, id_carta9, id_carta10, id_carta11) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
             (objeto.get_id_equipo(), objeto.get_nombre(), objeto.get_id_usuario()),
         )
 
