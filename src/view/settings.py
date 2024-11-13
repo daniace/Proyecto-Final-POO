@@ -1,4 +1,5 @@
 import pygame
+
 from database.AbmCarta import AbmCarta
 from database.AbmUsuario import AbmUsuario
 
@@ -32,11 +33,12 @@ IMAGEN_BOTON4 = "src/assets/images/boton4.png"
 IMAGEN_CARTA = "src/assets/images/carta.png"
 IMAGEN_CANCHA = "src/assets/images/cancha.png"
 IMAGEN_TABLA = "src/assets/images/tabla.png"
-#
+IMAGEN_CUADRADO = "src/assets/images/boton_cuadrado.png"
 IMAGEN_BOTON5 = "src/assets/images/boton5.png"
 IMAGEN_RANKING = "src/assets/images/ranking.jpg"
 # Fuentes
 FUENTE = "src/assets/font/Pixeltype.ttf"
+EMOJIS = "src/assets/font/NotoEmoji-Regular.ttf"
 
 
 def get_fuente(tamanio):
@@ -63,6 +65,10 @@ clock = pygame.time.Clock()
 boton_surface = pygame.image.load(IMAGEN_BOTON4)
 boton_surface = pygame.transform.scale(boton_surface, (250, 80))
 
+boton_cuadrado = pygame.image.load(IMAGEN_CUADRADO)
+boton_cuadrado = pygame.transform.scale(boton_cuadrado, (80, 80))
+
+
 def get_fuente(tamanio):
     return pygame.font.Font(FUENTE, tamanio)
 
@@ -78,4 +84,3 @@ abmusuario = AbmUsuario()
 usuarios = abmusuario.get_all()
 
 POS_MOUSE = pygame.mouse.get_pos()
-
