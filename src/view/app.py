@@ -149,7 +149,7 @@ def opciones():
         control2_img = pygame.transform.scale(control2_img, (300, 300))
 
         SCREEN.blit(control1_img, (int(ANCHO * 0.3), int(ALTO * 0.4)))
-        SCREEN.blit(control2_img, (int(ANCHO * 0.54), int(ALTO * 0.44)))
+        SCREEN.blit(control2_img, (int(ANCHO * 0.54), int(ALTO * 0.4)))
 
         FACIL = Boton(
             boton_surface,

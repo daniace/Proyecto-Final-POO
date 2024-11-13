@@ -1,7 +1,7 @@
 import pygame
 
 
-class Boton:
+class boton:
     def __init__(self, image, pos, text_input, font, base_color, hovering_color):
         self.imagen = image
         self.x_pos = pos[0]
