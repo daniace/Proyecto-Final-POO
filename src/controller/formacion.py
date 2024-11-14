@@ -17,7 +17,7 @@ class FormacionStartegy(ABC):
         self._equipo=equipo
 
     @abstractmethod
-    def formar(self, equipo):
+    def formar(self):
         pass
     
     def reset(self):
@@ -92,6 +92,7 @@ class Formacion433(FormacionStartegy):
         self._matriz[3][1]=self._equipo[8]
         self._matriz[3][3]=self._equipo[9]
         self._matriz[3][5]=self._equipo[10]
+        
         return self._matriz
     
     def cantidad_dfc(self):
@@ -103,13 +104,32 @@ class Formacion433(FormacionStartegy):
     def cantidad_dc(self):
         return 3
 
-# team = [1,2,3,4,5,6,7,8,9,10,11]
-# formacion=Formacion442(team)
-# formacion.formar()
-# formacion.mostrar_formacion()
-# print()
-# formacio2=Formacion433(team)
-# formacio2.formar()
-# formacio2.mostrar_formacion()
-# formacio2.reset()
-# formacio2.mostrar_formacion()
+class Formacion352(FormacionStartegy):
+    
+    def formar(self):
+        #arquero#
+        self._matriz[0][3]=self._equipo[0]
+        #defensas#
+        self._matriz[1][2]=self._equipo[1]
+        self._matriz[1][4]=self._equipo[2]
+        self._matriz[1][6]=self._equipo[3]
+        #mediocmapistas#
+        self._matriz[2][0]=self._equipo[4]
+        self._matriz[2][2]=self._equipo[5]
+        self._matriz[2][3]=self._equipo[6]
+        self._matriz[2][4]=self._equipo[7]
+        self._matriz[2][6]=self._equipo[8]
+        #delanteros#
+        self._matriz[3][2]=self._equipo[9]
+        self._matriz[3][4]=self._equipo[10]
+        
+        return self._matriz
+    
+    def cantidad_dfc(self):
+        return 3
+    
+    def cantidad_mc(self):
+        return 5
+    
+    def cantidad_dc(self):
+        return 2

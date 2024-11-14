@@ -1,4 +1,4 @@
-from formacion import Formacion433,Formacion442
+from formacion import *
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))) 
@@ -34,6 +34,8 @@ class Cancha:
 cancha=Cancha()
 jug1=Equipo(1,"P1",111)
 jug2=Equipo(2,"P2",222)
+jug2.set_formacion(Formacion352())
+jug1.set_formacion(Formacion442())
 print("plantilla jugador 1")
 jug1.mostrar_plantilla_lista()
 jug1.mostrar_plantilla_matriz()

@@ -61,6 +61,8 @@ class Equipo:
     
     def set_formacion(self, nueva_formacion:FormacionStartegy):
         self._formacion=nueva_formacion
+        self._formacion.set_equipo(self._plantilla_equipo)
+        self._formacion.formar()
     
     def nuevo_equipo(self):
         self._plantilla_equipo=self._generar_equipo_random()
