@@ -27,6 +27,20 @@ def dibujar_formaciones(SCREEN, formaciones, formacion_actual):
             SCREEN.blit(CARTA_IMAGEN, (x, y))
 
 
+def texto_formacion(formacion_actual):
+    COLOR_FONDO = (128, 128, 128)
+    TEXTO_FORMACION = get_fuente(75).render(
+        f"FORMACION {formacion_actual}", True, "White"
+    )
+    FORMACION_RECT = TEXTO_FORMACION.get_rect(
+        center=(int(ANCHO * 0.5), int(ALTO * 0.08))
+    )
+    margen = 9
+    fondo_rect = FORMACION_RECT.inflate(margen * 2, margen * 2)
+    pygame.draw.rect(SCREEN, COLOR_FONDO, fondo_rect, border_radius=15)
+    SCREEN.blit(TEXTO_FORMACION, FORMACION_RECT)
+
+
 def jugar():
     formacion_actual = FORMACION_PREDETERMINADA
     pygame.display.set_caption("JUGANDO")
@@ -42,12 +56,11 @@ def jugar():
         CANCHA_IMAGEN = pygame.transform.scale(CANCHA_IMAGEN, (ANCHO // 2, ALTO))
         SCREEN.blit(CANCHA_IMAGEN, (int(ANCHO * 0.25), 0))
         dibujar_formaciones(SCREEN, FORMACIONES, formacion_actual)
+        texto_formacion(formacion_actual)
 
         # CAMBIAR FORMACION
-        boton_flecha = pygame.image.load(FLECHA_IZQUIERDA)
-        boton_flecha = pygame.transform.scale(boton_flecha, (65, 65))
         CAMBIAR_FORMACION_ATRAS = Boton(
-            boton_flecha,
+            boton_flecha_izquierda,
             (ANCHO * 0.31, ALTO * 0.077),
             "  ",
             get_fuente(30),
@@ -57,6 +70,16 @@ def jugar():
         CAMBIAR_FORMACION_ATRAS.changeColor(JUGAR_POS_MOUSE)
         CAMBIAR_FORMACION_ATRAS.update(SCREEN)
 
+        CAMBIAR_FORMACION_ADELANTE = Boton(
+            boton_flecha_derecha,
+            (ANCHO * 0.69, ALTO * 0.077),
+            "  ",
+            get_fuente(30),
+            BLANCO,
+            ROJO,
+        )
+        CAMBIAR_FORMACION_ADELANTE.changeColor(JUGAR_POS_MOUSE)
+        CAMBIAR_FORMACION_ADELANTE.update(SCREEN)
         JUGAR_ATRAS = Boton(
             boton_rojo_cuadrado,
             (ANCHO * 0.045, ALTO * 0.08),
@@ -68,13 +91,6 @@ def jugar():
         JUGAR_ATRAS.changeColor(JUGAR_POS_MOUSE)
         JUGAR_ATRAS.update(SCREEN)
         # ------------
-        COLOR_FONDO = (128, 128, 128)
-        TEXTO_FORMACION = get_fuente(75).render(
-            f"FORMACION {formacion_actual}", True, "White"
-        )
-        FORMACION_RECT = TEXTO_FORMACION.get_rect(
-            center=(int(ANCHO * 0.5), int(ALTO * 0.08))
-        )
         # -------------
         JUGAR_COMIENZA = Boton(
             boton_verde,
@@ -99,10 +115,6 @@ def jugar():
         # DADO.changeColor(JUGAR_POS_MOUSE)
         DADO.update(SCREEN)
         #  -------------
-        margen = 9
-        fondo_rect = FORMACION_RECT.inflate(margen * 2, margen * 2)
-        pygame.draw.rect(SCREEN, COLOR_FONDO, fondo_rect, border_radius=15)
-        SCREEN.blit(TEXTO_FORMACION, FORMACION_RECT)
         # ------------
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -113,8 +125,15 @@ def jugar():
                     cancha()
                 elif JUGAR_ATRAS.checkForInput(JUGAR_POS_MOUSE):
                     menu_principal()
-                elif CAMBIAR_FORMACION_ATRAS.checkForInput(JUGAR_POS_MOUSE):
-                    menu_principal()
+                elif CAMBIAR_FORMACION_ATRAS.checkForInput(
+                    JUGAR_POS_MOUSE
+                ) or CAMBIAR_FORMACION_ADELANTE.checkForInput(JUGAR_POS_MOUSE):
+                    if formacion_actual == "4-4-2":
+                        formacion_actual = "4-3-3"
+                        texto_formacion(formacion_actual)
+                    else:
+                        formacion_actual = "4-4-2"
+                        texto_formacion(formacion_actual)
 
         clock.tick(FPS)
         pygame.display.update()
