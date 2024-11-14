@@ -22,6 +22,22 @@ COLOR_FONDO = NEGRO
 
 # Configuracion del juego
 FPS = 60
+FORMACION_PREDETERMINADA = "4-4-2"
+POSICIONES = ["delanteros", "mediocampistas", "defensas", "portero"]
+FORMACIONES = {
+    "4-3-3": {
+        "delanteros": [(0.37, 0.19), (0.47, 0.17), (0.57, 0.19)],  # tupla: (ancho,alto)
+        "mediocampistas": [(0.37, 0.41), (0.47, 0.43), (0.57, 0.41)],
+        "defensas": [(0.32, 0.62), (0.42, 0.64), (0.52, 0.64), (0.62, 0.62)],
+        "portero": [(0.47, 0.83)],
+    },
+    "4-4-2": {
+        "delanteros": [(0.42, 0.17), (0.52, 0.17)],
+        "mediocampistas": [(0.33, 0.39), (0.43, 0.42), (0.51, 0.42), (0.61, 0.39)],
+        "defensas": [(0.32, 0.62), (0.42, 0.64), (0.52, 0.64), (0.62, 0.62)],
+        "portero": [(0.47, 0.83)],
+    },
+}
 
 # Recursos
 IMAGEN_FONDO = "src/assets/images/scene.jpg"
@@ -46,6 +62,7 @@ BOTON_NEGRO = "src/assets/images/BotonNegro.png"
 FUENTE = "src/assets/font/Pixeltype.ttf"
 EMOJIS = "src/assets/font/NotoEmoji-Regular.ttf"
 IMAGEN_CANCHA_OFICIAL = "src/assets/images/canchita.png"
+FLECHA_IZQUIERDA = "src/assets/images/flechaIzquierda.png"
 
 
 def get_fuente(tamanio):
@@ -72,6 +89,7 @@ clock = pygame.time.Clock()
 
 boton_surface = pygame.image.load(IMAGEN_BOTON4)
 boton_surface = pygame.transform.scale(boton_surface, (250, 80))
+
 
 boton_cuadrado = pygame.image.load(IMAGEN_CUADRADO)
 boton_cuadrado = pygame.transform.scale(boton_cuadrado, (75, 75))
