@@ -344,6 +344,16 @@ def opciones():
         pygame.display.update()
 
 
+def actualizar_ranking(usuarios):
+    for i, usuario in enumerate(usuarios):
+        texto = f"{i + 1}. {usuario.get_nombre()} - {usuario.get_score()}"
+        texto_usuario = get_fuente(72).render(texto, True, NEGRO)
+        SCREEN.blit(texto_usuario, (ANCHO // 2 - 120, 170 + i * 50))
+    TEXTO_TABLA = get_fuente(50).render("USUARIO - PUNTUACION", True, NEGRO)
+    TEXTO_TABLA_RECT = TEXTO_TABLA.get_rect(center=(int(ANCHO * 0.52), int(ALTO * 0.2)))
+    SCREEN.blit(TEXTO_TABLA, TEXTO_TABLA_RECT)
+
+
 def ranking():
     while True:
         SCREEN.fill("black")
@@ -356,17 +366,7 @@ def ranking():
             IMAGEN_RANKING_USUARIOS, (ANCHO // 3, ALTO - 100)
         )
         SCREEN.blit(IMAGEN_RANKING_USUARIOS, (int(ANCHO * 0.35), int(ALTO * 0.1)))
-
-        for i, usuario in enumerate(usuarios):
-            texto = f"{i + 1}. {usuario.get_nombre()} - {usuario.get_score()}"
-            texto_usuario = get_fuente(72).render(texto, True, NEGRO)
-            SCREEN.blit(texto_usuario, (ANCHO // 2 - 120, 170 + i * 50))
-
-        TEXTO_TABLA = get_fuente(50).render("USUARIO - PUNTUACION", True, NEGRO)
-        TEXTO_TABLA_RECT = TEXTO_TABLA.get_rect(
-            center=(int(ANCHO * 0.52), int(ALTO * 0.2))
-        )
-        SCREEN.blit(TEXTO_TABLA, TEXTO_TABLA_RECT)
+        actualizar_ranking(usuarios)
 
         RANKING_ACTUALIZAR = Boton(
             boton_cuadrado,
@@ -398,8 +398,8 @@ def ranking():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if RANKING_ACTUALIZAR.checkForInput(RANKING_POS_MOUSE):
-                    # wip
-                    pass
+                    usuarios_actualizado = abmusuario.get_all()
+                    actualizar_ranking(usuarios_actualizado)
                 if RANKING_ATRAS.checkForInput(RANKING_POS_MOUSE):
                     menu_principal()
         clock.tick(60)
