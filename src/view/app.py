@@ -178,7 +178,7 @@ def cancha():
 
         CANCHA_ATRAS = Boton(
             boton_rojo_cuadrado,
-            (ANCHO * 0.045, ALTO * 0.09),
+            (ANCHO * 0.035, ALTO * 0.065),
             "🔙",
             pygame.font.Font(EMOJIS, 75),
             BLANCO,
