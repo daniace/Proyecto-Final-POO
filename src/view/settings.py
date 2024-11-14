@@ -40,6 +40,7 @@ IMAGEN_RANKING = "src/assets/images/ranking.jpg"
 IMAGEN_DADO = "src/assets/images/dado_1.png"
 HOME = "src/assets/images/Home.png"
 IMAGEN_BOTON6 = "src/assets/images/boton6.png"
+IMAGEN_BOTON7 = "src/assets/images/boton7.png"
 # Fuentes
 FUENTE = "src/assets/font/Pixeltype.ttf"
 EMOJIS = "src/assets/font/NotoEmoji-Regular.ttf"
@@ -77,11 +78,20 @@ boton_cuadrado = pygame.transform.scale(boton_cuadrado, (75, 75))
 boton_home = pygame.image.load(HOME)
 boton_home = pygame.transform.scale(boton_home, (70, 70))
 
+boton_rojo = pygame.image.load(IMAGEN_BOTON5)
+boton_rojo = pygame.transform.scale(boton_rojo, (250, 80))
+
 boton_rojo_cuadrado = pygame.image.load(IMAGEN_BOTON5)
 boton_rojo_cuadrado = pygame.transform.scale(boton_rojo_cuadrado, (75, 75))
 
 boton_verde = pygame.image.load(IMAGEN_BOTON6)
 boton_verde = pygame.transform.scale(boton_verde, (250, 80))
+
+boton_verde_cuadrado = pygame.image.load(IMAGEN_BOTON6)
+boton_verde_cuadrado = pygame.transform.scale(boton_verde_cuadrado, (75, 75))
+
+boton_amarillo = pygame.image.load(IMAGEN_BOTON7)
+boton_amarillo = pygame.transform.scale(boton_amarillo, (250, 80))
 
 boton_dado = pygame.image.load(IMAGEN_DADO)
 boton_dado = pygame.transform.scale(boton_dado, (95, 95))
