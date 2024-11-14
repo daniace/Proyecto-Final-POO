@@ -1,5 +1,7 @@
 from collections import deque
 
+"MATRIZ DEBERIA SER LA CANCHA DE FUTBOL"
+
 
 def encontrar_jugadores(matriz, punto_referencia, numero):
     filas = len(matriz)
@@ -24,7 +26,7 @@ def encontrar_jugadores(matriz, punto_referencia, numero):
         # Verificar si encontramos un 1
         if matriz[fila_actual][columna_actual] == numero:
             puntos_cercanos.append(((fila_actual, columna_actual), distancia))
-            if len(puntos_cercanos) > 3:
+            if len(puntos_cercanos) > 4:
                 puntos_cercanos.sort(key=lambda x: x[1])
                 puntos_cercanos.pop()
         # Explorar los vecinos
@@ -44,14 +46,17 @@ def encontrar_jugadores(matriz, punto_referencia, numero):
 
 # Si no se encuentra un 1 en la matriz
 matriz = [
-    [0, 1, 0, 0, 2, 0, 2, 0],
-    [0, 1, 2, 1, 2, 1, 2, 0],
-    [1, 0, 0, 1, 0, 1, 0, 2],
-    [0, 1, 2, 1, 2, 1, 2, 0],
-    [0, 1, 0, 0, 2, 0, 2, 0],
+    [0, 0, 0, 1, 0, 0, 0],
+    [1, 0, 1, 0, 1, 0, 1],
+    [0, 0, 2, 0, 2, 0, 0],
+    [1, 0, 1, 0, 1, 0, 1],
+    [2, 0, 2, 0, 2, 0, 2],
+    [0, 0, 1, 0, 1, 0, 0],
+    [2, 0, 2, 0, 2, 0, 2],
+    [0, 0, 0, 2, 0, 0, 0],
 ]
 
-punto_referencia = (0, 0)
+punto_referencia = (3, 0)
 puntos_cercanos = encontrar_jugadores(matriz, punto_referencia, 1)
 for punto, distancia in puntos_cercanos:
     print(f"El 1 está en la posición {punto} a una distancia de {distancia}")
