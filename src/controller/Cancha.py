@@ -1,4 +1,8 @@
 from formacion import Formacion433,Formacion442
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))) 
+from database.Equipo import Equipo
 
 class Cancha:
     def __init__(self) -> None:
@@ -16,26 +20,28 @@ class Cancha:
             print(i)
 
     def agregar_plantilla_uno(self,formacion):
-        self._cancha[0]=formacion[0]
-        self._cancha[1]=formacion[1]
-        self._cancha[3]=formacion[2]
-        self._cancha[5]=formacion[3]
+        self._cancha[0] = [str(jugador) if jugador else '              ' for jugador in formacion[0]]
+        self._cancha[1] = [str(jugador) if jugador else '              ' for jugador in formacion[1]]
+        self._cancha[3] = [str(jugador) if jugador else '              ' for jugador in formacion[2]]
+        self._cancha[5] = [str(jugador) if jugador else '              ' for jugador in formacion[3]]
     def agregar_plantilla_dos(self,formacion):
-        self._cancha[7]=formacion[0]
-        self._cancha[6]=formacion[1]
-        self._cancha[4]=formacion[2]
-        self._cancha[2]=formacion[3]
+        self._cancha[7] = [str(jugador) if jugador else '              ' for jugador in formacion[0]]
+        self._cancha[6] = [str(jugador) if jugador else '              ' for jugador in formacion[1]]
+        self._cancha[4] = [str(jugador) if jugador else '              ' for jugador in formacion[2]]
+        self._cancha[2] = [str(jugador) if jugador else '              ' for jugador in formacion[3]]
 
 
-# matr=Cancha()
-# matr.mostrar_cancha()
-# jugadores=['player 1','player 1','player 1','player 1','player 1','player 1','player 1','player 1','player 1','player 1','player 1']
-# juagroes2=['player 2','player 2','player 2','player 2','player 2','player 2','player 2','player 2','player 2','player 2','player 2']
-# plantilla1=Formacion442(jugadores)
-# plantilla1.formar()
-# plantilla2=Formacion433(juagroes2)
-# plantilla2.formar()
-# matr.agregar_plantilla_uno(plantilla1.matriz)
-# matr.agregar_plantilla_dos(plantilla2.matriz)
-# print()
-# matr.mostrar_cancha()
+cancha=Cancha()
+jug1=Equipo(1,"P1",111)
+jug2=Equipo(2,"P2",222)
+print("plantilla jugador 1")
+jug1.mostrar_plantilla_lista()
+jug1.mostrar_plantilla_matriz()
+print("plantilla jugador 2")
+jug2.mostrar_plantilla_lista()
+jug2.mostrar_plantilla_matriz()
+
+cancha.agregar_plantilla_uno(jug1.get_matriz_jugadores())
+cancha.agregar_plantilla_dos(jug2.get_matriz_jugadores())
+print ("\n jugadores en cancha:\n")
+cancha.mostrar_cancha()

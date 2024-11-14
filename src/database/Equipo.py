@@ -1,6 +1,6 @@
 import os
 import sys
-from AbmCarta import AbmCarta
+from database.AbmCarta import AbmCarta
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))  # se agerego para que pueda leer la clase carta xd
 from controller.formacion import *
 import random
@@ -40,6 +40,9 @@ class Equipo:
         cartas += random.sample(defensores, self._formacion.cantidad_dfc())
         cartas += random.sample(mediocampistas, self._formacion.cantidad_mc())
         cartas += random.sample(delanteros, self._formacion.cantidad_dc())
+        
+        self._formacion.set_equipo(cartas)
+        self._formacion.formar()
 
         self.__generador.close()
 
@@ -51,9 +54,10 @@ class Equipo:
 
     def mostrar_plantilla_matriz(self):
         print("formacion: ",self._formacion.cantidad_dfc(),"-",self._formacion.cantidad_mc(),"-",self._formacion.cantidad_dc())
-        self._formacion.set_equipo(self._plantilla_equipo)
-        self._formacion.formar()
         self._formacion.mostrar_formacion()
+    
+    def get_matriz_jugadores(self):
+        return self._formacion.get_matriz()
     
     def set_formacion(self, nueva_formacion:FormacionStartegy):
         self._formacion=nueva_formacion
@@ -61,14 +65,3 @@ class Equipo:
     def nuevo_equipo(self):
         self._plantilla_equipo=self._generar_equipo_random()
 
-
-# us=Equipo(2,'hola fc',1) #inicia con la formacion predeterminada#
-# print("plantilla equipo 1:")
-# us.mostrar_plantilla_lista()
-# us2=Equipo(22,'chau fc',99) #inicia con la fromacion predeterminada#
-# us2.set_formacion(Formacion442())#se le setea una nueva fromacion#
-# print("plantilla equipo 2:")
-# us2.mostrar_plantilla_lista()
-# us.nuevo_equipo()
-# print("nueva plantilla equipo 1:")
-# us.mostrar_plantilla_lista()

@@ -40,7 +40,8 @@ class FormacionStartegy(ABC):
         pass
     def cantidad_dc(self):
         pass
-
+    def get_matriz(self):
+        return self._matriz
 
 class Formacion442(FormacionStartegy):
     
