@@ -6,17 +6,15 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))) 
 from database.Carta import Carta
 
 class FormacionStartegy(ABC):
-    def __init__(self,equipo:List[Carta]) -> None: 
-        self._formacion=''
-        self._equipo: List[Carta]=equipo    
+    def __init__(self) -> None: 
+        self._equipo: List[Carta]=[]
         self._matriz=[[0,0,0,0,0,0,0],#arquero#
                       [0,0,0,0,0,0,0],#defensa#
                       [0,0,0,0,0,0,0],#mediocampo#
                       [0,0,0,0,0,0,0]]#delanteros#
-
     
-    def get_formacion(self):
-        return self._formacion
+    def set_equipo(self,equipo:List[Carta]):
+        self._equipo=equipo
 
     @abstractmethod
     def formar(self, equipo):
@@ -32,12 +30,20 @@ class FormacionStartegy(ABC):
         for fila in self._matriz:
             fila_str= [str(jugador) if jugador != 0 else "              " for jugador in fila]
             print(fila_str,"\n")
+    
+    def cantidad_arqueros(self):
+        return 1
+    
+    def cantidad_dfc(self):
+        pass
+    def cantidad_mc(self):
+        pass
+    def cantidad_dc(self):
+        pass
+
 
 class Formacion442(FormacionStartegy):
     
-    def __init__(self, equipo: List[Carta]) -> None:
-        super().__init__(equipo)
-        self._formacion='4-4-2'
         
     def formar(self):
         #arquero#
@@ -56,14 +62,19 @@ class Formacion442(FormacionStartegy):
         self._matriz[3][2]=self._equipo[9]
         self._matriz[3][4]=self._equipo[10]
         return self._matriz
+    
+    def cantidad_dfc(self):
+        return 4
+    
+    def cantidad_mc(self):
+        return 4
+    
+    def cantidad_dc(self):
+        return 2
 
 
 class Formacion433(FormacionStartegy):
     
-    def __init__(self, equipo: List[Carta]) -> None:
-        super().__init__(equipo)
-        self._formacion='4-3-3'
-        
     def formar(self):
         #arquero#
         self._matriz[0][3]=self._equipo[0]
@@ -81,6 +92,15 @@ class Formacion433(FormacionStartegy):
         self._matriz[3][3]=self._equipo[9]
         self._matriz[3][5]=self._equipo[10]
         return self._matriz
+    
+    def cantidad_dfc(self):
+        return 4
+    
+    def cantidad_mc(self):
+        return 3
+    
+    def cantidad_dc(self):
+        return 3
 
 # team = [1,2,3,4,5,6,7,8,9,10,11]
 # formacion=Formacion442(team)
