@@ -63,6 +63,7 @@ FUENTE = "src/assets/font/Pixeltype.ttf"
 EMOJIS = "src/assets/font/NotoEmoji-Regular.ttf"
 IMAGEN_CANCHA_OFICIAL = "src/assets/images/canchita.png"
 FLECHA_IZQUIERDA = "src/assets/images/flechaIzquierda.png"
+FLECHA_DERECHA = "src/assets/images/flechaDerecha.png"
 
 
 def get_fuente(tamanio):
@@ -89,6 +90,12 @@ clock = pygame.time.Clock()
 
 boton_surface = pygame.image.load(IMAGEN_BOTON4)
 boton_surface = pygame.transform.scale(boton_surface, (250, 80))
+
+boton_flecha_izquierda = pygame.image.load(FLECHA_IZQUIERDA)
+boton_flecha_izquierda = pygame.transform.scale(boton_flecha_izquierda, (65, 65))
+
+boton_flecha_derecha = pygame.image.load(FLECHA_DERECHA)
+boton_flecha_derecha = pygame.transform.scale(boton_flecha_derecha, (65, 65))
 
 
 boton_cuadrado = pygame.image.load(IMAGEN_CUADRADO)
