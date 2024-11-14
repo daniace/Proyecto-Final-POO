@@ -181,12 +181,27 @@ def jugar():
 
 def cancha():
     while True:
+        SCREEN.fill(NEGRO)
         SCREEN.blit(BG_CANCHA_OFICIAL, (0, 0))
+
+        JUGAR_ATRAS = Boton(
+            boton_rojo_cuadrado,
+            (ANCHO * 0.045, ALTO * 0.09),
+            "🔙",
+            pygame.font.Font(EMOJIS, 75),
+            BLANCO,
+            ROJO,
+        )
+        JUGAR_ATRAS.changeColor(pygame.mouse.get_pos())
+        JUGAR_ATRAS.update(SCREEN)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if JUGAR_ATRAS.checkForInput(pygame.mouse.get_pos()):
+                    menu_principal()
 
         clock.tick(60)
         pygame.display.update()

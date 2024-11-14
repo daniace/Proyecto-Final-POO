@@ -43,7 +43,7 @@ IMAGEN_BOTON6 = "src/assets/images/boton6.png"
 # Fuentes
 FUENTE = "src/assets/font/Pixeltype.ttf"
 EMOJIS = "src/assets/font/NotoEmoji-Regular.ttf"
-IMAGEN_CANCHA_OFICIAL = "src/assets/images/canchafubo.jpeg"
+IMAGEN_CANCHA_OFICIAL = "src/assets/images/canchita.png"
 
 
 def get_fuente(tamanio):
@@ -65,7 +65,7 @@ BG_FORMACION = pygame.transform.scale(bg_formacion, TAMANIO_PANTALLA)
 bg_ranking = pygame.image.load(IMAGEN_RANKING)
 BG_RANKING = pygame.transform.scale(bg_ranking, TAMANIO_PANTALLA)
 bg_cancha_oficial = pygame.image.load(IMAGEN_CANCHA_OFICIAL)
-BG_CANCHA_OFICIAL = pygame.transform.scale(bg_cancha_oficial, TAMANIO_PANTALLA)
+BG_CANCHA_OFICIAL = pygame.transform.scale(bg_cancha_oficial, (ANCHO, ALTO // 1.3))
 clock = pygame.time.Clock()
 
 boton_surface = pygame.image.load(IMAGEN_BOTON4)
