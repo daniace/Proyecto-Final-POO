@@ -164,19 +164,11 @@ def jugar():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if JUGAR_COMIENZA.checkForInput(JUGAR_POS_MOUSE):
                     cancha()
+                elif JUGAR_ATRAS.checkForInput(JUGAR_POS_MOUSE):
+                    menu_principal()
 
         clock.tick(FPS)
         pygame.display.update()
-        # for event in pygame.event.get():
-        #     if event.type == pygame.QUIT:
-        #         pygame.quit()
-        #         sys.exit()  # ESTE FOR SE TENDRA QUE IMPLEMENTAR EN EL CONTROLADOR
-        #         # Y ACA SOLO LLAMAMOS A LA VARIABLE/FUNCION DE DICHO CONTROLADOR Y SUS PARAMETROS
-        #     if event.type == pygame.MOUSEBUTTONDOWN:
-        #         if JUGAR_ATRAS.checkForInput(JUGAR_POS_MOUSE):
-        #             menu_principal()
-        # clock.tick(60)
-        # pygame.display.update()
 
 
 def cancha():
@@ -277,57 +269,57 @@ def opciones():
         SCREEN.blit(control2_img, (int(ANCHO * 0.54), int(ALTO * 0.4)))
 
         FACIL = Boton(
-            boton_surface,
+            boton_verde,
             (int(ANCHO * 0.4), int(ALTO * 0.3)),
             "FACIL",
             get_fuente(75),
-            "Black",
             "White",
+            "Green",
         )
 
         NORMAL = Boton(
-            boton_surface,
+            boton_amarillo,
             (int(ANCHO * 0.6), int(ALTO * 0.3)),
             "NORMAL",
             get_fuente(75),
-            "Black",
             "White",
+            "Yellow",
         )
 
         DIFICIL = Boton(
-            boton_surface,
+            boton_rojo,
             (int(ANCHO * 0.8), int(ALTO * 0.3)),
             "DIFICIL",
             get_fuente(75),
-            "Black",
-            "White",
+            BLANCO,
+            ROJO,
         )
 
         SONIDO_ON = Boton(
-            boton_surface,
+            boton_verde,
             (int(ANCHO * 0.4), int(ALTO * 0.45)),
             "ON",
             get_fuente(75),
-            "Black",
             "White",
+            "Green",
         )
 
         SONIDO_OFF = Boton(
-            boton_surface,
+            boton_rojo,
             (int(ANCHO * 0.6), int(ALTO * 0.45)),
             "OFF",
             get_fuente(75),
-            "Black",
             "White",
+            "Red",
         )
 
         OPCIONES_ATRAS = Boton(
-            boton_surface,
-            (int(ANCHO * 0.88), int(ALTO * 0.9)),
-            "ATRAS",
-            get_fuente(75),
-            "Black",
+            boton_rojo_cuadrado,
+            (int(ANCHO * 0.95), int(ALTO * 0.9)),
+            "🔙",
+            pygame.font.Font(EMOJIS, 75),
             "White",
+            "Red",
         )
 
         # JUGAR_ATRAS = Boton(
@@ -414,19 +406,19 @@ def ranking():
             "🔄",
             pygame.font.FontType(EMOJIS, 50),
             BLANCO,
-            NEGRO,
+            VERDE,
         )
 
         RANKING_ACTUALIZAR.changeColor(RANKING_POS_MOUSE)
         RANKING_ACTUALIZAR.update(SCREEN)
 
         RANKING_ATRAS = Boton(
-            boton_surface,
+            boton_rojo,
             (ANCHO * 0.88, ALTO * 0.9),
             "ATRAS",
             get_fuente(75),
             BLANCO,
-            NEGRO,
+            ROJO,
         )
 
         RANKING_ATRAS.changeColor(RANKING_POS_MOUSE)
@@ -474,7 +466,7 @@ def menu_principal():
         )
         BOTON_OPCIONES = Boton(
             boton_surface,
-            (int(ANCHO * 0.5), int(ALTO * 0.5 + 90)),
+            (int(ANCHO * 0.5), int(ALTO * 0.5 + 180)),
             "OPCIONES",
             get_fuente(75),
             BLANCO,
@@ -483,7 +475,7 @@ def menu_principal():
 
         BOTON_RANKING = Boton(
             boton_surface,
-            (int(ANCHO * 0.5), int(ALTO * 0.5 + 180)),
+            (int(ANCHO * 0.5), int(ALTO * 0.5 + 90)),
             "RANKING",
             get_fuente(75),
             BLANCO,
@@ -491,12 +483,12 @@ def menu_principal():
         )
 
         BOTON_SALIR = Boton(
-            boton_surface,
+            boton_rojo,
             (int(ANCHO * 0.5), int(ALTO * 0.5 + 270)),
             "SALIR",
             get_fuente(75),
             BLANCO,
-            NEGRO,
+            ROJO,
         )
 
         SCREEN.blit(MENU_TEXTO, MENU_RECT)

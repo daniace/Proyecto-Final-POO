@@ -18,11 +18,21 @@ class jugador:
 
 
 class Partido:
+    def __init__(self):
+        self.posicion_actual = None
+
+    def encontrar_cercanos(self):
+        self.posicion_actual
+        pass
+
     def pase(self, jugador1, jugador2, maquina):
         if jugador1.hacer_pase() and not maquina.interceptar():
             jugador2.tiene_lapelota = True
+            self.posicion_actual = jugador2.posicion_actual()
+
             jugador1.tiene_lapelota = False
         else:
             maquina.tiene_lapelota = True
             jugador1.tiene_lapelota = False
+            self.posicion_actual = maquina.posicion_actual()
         # la maquina agarra la pelota

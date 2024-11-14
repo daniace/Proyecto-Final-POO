@@ -67,7 +67,7 @@ class Equipo:
         self._jugadores = jugadores
         self.__formacion = formacion
         self.__nro_equipo = nro_equipo
-        self.__equipo = self.establecer_formacion()
+        self.__equipo = self.establecer_formacion(self.__nro_equipo)
 
     @property
     def equipo(self):
@@ -82,18 +82,19 @@ class Equipo:
 
     def get_formacion(self, formacion):
         self.__formacion = formacion
-        self.__equipo = self.establecer_formacion()
+        self.__equipo = self.establecer_formacion(self.nro_equipo)
 
     @property
     def formacion(self):
         return self.__formacion
 
-    def establecer_formacion(self):
+    def establecer_formacion(self, nro_equipo):
         nro = self.__nro_equipo
-        formacion = self.__formacion().formar(nro)
+        formacion = self.__formacion().formar(nro_equipo)
         return formacion
 
     def imprimir_jugadores(self):
         print("Formación en el campo:")
         for fila in self.__equipo:
             print(fila)
+
