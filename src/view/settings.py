@@ -41,6 +41,7 @@ IMAGEN_DADO = "src/assets/images/dado_1.png"
 HOME = "src/assets/images/Home.png"
 IMAGEN_BOTON6 = "src/assets/images/boton6.png"
 IMAGEN_BOTON7 = "src/assets/images/boton7.png"
+BOTON_NEGRO = "src/assets/images/BotonNegro.png"
 # Fuentes
 FUENTE = "src/assets/font/Pixeltype.ttf"
 EMOJIS = "src/assets/font/NotoEmoji-Regular.ttf"
@@ -95,6 +96,9 @@ boton_amarillo = pygame.transform.scale(boton_amarillo, (250, 80))
 
 boton_dado = pygame.image.load(IMAGEN_DADO)
 boton_dado = pygame.transform.scale(boton_dado, (95, 95))
+
+boton_negro = pygame.image.load(BOTON_NEGRO)
+boton_negro = pygame.transform.scale(boton_negro, (250, 100))
 
 
 def get_fuente(tamanio):
