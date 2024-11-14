@@ -176,7 +176,7 @@ def cancha():
         SCREEN.fill(NEGRO)
         SCREEN.blit(BG_CANCHA_OFICIAL, (0, 0))
 
-        JUGAR_ATRAS = Boton(
+        CANCHA_ATRAS = Boton(
             boton_rojo_cuadrado,
             (ANCHO * 0.045, ALTO * 0.09),
             "🔙",
@@ -184,15 +184,15 @@ def cancha():
             BLANCO,
             ROJO,
         )
-        JUGAR_ATRAS.changeColor(pygame.mouse.get_pos())
-        JUGAR_ATRAS.update(SCREEN)
+        CANCHA_ATRAS.changeColor(pygame.mouse.get_pos())
+        CANCHA_ATRAS.update(SCREEN)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if JUGAR_ATRAS.checkForInput(pygame.mouse.get_pos()):
+                if CANCHA_ATRAS.checkForInput(pygame.mouse.get_pos()):
                     menu_principal()
 
         clock.tick(60)
@@ -540,8 +540,18 @@ def login():
             NEGRO,
         )
 
-        LOGIN.changeColor(pygame.mouse.get_pos())
-        LOGIN.update(SCREEN)
+        LOGIN_ATRAS = Boton(
+            boton_rojo_cuadrado,
+            (ANCHO * 0.045, ALTO * 0.09),
+            "🔙",
+            pygame.font.Font(EMOJIS, 75),
+            BLANCO,
+            ROJO,
+        )
+
+        for boton in [LOGIN, LOGIN_ATRAS]:
+            boton.changeColor(pygame.mouse.get_pos())
+            boton.update(SCREEN)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -553,6 +563,8 @@ def login():
                 else:
                     texto_usuario += event.unicode
             if event.type == pygame.MOUSEBUTTONDOWN:
+                if LOGIN_ATRAS.checkForInput(pygame.mouse.get_pos()):
+                    menu_principal()
                 if LOGIN.checkForInput(pygame.mouse.get_pos()):
                     usuario.set_nombre(texto_usuario)
                     abmusuario.insertar(usuario)
