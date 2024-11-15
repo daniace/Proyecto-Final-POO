@@ -19,16 +19,17 @@ class Cancha:
         for i in self._cancha:
             print(i)
 
-    def agregar_plantilla_uno(self,formacion):
+    def mapear_cancha(self,formacion,formacion2):
+        #equipo 1#
         self._cancha[0] = [str(jugador) if jugador else '              ' for jugador in formacion[0]]
         self._cancha[1] = [str(jugador) if jugador else '              ' for jugador in formacion[1]]
         self._cancha[3] = [str(jugador) if jugador else '              ' for jugador in formacion[2]]
         self._cancha[5] = [str(jugador) if jugador else '              ' for jugador in formacion[3]]
-    def agregar_plantilla_dos(self,formacion):
-        self._cancha[7] = [str(jugador) if jugador else '              ' for jugador in formacion[0]]
-        self._cancha[6] = [str(jugador) if jugador else '              ' for jugador in formacion[1]]
-        self._cancha[4] = [str(jugador) if jugador else '              ' for jugador in formacion[2]]
-        self._cancha[2] = [str(jugador) if jugador else '              ' for jugador in formacion[3]]
+        #equipo 2#
+        self._cancha[7] = [str(jugador) if jugador else '              ' for jugador in formacion2[0]]
+        self._cancha[6] = [str(jugador) if jugador else '              ' for jugador in formacion2[1]]
+        self._cancha[4] = [str(jugador) if jugador else '              ' for jugador in formacion2[2]]
+        self._cancha[2] = [str(jugador) if jugador else '              ' for jugador in formacion2[3]]
 
 
 cancha=Cancha()
@@ -43,7 +44,6 @@ print("plantilla jugador 2")
 jug2.mostrar_plantilla_lista()
 jug2.mostrar_plantilla_matriz()
 
-cancha.agregar_plantilla_uno(jug1.get_matriz_jugadores())
-cancha.agregar_plantilla_dos(jug2.get_matriz_jugadores())
+cancha.mapear_cancha(jug1.get_matriz_jugadores(),jug2.get_matriz_jugadores())
 print ("\n jugadores en cancha:\n")
 cancha.mostrar_cancha()
