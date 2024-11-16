@@ -33,20 +33,3 @@ class Cancha:
         self._cancha[6] = [str(jugador) if jugador else '0' for jugador in formacion2[1]]
         self._cancha[4] = [str(jugador) if jugador else '0' for jugador in formacion2[2]]
         self._cancha[2] = [str(jugador) if jugador else '0' for jugador in formacion2[3]]
-
-
-# cancha=Cancha()
-# jug1=Equipo(1,"P1",111)
-# jug2=Equipo(2,"P2",222)
-# jug2.set_formacion(Formacion352())
-# jug1.set_formacion(Formacion442())
-# print("plantilla jugador 1")
-# jug1.mostrar_plantilla_lista()
-# jug1.mostrar_plantilla_matriz()
-# print("plantilla jugador 2")
-# jug2.mostrar_plantilla_lista()
-# jug2.mostrar_plantilla_matriz()
-
-# cancha.mapear_cancha(jug1.get_matriz_jugadores(),jug2.get_matriz_jugadores())
-# print ("\n jugadores en cancha:\n")
-# cancha.mostrar_cancha()
