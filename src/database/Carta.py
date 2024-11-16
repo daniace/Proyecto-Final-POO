@@ -72,8 +72,10 @@ class Carta:
         return self.__disparo
 
     def get_pase(self):
-        return self.__pase
-
+        if self.__posicion == "GK": 
+            return self.__gk_kicking # ya que el arquero no tiene estadistica pase, se utiliza kicking que es lo mas cercano
+        return self.__pase if self.__pase is not None else 0
+    
     def get_gambeta(self):
         return self.__gambeta
 
