@@ -42,6 +42,7 @@ def texto_formacion(formacion_actual):
 
 
 def jugar():
+    comienza_partida = False
     formacion_actual = FORMACION_PREDETERMINADA
     pygame.display.set_caption("JUGANDO")
 
@@ -121,8 +122,11 @@ def jugar():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if JUGAR_COMIENZA.checkForInput(JUGAR_POS_MOUSE):
-                    cancha()
+                if DADO.checkForInput(JUGAR_POS_MOUSE):
+                    comienza_partida = True
+                elif comienza_partida:
+                    if JUGAR_COMIENZA.checkForInput(JUGAR_POS_MOUSE):
+                        cancha()
                 elif JUGAR_ATRAS.checkForInput(JUGAR_POS_MOUSE):
                     menu_principal()
                 elif CAMBIAR_FORMACION_ATRAS.checkForInput(
