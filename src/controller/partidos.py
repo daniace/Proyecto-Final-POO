@@ -1,20 +1,21 @@
 from Cronometro import Cronometro
 from Cancha import Cancha
-from database import Equipo
+from database.Equipo import Equipo
 import time
 
 class Partido():
-    def __init__(self,jugador1,jugador2) -> None: #jugador 1 y 2 tienen  que ser tipo usuario (al cual se le debe sumar un atributo, que tenga la clase Plantilla, la cual ocupa, las clases cartas y formaciones))#
+    def __init__(self,jugador1:Equipo,jugador2:Equipo) -> None: #jugador 1 y 2 tienen  que ser tipo usuario (al cual se le debe sumar un atributo, que tenga la clase Plantilla, la cual ocupa, las clases cartas y formaciones))#
         self._jugador1=jugador1
         self._jugador2=jugador2
         self._partido_en_curso=True
         self._cronometro=None
         self._cancha=Cancha()
+        self._equipo_con_posecion=None
     
     def mapear_cancha(self):
-        self._cancha.agregar_plantilla_uno(self._jugador1)
-        self._cancha.agregar_plantilla_dos(self._jugador2)
-    
+        self._cancha.mapear_cancha(self._jugador1.get_matriz_jugadores(),self._jugador2.get_matriz_jugadores())
+        self._cancha.mostrar_cancha()
+        
     def jugar_partido(self):
         self._partido_en_curso=True
         
@@ -30,3 +31,10 @@ class Partido():
                 print("hola") #aca estaria la logica del juego#
         print("fin del partido")
         self._cronometro.join()
+
+equipo1= Equipo(1,"P1",111)
+equipo2= Equipo(2,"P2",222)
+
+doparti=Partido(equipo1,equipo2)
+doparti.mapear_cancha()
+doparti.jugar_partido()
