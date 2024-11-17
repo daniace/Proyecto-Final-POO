@@ -89,7 +89,6 @@ class Equipo:
         return self.__formacion
 
     def establecer_formacion(self, nro_equipo):
-        nro = self.__nro_equipo
         formacion = self.__formacion().formar(nro_equipo)
         return formacion
 
@@ -98,3 +97,7 @@ class Equipo:
         for fila in self.__equipo:
             print(fila)
 
+
+jugadores = [3, 3, 3, 3, 3, 3, 3, 3]
+a = Equipo(jugadores, 1)
+a.imprimir_jugadores()

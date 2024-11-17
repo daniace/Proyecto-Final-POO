@@ -5,19 +5,20 @@ from database.Carta import Carta
 import time
 import random
 
+
 class Partido:
     def __init__(self, jugador1: Equipo) -> None:
         self._jugador1 = jugador1
         self._jugador2 = Equipo(1, "CPU FC", 99)
         self._partido_en_curso = True
         self._cronometro = None
-        self._cancha = Cancha()
+        self._cancha = Cancha(self._jugador1, self._jugador2)
         self._equipo_con_posecion = None
         self._jugador_con_pelota = None
-        #self._dificultad=dificultad# para empezar a programar
+        # self._dificultad=dificultad# para empezar a programar
 
     def mapear_cancha(self):
-        self._cancha.mapear_cancha(self._jugador1.get_matriz_jugadores(), self._jugador2.get_matriz_jugadores())
+        self._cancha.mapear_cancha()
         self._cancha.mostrar_cancha()
 
     def _encontrar_posicion_jugador(self, jugador):
@@ -43,7 +44,9 @@ class Partido:
             print("No hay jugadores disponibles para recibir el pase.")
             return []
 
-        print(f"Jugadores disponibles para recibir el pase de {self._jugador_con_pelota}:")
+        print(
+            f"Jugadores disponibles para recibir el pase de {self._jugador_con_pelota}:"
+        )
         for i, jugador in enumerate(posibles_receptores):
             print(f"{i + 1}. {jugador}")
         return posibles_receptores
@@ -64,7 +67,11 @@ class Partido:
             for ny in range(len(self._cancha.get_matriz_cancha()[nx])):
                 jugador = self._cancha.get_matriz_cancha()[nx][ny]
                 jugador_objeto = self._obtener_jugador_objeto(jugador)
-                if jugador != '0' and jugador != str(self._jugador_con_pelota) and jugador_objeto:
+                if (
+                    jugador != "0"
+                    and jugador != str(self._jugador_con_pelota)
+                    and jugador_objeto
+                ):
                     posibles_receptores.append(jugador_objeto)
         return posibles_receptores
 
@@ -78,7 +85,7 @@ class Partido:
     def _calcular_efectividad_pase(self, jugador_origen):
         atributo_pase = int(jugador_origen.get_pase())
         probabilidad = random.randint(0, 100)
-        print("el atributo pase:",atributo_pase)
+        print("el atributo pase:", atributo_pase)
         return probabilidad <= atributo_pase
 
     def _encontrar_jugador_contrario_mas_cercano(self, posicion):
@@ -87,9 +94,15 @@ class Partido:
         direcciones = [(-1, 0), (1, 0), (0, -1), (0, 1)]
         for dx, dy in direcciones:
             nx, ny = x + dx, y + dy
-            if 0 <= nx < len(self._cancha.get_matriz_cancha()) and 0 <= ny < len(self._cancha.get_matriz_cancha()[0]):
+            if 0 <= nx < len(self._cancha.get_matriz_cancha()) and 0 <= ny < len(
+                self._cancha.get_matriz_cancha()[0]
+            ):
                 jugador = self._cancha.get_matriz_cancha()[nx][ny]
-                if jugador != '0' and jugador not in [str(j) for fila in self._equipo_con_posecion.get_matriz_jugadores() for j in fila]:
+                if jugador != "0" and jugador not in [
+                    str(j)
+                    for fila in self._equipo_con_posecion.get_matriz_jugadores()
+                    for j in fila
+                ]:
                     jugadores_contrarios.append((nx, ny, jugador))
         return jugadores_contrarios[0] if jugadores_contrarios else None
 
@@ -102,7 +115,9 @@ class Partido:
         jugador_destino = self._seleccionar_destino(posibles_receptores)
         print(f"{self._jugador_con_pelota} intenta pasar el balón a {jugador_destino}.")
         if self._calcular_efectividad_pase(self._jugador_con_pelota):
-            print(f"{self._jugador_con_pelota} ha pasado el balón exitosamente a {jugador_destino}.")
+            print(
+                f"{self._jugador_con_pelota} ha pasado el balón exitosamente a {jugador_destino}."
+            )
             self._jugador_con_pelota = jugador_destino
         else:
             print(f"{self._jugador_con_pelota} falló el pase.")
@@ -112,7 +127,14 @@ class Partido:
         if self._equipo_con_posecion == self._jugador1:
             while True:
                 try:
-                    seleccion = int(input("Selecciona el número del jugador al que quieres pasar el balón: ")) - 1
+                    seleccion = (
+                        int(
+                            input(
+                                "Selecciona el número del jugador al que quieres pasar el balón: "
+                            )
+                        )
+                        - 1
+                    )
                     if 0 <= seleccion < len(posibles_receptores):
                         return posibles_receptores[seleccion]
                     else:
@@ -127,12 +149,18 @@ class Partido:
 
     def _manejar_pase_fallido(self):
         posicion_actual = self._encontrar_posicion_jugador(self._jugador_con_pelota)
-        jugador_contrario = self._encontrar_jugador_contrario_mas_cercano(posicion_actual)
+        jugador_contrario = self._encontrar_jugador_contrario_mas_cercano(
+            posicion_actual
+        )
         if jugador_contrario:
             x, y, jugador_mas_cercano = jugador_contrario
             print(f"{jugador_mas_cercano} toma la posesión del balón.")
             self._jugador_con_pelota = jugador_mas_cercano
-            self._equipo_con_posecion = self._jugador2 if self._equipo_con_posecion == self._jugador1 else self._jugador1
+            self._equipo_con_posecion = (
+                self._jugador2
+                if self._equipo_con_posecion == self._jugador1
+                else self._jugador1
+            )
 
     def jugar_partido(self):
         self._equipo_con_posecion = self._jugador1
@@ -150,17 +178,22 @@ class Partido:
             else:
                 if self._equipo_con_posecion == self._jugador1:
                     time.sleep(1)
-                    print(f"{self._jugador_con_pelota} tiene la pelota, ¿qué desea hacer?:\n 1 - Pase ")
+                    print(
+                        f"{self._jugador_con_pelota} tiene la pelota, ¿qué desea hacer?:\n 1 - Pase "
+                    )
                     decision = int(input("Seleccione alguna opción...  "))
                     match decision:
                         case 1:
                             self.pase()
                 else:
-                    print(f"{self._jugador_con_pelota} tiene la pelota, CPU está tomando una decisión...")
+                    print(
+                        f"{self._jugador_con_pelota} tiene la pelota, CPU está tomando una decisión..."
+                    )
                     self.pase()
 
         print("Fin del partido")
         self._cronometro.join()
+
 
 equipo1 = Equipo(1, "P1", 111)
 
