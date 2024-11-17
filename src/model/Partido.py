@@ -1,17 +1,21 @@
 from EquipoLogico import EquipoLogico
 from collections import deque
 from Cancha import Cancha
+from Cronometro import Cronometro
+from Dificultades import *
 import random
+import time
 
 class Partido:
-    def __init__(self, jugador1):
+    def __init__(self, jugador1:EquipoLogico,dificultad:Dificultad):
         self._jugador1 = jugador1
         self._jugador2 = EquipoLogico("CPU FC", 2)
         self._partido_en_curso = True
         self._cronometro = None
         self._cancha = Cancha(self._jugador1, self._jugador2)
-        self._equipo_con_posesion = None  # EQUIPO 1 O EQUIPO 2
-        self._posicion_pelota = None
+        self._equipo_con_posesion = 1  # EQUIPO 1 O EQUIPO 2
+        self._posicion_pelota = (0,3)
+        self._dificultad=dificultad
 
     def _jugador_con_pelota(self):
         jugador = self._cancha.get_diccionario_equipo1().get(self._posicion_pelota, None)
@@ -19,7 +23,12 @@ class Partido:
             jugador = self._cancha.get_diccionario_equipo2().get(self._posicion_pelota, None)
         return jugador
 
+    def imprimir_jugadores(self,lista_jugadores):
+        for i,j in lista_jugadores:
+            print(str(i),self._cancha.get_diccionario_equipo1().get(i,"sorry brodel, no esta"), "esta a una distancia de ", j)
+
     def puntos_cercanos(self):
+        print("entra a puntos cercanos")
         matriz = self._cancha.get_matriz_cancha()
         filas = len(matriz)
         columnas = len(matriz[0])
@@ -76,16 +85,23 @@ class Partido:
     def _calcular_efectividad_pase(self, jugador_origen):
         atributo_pase = int(jugador_origen.get_pase())
         print("probabilidad de pase correcto: ",atributo_pase)# Obtener el atributo de pase del jugador
-        probabilidad = random.randint(0, 100)
+        probabilidad = random.randint(0, self._dificultad.get_probaibilidad())
         return probabilidad <= atributo_pase
 
     def realizar_pase(self):
+        print("entra a realizar pase")
         aliados_cercanos, _ = self.puntos_cercanos()
         if not aliados_cercanos:
             print("No hay jugadores disponibles para recibir el pase.")
             return
-
-        aliado_destino = aliados_cercanos[0][0]  # Elige el aliado más cercano
+        
+        self.imprimir_jugadores(aliados_cercanos)
+        decision=(int(input("\nseleccione opcion de pase : ")))
+        
+        while decision > len(aliados_cercanos) or decision == 0:
+            decision= int(input(("\n selccion no valida... selccione un pase")))
+        aliado_destino = aliados_cercanos[decision-1][0]# seleciona al jugador que uno eligio
+        
         jugador_con_pelota = self._jugador_con_pelota()
         
         if not jugador_con_pelota:
@@ -112,22 +128,43 @@ class Partido:
         print(f"La pelota es recuperada por el jugador en la posición {enemigo_mas_cercano}.")
         self._posicion_pelota = enemigo_mas_cercano
         self._equipo_con_posesion = 1 if self._equipo_con_posesion == 2 else 2
+    
+    def jugar_partido(self):
+        
+        self._partido_en_curso = True
+
+        if self._cronometro is None or not self._cronometro.is_alive():
+            self._cronometro = Cronometro()
+            self._cronometro.start()
+
+        while self._partido_en_curso:
+            if self._cronometro._evento_partido_terminado.is_set():
+                self._partido_en_curso = False
+            else:
+                if self._equipo_con_posesion == 1:
+                    time.sleep(1)
+                    print(f"{self._jugador_con_pelota()} tiene la pelota, ¿qué desea hacer?:\n 1 - Pase ")
+                    decision = int(input("Seleccione alguna opción...  "))
+                    match decision:
+                        case 1:
+                            self.realizar_pase()
+                else:
+                    print(f"{self._jugador_con_pelota()} tiene la pelota, CPU está tomando una decisión...")
+                    self.realizar_pase()
+
+        print("Fin del partido")
+        self._cronometro.join()
+
+
 
 # Ejemplo de uso
 e = EquipoLogico("leo", 1)
 p = Partido(e)
 p._cancha.mostrar_cancha()
 print()
+p.jugar_partido()
 
-p._posicion_pelota = (0, 3)
-p._equipo_con_posesion = 1
-p.realizar_pase()
-print("el equipo ",p._equipo_con_posesion," tiene la pelota la tinen el jugador ",{p._jugador_con_pelota()} )
-
-# print("posibles pases: \n")
-# p._posicion_pelota = (7, 3)
-# p._equipo_con_posesion = 2
-# print(p.jugadores_cercanos(2))
-# print()
-# print("posibles interceptores: \n")
-# print(p.jugadores_cercanos(1))
+# cosas que hacer:
+# metodo patear
+# programar IA
+# dificultades (facil, medio, dificil)#
