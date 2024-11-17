@@ -8,7 +8,7 @@ def encontrar_jugadores(matriz, punto_referencia, numero):
     columnas = len(matriz[0])
     visitado = [[False for _ in range(columnas)] for _ in range(filas)]
     movimientos = [
-        (-1, 0),
+        # (-1, 0), para que no evalue para atras
         (1, 0),
         (0, -1),
         (0, 1),
@@ -56,11 +56,22 @@ matriz = [
     [0, 0, 0, 2, 0, 0, 0],
 ]
 
-punto_referencia = (3, 0)
-puntos_cercanos = encontrar_jugadores(matriz, punto_referencia, 1)
-for punto, distancia in puntos_cercanos:
-    print(f"El 1 está en la posición {punto} a una distancia de {distancia}")
-print()
-puntos_cercanos = encontrar_jugadores(matriz, punto_referencia, 2)
-for punto, distancia in puntos_cercanos:
-    print(f"El 2 está en la posición {punto} a una distancia de {distancia}")
+for fila in matriz:
+    print(fila)
+
+
+def invertir_matriz_verticalmente(matriz):
+    return matriz[::-1]
+
+
+"integrar esto para que en el contrataque de la maquina"
+
+
+# punto_referencia = (3, 0)
+# puntos_cercanos = encontrar_jugadores(matriz, punto_referencia, 1)
+# for punto, distancia in puntos_cercanos:
+#     print(f"El 1 está en la posición {punto} a una distancia de {distancia}")
+# print()
+# puntos_cercanos = encontrar_jugadores(matriz, punto_referencia, 2)
+# for punto, distancia in puntos_cercanos:
+#     print(f"El 2 está en la posición {punto} a una distancia de {distancia}")

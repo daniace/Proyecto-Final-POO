@@ -72,10 +72,10 @@ class Carta:
         return self.__disparo
 
     def get_pase(self):
-        if self.__posicion == "GK": 
-            return self.__gk_kicking # ya que el arquero no tiene estadistica pase, se utiliza kicking que es lo mas cercano
+        if self.__posicion == "GK":
+            return self.__gk_kicking  # ya que el arquero no tiene estadistica pase, se utiliza kicking que es lo mas cercano
         return self.__pase if self.__pase is not None else 0
-    
+
     def get_gambeta(self):
         return self.__gambeta
 
@@ -123,6 +123,9 @@ class Carta:
             return f"{self.__nombre} ({self.__club}) - {self.__posicion} - {self.__valoracion} - {self.__gk_diving} - {self.__gk_handling} - {self.__gk_kicking} - {self.__gk_reflexes} - {self.__gk_speed} - {self.__gk_positioning}"
         else:
             return f"{self.__nombre} ({self.__club}) - {self.__posicion} - {self.__valoracion} - {self.__velocidad} - {self.__disparo} - {self.__pase} - {self.__gambeta} - {self.__defensa} - {self.__fisico}"
+
+    def __repr__(self):
+        return self.__str__()
 
     def get_str(self):
         return (
