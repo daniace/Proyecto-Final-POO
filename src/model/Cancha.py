@@ -67,9 +67,9 @@ class Cancha:
             print(f"{clave} : {valor}")
 
 
-# if __name__ == "__main__":
-#     e1 = EquipoLogico("equipo1", 1)
-#     e2 = EquipoLogico("equipo2", 2)
-#     c = Cancha(e1, e2)
-#     c.mostrar_cancha()
-#     # c.mostrar_diccionario()
+if __name__ == "__main__":
+    e1 = EquipoLogico("equipo1", 1)
+    e2 = EquipoLogico("equipo2", 2)
+    c = Cancha(e1, e2)
+    c.mostrar_cancha()
+    c.mostrar_diccionario()
