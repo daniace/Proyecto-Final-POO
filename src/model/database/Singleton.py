@@ -9,7 +9,7 @@ class Database:
 
     _instance = None
 
-    def __new__(cls, db_path="src\database\heroesdelbalon.db"):
+    def __new__(cls, db_path=r"src\model\database\heroesdelbalon.db"):
         if cls._instance is None:
             cls._instance = super(Database, cls).__new__(cls)
             cls._instance.connection = None
@@ -54,9 +54,9 @@ class Database:
                 cursor.execute(query)
             results = cursor.fetchall()
             return results
-            #for row in results:
-                #return row
-                #print(row)
+            # for row in results:
+            # return row
+            # print(row)
         except Error as e:
             print(f"Error al ejecutar la consulta: {e}")
 

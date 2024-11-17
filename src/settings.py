@@ -1,8 +1,8 @@
 import pygame
 
-from database.AbmCarta import AbmCarta
-from database.AbmUsuario import AbmUsuario
-from database.Usuario import Usuario
+from model.database.AbmCarta import AbmCarta
+from model.database.AbmUsuario import AbmUsuario
+from model.database.Usuario import Usuario
 
 # Configuracion de la pantalla
 ANCHO = 1280
@@ -65,10 +65,7 @@ IMAGEN_CANCHA_OFICIAL = "src/assets/images/canchita.png"
 FLECHA_IZQUIERDA = "src/assets/images/flechaIzquierda.png"
 FLECHA_DERECHA = "src/assets/images/flechaDerecha.png"
 
-
-def get_fuente(tamanio):
-    return pygame.font.Font(FUENTE, tamanio)
-
+pygame.font.init()
 
 # Sonidos
 SONIDO_FONDO = "src/assets/audio/soundtrack.wav"
@@ -140,4 +137,3 @@ usuarios = abmusuario.get_all()
 usuario = Usuario()
 
 POS_MOUSE = pygame.mouse.get_pos()
-
