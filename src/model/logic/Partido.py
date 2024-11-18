@@ -18,6 +18,7 @@ class Partido:
         self._equipo_con_posesion = 1  # EQUIPO 1 O EQUIPO 2
         self._posicion_pelota = (0, 3)
         self._acciones = Acciones(dificultad)  # VER SI ESTO QUEDA ASI
+        self._dificultad=dificultad
         self._goles = [0,0]
 
     def _jugador_con_pelota(self):
@@ -203,13 +204,28 @@ class Partido:
                     print(elemento, end=' ')
             print()
     
-    def _repartir_puntos(self,goles):
-        if goles[0] > goles[1]:
-            print("\033[1;32m"+f"{self._jugador1.get_nombre()} ha ganando! +3 pts"+"\033[0;m")
-        elif goles[0] == goles[1]:
-            print ("\033[1;36m"+f"{self._jugador1.get_nombre()} empato con {self._jugador2.get_nombre()} +1 pts"+"\033[0;m")
-        else:
-            print("\033[1:31m"+f"{self._jugador2.get_nombre()} ha ganado! +0 pts"+"\033[0;m")
+    def _repartir_puntos(self,goles,): ##
+        if self._dificultad==Facil():
+                if goles[0] > goles[1]:
+                    return print("\033[1;32m"+f"{self._jugador1.get_nombre()} ha ganando! +3 pts"+"\033[0;m")
+                elif goles[0] == goles[1]:
+                    return print ("\033[1;36m"+f"{self._jugador1.get_nombre()} empato con {self._jugador2.get_nombre()} +1 pts"+"\033[0;m")
+                else:
+                    return print("\033[1:31m"+f"{self._jugador2.get_nombre()} ha ganado! +0 pts"+"\033[0;m")
+        if self._dificultad==Medio():
+                if goles[0] > goles[1]:
+                    return print("\033[1;32m"+f"{self._jugador1.get_nombre()} ha ganando! +4 pts"+"\033[0;m")
+                elif goles[0] == goles[1]:
+                    return print ("\033[1;36m"+f"{self._jugador1.get_nombre()} empato con {self._jugador2.get_nombre()} +1 pts"+"\033[0;m")
+                else:
+                    return print("\033[1:31m"+f"{self._jugador2.get_nombre()} ha ganado! +0 pts"+"\033[0;m")
+        if self._dificultad==Dificil():
+                if goles[0] > goles[1]:
+                    return print("\033[1;32m"+f"{self._jugador1.get_nombre()} ha ganando! +6 pts"+"\033[0;m")
+                elif goles[0] == goles[1]:
+                    return print ("\033[1;36m"+f"{self._jugador1.get_nombre()} empato con {self._jugador2.get_nombre()} +2 pts"+"\033[0;m")
+                else:
+                    return print("\033[1:31m"+f"{self._jugador2.get_nombre()} ha ganado! +0 pts"+"\033[0;m")
 
     def jugar_partido(self) -> None:
         self._partido_en_curso = True
