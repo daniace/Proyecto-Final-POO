@@ -1,3 +1,6 @@
+import os 
+import sys 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from model.database.Carta import Carta
 from model.database.DaoInterfaz import DaoInterfaz
 from model.database.Singleton import Database
