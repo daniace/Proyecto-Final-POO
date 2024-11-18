@@ -82,6 +82,9 @@ class Partido:
 
         return aliados_cercanos, enemigos_cercanos
 
+
+
+
     def _calcular_efectividad_pase(self, jugador_origen):
         atributo_pase = int(jugador_origen.get_pase())
         print("probabilidad de pase correcto: ",atributo_pase)# Obtener el atributo de pase del jugador
@@ -159,7 +162,7 @@ class Partido:
 
 # Ejemplo de uso
 e = EquipoLogico("leo", 1)
-p = Partido(e)
+p = Partido(e,Facil())
 p._cancha.mostrar_cancha()
 print()
 p.jugar_partido()
