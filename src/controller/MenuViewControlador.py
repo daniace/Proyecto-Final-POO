@@ -14,8 +14,6 @@ from .OpcionesViewControlador import OpcionesController
 class MenuController(Controlador):
     def __init__(self):
         self._view = MenuView(pygame.display.set_mode((ANCHO, ALTO)))
-        self.__ranking = RankingController()
-        self.__opciones = OpcionesController()
 
     def manejar_eventos(self, eventos, mouse_pos):
         botones = self._view.get_botones()
