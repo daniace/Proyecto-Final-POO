@@ -4,16 +4,12 @@ import pygame
 
 from .Controlador import Controlador
 from settings import *
-from view.MenuView import MenuView
-from .RankingViewControlador import RankingController
-from .OpcionesViewControlador import OpcionesController
-
-# from .LoginViewControlador import LoginController
+from view.OpcionesView import OpcionesView
 
 
-class MenuController(Controlador):
+class OpcionesController(Controlador):
     def __init__(self):
-        self._view = MenuView(pygame.display.set_mode((ANCHO, ALTO)))
+        self._view = OpcionesView(pygame.display.set_mode((ANCHO, ALTO)))
 
     def manejar_eventos(self, eventos, mouse_pos):
         botones = self._view.get_botones()
@@ -23,13 +19,16 @@ class MenuController(Controlador):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if botones[0].checkForInput(mouse_pos):
-                    pass
+                    pygame.mixer.music.set_volume(0.5)
                 if botones[1].checkForInput(mouse_pos):
-                    pass
+                    pygame.mixer.music.set_volume(0)
                 if botones[2].checkForInput(mouse_pos):
-                    self.__opciones.main_loop()
+                    menu_principal()
                 if botones[3].checkForInput(mouse_pos):
-                    self.__ranking.main_loop()
+                    pass
+                    # dificultadd.dificil()
                 if botones[4].checkForInput(mouse_pos):
-                    pygame.quit()
-                    sys.exit()
+                    pass
+                    # dificultadd.facil()
+        clock.tick(60)
+        pygame.display.update()

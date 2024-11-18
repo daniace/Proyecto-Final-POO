@@ -1,24 +1,24 @@
 import pygame
 from .Boton import Boton
 from settings import *
+from .VentanaView import VentanaView
 
 
-class MenuView:
+class MenuView(VentanaView):
     def __init__(self, pantalla):
-        self.__pantalla = pantalla  # La pantalla principal donde se dibuja el menú
-        self.__botones = []
+        super().__init__(pantalla)
 
-    def mostrar_menu(self, mouse_pos):
+    def mostrar(self):
         # Fondo de pantalla
-        self.__pantalla.blit(BG, (0, 0))
+        self._pantalla.blit(BG, (0, 0))
 
         # Título del menú
         MENU_TEXTO = get_fuente(120).render("HEROES DEL BALON", True, "White")
         MENU_RECT = MENU_TEXTO.get_rect(center=(int(ANCHO * 0.5), 180))
-        self.__pantalla.blit(MENU_TEXTO, MENU_RECT)
+        self._pantalla.blit(MENU_TEXTO, MENU_RECT)
 
         # Botones
-        BOTON_LOGIN = self.mostrar_boton(
+        BOTON_LOGIN = self._mostrar_boton(
             boton_cuadrado,
             (ANCHO * 0.1, ALTO * 0.1),
             "👤",
@@ -26,7 +26,7 @@ class MenuView:
             BLANCO,
             NEGRO,
         )
-        BOTON_JUGAR = self.mostrar_boton(
+        BOTON_JUGAR = self._mostrar_boton(
             boton_surface,
             (ANCHO * 0.5, ALTO * 0.5),
             "JUGAR",
@@ -34,7 +34,7 @@ class MenuView:
             BLANCO,
             NEGRO,
         )
-        BOTON_OPCIONES = self.mostrar_boton(
+        BOTON_OPCIONES = self._mostrar_boton(
             boton_surface,
             (ANCHO * 0.5, ALTO * 0.5 + 180),
             "OPCIONES",
@@ -42,7 +42,7 @@ class MenuView:
             BLANCO,
             NEGRO,
         )
-        BOTON_RANKING = self.mostrar_boton(
+        BOTON_RANKING = self._mostrar_boton(
             boton_surface,
             (ANCHO * 0.5, ALTO * 0.5 + 90),
             "RANKING",
@@ -50,7 +50,7 @@ class MenuView:
             BLANCO,
             NEGRO,
         )
-        BOTON_SALIR = self.mostrar_boton(
+        BOTON_SALIR = self._mostrar_boton(
             boton_surface,
             (ANCHO * 0.5, ALTO * 0.5 + 270),
             "SALIR",
@@ -65,14 +65,4 @@ class MenuView:
             BOTON_RANKING,
             BOTON_SALIR,
         ]:
-            self.__botones.append(boton)
-
-    def get_botones(self):
-        return self.__botones
-
-    def mostrar_boton(self, imagen, pos, texto, fuente, color_base, hovering_color):
-        mouse_pos = pygame.mouse.get_pos()
-        boton = Boton(imagen, pos, texto, fuente, color_base, hovering_color)
-        boton.changeColor(mouse_pos)
-        boton.update(self.__pantalla)
-        return boton
+            self._botones.append(boton)

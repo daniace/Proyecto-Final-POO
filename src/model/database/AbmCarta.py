@@ -1,6 +1,6 @@
-from database.Carta import Carta
-from database.DaoInterfaz import DaoInterfaz
-from database.Singleton import Database
+from model.database.Carta import Carta
+from model.database.DaoInterfaz import DaoInterfaz
+from model.database.Singleton import Database
 
 
 class AbmCarta(DaoInterfaz):
