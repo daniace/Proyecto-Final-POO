@@ -8,7 +8,7 @@ class MenuView:
         self.__pantalla = pantalla  # La pantalla principal donde se dibuja el menú
         self.__botones = []
 
-    def mostrar_menu(self, mouse_pos):
+    def mostrar_menu(self):
         # Fondo de pantalla
         self.__pantalla.blit(BG, (0, 0))
 

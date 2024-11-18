@@ -4,14 +4,16 @@ import pygame
 
 from settings import *
 from view.MenuView import MenuView
+from .RankingViewControlador import RankingController
 
 
 class MenuController:
     def __init__(self):
-        self.__vista = MenuView(pygame.display.set_mode((ANCHO, ALTO)))
+        self.__menu = MenuView(pygame.display.set_mode((ANCHO, ALTO)))
+        self.__ranking = RankingController()
 
     def manejar_eventos(self, eventos, mouse_pos):
-        botones = self.__vista.get_botones()
+        botones = self.__menu.get_botones()
         for event in eventos:
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -19,25 +21,23 @@ class MenuController:
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if botones[0].checkForInput(mouse_pos):
-                    self.__vista.login()
+                    pass
                 if botones[1].checkForInput(mouse_pos):
-                    self.__vista.jugar()
+                    pass
                 if botones[2].checkForInput(mouse_pos):
-                    self.__vista.opciones()
+                    self.__menu.opciones()
                 if botones[3].checkForInput(mouse_pos):
-                    self.__vista.ranking()
+                    self.__ranking.main_loop()
                 if botones[4].checkForInput(mouse_pos):
                     pygame.quit()
                     sys.exit()
 
-    def main_loop(
-        self,
-    ):
-        while True:
+    def main_loop(self, booleano=True):
+        while booleano:
             mouse_pos = pygame.mouse.get_pos()
 
             # Mostrar el menú
-            self.__vista.mostrar_menu(mouse_pos)
+            self.__menu.mostrar_menu()
 
             # Manejar eventos
             eventos = pygame.event.get()
