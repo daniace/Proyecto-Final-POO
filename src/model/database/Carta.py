@@ -1,5 +1,3 @@
-import random
-
 
 class Carta:
     def __init__(

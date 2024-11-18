@@ -16,7 +16,3 @@ class Equipo:
 
     def get_baja_equipo(self):
         return self.__baja_equipo
-
-    def equipo_random(self):
-        "Esto va aca o en otra clase?"
-        pass
