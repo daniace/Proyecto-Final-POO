@@ -1,6 +1,7 @@
 from EquipoLogico import EquipoLogico
 from Cancha import Cancha
 from Cronometro import Cronometro
+from formacion import *
 from Dificultades import *
 import random
 import time
@@ -133,6 +134,7 @@ class Partido:
 
     def _jugar_turno_jugador(self) -> None:
         time.sleep(2)
+        self.mostrar_cancha_con_pelota()                #despues esto se tiene que borrar#
         print(
             "---------------------------------------------------------------------------------------"
         )
@@ -159,6 +161,7 @@ class Partido:
                         print('GOLES -->', 'P1',self._goles[0], '- CPU ',self._goles[1])
 
     def _jugar_turno_cpu(self) -> None:
+        self.mostrar_cancha_con_pelota()        #despues esto se tiene que borrar#
         print(
             "---------------------------------------------------------------------------------------"
         )
@@ -189,6 +192,17 @@ class Partido:
         else:
             self._jugar_turno_cpu()
 
+    def mostrar_cancha_con_pelota(self):                #esta funcion despues se tiene que borrar#
+        matriz = self._cancha.get_matriz_cancha()
+
+        for i, fila in enumerate(matriz):
+            for j, elemento in enumerate(fila):
+                if (i, j) == self._posicion_pelota:
+                    print(f"{elemento}°", end=' ')
+                else:
+                    print(elemento, end=' ')
+            print()
+
     def jugar_partido(self) -> None:
         self._partido_en_curso = True
 
@@ -209,6 +223,8 @@ class Partido:
 
 # Ejemplo de uso
 e = EquipoLogico("leo", 1)
+e.set_formacion(Formacion352())
+e.nuevo_equipo()
 p = Partido(e, Medio())
 p._cancha.mostrar_cancha()
 p.jugar_partido()

@@ -51,8 +51,20 @@ class Carta:
     def get_dorsal(self):
         return self.__dorsal
 
-    def get_posicion(self):
-        return self.__posicion
+    def get_posicion(self): 
+        posiciones = self.__posicion.split(',')[:2]
+        posiciones_clasificadas = [] 
+        for pos in posiciones:
+            if pos == 'GK':
+                posiciones_clasificadas.append('ARQUERO') 
+            elif pos in ['CB', 'LB', 'RB', 'LWB', 'RWB']:
+                posiciones_clasificadas.append('DEFENSOR')
+            elif pos in ['CDM', 'CM', 'CAM', 'LM', 'RM']:
+                posiciones_clasificadas.append('MEDIOCAMPISTA')
+            elif pos in ['LW', 'RW', 'CF', 'ST', 'LF', 'RF']:
+                posiciones_clasificadas.append('DELANTERO') 
+            else: posiciones_clasificadas.append('DESCONOCIDO') 
+            return ','.join(posiciones_clasificadas)
 
     def get_posicion_equipo(self):
         return self.__posicion_equipo
@@ -120,9 +132,9 @@ class Carta:
 
     def __str__(self) -> str:
         if self.__posicion == "GK":
-            return f"{self.__nombre} ({self.__club}) - {self.__posicion} - {self.__valoracion} - {self.__gk_diving} - {self.__gk_handling} - {self.__gk_kicking} - {self.__gk_reflexes} - {self.__gk_speed} - {self.__gk_positioning}"
+            return f"{self.__nombre} ({self.__club}) - {self.get_posicion()} - {self.__valoracion} - {self.__gk_diving} - {self.__gk_handling} - {self.__gk_kicking} - {self.__gk_reflexes} - {self.__gk_speed} - {self.__gk_positioning}"
         else:
-            return f"{self.__nombre} ({self.__club}) - {self.__posicion} - {self.__valoracion} - {self.__velocidad} - {self.__disparo} - {self.__pase} - {self.__gambeta} - {self.__defensa} - {self.__fisico}"
+            return f"{self.__nombre} ({self.__club}) - {self.get_posicion()} - {self.__valoracion} - {self.__velocidad} - {self.__disparo} - {self.__pase} - {self.__gambeta} - {self.__defensa} - {self.__fisico}"
 
     def __repr__(self):
         return self.__str__()
