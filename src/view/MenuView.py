@@ -18,7 +18,7 @@ class MenuView(VentanaView):
         self._pantalla.blit(MENU_TEXTO, MENU_RECT)
 
         # Botones
-        BOTON_LOGIN = self.mostrar_boton(
+        BOTON_LOGIN = self._mostrar_boton(
             boton_cuadrado,
             (ANCHO * 0.1, ALTO * 0.1),
             "👤",
@@ -26,7 +26,7 @@ class MenuView(VentanaView):
             BLANCO,
             NEGRO,
         )
-        BOTON_JUGAR = self.mostrar_boton(
+        BOTON_JUGAR = self._mostrar_boton(
             boton_surface,
             (ANCHO * 0.5, ALTO * 0.5),
             "JUGAR",
@@ -34,7 +34,7 @@ class MenuView(VentanaView):
             BLANCO,
             NEGRO,
         )
-        BOTON_OPCIONES = self.mostrar_boton(
+        BOTON_OPCIONES = self._mostrar_boton(
             boton_surface,
             (ANCHO * 0.5, ALTO * 0.5 + 180),
             "OPCIONES",
@@ -42,7 +42,7 @@ class MenuView(VentanaView):
             BLANCO,
             NEGRO,
         )
-        BOTON_RANKING = self.mostrar_boton(
+        BOTON_RANKING = self._mostrar_boton(
             boton_surface,
             (ANCHO * 0.5, ALTO * 0.5 + 90),
             "RANKING",
@@ -50,7 +50,7 @@ class MenuView(VentanaView):
             BLANCO,
             NEGRO,
         )
-        BOTON_SALIR = self.mostrar_boton(
+        BOTON_SALIR = self._mostrar_boton(
             boton_surface,
             (ANCHO * 0.5, ALTO * 0.5 + 270),
             "SALIR",
