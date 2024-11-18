@@ -7,7 +7,7 @@ class VentanaView:
         self.__pantalla = pantalla  # La pantalla principal
         self.__botones = []
 
-    def mostrar_menu(self):
+    def mostrar(self):
         pass
 
     def get_botones(self):

@@ -10,7 +10,7 @@ from abc import ABC, abstractmethod
 
 class Controlador(ABC):
     def __init__(self):
-        self._view = VentanaView(pygame.display.set_mode((ANCHO, ALTO)))
+        self._view = None
 
     @abstractmethod
     def manejar_eventos(self, eventos, mouse_pos):
@@ -26,7 +26,7 @@ class Controlador(ABC):
             mouse_pos = pygame.mouse.get_pos()
 
             # Mostrar el menú
-            self._view.mostrar_menu()
+            self._view.mostrar()
 
             # Manejar eventos
             eventos = pygame.event.get()

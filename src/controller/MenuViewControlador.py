@@ -12,7 +12,7 @@ from .RankingViewControlador import RankingController
 
 class MenuController(Controlador):
     def __init__(self):
-        super().__init__()
+        self._view = MenuView(pygame.display.set_mode((ANCHO, ALTO)))
         self.__ranking = RankingController()
 
     def manejar_eventos(self, eventos, mouse_pos):
