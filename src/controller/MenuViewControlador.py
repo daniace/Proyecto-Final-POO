@@ -33,8 +33,8 @@ class MenuController:
                     pygame.quit()
                     sys.exit()
 
-    def main_loop(self, booleano=True):
-        while booleano:
+    def main_loop(self):
+        while True:
             mouse_pos = pygame.mouse.get_pos()
 
             # Mostrar el menú
