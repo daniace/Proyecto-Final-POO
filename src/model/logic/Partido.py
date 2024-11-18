@@ -202,6 +202,14 @@ class Partido:
                 else:
                     print(elemento, end=' ')
             print()
+    
+    def _repartir_puntos(self,goles):
+        if goles[0] > goles[1]:
+            print("\033[1;32m"+f"{self._jugador1.get_nombre()} ha ganando! +3 pts"+"\033[0;m")
+        elif goles[0] == goles[1]:
+            print ("\033[1;36m"+f"{self._jugador1.get_nombre()} empato con {self._jugador2.get_nombre()} +1 pts"+"\033[0;m")
+        else:
+            print("\033[1:31m"+f"{self._jugador2.get_nombre()} ha ganado! +0 pts"+"\033[0;m")
 
     def jugar_partido(self) -> None:
         self._partido_en_curso = True
@@ -216,9 +224,10 @@ class Partido:
             else:
                 self._jugar_turno()
 
+        self._cronometro.join()
         print("\033[1;31m"+"Fin del partido"+"\033[0;m")
         print('RESULTADO -->', 'P1',self._goles[0], '- CPU ',self._goles[1])
-        self._cronometro.join()
+        self._repartir_puntos(self._goles)
 
 
 # Ejemplo de uso
