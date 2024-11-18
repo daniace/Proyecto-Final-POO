@@ -1,9 +1,9 @@
 import sys
 import pygame as pg
-from view.app import menu_principal
-
+from controller.MenuViewControlador import MenuController
+from view.MenuView import MenuView
+from settings import ANCHO, ALTO
 
 if __name__ == "__main__":
-    menu_principal()
-    pg.quit()
-    sys.exit()
+    menu_principal = MenuController()
+    menu_principal.main_loop()

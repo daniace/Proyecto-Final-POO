@@ -3,7 +3,7 @@ import sys
 import pygame
 
 from .Boton import *
-from .settings import *
+from settings import *
 
 # pygame setup
 pygame.init()
@@ -13,7 +13,7 @@ pygame.mixer.music.load(SONIDO_FONDO)
 pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1)
 
-dificultadd = dificultad()
+# dificultadd = dificultad()
 
 
 def dibujar_formaciones(SCREEN, formaciones, formacion_actual):
@@ -336,9 +336,11 @@ def opciones():
                 if OPCIONES_ATRAS.checkForInput(OPCIONES_POS_MOUSE):
                     menu_principal()
                 if DIFICIL.checkForInput(OPCIONES_POS_MOUSE):
-                    dificultadd.dificil()
+                    pass
+                    # dificultadd.dificil()
                 if FACIL.checkForInput(OPCIONES_POS_MOUSE):
-                    dificultadd.facil()
+                    pass
+                    # dificultadd.facil()
                 # if JUGAR_ATRAS.checkForInput(OPCIONES_POS_MOUSE):
                 #    menu_principal()
                 # if RANKING_ATRAS.checkForInput(OPCIONES_POS_MOUSE):
@@ -408,6 +410,23 @@ def ranking():
                     menu_principal()
         clock.tick(60)
         pygame.display.update()
+
+
+def mostrar_boton(
+    self, texto, posicion, fuente, tamanio_fuente, mouse_pos, boton_rojo=False
+):
+    if fuente is None:
+        fuente = get_fuente(tamanio_fuente)
+    boton = Boton(
+        boton_rojo if boton_rojo else boton_surface,
+        posicion,
+        texto,
+        pygame.font.Font(EMOJIS, tamanio_fuente) if texto == "👤" else fuente,
+        BLANCO,
+        NEGRO,
+    )
+    boton.changeColor(mouse_pos)
+    boton.update(self.pantalla)
 
 
 def menu_principal():
@@ -545,6 +564,3 @@ def login():
         SCREEN.blit(superficie_texto, (int(ANCHO * 0.4), int(ALTO * 0.5)))
         pygame.display.flip()
         clock.tick(60)
-
-
-menu_principal()
