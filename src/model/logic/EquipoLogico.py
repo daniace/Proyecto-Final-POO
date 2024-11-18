@@ -5,7 +5,7 @@ sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 )  # se agerego para que pueda leer la clase carta xd
 from database.AbmCarta import AbmCarta
-from model.formacion import *
+from formacion import *
 import random
 
 
