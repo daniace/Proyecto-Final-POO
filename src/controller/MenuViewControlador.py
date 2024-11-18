@@ -32,17 +32,3 @@ class MenuController:
                 if botones[4].checkForInput(mouse_pos):
                     pygame.quit()
                     sys.exit()
-
-    def main_loop(self):
-        while True:
-            mouse_pos = pygame.mouse.get_pos()
-
-            # Mostrar el menú
-            self.__menu.mostrar_menu()
-
-            # Manejar eventos
-            eventos = pygame.event.get()
-            self.manejar_eventos(eventos, mouse_pos)
-
-            clock.tick(60)
-            pygame.display.update()

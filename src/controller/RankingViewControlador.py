@@ -24,17 +24,3 @@ class RankingController:
                 if botones[1].checkForInput(RANKING_POS_MOUSE):
                     pass
                     # menu_principal()
-
-    def main_loop(self):
-        while True:
-            mouse_pos = pygame.mouse.get_pos()
-
-            # Mostrar el menú
-            self.__vista.mostrar_ranking()
-
-            # Manejar eventos
-            eventos = pygame.event.get()
-            self.manejar_eventos(eventos, mouse_pos)
-
-            clock.tick(60)
-            pygame.display.update()

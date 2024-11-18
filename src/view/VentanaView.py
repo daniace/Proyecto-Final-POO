@@ -4,7 +4,7 @@ import pygame
 
 class VentanaView:
     def __init__(self, pantalla):
-        self.__pantalla = pantalla  # La pantalla principal donde se dibuja el menú
+        self.__pantalla = pantalla  # La pantalla principal
         self.__botones = []
 
     def mostrar_menu(self):
