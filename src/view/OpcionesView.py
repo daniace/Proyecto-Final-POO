@@ -9,7 +9,6 @@ class OpcionesView(VentanaView):
         super().__init__(pantalla)
 
     def mostrar(self):
-        OPCIONES_POS_MOUSE = pygame.mouse.get_pos()
         self._pantalla.blit(BG_OPCIONES, (0, 0))
 
         TEXTO_OPCIONES = get_fuente(100).render("OPCIONES", True, "Black")
