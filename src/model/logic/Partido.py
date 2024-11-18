@@ -156,7 +156,7 @@ class Partido:
                 print("TIRO DEL JUGADOR 1")
                 if self.realizar_tiro():
                     if not self.realizar_atajar():
-                        print("GOOOOL DEL JUGADOR 1!!!")
+                        print("\033[1;32m"+"GOOOOL DEL JUGADOR 1!!!"+"\033[0;m")
                         self._goles[0] += 1 
                         print('GOLES -->', 'P1',self._goles[0], '- CPU ',self._goles[1])
 
@@ -182,7 +182,7 @@ class Partido:
                 print("TIRO DE LA CPU")
                 if self.realizar_tiro():
                     if not self.realizar_atajar():
-                        print("GOOOOL DE LA CPU!!!")
+                        print("\033[4;31m"+"GOOOOL DE LA CPU!!!"+"\033[0;m")
                         self._goles[1] += 1 
                         print('GOLES -->', 'P1',self._goles[0], '- CPU ',self._goles[1])
 
@@ -216,7 +216,7 @@ class Partido:
             else:
                 self._jugar_turno()
 
-        print("Fin del partido")
+        print("\033[1;31m"+"Fin del partido"+"\033[0;m")
         print('RESULTADO -->', 'P1',self._goles[0], '- CPU ',self._goles[1])
         self._cronometro.join()
 
