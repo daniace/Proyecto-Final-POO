@@ -68,7 +68,7 @@ class Carta:
 
     def get_disparo(self):
         if self.__posicion == "GK":
-            return 50
+            return self.__gk_kicking # ya que el arquero no tiene estadistica disparo, se utiliza kicking que es lo mas cercano
         return self.__disparo
 
     def get_pase(self):

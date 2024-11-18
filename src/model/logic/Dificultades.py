@@ -17,9 +17,9 @@ class Facil(Dificultad):
 class Medio(Dificultad):
     
     def get_probaibilidad(self):
-        return self._probabilidad * 1.2
+        return int(self._probabilidad * 1.2)
 
 class Dificil(Dificultad):
     def get_probaibilidad(self):
-        return self._probabilidad * 1.5
+        return int(self._probabilidad * 1.5)
 

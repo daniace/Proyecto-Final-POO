@@ -17,6 +17,7 @@ class Partido:
         self._equipo_con_posesion = 1  # EQUIPO 1 O EQUIPO 2
         self._posicion_pelota = (0, 3)
         self._acciones = Acciones(dificultad)  # VER SI ESTO QUEDA ASI
+        self._goles = [0,0]
 
     def _jugador_con_pelota(self):
         """Devuelve el jugador en base a la posición actual de la pelota"""
@@ -154,7 +155,8 @@ class Partido:
                 if self.realizar_tiro():
                     if not self.realizar_atajar():
                         print("GOOOOL DEL JUGADOR 1!!!")
-                        self._partido_en_curso = False
+                        self._goles[0] += 1 
+                        print('GOLES -->', 'P1',self._goles[0], '- CPU ',self._goles[1])
 
     def _jugar_turno_cpu(self) -> None:
         print(
@@ -178,7 +180,8 @@ class Partido:
                 if self.realizar_tiro():
                     if not self.realizar_atajar():
                         print("GOOOOL DE LA CPU!!!")
-                        self._partido_en_curso = False
+                        self._goles[1] += 1 
+                        print('GOLES -->', 'P1',self._goles[0], '- CPU ',self._goles[1])
 
     def _jugar_turno(self) -> None:
         if self._equipo_con_posesion == 1:
@@ -200,32 +203,22 @@ class Partido:
                 self._jugar_turno()
 
         print("Fin del partido")
+        print('RESULTADO -->', 'P1',self._goles[0], '- CPU ',self._goles[1])
         self._cronometro.join()
 
 
 # Ejemplo de uso
 e = EquipoLogico("leo", 1)
-p = Partido(e, Facil())
+p = Partido(e, Medio())
 p._cancha.mostrar_cancha()
-
-# print(p._cancha.buscar_jugador((7,3)))
-# print()
-# # print(p._equipo_con_posesion)
-# for i in range(10):
-#     print('-----------------------------------------------------------------------')
-#     print('POSICION ACTUAL -->',p._posicion_pelota, ' Equipo Actual --> ', p._equipo_con_posesion)
-#     print('PASE---')
-#     if p.realizar_pase():
-#         p.realizar_intercepcion()
-
 p.jugar_partido()
-"PRUEBEN ANASHE"
-"SIMULACION DE PARTIDO"
+
 
 # cosas que hacer:
-# metodo patear
-# programar IA
-# dificultades (facil, medio, dificil)#
+# - implementar la dificultad de las acciones dependiendo de la posicion de la cancha 
+# ES DECIR, SI HACE UN PASE UN DEFENSA, DEBERIA SE MAS FACIL QUE SI LO HACE UN DELANTERO
+# LO CONTRARIO CON EL TIRO AL ARCO
 
-"HABILITAR LA INTERCEPCION CUANDO LO TIENE LA MAQUINA"
-"SEPARAR PARA QUE QUEDE MAS LEGIBLE"
+# -DEVOLVER POSICION MAS GENERALIZADA (EJ: DELANTERO, DEFENSA, ETC)
+
+
