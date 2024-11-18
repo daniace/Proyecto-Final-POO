@@ -192,13 +192,6 @@ def opciones():
         pygame.draw.rect(SCREEN, COLOR_FONDO, fondo_rect, border_radius=15)
         SCREEN.blit(TEXTO_CONTROLES, CONTROLES_RECT)
 
-        #
-        # TEXTO_CONTROLES = get_fuente(75).render("CONTROLES", True, "White")
-        # CONTROLES_RECT = TEXTO_CONTROLES.get_rect(
-        #    center=(int(ANCHO * 0.15), int(ALTO * 0.6))
-        # )
-        # SCREEN.blit(TEXTO_CONTROLES, CONTROLES_RECT)
-
         COLOR_FONDO = (40, 40, 40)
         TEXTO_DIFICULTAD = get_fuente(75).render("DIFICULTAD:", True, "White")
         CONTROLES_RECT = TEXTO_DIFICULTAD.get_rect(
@@ -209,12 +202,6 @@ def opciones():
         pygame.draw.rect(SCREEN, COLOR_FONDO, fondo_rect, border_radius=15)
         SCREEN.blit(TEXTO_DIFICULTAD, CONTROLES_RECT)
 
-        # TEXTO_DIFICULTAD = get_fuente(75).render("DIFICULTAD", True, "White")
-        # DIFICULTAD_RECT = TEXTO_DIFICULTAD.get_rect(
-        #    center=(int(ANCHO * 0.15), int(ALTO * 0.3))
-        # )
-        # SCREEN.blit(TEXTO_DIFICULTAD, DIFICULTAD_RECT)
-
         COLOR_FONDO = (40, 40, 40)
         TEXTO_SONIDO = get_fuente(75).render("SONIDO:", True, "White")
         CONTROLES_RECT = TEXTO_SONIDO.get_rect(
@@ -224,12 +211,6 @@ def opciones():
         fondo_rect = CONTROLES_RECT.inflate(margen * 2, margen * 2)
         pygame.draw.rect(SCREEN, COLOR_FONDO, fondo_rect, border_radius=15)
         SCREEN.blit(TEXTO_SONIDO, CONTROLES_RECT)
-
-        # TEXTO_SONIDO = get_fuente(75).render("SONIDO", True, "White")
-        # SONIDO_RECT = TEXTO_SONIDO.get_rect(
-        #    center=(int(ANCHO * 0.15), int(ALTO * 0.45))
-        # )
-        # SCREEN.blit(TEXTO_SONIDO, SONIDO_RECT)
 
         control1_img = pygame.image.load("src/assets/images/control1.png")
         control1_img = pygame.transform.scale(control1_img, (300, 300))
@@ -294,33 +275,7 @@ def opciones():
             "Red",
         )
 
-        # JUGAR_ATRAS = Boton(
-        #    boton_surface,
-        #    (int(ANCHO * 4.7), int(ALTO * 3.2)),
-        #    "ATRAS",
-        #    get_fuente(75),
-        #    "Black",
-        #    "White",
-        # )
-        # RANKING_ATRAS = Boton(
-        #    boton_surface,
-        #    (int(ANCHO * 0.5), int(ALTO * 0.9)),
-        #    "ATRAS",
-        #    get_fuente(75),
-        #    "Black",
-        #    "White",
-        # )
-
-        for boton in [
-            FACIL,
-            NORMAL,
-            DIFICIL,
-            SONIDO_ON,
-            SONIDO_OFF,
-            OPCIONES_ATRAS,
-            # JUGAR_ATRAS,
-            # RANKING_ATRAS
-        ]:
+        for boton in [FACIL, NORMAL, DIFICIL, SONIDO_ON, SONIDO_OFF, OPCIONES_ATRAS]:
             boton.changeColor(OPCIONES_POS_MOUSE)
             boton.update(SCREEN)
 
@@ -341,11 +296,6 @@ def opciones():
                 if FACIL.checkForInput(OPCIONES_POS_MOUSE):
                     pass
                     # dificultadd.facil()
-                # if JUGAR_ATRAS.checkForInput(OPCIONES_POS_MOUSE):
-                #    menu_principal()
-                # if RANKING_ATRAS.checkForInput(OPCIONES_POS_MOUSE):
-                #    menu_principal()
-
         clock.tick(60)
         pygame.display.update()
 
