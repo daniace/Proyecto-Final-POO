@@ -1,22 +1,33 @@
-        for boton in [FACIL, NORMAL, DIFICIL, SONIDO_ON, SONIDO_OFF, OPCIONES_ATRAS]:
-            boton.changeColor(OPCIONES_POS_MOUSE)
-            boton.update(SCREEN)
+import sys
 
-        for event in pygame.event.get():
+import pygame
+
+from .Controlador import Controlador
+from settings import *
+from view.OpcionesView import OpcionesView
+
+
+class OpcionesController(Controlador):
+    def __init__(self):
+        self._view = OpcionesView(pygame.display.set_mode((ANCHO, ALTO)))
+
+    def manejar_eventos(self, eventos, mouse_pos):
+        botones = self._view.get_botones()
+        for event in eventos:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if SONIDO_ON.checkForInput(OPCIONES_POS_MOUSE):
+                if botones[0].checkForInput(mouse_pos):
                     pygame.mixer.music.set_volume(0.5)
-                if SONIDO_OFF.checkForInput(OPCIONES_POS_MOUSE):
+                if botones[1].checkForInput(mouse_pos):
                     pygame.mixer.music.set_volume(0)
-                if OPCIONES_ATRAS.checkForInput(OPCIONES_POS_MOUSE):
+                if botones[2].checkForInput(mouse_pos):
                     menu_principal()
-                if DIFICIL.checkForInput(OPCIONES_POS_MOUSE):
+                if botones[3].checkForInput(mouse_pos):
                     pass
                     # dificultadd.dificil()
-                if FACIL.checkForInput(OPCIONES_POS_MOUSE):
+                if botones[4].checkForInput(mouse_pos):
                     pass
                     # dificultadd.facil()
         clock.tick(60)

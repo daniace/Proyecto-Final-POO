@@ -21,7 +21,7 @@ class RankingView(VentanaView):
             IMAGEN_RANKING_USUARIOS, (int(ANCHO * 0.35), int(ALTO * 0.1))
         )
 
-        RANKING_ACTUALIZAR = self.mostrar_boton(
+        RANKING_ACTUALIZAR = self._mostrar_boton(
             boton_cuadrado,
             (ANCHO * 0.73, ALTO * 0.9),
             "🔄",
@@ -29,7 +29,7 @@ class RankingView(VentanaView):
             BLANCO,
             VERDE,
         )
-        RANKING_ATRAS = self.mostrar_boton(
+        RANKING_ATRAS = self._mostrar_boton(
             boton_rojo,
             (ANCHO * 0.88, ALTO * 0.9),
             "ATRAS",
