@@ -5,6 +5,7 @@ import pygame
 from settings import *
 from view.MenuView import MenuView
 from .RankingViewControlador import RankingController
+from .LoginViewControlador import LoginController
 
 
 class MenuController:
