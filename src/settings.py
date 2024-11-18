@@ -1,8 +1,8 @@
 import pygame
 
-from model.database.AbmCarta import AbmCarta
-from model.database.AbmUsuario import AbmUsuario
-from model.database.Usuario import Usuario
+from src.model.database.AbmCarta import AbmCarta
+from src.model.database.AbmUsuario import AbmUsuario
+from src.model.database.Usuario import Usuario
 
 # Configuracion de la pantalla
 ANCHO = 1280
