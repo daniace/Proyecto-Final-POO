@@ -1,12 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import List
-import sys
-import os
-
-sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-)  # se agerego para que pueda leer la clase carta xd
-from database.Carta import Carta
 
 
 class FormacionStartegy(ABC):

@@ -130,6 +130,28 @@ class Partido:
             self._cambio_equipo()
             return False
 
+    def jugar_partido(self) -> None:
+        self._partido_en_curso = True
+
+        if self._cronometro is None or not self._cronometro.is_alive():
+            self._cronometro = Cronometro()
+            self._cronometro.start()
+
+        while self._partido_en_curso:
+            if self._cronometro._evento_partido_terminado.is_set():
+                self._partido_en_curso = False
+            else:
+                self._jugar_turno()
+
+        print("Fin del partido")
+        self._cronometro.join()
+
+    def _jugar_turno(self) -> None:
+        if self._equipo_con_posesion == 1:
+            self._jugar_turno_jugador()
+        else:
+            self._jugar_turno_cpu()
+
     def _jugar_turno_jugador(self) -> None:
         time.sleep(2)
         print(
@@ -179,28 +201,6 @@ class Partido:
                     if not self.realizar_atajar():
                         print("GOOOOL DE LA CPU!!!")
                         self._partido_en_curso = False
-
-    def _jugar_turno(self) -> None:
-        if self._equipo_con_posesion == 1:
-            self._jugar_turno_jugador()
-        else:
-            self._jugar_turno_cpu()
-
-    def jugar_partido(self) -> None:
-        self._partido_en_curso = True
-
-        if self._cronometro is None or not self._cronometro.is_alive():
-            self._cronometro = Cronometro()
-            self._cronometro.start()
-
-        while self._partido_en_curso:
-            if self._cronometro._evento_partido_terminado.is_set():
-                self._partido_en_curso = False
-            else:
-                self._jugar_turno()
-
-        print("Fin del partido")
-        self._cronometro.join()
 
 
 # Ejemplo de uso
