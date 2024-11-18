@@ -2,19 +2,21 @@ import sys
 
 import pygame
 
+from .Controlador import Controlador
 from settings import *
 from view.MenuView import MenuView
 from .RankingViewControlador import RankingController
-from .LoginViewControlador import LoginController
+
+# from .LoginViewControlador import LoginController
 
 
-class MenuController:
+class MenuController(Controlador):
     def __init__(self):
-        self.__menu = MenuView(pygame.display.set_mode((ANCHO, ALTO)))
+        super().__init__()
         self.__ranking = RankingController()
 
     def manejar_eventos(self, eventos, mouse_pos):
-        botones = self.__menu.get_botones()
+        botones = self._view.get_botones()
         for event in eventos:
             if event.type == pygame.QUIT:
                 pygame.quit()

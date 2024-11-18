@@ -2,16 +2,17 @@ import sys
 
 import pygame
 
+from .Controlador import Controlador
 from settings import *
 from view.RankingView import RankingView
 
 
-class RankingController:
+class RankingController(Controlador):
     def __init__(self):
-        self.__vista = RankingView(pygame.display.set_mode((ANCHO, ALTO)))
+        super().__init__()
 
     def manejar_eventos(self, eventos, mouse_pos):
-        botones = self.__vista.get_botones()
+        botones = self._view.get_botones()
         for event in eventos:
             if event.type == pygame.QUIT:
                 pygame.quit()

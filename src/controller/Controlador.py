@@ -1,5 +1,7 @@
 import sys
+
 import pygame
+
 from settings import *
 from view.VentanaView import VentanaView  # la Ventana padre
 
