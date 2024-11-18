@@ -1,5 +1,3 @@
-import sys
-import pygame as pg
 from controller.MenuViewControlador import MenuController
 
 if __name__ == "__main__":
