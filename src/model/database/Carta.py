@@ -69,6 +69,8 @@ class Carta:
         return self.__velocidad
 
     def get_disparo(self):
+        if self.__posicion == "GK":
+            return 50
         return self.__disparo
 
     def get_pase(self):

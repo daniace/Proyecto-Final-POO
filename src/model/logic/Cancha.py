@@ -23,6 +23,9 @@ class Cancha:
 
     def get_diccionario_equipo2(self):
         return self._diccionario_equipo2
+    
+    def get_diccionario(self):
+        return self._diccionario_completo
 
     def mapear_cancha(self):
         # equipo 1 (jugador 1)
@@ -78,7 +81,11 @@ class Cancha:
 
     def imprimir_jugadores(self,lista_jugadores):
         for i,j in lista_jugadores:
-            print(str(i),self._diccionario_completo.get(i,"sorry brodel, no esta"), "esta a una distancia de ", j)
+            print(">",str(i),self._diccionario_completo.get(i,"sorry brodel, no esta"), "esta a una distancia de ", j)
+    
+    def buscar_jugador(self, posicion):
+        # posicion = jugador
+        return self._diccionario_completo.get(posicion, None)
             
     def encontrar_puntos_cercanos(self, posicion, tipo_busqueda):
         filas = len(self._cancha)
@@ -109,6 +116,10 @@ class Cancha:
                 if self._cancha[fila_actual][columna_actual] == equipo_con_posesion and distancia != 0:
                     puntos_cercanos.append(((fila_actual, columna_actual), distancia))
             elif tipo_busqueda == "enemigo":
+                
+                if len(puntos_cercanos) >= 1:
+                    break
+                
                 if self._cancha[fila_actual][columna_actual] != equipo_con_posesion and self._cancha[fila_actual][columna_actual] != 0:
                     puntos_cercanos.append(((fila_actual, columna_actual), distancia))
 
@@ -128,17 +139,18 @@ class Cancha:
         if tipo_busqueda == "aliado":
             if equipo_con_posesion == 1:
                 # Filtrar para que el equipo 1 avance hacia abajo (mayor fila primero)
-                puntos_cercanos = [punto for punto in puntos_cercanos if punto[0][0] > fila_inicio]
+                puntos_cercanos = [punto for punto in puntos_cercanos if punto[0][0] >= fila_inicio]
                 puntos_cercanos.sort(key=lambda x: (x[1], -x[0][0]))
             else:
                 # Filtrar para que el equipo 2 avance hacia arriba (menor fila primero)
-                puntos_cercanos = [punto for punto in puntos_cercanos if punto[0][0] < fila_inicio]
+                puntos_cercanos = [punto for punto in puntos_cercanos if punto[0][0] <= fila_inicio]
                 puntos_cercanos.sort(key=lambda x: (x[1], x[0][0]))
+            return puntos_cercanos
         elif tipo_busqueda == "enemigo":
             # Ordenar para que los enemigos más cercanos estén primero
             puntos_cercanos.sort(key=lambda x: x[1])
-
-        return puntos_cercanos
+            return puntos_cercanos [0]
+  
     "FUNCION MODIFICADA "
     "NOTA --> Se ingresa una posicion y un TIPO de busqueda"
     "Se retorna una lista de tuplas con los puntos cercanos y la distancia"
@@ -157,3 +169,5 @@ if __name__ == "__main__":
     print()
     puntos = c.encontrar_puntos_cercanos((0,3), "enemigo")
     c.imprimir_jugadores(puntos)
+
+"ELIMINAR FUNCIONES DE LOS DICCIONARIOS PARCIALES Y COSAS COMENTADAS QUE NO SE USAN"
