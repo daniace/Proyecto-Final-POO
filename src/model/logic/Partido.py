@@ -124,6 +124,7 @@ class Partido:
     def realizar_tiro(self) -> bool:
         jugador_actual = self._cancha.buscar_jugador(self._posicion_pelota)
 
+
         if self._acciones.calcular_efectividad_tiro(jugador_actual):
             return True
         else:
@@ -170,7 +171,7 @@ class Partido:
             f"{self._jugador_con_pelota()} tiene la pelota, CPU está tomando una decisión..."
         )
         time.sleep(2)
-        decision = random.choice([1, 2])
+        decision = random.choices([1, 2], weights=[0.7, 0.3],k=1)[0]
         match decision:
             case 1:
                 print("PASE DE LA CPU")
@@ -250,8 +251,8 @@ class Partido:
 e = EquipoLogico("leo", 1)
 e.set_formacion(Formacion352())
 e.nuevo_equipo()
-p = Partido(e, Medio())
-p._cancha.mostrar_cancha()
+p = Partido(e, Dificil())
+# p._cancha.mostrar_cancha()
 p.jugar_partido()
 
 

@@ -62,9 +62,8 @@ class Carta:
             elif pos in ['CDM', 'CM', 'CAM', 'LM', 'RM']:
                 posiciones_clasificadas.append('MEDIOCAMPISTA')
             elif pos in ['LW', 'RW', 'CF', 'ST', 'LF', 'RF']:
-                posiciones_clasificadas.append('DELANTERO') 
-            else: posiciones_clasificadas.append('DESCONOCIDO') 
-        return ','.join(posiciones_clasificadas)
+                posiciones_clasificadas.append('DELANTERO')  
+        return posiciones_clasificadas
 
     def get_posicion_equipo(self):
         return self.__posicion_equipo

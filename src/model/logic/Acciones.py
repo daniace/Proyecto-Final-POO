@@ -6,8 +6,17 @@ class Acciones:
 
     def calcular_efectividad(self, jugador, metodo_atributo, descripcion):
         atributo = int(getattr(jugador, metodo_atributo)())
-        print(f"Probabilidad de {descripcion} correcta: ", atributo)
         probabilidad = random.randint(0, self._dificultad.get_probabilidad())
+        if metodo_atributo == 'get_disparo':
+
+            if jugador.get_posicion()[0] == 'ARQUERO':
+                print('HOALAAA')
+                atributo = atributo * 0.2
+            if jugador.get_posicion()[0] == 'DEFENSA':
+                atributo = atributo * 0.4            
+            if jugador.get_posicion()[0] == 'MEDIOCAMPISTA':
+                atributo = atributo * 0.5
+        print(f"Probabilidad de {descripcion} correcta: ", str(int((atributo * 100)/self._dificultad.get_probabilidad())))
         return probabilidad <= atributo
         "Si no funciona sacar getattr"
 
@@ -24,4 +33,8 @@ class Acciones:
         return self.calcular_efectividad(jugador, 'get_gk_handling', 'atajar')
 
 
+'COSAS PARA IMPLEMENTAR'
+'- INTEGRAR LA VELOCIDADD, FISICO Y LA DEFENSA PARA LA INTERCEPCION'
+'- INTEGRAR LA GAMBETA PARA QUE TE HABILITE TIRAR UN PASE SI O SI (EL ENEMIGO NO PUEDE INTERCEPTAR)'
+'- INTEGRAR LA VELOCIDAD AL TIRO'
 
