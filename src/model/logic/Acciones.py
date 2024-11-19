@@ -7,7 +7,7 @@ class Acciones:
     def calcular_efectividad(self, jugador, metodo_atributo, descripcion):
         atributo = int(getattr(jugador, metodo_atributo)())
         print(f"Probabilidad de {descripcion} correcta: ", atributo)
-        probabilidad = random.randint(0, self._dificultad.get_probaibilidad())
+        probabilidad = random.randint(0, self._dificultad.get_probabilidad())
         return probabilidad <= atributo
         "Si no funciona sacar getattr"
 
