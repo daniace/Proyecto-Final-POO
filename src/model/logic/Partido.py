@@ -206,27 +206,15 @@ class Partido:
             print()
     
     def _repartir_puntos(self,goles): ##
-        if isinstance(self._dificultad,Facil):
+        dificultades=[Facil,Medio,Dificil]
+        for dificultad in dificultades:
+            if isinstance(self._dificultad,dificultad):
                 if goles[0] > goles[1]:
-                    print("\033[1;32m"+f"{self._jugador1.get_nombre()} ha ganando! +3 pts"+"\033[0;m")
+                    print("\033[1;32m"+f"{self._jugador1.get_nombre()} ha ganado {self._dificultad.get_pts_por_ganar()}"+"\033[0;m")
                 elif goles[0] == goles[1]:
-                    print ("\033[1;36m"+f"{self._jugador1.get_nombre()} empato con {self._jugador2.get_nombre()} +1 pts"+"\033[0;m")
+                    print ("\033[1;36m"+f"{self._jugador1.get_nombre()} empato con {self._jugador2.get_nombre()}  , suma {self._dificultad.get_pts_por_empatar()}"+"\033[0;m")
                 else:
-                    print("\033[1:31m"+f"{self._jugador2.get_nombre()} ha ganado! +0 pts"+"\033[0;m")
-        if isinstance(self._dificultad,Medio):
-                if goles[0] > goles[1]:
-                    print("\033[1;32m"+f"{self._jugador1.get_nombre()} ha ganando! +4 pts"+"\033[0;m")
-                elif goles[0] == goles[1]:
-                    print ("\033[1;36m"+f"{self._jugador1.get_nombre()} empato con {self._jugador2.get_nombre()} +1 pts"+"\033[0;m")
-                else:
-                    print("\033[1:31m"+f"{self._jugador2.get_nombre()} ha ganado! +0 pts"+"\033[0;m")
-        if isinstance(self._dificultad,Dificil):
-                if goles[0] > goles[1]:
-                    print("\033[1;32m"+f"{self._jugador1.get_nombre()} ha ganando! +6 pts"+"\033[0;m")
-                elif goles[0] == goles[1]:
-                    print ("\033[1;36m"+f"{self._jugador1.get_nombre()} empato con {self._jugador2.get_nombre()} +2 pts"+"\033[0;m")
-                else:
-                    print("\033[1:31m"+f"{self._jugador2.get_nombre()} ha ganado! +0 pts"+"\033[0;m")
+                    print("\033[1:31m"+f"{self._jugador2.get_nombre()} ha ganado!  {self._jugador1.get_nombre()} suma {self._dificultad.get_pts_por_perder()}"+"\033[0;m")
 
     def jugar_partido(self) -> None:
         self._partido_en_curso = True
@@ -247,11 +235,12 @@ class Partido:
         self._repartir_puntos(self._goles)
 
 
-# Ejemplo de uso
+# Ejemplo de uso1
+
 e = EquipoLogico("leo", 1)
 e.set_formacion(Formacion352())
 e.nuevo_equipo()
-p = Partido(e, Dificil())
+p = Partido(e, Facil())
 # p._cancha.mostrar_cancha()
 p.jugar_partido()
 
