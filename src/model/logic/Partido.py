@@ -133,9 +133,27 @@ class Partido:
             self._posicion_pelota = (0, 3) if self._equipo_con_posesion == 2 else (7, 3)
             self._cambio_equipo()
             return False
+    
+    def realizar_gambeta(self) -> bool:
+        jugador_con_pelota = self._jugador_con_pelota() 
+        if self._acciones.calcular_efectividad_gambeta(jugador_con_pelota):
+            print("¡Gambeta exitosa! El jugador contrario no pudo interceptar la pelota.")
+            self._acciones.set_valor_bonificacion(True)
+            if self._jugador_con_pelota().get_posicion()[0]=='DEFENSA':
+                print("%15 mas de probabilidades de pase correcto")
+            if self._jugador_con_pelota().get_posicion()[0]=='MEDIOCAMPISTA':
+                print("%10 mas de probabilidades de pase y de tiro correcto")
+            if self._jugador_con_pelota().get_posicion()[0]=='DELANTERO':
+                print("%15 mas de probabilidades de tiro correcto")
+            return True 
+        else:
+            print("Gambeta fallida. El jugador contrario ha recuperado la pelota.")
+            self._cambio_equipo()
+            self._posicion_pelota = self._cancha.encontrar_puntos_cercanos( self._posicion_pelota, "enemigo" )[0] 
+            return False
 
     def _jugar_turno_jugador(self) -> None:
-        time.sleep(2)
+        time.sleep(1)
         self.mostrar_cancha_con_pelota()                #despues esto se tiene que borrar#
         print(
             "---------------------------------------------------------------------------------------"
@@ -148,12 +166,13 @@ class Partido:
         )
         print()
         print(
-            f"{self._jugador_con_pelota()} tiene la pelota, ¿qué desea hacer?:\n1 - Pase\n2 - Tiro"
+            f"{self._jugador_con_pelota()} tiene la pelota, ¿qué desea hacer?:\n1 - Pase\n2 - Tiro\n3- Gambeta"
         )
-        decision = self._obtener_decision_usuario(2)
+        decision = self._obtener_decision_usuario(3)
         match decision:
             case 1:
                 self.realizar_pase()
+                self._acciones.set_valor_bonificacion(False)
             case 2:
                 print("TIRO DEL JUGADOR 1")
                 if self.realizar_tiro():
@@ -161,6 +180,11 @@ class Partido:
                         print("\033[1;32m"+"GOOOOL DEL JUGADOR 1!!!"+"\033[0;m")
                         self._goles[0] += 1 
                         print('GOLES -->', 'P1',self._goles[0], '- CPU ',self._goles[1])
+                self._acciones.set_valor_bonificacion(False)
+            case 3:
+                if self._jugador_con_pelota().get_posicion()[0]=='ARQUERO':
+                    print("el Aqruero no pude realizar gambeta")
+                else: self.realizar_gambeta()
 
     def _jugar_turno_cpu(self) -> None:
         self.mostrar_cancha_con_pelota()        #despues esto se tiene que borrar#
@@ -242,7 +266,6 @@ e = EquipoLogico("leo", 1)
 e.set_formacion(Formacion352())
 e.nuevo_equipo()
 p = Partido(e, Facil())
-# p._cancha.mostrar_cancha()
 p.jugar_partido()
 
 

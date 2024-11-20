@@ -3,10 +3,25 @@ import random
 class Acciones:
     def __init__(self, dificultad):
         self._dificultad = dificultad
+        self._bonificacion_de_gambeta=False
+    
+    def set_valor_bonificacion(self,valor:bool):
+        self._bonificacion_de_gambeta=valor
 
     def calcular_efectividad(self, jugador, metodo_atributo, descripcion):
         atributo = int(getattr(jugador, metodo_atributo)())
         probabilidad = random.randint(0, self._dificultad.get_probabilidad())
+        if self._bonificacion_de_gambeta:
+            posicion = jugador.get_posicion()[0]
+            if metodo_atributo == 'get_pase' and posicion == 'DEFENSA':
+                atributo *= 1.15 # 15% más de pase para defensas 
+            elif metodo_atributo == 'get_pase' and posicion == 'MEDIOCAMPISTA':
+                atributo *= 1.10 # 10% más de pase para mediocampistas 
+            elif metodo_atributo == 'get_disparo' and posicion == 'MEDIOCAMPISTA':
+                atributo *= 1.10 # 10% más de tiro para mediocampistas 
+            elif metodo_atributo == 'get_disparo' and posicion == 'DELANTERO':
+                atributo *= 1.15 # 15% más de tiro para delanteros
+        
         if metodo_atributo == 'get_disparo':
 
             if jugador.get_posicion()[0] == 'ARQUERO':
@@ -31,6 +46,9 @@ class Acciones:
 
     def calcular_efectividad_atajar(self, jugador):
         return self.calcular_efectividad(jugador, 'get_gk_handling', 'atajar')
+    
+    def calcular_efectividad_gambeta(self, jugador):
+            return self.calcular_efectividad(jugador, 'get_gambeta', 'gambeta')
 
 
 'COSAS PARA IMPLEMENTAR'
