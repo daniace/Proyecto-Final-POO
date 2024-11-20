@@ -209,6 +209,7 @@ class Partido:
         dificultades=[Facil,Medio,Dificil]
         for dificultad in dificultades:
             if isinstance(self._dificultad,dificultad):
+                print(self._dificultad.get_mensaje())
                 if goles[0] > goles[1]:
                     print("\033[1;32m"+f"{self._jugador1.get_nombre()} ha ganado {self._dificultad.get_pts_por_ganar()}"+"\033[0;m")
                 elif goles[0] == goles[1]:

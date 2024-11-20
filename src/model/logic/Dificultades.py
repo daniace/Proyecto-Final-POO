@@ -6,6 +6,10 @@ class Dificultad(ABC):
         self._probabilidad=100
     
     @abstractmethod
+    def get_mensaje(self):
+        pass
+    
+    @abstractmethod
     def get_probabilidad(self):
         pass
     
@@ -21,6 +25,8 @@ class Dificultad(ABC):
 
 class Facil(Dificultad):
     
+    def get_mensaje(self):
+        return f'reparto de puntos (FACIL):\n victoria (+ {self.get_pts_por_ganar()}pts) ;empate (+ {self.get_pts_por_empatar()}pts);derrota ({self.get_pts_por_perder()}pts)'
     def get_probabilidad(self):
         return self._probabilidad * 1
     
@@ -29,6 +35,8 @@ class Facil(Dificultad):
 
 class Medio(Dificultad):
     
+    def get_mensaje(self):
+        return f'reparto de puntos (MEDIO):\n victoria (+ {self.get_pts_por_ganar()}pts) ;empate (+ {self.get_pts_por_empatar()}pts);derrota ({self.get_pts_por_perder()}pts)'
     def get_probabilidad(self):
         return int(self._probabilidad * 1.2)
     
@@ -36,6 +44,8 @@ class Medio(Dificultad):
         return 4
 
 class Dificil(Dificultad):
+    def get_mensaje(self):
+        return f'reparto de puntos (DIFICIL):\n victoria (+ {self.get_pts_por_ganar()}pts) ;empate (+ {self.get_pts_por_empatar()}pts);derrota ({self.get_pts_por_perder()}pts)'
     
     def get_probabilidad(self):
         return int(self._probabilidad * 1.5)
@@ -45,4 +55,3 @@ class Dificil(Dificultad):
     
     def get_pts_por_empatar(self):
         return 2
-
