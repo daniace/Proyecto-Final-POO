@@ -22,7 +22,7 @@ COLOR_FONDO = NEGRO
 
 # Configuracion del juego
 FPS = 60
-FORMACION_PREDETERMINADA = "4-4-2"
+FORMACION_PREDETERMINADA = "4-3-3"
 POSICIONES = ["delanteros", "mediocampistas", "defensas", "portero"]
 FORMACIONES = {
     "4-3-3": {

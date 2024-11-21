@@ -12,6 +12,8 @@ class RankingController(Controlador):
         self._view = RankingView(pygame.display.set_mode((ANCHO, ALTO)))
 
     def manejar_eventos(self, eventos, mouse_pos):
+        from controller.MenuViewControlador import MenuController
+
         botones = self._view.get_botones()
         for event in eventos:
             if event.type == pygame.QUIT:
@@ -23,4 +25,5 @@ class RankingController(Controlador):
                 # usuarios_actualizado = abmusuario.get_all()
                 # actualizar_ranking(usuarios_actualizado)
                 if botones[1].checkForInput(mouse_pos):
-                    pass  # menú principal
+                    menu_principal = MenuController()
+                    menu_principal.main_loop()

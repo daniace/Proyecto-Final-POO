@@ -14,7 +14,6 @@ class OpcionesView(VentanaView):
         TEXTO_OPCIONES = get_fuente(100).render("OPCIONES", True, "Black")
         OPCIONES_RECT = TEXTO_OPCIONES.get_rect(center=(ANCHO // 2, 50))
         self._pantalla.blit(TEXTO_OPCIONES, OPCIONES_RECT)
-        #########################################
 
         COLOR_FONDO = (40, 40, 40)
         TEXTO_CONTROLES = get_fuente(75).render("CONTROLES:", True, "White")

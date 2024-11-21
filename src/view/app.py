@@ -2,7 +2,7 @@ import sys
 
 import pygame
 
-from .Boton import *
+from Boton import *
 from settings import *
 
 # pygame setup
@@ -59,62 +59,6 @@ def jugar():
         dibujar_formaciones(SCREEN, FORMACIONES, formacion_actual)
         texto_formacion(formacion_actual)
 
-        # CAMBIAR FORMACION
-        CAMBIAR_FORMACION_ATRAS = Boton(
-            boton_flecha_izquierda,
-            (ANCHO * 0.31, ALTO * 0.077),
-            "  ",
-            get_fuente(30),
-            BLANCO,
-            ROJO,
-        )
-        CAMBIAR_FORMACION_ATRAS.changeColor(JUGAR_POS_MOUSE)
-        CAMBIAR_FORMACION_ATRAS.update(SCREEN)
-
-        CAMBIAR_FORMACION_ADELANTE = Boton(
-            boton_flecha_derecha,
-            (ANCHO * 0.69, ALTO * 0.077),
-            "  ",
-            get_fuente(30),
-            BLANCO,
-            ROJO,
-        )
-        CAMBIAR_FORMACION_ADELANTE.changeColor(JUGAR_POS_MOUSE)
-        CAMBIAR_FORMACION_ADELANTE.update(SCREEN)
-        JUGAR_ATRAS = Boton(
-            boton_rojo_cuadrado,
-            (ANCHO * 0.045, ALTO * 0.08),
-            "🔙",
-            pygame.font.Font(EMOJIS, 75),
-            BLANCO,
-            ROJO,
-        )
-        JUGAR_ATRAS.changeColor(JUGAR_POS_MOUSE)
-        JUGAR_ATRAS.update(SCREEN)
-        # ------------
-        # -------------
-        JUGAR_COMIENZA = Boton(
-            boton_verde,
-            (ANCHO * 0.88, ALTO * 0.90),
-            "COMIENZA",
-            get_fuente(75),
-            "White",
-            "Green",
-        )
-        JUGAR_COMIENZA.changeColor(JUGAR_POS_MOUSE)
-        JUGAR_COMIENZA.update(SCREEN)
-
-        # -------------
-        DADO = Boton(
-            boton_dado,
-            (ANCHO * 0.88, ALTO * 0.6),
-            "",
-            get_fuente(75),
-            "White",
-            "Green",
-        )
-        # DADO.changeColor(JUGAR_POS_MOUSE)
-        DADO.update(SCREEN)
         #  -------------
         # ------------
         for event in pygame.event.get():

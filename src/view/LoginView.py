@@ -19,8 +19,12 @@ class LoginView(VentanaView):
         IMAGEN_TABLA = pygame.transform.scale(IMAGEN_TABLA, (650, 340))
         self._pantalla.blit(IMAGEN_TABLA, (int(ANCHO * 0.25), int(ALTO * 0.3)))
 
+        # Texto
+        superficie_texto = get_fuente(50).render(texto_usuario, True, NEGRO)
+        self._pantalla.blit(superficie_texto, (int(ANCHO * 0.4), int(ALTO * 0.5)))
+
         # Botones
-        LOGIN = self.mostrar_boton(
+        LOGIN = self._mostrar_boton(
             boton_surface,
             (int(ANCHO * 0.5), int(ALTO * 0.5 + 90)),
             "LOGIN",
@@ -29,7 +33,7 @@ class LoginView(VentanaView):
             NEGRO,
         )
 
-        LOGIN_ATRAS = self.mostrar_boton(
+        LOGIN_ATRAS = self._mostrar_boton(
             boton_rojo_cuadrado,
             (ANCHO * 0.045, ALTO * 0.09),
             "🔙",
@@ -38,6 +42,5 @@ class LoginView(VentanaView):
             ROJO,
         )
 
-        for boton in [LOGIN, LOGIN_ATRAS]:
-            boton.changeColor(pygame.mouse.get_pos())
-            boton.update(self._pantalla)
+        for boton in [LOGIN_ATRAS, LOGIN]:
+            self._botones.append(boton)

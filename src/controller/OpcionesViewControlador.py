@@ -12,6 +12,8 @@ class OpcionesController(Controlador):
         self._view = OpcionesView(pygame.display.set_mode((ANCHO, ALTO)))
 
     def manejar_eventos(self, eventos, mouse_pos):
+        from controller.MenuViewControlador import MenuController
+
         botones = self._view.get_botones()
         for event in eventos:
             if event.type == pygame.QUIT:
@@ -23,7 +25,8 @@ class OpcionesController(Controlador):
                 if botones[1].checkForInput(mouse_pos):
                     pygame.mixer.music.set_volume(0)
                 if botones[2].checkForInput(mouse_pos):
-                    menu_principal()
+                    menu_principal = MenuController()
+                    menu_principal.main_loop()
                 if botones[3].checkForInput(mouse_pos):
                     pass
                     # dificultadd.dificil()
