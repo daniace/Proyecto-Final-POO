@@ -59,6 +59,10 @@ HOME = "src/assets/images/Home.png"
 IMAGEN_BOTON6 = "src/assets/images/boton6.png"
 IMAGEN_BOTON7 = "src/assets/images/boton7.png"
 BOTON_NEGRO = "src/assets/images/BotonNegro.png"
+MESSI = "src/assets/images/messi.png"
+MESSI_COPA = "src/assets/images/messi_copa.png"
+D10S = "src/assets/images/d10s.png"
+DIBU = "src/assets/images/dibu.png"
 # Fuentes
 FUENTE = "src/assets/font/Pixeltype.ttf"
 EMOJIS = "src/assets/font/NotoEmoji-Regular.ttf"
@@ -88,6 +92,18 @@ BG_RANKING = pygame.transform.scale(bg_ranking, TAMANIO_PANTALLA)
 bg_cancha_oficial = pygame.image.load(IMAGEN_CANCHA_OFICIAL)
 BG_CANCHA_OFICIAL = pygame.transform.scale(bg_cancha_oficial, (ANCHO, ALTO // 1.3))
 clock = pygame.time.Clock()
+
+imagen_messi = pygame.image.load(MESSI)
+imagen_messi = pygame.transform.scale(imagen_messi, (350, 350))
+
+imagen_messi_copa = pygame.image.load(MESSI_COPA)
+imagen_messi_copa = pygame.transform.scale(imagen_messi_copa, (650, 350))
+
+imagen_d10s = pygame.image.load(D10S)
+imagen_d10s = pygame.transform.scale(imagen_d10s, (280, 280))
+
+imagen_dibu = pygame.image.load(DIBU)
+imagen_dibu = pygame.transform.scale(imagen_dibu, (350, 350))
 
 boton_surface = pygame.image.load(IMAGEN_BOTON4)
 boton_surface = pygame.transform.scale(boton_surface, (250, 80))
