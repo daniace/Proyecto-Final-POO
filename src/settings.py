@@ -58,6 +58,7 @@ HOME = "src/assets/images/Home.png"
 IMAGEN_BOTON6 = "src/assets/images/boton6.png"
 IMAGEN_BOTON7 = "src/assets/images/boton7.png"
 BOTON_NEGRO = "src/assets/images/BotonNegro.png"
+MESSI = "src/assets/images/messi.png"
 # Fuentes
 FUENTE = "src/assets/font/Pixeltype.ttf"
 EMOJIS = "src/assets/font/NotoEmoji-Regular.ttf"
@@ -84,6 +85,9 @@ BG_RANKING = pygame.transform.scale(bg_ranking, TAMANIO_PANTALLA)
 bg_cancha_oficial = pygame.image.load(IMAGEN_CANCHA_OFICIAL)
 BG_CANCHA_OFICIAL = pygame.transform.scale(bg_cancha_oficial, (ANCHO, ALTO // 1.3))
 clock = pygame.time.Clock()
+
+imagen_messi = pygame.image.load(MESSI)
+imagen_messi = pygame.transform.scale(imagen_messi, (350, 350))
 
 boton_surface = pygame.image.load(IMAGEN_BOTON4)
 boton_surface = pygame.transform.scale(boton_surface, (250, 80))

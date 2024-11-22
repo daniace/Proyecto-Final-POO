@@ -20,6 +20,7 @@ class JugarView(VentanaView):
         CANCHA_IMAGEN = pygame.image.load(IMAGEN_CANCHA)
         CANCHA_IMAGEN = pygame.transform.scale(CANCHA_IMAGEN, (ANCHO // 2, ALTO))
         self._pantalla.blit(CANCHA_IMAGEN, (int(ANCHO * 0.25), 0))
+        self._pantalla.blit(imagen_messi, (int(ANCHO * 0.5), int(ALTO * 0.5)))
         # BOTONES
         CAMBIAR_FORMACION_ATRAS = self._mostrar_boton(
             boton_flecha_izquierda,
