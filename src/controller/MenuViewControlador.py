@@ -31,12 +31,16 @@ class MenuController(Controlador):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if botones["login"].checkForInput(mouse_pos):
+                    self._view.ocultar_visibilidad()
                     self.__login.main_loop()
                 if botones["jugar"].checkForInput(mouse_pos):
+                    self._view.ocultar_visibilidad()
                     self.__jugar.main_loop()
                 if botones["opciones"].checkForInput(mouse_pos):
+                    self._view.ocultar_visibilidad()
                     self.__opciones.main_loop()
                 if botones["ranking"].checkForInput(mouse_pos):
+                    self._view.ocultar_visibilidad()
                     self.__ranking.main_loop()
                 if botones["salir"].checkForInput(mouse_pos):
                     pygame.quit()

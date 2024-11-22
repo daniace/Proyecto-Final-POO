@@ -7,6 +7,7 @@ class VentanaView(ABC):
     def __init__(self, pantalla):
         self._pantalla = pantalla  # La pantalla principal
         self._botones = []
+        self._visible = True
 
     @abstractmethod
     def mostrar(self):
@@ -21,3 +22,12 @@ class VentanaView(ABC):
         boton.changeColor(mouse_pos)
         boton.update(self._pantalla)
         return boton
+
+    def mostrar_visibilidad(self):
+        self._visible = True
+
+    def ocultar_visibilidad(self):
+        self._visible = False
+
+    def get_visibilidad(self):
+        return self._visible

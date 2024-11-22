@@ -10,29 +10,26 @@ class JugarView(VentanaView):
         super().__init__(pantalla)
         self.__estadio = camp_nou
         self.__estadisticas = {}
-        self.__mostrar = True
 
     def mostrar(self):
-        if self.__mostrar:
-            print("ESTOY EN EL MENU DE JUEGOS CHAVAL")
-            self._botones = {}
-            pygame.display.set_caption("JUGANDO")
-            self._pantalla.fill(NEGRO)
-            # Dibuja el texto estadio que esta junto a los botones para cambiar los estadios del fondo
-            COLOR_FONDO = (120, 120, 120)
-            TEXTO_ESTADIO = get_fuente(60).render("ESTADIO", True, BLANCO)
-            ESTADIO_RECT = TEXTO_ESTADIO.get_rect(
-                center=(int(ANCHO * 0.12), int(ALTO * 0.92))
-            )
-            margen = 20
-            fondo_rect = ESTADIO_RECT.inflate(margen, margen)
-            # esto muestra el estadio en el fondo
-            self.__dibujar_estadio()
-            self._pantalla.blit(
-                imagen_messi_copa, (int(ANCHO * 0.63), int(ALTO * 0.03))
-            )  # esto muestra al messiArt en pantalla
-            pygame.draw.rect(self._pantalla, COLOR_FONDO, fondo_rect, border_radius=20)
-            self._pantalla.blit(TEXTO_ESTADIO, ESTADIO_RECT)
+        self._botones = {}
+        pygame.display.set_caption("JUGANDO")
+        self._pantalla.fill(NEGRO)
+        # Dibuja el texto estadio que esta junto a los botones para cambiar los estadios del fondo
+        COLOR_FONDO = (120, 120, 120)
+        TEXTO_ESTADIO = get_fuente(60).render("ESTADIO", True, BLANCO)
+        ESTADIO_RECT = TEXTO_ESTADIO.get_rect(
+            center=(int(ANCHO * 0.12), int(ALTO * 0.92))
+        )
+        margen = 20
+        fondo_rect = ESTADIO_RECT.inflate(margen, margen)
+        # esto muestra el estadio en el fondo
+        self.__dibujar_estadio()
+        self._pantalla.blit(
+            imagen_messi_copa, (int(ANCHO * 0.63), int(ALTO * 0.03))
+        )  # esto muestra al messiArt en pantalla
+        pygame.draw.rect(self._pantalla, COLOR_FONDO, fondo_rect, border_radius=20)
+        self._pantalla.blit(TEXTO_ESTADIO, ESTADIO_RECT)
 
         # BOTONES
         CAMBIAR_FORMACION_ATRAS = self._mostrar_boton(
@@ -105,49 +102,52 @@ class JugarView(VentanaView):
         self._botones["cambiar_estadio_atras"] = CAMBIAR_ESTADIO_ATRAS
         self._botones["cambiar_estadio_adelante"] = CAMBIAR_ESTADIO_ADELANTE
 
-    def dibujar_formaciones(self, SCREEN, formaciones, formacion_actual, equipo):
-        CARTA_IMAGEN = pygame.image.load(IMAGEN_CARTA)
-        CARTA_IMAGEN = pygame.transform.scale(CARTA_IMAGEN, (80, 120))
-        jugadores_asignados = 0  # Contador para asignar jugadores de la lista
-        for posicion in POSICIONES:
-            # Obtener las coordenadas para la posición actual
-            coordenadas = formaciones[formacion_actual][posicion]
-            # Si ya se usaron todos los jugadores, romper el bucle
-            for cordenadas in coordenadas:
-                if jugadores_asignados >= len(equipo):
-                    break
-                # Obtener el jugador correspondiente
-                jugador = equipo[jugadores_asignados]
-                jugadores_asignados += 1  # Avanzar al siguiente jugador
-                # x,y calculan posición en pantalla para la carta, tambien se usa para guiarnos con el texto
-                x = int(ANCHO * cordenadas[0])
-                y = int(ALTO * cordenadas[1])
-                # llama a ajustar texto para que el texto se ajuste al tamaño de la carta o a un ancho maximo
-                NOMBRE_JUGADOR = self.__ajustar_texto(
-                    jugador.get_nombre(), FUENTE, 60, NEGRO
-                )
-                # Utilizo el diccionario de estadisticas que se hizo con la funicon renderizar_estadisticas
-                estadisticas_jugador = self.__estadisticas[jugador.get_nombre()]
-                PAC = estadisticas_jugador["PAC"]
-                SHO = estadisticas_jugador["SHO"]
-                PAS = estadisticas_jugador["PAS"]
-                DRI = estadisticas_jugador["DRI"]
-                DEF = estadisticas_jugador["DEF"]
-                PHY = estadisticas_jugador["PHY"]
-                DOR = estadisticas_jugador["DORSAL"]
-                OVR = estadisticas_jugador["OVR"]
-                # Dibujar carta y nombre del jugador
-                SCREEN.blit(CARTA_IMAGEN, (x, y))
-                SCREEN.blit(dorsal, (x + 55, y + 95))
-                SCREEN.blit(PAC, (x + 5, y + 35))
-                SCREEN.blit(SHO, (x + 5, y + 50))
-                SCREEN.blit(PAS, (x + 5, y + 65))
-                SCREEN.blit(DRI, (x + 42.5, y + 35))
-                SCREEN.blit(DEF, (x + 42.5, y + 50))
-                SCREEN.blit(PHY, (x + 42.5, y + 65))
-                SCREEN.blit(NOMBRE_JUGADOR, (x + 14, y + 80))
-                SCREEN.blit(DOR, (x + 67.5, y + 115))
-                SCREEN.blit(OVR, (x + 8, y + 10))
+    def dibujar_formaciones(
+        self, SCREEN, formaciones, formacion_actual, equipo, dado_apretado
+    ):
+        if dado_apretado:
+            CARTA_IMAGEN = pygame.image.load(IMAGEN_CARTA)
+            CARTA_IMAGEN = pygame.transform.scale(CARTA_IMAGEN, (80, 120))
+            jugadores_asignados = 0  # Contador para asignar jugadores de la lista
+            for posicion in POSICIONES:
+                # Obtener las coordenadas para la posición actual
+                coordenadas = formaciones[formacion_actual][posicion]
+                # Si ya se usaron todos los jugadores, romper el bucle
+                for cordenadas in coordenadas:
+                    if jugadores_asignados >= len(equipo):
+                        break
+                    # Obtener el jugador correspondiente
+                    jugador = equipo[jugadores_asignados]
+                    jugadores_asignados += 1  # Avanzar al siguiente jugador
+                    # x,y calculan posición en pantalla para la carta, tambien se usa para guiarnos con el texto
+                    x = int(ANCHO * cordenadas[0])
+                    y = int(ALTO * cordenadas[1])
+                    # llama a ajustar texto para que el texto se ajuste al tamaño de la carta o a un ancho maximo
+                    NOMBRE_JUGADOR = self.__ajustar_texto(
+                        jugador.get_nombre(), FUENTE, 60, NEGRO
+                    )
+                    # Utilizo el diccionario de estadisticas que se hizo con la funicon renderizar_estadisticas
+                    estadisticas_jugador = self.__estadisticas[jugador.get_nombre()]
+                    PAC = estadisticas_jugador["PAC"]
+                    SHO = estadisticas_jugador["SHO"]
+                    PAS = estadisticas_jugador["PAS"]
+                    DRI = estadisticas_jugador["DRI"]
+                    DEF = estadisticas_jugador["DEF"]
+                    PHY = estadisticas_jugador["PHY"]
+                    DOR = estadisticas_jugador["DORSAL"]
+                    OVR = estadisticas_jugador["OVR"]
+                    # Dibujar carta y nombre del jugador
+                    SCREEN.blit(CARTA_IMAGEN, (x, y))
+                    SCREEN.blit(dorsal, (x + 55, y + 95))
+                    SCREEN.blit(PAC, (x + 5, y + 35))
+                    SCREEN.blit(SHO, (x + 5, y + 50))
+                    SCREEN.blit(PAS, (x + 5, y + 65))
+                    SCREEN.blit(DRI, (x + 42.5, y + 35))
+                    SCREEN.blit(DEF, (x + 42.5, y + 50))
+                    SCREEN.blit(PHY, (x + 42.5, y + 65))
+                    SCREEN.blit(NOMBRE_JUGADOR, (x + 14, y + 80))
+                    SCREEN.blit(DOR, (x + 67.5, y + 115))
+                    SCREEN.blit(OVR, (x + 8, y + 10))
 
     def texto_formacion(self, formacion_actual):
         COLOR_FONDO = (120, 120, 120)
@@ -185,6 +185,7 @@ class JugarView(VentanaView):
 
     # Esta funcion es para optimizar el rendimiento, si alguien lee esto y necesita explicacion del porque mejora el rendimiento preguntenme soy BRUNO
     def renderizar_estadisticas(self, equipo):
+        self.__estadisticas = {}
         for jugador in equipo:
             if jugador.get_posicion_arquero() == "GK":
                 estadisticas = {
@@ -241,6 +242,3 @@ class JugarView(VentanaView):
                     ),
                 }
             self.__estadisticas[jugador.get_nombre()] = estadisticas
-
-    def set_mostrar(self, mostrar):
-        self.__mostrar = mostrar

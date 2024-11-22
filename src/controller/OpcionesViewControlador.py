@@ -30,6 +30,7 @@ class OpcionesController(Controlador):
                 if botones["sonido_off"].checkForInput(mouse_pos):
                     self.__musica.pausar_soundtrack()
                 if botones["atras"].checkForInput(mouse_pos):
+                    self._view.ocultar_visibilidad()
                     menu_principal = MenuController()
                     menu_principal.main_loop()
                 if botones["facil"].checkForInput(mouse_pos):

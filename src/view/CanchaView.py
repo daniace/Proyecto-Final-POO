@@ -12,6 +12,7 @@ class CanchaView(VentanaView):
 
     def mostrar(self):
         self._botones = {}
+        pygame.display.set_caption("GAMEPLAY")
         self._pantalla.fill(NEGRO)
         self._pantalla.blit(BG_CANCHA_OFICIAL, (0, 0))
         ATAJADA_GIF.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.1)))

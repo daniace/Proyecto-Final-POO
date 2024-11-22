@@ -9,11 +9,11 @@ from .VentanaView import VentanaView
 class MenuView(VentanaView):
     def __init__(self, pantalla):
         super().__init__(pantalla)
-        self.__mostrar = True
 
     def mostrar(self):
         self._botones = {}
         # Fondo de pantalla
+        pygame.display.set_caption("HEROES DEL BALON")
         self._pantalla.blit(BG, (0, 0))
 
         # Título del menú

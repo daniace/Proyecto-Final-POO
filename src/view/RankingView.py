@@ -12,6 +12,7 @@ class RankingView(VentanaView):
 
     def mostrar(self):
         self._botones = {}
+        pygame.display.set_caption("RANKING")
         self._pantalla.blit(BG_RANKING, (0, 0))
         # RANKING_POS_MOUSE = pygame.mouse.get_pos()
 

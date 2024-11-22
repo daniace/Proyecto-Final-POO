@@ -17,6 +17,7 @@ class JugarController(Controlador):
         self.__formacion_actual = FORMACION_PREDETERMINADA
         self.__comienza_partida = False
         self.__genero_equipo = EquipoLogico("Equipo 1", 1)
+        self.__dado_apretado = False
 
     def manejar_eventos(self, eventos, mouse_pos):
         botones = self._view.get_botones()
@@ -28,6 +29,7 @@ class JugarController(Controlador):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if botones["dado"].checkForInput(mouse_pos):  # Boton del Dado
+                    self.__dado_apretado = True
                     self.__genero_equipo.nuevo_equipo()
                     self._view.renderizar_estadisticas(self.__genero_equipo._jugadores)
                     self.__comienza_partida = True
@@ -35,9 +37,10 @@ class JugarController(Controlador):
                     mouse_pos
                 ):  # Boton Comenzar Partia
                     if self.__comienza_partida:
-                        self._view.set_mostrar(False)
+                        self._view.ocultar_visibilidad()
                         self.__cancha.main_loop()
                 elif botones["atras"].checkForInput(mouse_pos):  # Boton Back
+                    self._view.ocultar_visibilidad()
                     menu_principal = MenuController()
                     menu_principal.main_loop()
                 elif botones["cambiar_formacion_atras"].checkForInput(
@@ -54,12 +57,10 @@ class JugarController(Controlador):
                     self.__cambiar_estadio("Adelante")
                 elif botones["cambiar_estadio_atras"].checkForInput(mouse_pos):
                     self.__cambiar_estadio("Atras")
-
-        clock.tick(FPS)
-        pygame.display.update()
+            clock.tick(FPS)
+            pygame.display.update()
 
     def main_loop(self):
-        self._view.renderizar_estadisticas(self.__genero_equipo._jugadores)
         while True:
             mouse_pos = pygame.mouse.get_pos()
             self._view.mostrar()  # Mostrar el menú
@@ -68,6 +69,7 @@ class JugarController(Controlador):
                 FORMACIONES,
                 self.__formacion_actual,
                 self.__genero_equipo._jugadores,
+                self.__dado_apretado,
             )
             self._view.texto_formacion(self.__formacion_actual)
             eventos = pygame.event.get()  # Manejar eventos
