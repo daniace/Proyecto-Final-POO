@@ -1,6 +1,8 @@
 import pygame
-from .Boton import Boton
+
 from settings import *
+
+from .Boton import Boton
 from .VentanaView import VentanaView
 
 
@@ -9,7 +11,7 @@ class RankingView(VentanaView):
         super().__init__(pantalla)
 
     def mostrar(self):
-        self._botones = []
+        self._botones = {}
         self._pantalla.blit(BG, (0, 0))
         self._pantalla.fill("black")
         # RANKING_POS_MOUSE = pygame.mouse.get_pos()
@@ -38,7 +40,6 @@ class RankingView(VentanaView):
             BLANCO,
             ROJO,
         )
-        for boton in [RANKING_ACTUALIZAR, RANKING_ATRAS]:
-            self._botones.append(boton)
 
-        # actualizar_ranking(usuarios)
+        self._botones["atras"] = RANKING_ATRAS
+        self._botones["actualizar"] = RANKING_ACTUALIZAR

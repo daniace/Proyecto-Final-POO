@@ -1,6 +1,8 @@
 import pygame
-from .Boton import Boton
+
 from settings import *
+
+from .Boton import Boton
 from .VentanaView import VentanaView
 
 
@@ -9,7 +11,7 @@ class LoginView(VentanaView):
         super().__init__(pantalla)
 
     def mostrar(self):
-        self._botones = []
+        self._botones = {}
         texto_usuario = ""
 
         # Fondo de pantalla
@@ -43,5 +45,5 @@ class LoginView(VentanaView):
             ROJO,
         )
 
-        for boton in [LOGIN_ATRAS, LOGIN]:
-            self._botones.append(boton)
+        self._botones["login"] = LOGIN
+        self._botones["atras"] = LOGIN_ATRAS

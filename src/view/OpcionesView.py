@@ -1,6 +1,8 @@
 import pygame
-from .Boton import Boton
+
 from settings import *
+
+from .Boton import Boton
 from .VentanaView import VentanaView
 
 
@@ -9,7 +11,7 @@ class OpcionesView(VentanaView):
         super().__init__(pantalla)
 
     def mostrar(self):
-        self._botones = []
+        self._botones = {}
         self._pantalla.blit(BG_OPCIONES, (0, 0))
 
         TEXTO_OPCIONES = get_fuente(100).render("OPCIONES", True, "Black")
@@ -108,5 +110,10 @@ class OpcionesView(VentanaView):
             "White",
             "Red",
         )
-        for boton in [SONIDO_ON, SONIDO_OFF, OPCIONES_ATRAS, DIFICIL, FACIL, NORMAL]:
-            self._botones.append(boton)
+
+        self._botones["facil"] = FACIL
+        self._botones["normal"] = NORMAL
+        self._botones["dificil"] = DIFICIL
+        self._botones["sonido_on"] = SONIDO_ON
+        self._botones["sonido_off"] = SONIDO_OFF
+        self._botones["atras"] = OPCIONES_ATRAS

@@ -2,10 +2,11 @@ import sys
 
 import pygame
 
-from .Controlador import Controlador
+from controller.ReproductorMusica import ReproductorMusica
 from settings import *
 from view.OpcionesView import OpcionesView
-from controller.ReproductorMusica import ReproductorMusica
+
+from .Controlador import Controlador
 
 
 class OpcionesController(Controlador):
@@ -23,18 +24,20 @@ class OpcionesController(Controlador):
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if botones[0].checkForInput(mouse_pos):
+                if botones["sonido_on"].checkForInput(mouse_pos):
                     self.__musica.reanudar_soundtrack()
-                if botones[1].checkForInput(mouse_pos):
+                if botones["sonido_off"].checkForInput(mouse_pos):
                     self.__musica.pausar_soundtrack()
-                if botones[2].checkForInput(mouse_pos):
+                if botones["atras"].checkForInput(mouse_pos):
                     menu_principal = MenuController()
                     menu_principal.main_loop()
-                if botones[3].checkForInput(mouse_pos):
+                if botones["facil"].checkForInput(mouse_pos):
                     pass
                     # dificultadd.dificil()
-                if botones[4].checkForInput(mouse_pos):
+                if botones["normal"].checkForInput(mouse_pos):
                     pass
                     # dificultadd.facil()
+                if botones["dificil"].checkForInput(mouse_pos):
+                    pass
         clock.tick(60)
         pygame.display.update()

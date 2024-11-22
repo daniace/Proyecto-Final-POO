@@ -1,5 +1,7 @@
 import pygame
+
 from settings import *
+
 from .VentanaView import VentanaView
 
 
@@ -8,7 +10,7 @@ class JugarView(VentanaView):
         super().__init__(pantalla)
 
     def mostrar(self):
-        self._botones = []
+        self._botones = {}
         pygame.display.set_caption("JUGANDO")
         self._pantalla.fill(NEGRO)
 
@@ -63,14 +65,12 @@ class JugarView(VentanaView):
             "White",
             "Green",
         )
-        for boton in [
-            DADO,
-            JUGAR_COMIENZA,
-            JUGAR_ATRAS,
-            CAMBIAR_FORMACION_ATRAS,
-            CAMBIAR_FORMACION_ADELANTE,
-        ]:
-            self._botones.append(boton)
+
+        self._botones["atras"] = JUGAR_ATRAS
+        self._botones["comienza"] = JUGAR_COMIENZA
+        self._botones["dado"] = DADO
+        self._botones["cambiar_formacion_atras"] = CAMBIAR_FORMACION_ATRAS
+        self._botones["cambiar_formacion_adelante"] = CAMBIAR_FORMACION_ADELANTE
 
     def dibujar_formaciones(self, SCREEN, formaciones, formacion_actual):
         CARTA_IMAGEN = pygame.image.load(IMAGEN_CARTA)

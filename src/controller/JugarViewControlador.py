@@ -2,10 +2,11 @@ import sys
 
 import pygame
 
-from .Controlador import Controlador
 from settings import *
 from view.JugarView import JugarView
+
 from .CanchaViewControlador import CanchaController
+from .Controlador import Controlador
 
 
 class JugarController(Controlador):
@@ -25,15 +26,19 @@ class JugarController(Controlador):
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if botones[0].checkForInput(mouse_pos):  # Boton del Dado
+                if botones["dado"].checkForInput(mouse_pos):  # Boton del Dado
                     self.__comienza_partida = True
-                elif botones[1].checkForInput(mouse_pos):  # Boton Comenzar Partia
+                elif botones["comienza"].checkForInput(
+                    mouse_pos
+                ):  # Boton Comenzar Partia
                     if self.__comienza_partida:
                         self.__cancha.main_loop()
-                elif botones[2].checkForInput(mouse_pos):  # Boton Back
+                elif botones["atras"].checkForInput(mouse_pos):  # Boton Back
                     menu_principal = MenuController()
                     menu_principal.main_loop()
-                elif botones[3].checkForInput(mouse_pos) or botones[4].checkForInput(
+                elif botones["cambiar_formacion_atras"].checkForInput(
+                    mouse_pos
+                ) or botones["cambiar_formacion_adelante"].checkForInput(
                     mouse_pos
                 ):  # flechas para cambiar formacion
                     if self.__formacion_actual == "4-4-2":

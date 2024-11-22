@@ -1,6 +1,8 @@
 import pygame
-from .Boton import Boton
+
 from settings import *
+
+from .Boton import Boton
 from .VentanaView import VentanaView
 
 
@@ -9,7 +11,7 @@ class MenuView(VentanaView):
         super().__init__(pantalla)
 
     def mostrar(self):
-        self._botones = []
+        self._botones = {}
         # Fondo de pantalla
         self._pantalla.blit(BG, (0, 0))
 
@@ -59,11 +61,9 @@ class MenuView(VentanaView):
             BLANCO,
             ROJO,
         )
-        for boton in [
-            BOTON_LOGIN,
-            BOTON_JUGAR,
-            BOTON_OPCIONES,
-            BOTON_RANKING,
-            BOTON_SALIR,
-        ]:
-            self._botones.append(boton)
+
+        self._botones["login"] = BOTON_LOGIN
+        self._botones["jugar"] = BOTON_JUGAR
+        self._botones["opciones"] = BOTON_OPCIONES
+        self._botones["ranking"] = BOTON_RANKING
+        self._botones["salir"] = BOTON_SALIR

@@ -2,9 +2,10 @@ import sys
 
 import pygame
 
-from .Controlador import Controlador
 from settings import *
 from view.CanchaView import CanchaView
+
+from .Controlador import Controlador
 
 
 class CanchaController(Controlador):
@@ -21,6 +22,6 @@ class CanchaController(Controlador):
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if botones[0].checkForInput(mouse_pos):
+                if botones["atras"].checkForInput(mouse_pos):
                     menu_jugar = JugarController()
                     menu_jugar.main_loop()

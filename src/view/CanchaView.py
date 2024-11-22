@@ -1,5 +1,7 @@
 import pygame
+
 from settings import *
+
 from .VentanaView import VentanaView
 
 
@@ -8,7 +10,7 @@ class CanchaView(VentanaView):
         super().__init__(pantalla)
 
     def mostrar(self):
-        self._botones = []
+        self._botones = {}
         self._pantalla.fill(NEGRO)
         self._pantalla.blit(BG_CANCHA_OFICIAL, (0, 0))
         CANCHA_ATRAS = self._mostrar_boton(
@@ -19,4 +21,4 @@ class CanchaView(VentanaView):
             BLANCO,
             ROJO,
         )
-        self._botones.append(CANCHA_ATRAS)
+        self._botones["atras"] = CANCHA_ATRAS

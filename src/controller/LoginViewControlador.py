@@ -2,9 +2,10 @@ import sys
 
 import pygame
 
-from .Controlador import Controlador
 from settings import *
 from view.LoginView import LoginView
+
+from .Controlador import Controlador
 
 
 class LoginController(Controlador):
@@ -28,10 +29,10 @@ class LoginController(Controlador):
                 else:
                     texto_usuario += event.unicode
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if botones[0].checkForInput(mouse_pos):
+                if botones["atras"].checkForInput(mouse_pos):
                     menu_principal = MenuController()
                     menu_principal.main_loop()
-                if botones[1].checkForInput(mouse_pos):
+                if botones["login"].checkForInput(mouse_pos):
                     usuario.set_nombre(texto_usuario)
                     abmusuario.insertar(usuario)
         pygame.display.flip()

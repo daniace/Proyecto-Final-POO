@@ -2,13 +2,14 @@ import sys
 
 import pygame
 
-from .Controlador import Controlador
+from controller.JugarViewControlador import JugarController
+from controller.LoginViewControlador import LoginController
+from controller.OpcionesViewControlador import OpcionesController
+from controller.RankingViewControlador import RankingController
 from settings import *
 from view.MenuView import MenuView
-from controller.RankingViewControlador import RankingController
-from controller.OpcionesViewControlador import OpcionesController
-from controller.LoginViewControlador import LoginController
-from controller.JugarViewControlador import JugarController
+
+from .Controlador import Controlador
 
 # from .LoginViewControlador import LoginController
 
@@ -29,14 +30,14 @@ class MenuController(Controlador):
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if botones[0].checkForInput(mouse_pos):
+                if botones["login"].checkForInput(mouse_pos):
                     self.__login.main_loop()
-                if botones[1].checkForInput(mouse_pos):
+                if botones["jugar"].checkForInput(mouse_pos):
                     self.__jugar.main_loop()
-                if botones[2].checkForInput(mouse_pos):
+                if botones["opciones"].checkForInput(mouse_pos):
                     self.__opciones.main_loop()
-                if botones[3].checkForInput(mouse_pos):
+                if botones["ranking"].checkForInput(mouse_pos):
                     self.__ranking.main_loop()
-                if botones[4].checkForInput(mouse_pos):
+                if botones["salir"].checkForInput(mouse_pos):
                     pygame.quit()
                     sys.exit()
