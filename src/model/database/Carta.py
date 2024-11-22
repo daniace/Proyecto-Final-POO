@@ -1,4 +1,3 @@
-
 class Carta:
     def __init__(
         self,
@@ -51,18 +50,18 @@ class Carta:
     def get_dorsal(self):
         return self.__dorsal
 
-    def get_posicion(self): 
-        posiciones = self.__posicion.split(',')[:2]
-        posiciones_clasificadas = [] 
+    def get_posicion(self):
+        posiciones = self.__posicion.split(",")[:2]
+        posiciones_clasificadas = []
         for pos in posiciones:
-            if pos == 'GK':
-                posiciones_clasificadas.append('ARQUERO') 
-            elif pos in ['CB', 'LB', 'RB', 'LWB', 'RWB']:
-                posiciones_clasificadas.append('DEFENSOR')
-            elif pos in ['CDM', 'CM', 'CAM', 'LM', 'RM']:
-                posiciones_clasificadas.append('MEDIOCAMPISTA')
-            elif pos in ['LW', 'RW', 'CF', 'ST', 'LF', 'RF']:
-                posiciones_clasificadas.append('DELANTERO')  
+            if pos == "GK":
+                posiciones_clasificadas.append("ARQUERO")
+            elif pos in ["CB", "LB", "RB", "LWB", "RWB"]:
+                posiciones_clasificadas.append("DEFENSOR")
+            elif pos in ["CDM", "CM", "CAM", "LM", "RM"]:
+                posiciones_clasificadas.append("MEDIOCAMPISTA")
+            elif pos in ["LW", "RW", "CF", "ST", "LF", "RF"]:
+                posiciones_clasificadas.append("DELANTERO")
         return posiciones_clasificadas
 
     def get_posicion_equipo(self):
@@ -75,43 +74,57 @@ class Carta:
         return self.__nacionalidad
 
     def get_velocidad(self):
-        return self.__velocidad
+        if self.__posicion == "GK":
+            return self.__gk_diving
+        else:
+            return self.__velocidad
 
     def get_disparo(self):
         if self.__posicion == "GK":
-            return self.__gk_kicking # ya que el arquero no tiene estadistica disparo, se utiliza kicking que es lo mas cercano
-        return self.__disparo
+            return self.__gk_handling
+        else:
+            return self.__disparo
 
     def get_pase(self):
         if self.__posicion == "GK":
-            return self.__gk_kicking  # ya que el arquero no tiene estadistica pase, se utiliza kicking que es lo mas cercano
-        return self.__pase if self.__pase is not None else 0
+            return self.__gk_kicking
+        else:
+            return self.__pase
 
     def get_gambeta(self):
-        return self.__gambeta
+        if self.__posicion == "GK":
+            return self.__gk_reflexes
+        else:
+            return self.__gambeta
 
     def get_defensa(self):
-        return self.__defensa
+        if self.__posicion == "GK":
+            return self.__gk_speed
+        else:
+            return self.__defensa
 
     def get_fisico(self):
-        return self.__fisico
+        if self.__posicion == "GK":
+            return self.__gk_positioning
+        else:
+            return self.__fisico
 
-    def get_gk_diving(self):
+    def get_diving(self):
         return self.__gk_diving
 
-    def get_gk_handling(self):
+    def get_handling(self):
         return self.__gk_handling
 
-    def get_gk_kicking(self):
+    def get_kicking(self):
         return self.__gk_kicking
 
-    def get_gk_reflexes(self):
+    def get_reflexes(self):
         return self.__gk_reflexes
 
-    def get_gk_speed(self):
+    def get_speed(self):
         return self.__gk_speed
 
-    def get_gk_positioning(self):
+    def get_positioning(self):
         return self.__gk_positioning
 
     def get_tenencia(self):
@@ -145,3 +158,6 @@ class Carta:
             f"  {self.__pase}-{self.__gambeta} \n"
             f"  {self.__defensa}-{self.__fisico} \n"
         )
+
+    def get_posicion_arquero(self):
+        return self.__posicion
