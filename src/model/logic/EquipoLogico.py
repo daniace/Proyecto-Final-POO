@@ -5,7 +5,7 @@ sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 )  # se agerego para que pueda leer la clase carta xd
 from database.AbmCarta import AbmCarta
-from formacion import *
+from .formacion import *
 import random
 
 
@@ -14,7 +14,7 @@ class EquipoLogico:
         self.__nombre_equipo = nombre_equipo
         self._nro_equipo = nro_equipo  # NRO_EQUIPO TIENE 1 O 2
         self._formacion = Formacion433()  # Tipo FORMACION A utilizar #433 DEFAULT
-        self._jugadores = self._generar_equipo_random()  # LISTA JUGADORES
+        self._jugadores = self.generar_equipo_random()  # LISTA JUGADORES
         self._distribucion = self.establecer_distribucion()  # MATRIZ DE JUGADORES
 
     def get_nombre(self):
@@ -44,7 +44,7 @@ class EquipoLogico:
     "revisar si funciona correctamente, sino pasar valor a una variabloe y devolverla"
     "Se encarga de establecer la distribucion de los jugadores en la cancha"
 
-    def _generar_equipo_random(self):
+    def generar_equipo_random(self):
         self.__generador = AbmCarta()
         cartas = []
         porteros = self.__generador.get_porteros()
@@ -62,7 +62,7 @@ class EquipoLogico:
         return cartas
 
     def nuevo_equipo(self):
-        self._jugadores = self._generar_equipo_random()
+        self._jugadores = self.generar_equipo_random()
 
     "es necesario tener dos funciones para generar un nuevo equipo? nuevo_equipo deveria retornar la lista de jugadores?"
 
