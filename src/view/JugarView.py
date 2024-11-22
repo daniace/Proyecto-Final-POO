@@ -19,7 +19,7 @@ class JugarView(VentanaView):
         self._pantalla.blit(TEXTO_JUGAR, JUGAR_RECT)
         CANCHA_IMAGEN = pygame.image.load(IMAGEN_CANCHA)
         CANCHA_IMAGEN = pygame.transform.scale(CANCHA_IMAGEN, (ANCHO // 2, ALTO))
-        self._pantalla.blit(CANCHA_IMAGEN, (int(ANCHO * 0.25), 0))
+        self._pantalla.blit(BG_ESTADIO, (0, 0))
         self._pantalla.blit(imagen_messi, (int(ANCHO * 0.001), int(ALTO * 0.11)))
         self._pantalla.blit(imagen_messi_copa, (int(ANCHO * 0.63), int(ALTO * 0.03)))
         # self._pantalla.blit(imagen_d10s, (int(ANCHO * 0.0001), int(ALTO * 0.3)))
