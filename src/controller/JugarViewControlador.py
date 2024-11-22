@@ -46,10 +46,10 @@ class JugarController(Controlador):
                     else:
                         self.__formacion_actual = "4-4-2"
                     self._view.texto_formacion(self.__formacion_actual)
-                elif botones["cambiar_estadio_adelante"].checkForInput(
-                    mouse_pos
-                ) or botones["cambiar_estadio_atras"].checkForInput(mouse_pos):
-                    self.cambiar_estadio()
+                elif botones["cambiar_estadio_adelante"].checkForInput(mouse_pos):
+                    self.__cambiar_estadio("Adelante")
+                elif botones["cambiar_estadio_atras"].checkForInput(mouse_pos):
+                    self.__cambiar_estadio("Atras")
 
         clock.tick(FPS)
         pygame.display.update()
@@ -67,12 +67,20 @@ class JugarController(Controlador):
             clock.tick(60)
             pygame.display.update()
 
-    def cambiar_estadio(self):
-        if self._view.get_estadio() == camp_nou:
-            self._view.cambiar_estadio(monumental)
-        elif self._view.get_estadio() == monumental:
-            self._view.cambiar_estadio(bernabeu)
-        elif self._view.get_estadio() == bernabeu:
-            self._view.cambiar_estadio(bombonera)
-        elif self._view.get_estadio() == bombonera:
-            self._view.cambiar_estadio(camp_nou)
+    def __cambiar_estadio(self, donde):
+        estadios = [
+            camp_nou,
+            monumental,
+            bernabeu,
+            bombonera,
+            azteca,
+            malasia,
+            old_traford,
+        ]
+        estadio_actual = self._view.get_estadio()
+        indice_actual = estadios.index(estadio_actual)
+        if donde == "Adelante":
+            nuevo_indice = (indice_actual + 1) % len(estadios)
+        else:
+            nuevo_indice = (indice_actual - 1) % len(estadios)
+        self._view.cambiar_estadio(estadios[nuevo_indice])

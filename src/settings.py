@@ -74,6 +74,9 @@ EMOJIS = "src/assets/font/NotoEmoji-Regular.ttf"
 IMAGEN_CANCHA_OFICIAL = "src/assets/images/canchita.png"
 FLECHA_IZQUIERDA = "src/assets/images/flechaIzquierda.png"
 FLECHA_DERECHA = "src/assets/images/flechaDerecha.png"
+OLD_TRAFORD = "src/assets/images/oldtraford.png"
+MALASIA = "src/assets/images/malasia.png"
+AZTECA = "src/assets/images/azteca.png"
 # GIFS
 ATAJADA = "src/assets/images/atajada.gif"
 ATAJADA_GIF = gif_pygame.load(ATAJADA)
@@ -100,6 +103,16 @@ bg_estadio = pygame.image.load(IMAGEN_ESTADIO)
 BG_ESTADIO = pygame.transform.scale(bg_estadio, TAMANIO_PANTALLA)
 clock = pygame.time.Clock()
 
+##ESTADIOS##
+azteca = pygame.image.load(AZTECA)
+azteca = pygame.transform.scale(azteca, TAMANIO_PANTALLA)
+
+malasia = pygame.image.load(MALASIA)
+malasia = pygame.transform.scale(malasia, TAMANIO_PANTALLA)
+
+old_traford = pygame.image.load(OLD_TRAFORD)
+old_traford = pygame.transform.scale(old_traford, TAMANIO_PANTALLA)
+
 camp_nou = pygame.image.load(CAMP_NOU)
 camp_nou = pygame.transform.scale(camp_nou, TAMANIO_PANTALLA)
 
@@ -111,6 +124,7 @@ bernabeu = pygame.transform.scale(bernabeu, TAMANIO_PANTALLA)
 
 bombonera = pygame.image.load(BOMBONERA)
 bombonera = pygame.transform.scale(bombonera, TAMANIO_PANTALLA)
+##ESTADIOS##
 
 imagen_messi = pygame.image.load(MESSI)
 imagen_messi = pygame.transform.scale(imagen_messi, (350, 350))
