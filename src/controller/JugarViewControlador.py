@@ -29,6 +29,7 @@ class JugarController(Controlador):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if botones["dado"].checkForInput(mouse_pos):  # Boton del Dado
                     self.__genero_equipo.nuevo_equipo()
+                    self._view.renderizar_estadisticas(self.__genero_equipo._jugadores)
                     self.__comienza_partida = True
                 elif botones["comienza"].checkForInput(
                     mouse_pos
@@ -57,6 +58,7 @@ class JugarController(Controlador):
         pygame.display.update()
 
     def main_loop(self):
+        self._view.renderizar_estadisticas(self.__genero_equipo._jugadores)
         while True:
             mouse_pos = pygame.mouse.get_pos()
             self._view.mostrar()  # Mostrar el menú

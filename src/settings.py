@@ -24,19 +24,19 @@ COLOR_FONDO = NEGRO
 # Configuracion del juego
 FPS = 60
 FORMACION_PREDETERMINADA = "4-3-3"
-POSICIONES = ["delanteros", "mediocampistas", "defensas", "portero"]
+POSICIONES = ["portero", "defensas", "mediocampistas", "delanteros"]
 FORMACIONES = {
     "4-3-3": {
-        "delanteros": [(0.37, 0.19), (0.47, 0.17), (0.57, 0.19)],  # tupla: (ancho,alto)
-        "mediocampistas": [(0.37, 0.41), (0.47, 0.43), (0.57, 0.41)],
-        "defensas": [(0.32, 0.62), (0.42, 0.64), (0.52, 0.64), (0.62, 0.62)],
         "portero": [(0.47, 0.83)],
+        "defensas": [(0.32, 0.62), (0.42, 0.64), (0.52, 0.64), (0.62, 0.62)],
+        "mediocampistas": [(0.37, 0.41), (0.47, 0.43), (0.57, 0.41)],
+        "delanteros": [(0.37, 0.19), (0.47, 0.17), (0.57, 0.19)],  # tupla: (ancho,alto)
     },
     "4-4-2": {
-        "delanteros": [(0.42, 0.17), (0.52, 0.17)],
-        "mediocampistas": [(0.33, 0.39), (0.43, 0.42), (0.51, 0.42), (0.61, 0.39)],
-        "defensas": [(0.32, 0.62), (0.42, 0.64), (0.52, 0.64), (0.62, 0.62)],
         "portero": [(0.47, 0.83)],
+        "defensas": [(0.32, 0.62), (0.42, 0.64), (0.52, 0.64), (0.62, 0.62)],
+        "mediocampistas": [(0.33, 0.39), (0.43, 0.42), (0.51, 0.42), (0.61, 0.39)],
+        "delanteros": [(0.42, 0.17), (0.52, 0.17)],
     },
 }
 
