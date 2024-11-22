@@ -4,7 +4,7 @@ import pygame
 
 from settings import *
 from view.RankingView import RankingView
-
+from .ControladorBD import ControladorBD
 from .Controlador import Controlador
 
 
@@ -12,8 +12,10 @@ class RankingController(Controlador):
     def __init__(self):
         super().__init__()
         self._view = RankingView(pygame.display.set_mode((ANCHO, ALTO)))
+        self.__bd = ControladorBD()
 
     def manejar_eventos(self, eventos, mouse_pos):
+        self._view.mostrar_ranking(self.__bd.get_usuarios_ranking())
         from controller.MenuViewControlador import MenuController
 
         botones = self._view.get_botones()

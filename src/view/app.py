@@ -458,3 +458,132 @@ def login():
         SCREEN.blit(superficie_texto, (int(ANCHO * 0.4), int(ALTO * 0.5)))
         pygame.display.flip()
         clock.tick(60)
+
+
+def opciones():
+    while True:
+        OPCIONES_POS_MOUSE = pygame.mouse.get_pos()
+
+        SCREEN.blit(BG_OPCIONES, (0, 0))
+
+        TEXTO_OPCIONES = get_fuente(100).render("OPCIONES", True, "Black")
+        OPCIONES_RECT = TEXTO_OPCIONES.get_rect(center=(ANCHO // 2, 50))
+        SCREEN.blit(TEXTO_OPCIONES, OPCIONES_RECT)
+
+        #
+        COLOR_FONDO = (40, 40, 40)
+        TEXTO_CONTROLES = get_fuente(75).render("CONTROLES:", True, "White")
+        CONTROLES_RECT = TEXTO_CONTROLES.get_rect(
+            center=(int(ANCHO * 0.15), int(ALTO * 0.62))
+        )
+        margen = 10
+        fondo_rect = CONTROLES_RECT.inflate(margen * 2, margen * 2)
+        pygame.draw.rect(SCREEN, COLOR_FONDO, fondo_rect, border_radius=15)
+        SCREEN.blit(TEXTO_CONTROLES, CONTROLES_RECT)
+
+        COLOR_FONDO = (40, 40, 40)
+        TEXTO_DIFICULTAD = get_fuente(75).render("DIFICULTAD:", True, "White")
+        CONTROLES_RECT = TEXTO_DIFICULTAD.get_rect(
+            center=(int(ANCHO * 0.15), int(ALTO * 0.3))
+        )
+        margen = 10
+        fondo_rect = CONTROLES_RECT.inflate(margen * 2, margen * 2)
+        pygame.draw.rect(SCREEN, COLOR_FONDO, fondo_rect, border_radius=15)
+        SCREEN.blit(TEXTO_DIFICULTAD, CONTROLES_RECT)
+
+        COLOR_FONDO = (40, 40, 40)
+        TEXTO_SONIDO = get_fuente(75).render("SONIDO:", True, "White")
+        CONTROLES_RECT = TEXTO_SONIDO.get_rect(
+            center=(int(ANCHO * 0.15), int(ALTO * 0.45))
+        )
+        margen = 10
+        fondo_rect = CONTROLES_RECT.inflate(margen * 2, margen * 2)
+        pygame.draw.rect(SCREEN, COLOR_FONDO, fondo_rect, border_radius=15)
+        SCREEN.blit(TEXTO_SONIDO, CONTROLES_RECT)
+
+        control1_img = pygame.image.load("src/assets/images/control1.png")
+        control1_img = pygame.transform.scale(control1_img, (300, 300))
+
+        control2_img = pygame.image.load("src/assets/images/control2.png")
+        control2_img = pygame.transform.scale(control2_img, (300, 300))
+
+        SCREEN.blit(control1_img, (int(ANCHO * 0.38), int(ALTO * 0.42)))
+        SCREEN.blit(control2_img, (int(ANCHO * 0.59), int(ALTO * 0.42)))
+
+        FACIL = Boton(
+            boton_verde,
+            (int(ANCHO * 0.4), int(ALTO * 0.3)),
+            "FACIL",
+            get_fuente(75),
+            "White",
+            "Green",
+        )
+
+        NORMAL = Boton(
+            boton_amarillo,
+            (int(ANCHO * 0.6), int(ALTO * 0.3)),
+            "NORMAL",
+            get_fuente(75),
+            "White",
+            "Yellow",
+        )
+
+        DIFICIL = Boton(
+            boton_rojo,
+            (int(ANCHO * 0.8), int(ALTO * 0.3)),
+            "DIFICIL",
+            get_fuente(75),
+            BLANCO,
+            ROJO,
+        )
+
+        SONIDO_ON = Boton(
+            boton_negro,
+            (int(ANCHO * 0.50), int(ALTO * 0.44)),
+            "ON",
+            get_fuente(75),
+            "White",
+            "Green",
+        )
+
+        SONIDO_OFF = Boton(
+            boton_negro,
+            (int(ANCHO * 0.70), int(ALTO * 0.44)),
+            "OFF",
+            get_fuente(75),
+            "White",
+            "Red",
+        )
+
+        OPCIONES_ATRAS = Boton(
+            boton_rojo_cuadrado,
+            (int(ANCHO * 0.95), int(ALTO * 0.9)),
+            "🔙",
+            pygame.font.Font(EMOJIS, 75),
+            "White",
+            "Red",
+        )
+
+        for boton in [FACIL, NORMAL, DIFICIL, SONIDO_ON, SONIDO_OFF, OPCIONES_ATRAS]:
+            boton.changeColor(OPCIONES_POS_MOUSE)
+            boton.update(SCREEN)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if SONIDO_ON.checkForInput(OPCIONES_POS_MOUSE):
+                    pygame.mixer.music.set_volume(0.5)
+                if SONIDO_OFF.checkForInput(OPCIONES_POS_MOUSE):
+                    pygame.mixer.music.set_volume(0)
+                if OPCIONES_ATRAS.checkForInput(OPCIONES_POS_MOUSE):
+                    menu_principal()
+                if DIFICIL.checkForInput(OPCIONES_POS_MOUSE):
+                    pass
+                    # dificultadd.dificil()
+                if FACIL.checkForInput(OPCIONES_POS_MOUSE):
+                    pass
+                    # dificultadd.facil()
+        clock.tick(60)
+        pygame.display.update()

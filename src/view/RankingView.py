@@ -42,3 +42,14 @@ class RankingView(VentanaView):
 
         self._botones["atras"] = RANKING_ATRAS
         self._botones["actualizar"] = RANKING_ACTUALIZAR
+
+    def mostrar_ranking(self, usuarios):
+        for i, usuario in enumerate(usuarios):
+            texto = f"{i + 1}. {usuario.get_nombre()} - {usuario.get_score()}"
+            texto_usuario = get_fuente(72).render(texto, True, NEGRO)
+            SCREEN.blit(texto_usuario, (ANCHO // 2 - 120, 170 + i * 50))
+        TEXTO_TABLA = get_fuente(50).render("USUARIO - PUNTUACION", True, NEGRO)
+        TEXTO_TABLA_RECT = TEXTO_TABLA.get_rect(
+            center=(int(ANCHO * 0.52), int(ALTO * 0.2))
+        )
+        SCREEN.blit(TEXTO_TABLA, TEXTO_TABLA_RECT)
