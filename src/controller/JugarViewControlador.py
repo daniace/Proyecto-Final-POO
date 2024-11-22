@@ -4,7 +4,7 @@ import pygame
 
 from settings import *
 from view.JugarView import JugarView
-
+from model.logic.EquipoLogico import EquipoLogico
 from .CanchaViewControlador import CanchaController
 from .Controlador import Controlador
 
@@ -16,6 +16,7 @@ class JugarController(Controlador):
         self.__cancha = CanchaController(pygame.display.set_mode((ANCHO, ALTO)))
         self.__formacion_actual = FORMACION_PREDETERMINADA
         self.__comienza_partida = False
+        self.__genero_equipo = EquipoLogico("Equipo 1", 1)
 
     def manejar_eventos(self, eventos, mouse_pos):
         botones = self._view.get_botones()
@@ -27,6 +28,7 @@ class JugarController(Controlador):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if botones["dado"].checkForInput(mouse_pos):  # Boton del Dado
+                    self.__genero_equipo.nuevo_equipo()
                     self.__comienza_partida = True
                 elif botones["comienza"].checkForInput(
                     mouse_pos
@@ -59,7 +61,10 @@ class JugarController(Controlador):
             mouse_pos = pygame.mouse.get_pos()
             self._view.mostrar()  # Mostrar el menú
             self._view.dibujar_formaciones(
-                self._view._pantalla, FORMACIONES, self.__formacion_actual
+                self._view._pantalla,
+                FORMACIONES,
+                self.__formacion_actual,
+                self.__genero_equipo._jugadores,
             )
             self._view.texto_formacion(self.__formacion_actual)
             eventos = pygame.event.get()  # Manejar eventos

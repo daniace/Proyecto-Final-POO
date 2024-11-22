@@ -23,7 +23,7 @@ class JugarView(VentanaView):
         margen = 20
         fondo_rect = ESTADIO_RECT.inflate(margen, margen)
 
-        self.estadio()
+        self.__dibujar_estadio()
         self._pantalla.blit(imagen_messi_copa, (int(ANCHO * 0.63), int(ALTO * 0.03)))
         pygame.draw.rect(self._pantalla, COLOR_FONDO, fondo_rect, border_radius=20)
         self._pantalla.blit(TEXTO_ESTADIO, ESTADIO_RECT)
@@ -98,15 +98,21 @@ class JugarView(VentanaView):
         self._botones["cambiar_estadio_atras"] = CAMBIAR_ESTADIO_ATRAS
         self._botones["cambiar_estadio_adelante"] = CAMBIAR_ESTADIO_ADELANTE
 
-    def dibujar_formaciones(self, SCREEN, formaciones, formacion_actual):
+    def dibujar_formaciones(self, SCREEN, formaciones, formacion_actual, equipo):
         CARTA_IMAGEN = pygame.image.load(IMAGEN_CARTA)
         CARTA_IMAGEN = pygame.transform.scale(CARTA_IMAGEN, (80, 120))
+        for jugador in equipo:
+            print(jugador.get_nombre())
         for posicion in POSICIONES:
-            for cordenadas in formaciones[formacion_actual][posicion]:
+            for cordenadas, jugador in zip(
+                formaciones[formacion_actual][posicion], equipo
+            ):
                 x = int(ANCHO * cordenadas[0])
                 y = int(ALTO * cordenadas[1])
-                tamaño = self.__ajustar_texto("L.Messi", FUENTE, 60)
-                NOMBRE_JUGADOR = get_fuente(tamaño).render("L.Messi", True, NEGRO)
+
+                NOMBRE_JUGADOR = self.__ajustar_texto(
+                    jugador.get_nombre(), FUENTE, 70, jugador
+                )
                 SCREEN.blit(CARTA_IMAGEN, (x, y))
                 SCREEN.blit(NOMBRE_JUGADOR, (x + 8.5, y + 90))
 
@@ -123,16 +129,16 @@ class JugarView(VentanaView):
         pygame.draw.rect(self._pantalla, COLOR_FONDO, fondo_rect, border_radius=20)
         self._pantalla.blit(TEXTO_FORMACION, FORMACION_RECT)
 
-    def __ajustar_texto(self, texto, fuente, max_ancho):
+    def __ajustar_texto(self, texto, fuente, max_ancho, jugador):
         tamaño = 20
         while True:
             fuente_actual = pygame.font.Font(fuente, tamaño)
             texto_renderizado = fuente_actual.render(texto, True, NEGRO)
             if texto_renderizado.get_width() <= max_ancho:
-                return tamaño
+                return get_fuente(tamaño).render(jugador.get_nombre(), True, NEGRO)
             tamaño -= 1
 
-    def estadio(self):
+    def __dibujar_estadio(self):
         self._pantalla.blit(self.__estadio, (0, 0))
 
     def cambiar_estadio(self, estadio):

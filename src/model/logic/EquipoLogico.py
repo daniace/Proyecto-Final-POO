@@ -17,6 +17,10 @@ class EquipoLogico:
         self._jugadores = self.generar_equipo_random()  # LISTA JUGADORES
         self._distribucion = self.establecer_distribucion()  # MATRIZ DE JUGADORES
 
+    def mostrar_listaj(self):
+        for jugador in self._jugadores:
+            print(jugador.get_nombre())
+
     def get_nombre(self):
         return self.__nombre_equipo
 
