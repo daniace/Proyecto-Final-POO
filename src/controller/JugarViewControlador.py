@@ -46,6 +46,11 @@ class JugarController(Controlador):
                     else:
                         self.__formacion_actual = "4-4-2"
                     self._view.texto_formacion(self.__formacion_actual)
+                elif botones["cambiar_estadio_adelante"].checkForInput(
+                    mouse_pos
+                ) or botones["cambiar_estadio_atras"].checkForInput(mouse_pos):
+                    self.cambiar_estadio()
+
         clock.tick(FPS)
         pygame.display.update()
 
@@ -61,3 +66,13 @@ class JugarController(Controlador):
             self.manejar_eventos(eventos, mouse_pos)
             clock.tick(60)
             pygame.display.update()
+
+    def cambiar_estadio(self):
+        if self._view.get_estadio() == camp_nou:
+            self._view.cambiar_estadio(monumental)
+        elif self._view.get_estadio() == monumental:
+            self._view.cambiar_estadio(bernabeu)
+        elif self._view.get_estadio() == bernabeu:
+            self._view.cambiar_estadio(bombonera)
+        elif self._view.get_estadio() == bombonera:
+            self._view.cambiar_estadio(camp_nou)

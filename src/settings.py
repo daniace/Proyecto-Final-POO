@@ -50,6 +50,10 @@ IMAGEN_BOTON3 = "src/assets/images/boton3.png"
 IMAGEN_BOTON4 = "src/assets/images/boton4.png"
 IMAGEN_CARTA = "src/assets/images/carta1.png"
 IMAGEN_CANCHA = "src/assets/images/cancha.png"
+CAMP_NOU = "src/assets/images/campnou.png"
+MONUMENTAL = "src/assets/images/monumental.png"
+BOMBONERA = "src/assets/images/bombonera.png"
+BERNABEU = "src/assets/images/bernabeu.png"
 IMAGEN_ESTADIO = "src/assets/images/estadio.jpg"
 IMAGEN_TABLA = "src/assets/images/tabla.png"
 IMAGEN_CUADRADO = "src/assets/images/boton_cuadrado.png"
@@ -95,6 +99,18 @@ BG_CANCHA_OFICIAL = pygame.transform.scale(bg_cancha_oficial, (ANCHO, ALTO // 1.
 bg_estadio = pygame.image.load(IMAGEN_ESTADIO)
 BG_ESTADIO = pygame.transform.scale(bg_estadio, TAMANIO_PANTALLA)
 clock = pygame.time.Clock()
+
+camp_nou = pygame.image.load(CAMP_NOU)
+camp_nou = pygame.transform.scale(camp_nou, TAMANIO_PANTALLA)
+
+monumental = pygame.image.load(MONUMENTAL)
+monumental = pygame.transform.scale(monumental, TAMANIO_PANTALLA)
+
+bernabeu = pygame.image.load(BERNABEU)
+bernabeu = pygame.transform.scale(bernabeu, TAMANIO_PANTALLA)
+
+bombonera = pygame.image.load(BOMBONERA)
+bombonera = pygame.transform.scale(bombonera, TAMANIO_PANTALLA)
 
 imagen_messi = pygame.image.load(MESSI)
 imagen_messi = pygame.transform.scale(imagen_messi, (350, 350))
