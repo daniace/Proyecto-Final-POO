@@ -73,6 +73,7 @@ MESSI = "src/assets/images/messi.png"
 MESSI_COPA = "src/assets/images/messi_copa.png"
 D10S = "src/assets/images/d10s.png"
 DIBU = "src/assets/images/dibu.png"
+DORSAL = "src/assets/images/dorsal.png"
 # Fuentes
 FUENTE = "src/assets/font/Pixeltype.ttf"
 EMOJIS = "src/assets/font/NotoEmoji-Regular.ttf"
@@ -130,6 +131,9 @@ bernabeu = pygame.transform.scale(bernabeu, TAMANIO_PANTALLA)
 bombonera = pygame.image.load(BOMBONERA)
 bombonera = pygame.transform.scale(bombonera, TAMANIO_PANTALLA)
 ##ESTADIOS##
+
+dorsal = pygame.image.load(DORSAL)
+dorsal = pygame.transform.scale(dorsal, (35, 35))
 
 imagen_messi = pygame.image.load(MESSI)
 imagen_messi = pygame.transform.scale(imagen_messi, (350, 350))

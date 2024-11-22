@@ -9,6 +9,7 @@ from .VentanaView import VentanaView
 class MenuView(VentanaView):
     def __init__(self, pantalla):
         super().__init__(pantalla)
+        self.__mostrar = True
 
     def mostrar(self):
         self._botones = {}

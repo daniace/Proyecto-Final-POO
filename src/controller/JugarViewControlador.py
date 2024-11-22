@@ -35,6 +35,7 @@ class JugarController(Controlador):
                     mouse_pos
                 ):  # Boton Comenzar Partia
                     if self.__comienza_partida:
+                        self._view.set_mostrar(False)
                         self.__cancha.main_loop()
                 elif botones["atras"].checkForInput(mouse_pos):  # Boton Back
                     menu_principal = MenuController()
