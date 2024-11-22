@@ -107,7 +107,7 @@ class JugarView(VentanaView):
     ):
         if dado_apretado:
             CARTA_IMAGEN = pygame.image.load(IMAGEN_CARTA)
-            CARTA_IMAGEN = pygame.transform.scale(CARTA_IMAGEN, (80, 120))
+            CARTA_IMAGEN = pygame.transform.scale(CARTA_IMAGEN, (100, 120))
             jugadores_asignados = 0  # Contador para asignar jugadores de la lista
             for posicion in POSICIONES:
                 # Obtener las coordenadas para la posición actual
@@ -124,7 +124,7 @@ class JugarView(VentanaView):
                     y = int(ALTO * cordenadas[1])
                     # llama a ajustar texto para que el texto se ajuste al tamaño de la carta o a un ancho maximo
                     NOMBRE_JUGADOR = self.__ajustar_texto(
-                        jugador.get_nombre(), FUENTE, 60, NEGRO
+                        jugador.get_nombre(), FUENTE, 60, BLANCO
                     )
                     # Utilizo el diccionario de estadisticas que se hizo con la funicon renderizar_estadisticas
                     estadisticas_jugador = self.__estadisticas[jugador.get_nombre()]
@@ -190,55 +190,55 @@ class JugarView(VentanaView):
             if jugador.get_posicion_arquero() == "GK":
                 estadisticas = {
                     "PAC": self.__ajustar_texto(
-                        f"DIV {jugador.get_diving()}", FUENTE, 32, NEGRO
+                        f"DIV {jugador.get_diving()}", FUENTE, 32, BLANCO
                     ),
                     "SHO": self.__ajustar_texto(
-                        f"HAN {jugador.get_handling()}", FUENTE, 32, NEGRO
+                        f"HAN {jugador.get_handling()}", FUENTE, 32, BLANCO
                     ),
                     "PAS": self.__ajustar_texto(
-                        f"KIC {jugador.get_kicking()}", FUENTE, 32, NEGRO
+                        f"KIC {jugador.get_kicking()}", FUENTE, 32, BLANCO
                     ),
                     "DRI": self.__ajustar_texto(
-                        f"REF {jugador.get_reflexes()}", FUENTE, 32, NEGRO
+                        f"REF {jugador.get_reflexes()}", FUENTE, 32, BLANCO
                     ),
                     "DEF": self.__ajustar_texto(
-                        f"SPD {jugador.get_speed()}", FUENTE, 32, NEGRO
+                        f"SPD {jugador.get_speed()}", FUENTE, 32, BLANCO
                     ),
                     "PHY": self.__ajustar_texto(
-                        f"POS {jugador.get_positioning()}", FUENTE, 32, NEGRO
+                        f"POS {jugador.get_positioning()}", FUENTE, 32, BLANCO
                     ),
                     "DORSAL": self.__ajustar_texto(
                         f"{jugador.get_dorsal()}", FUENTE, 32, BLANCO
                     ),
                     "OVR": self.__ajustar_texto(
-                        f"{jugador.get_valoracion()}", FUENTE, 50, VERDE
+                        f"{jugador.get_valoracion()}", FUENTE, 50, BLANCO
                     ),
                 }
             else:
                 estadisticas = {
                     "PAC": self.__ajustar_texto(
-                        f"PAC {jugador.get_velocidad()}", FUENTE, 32, NEGRO
+                        f"PAC {jugador.get_velocidad()}", FUENTE, 32, BLANCO
                     ),
                     "SHO": self.__ajustar_texto(
-                        f"SHO {jugador.get_disparo()}", FUENTE, 32, NEGRO
+                        f"SHO {jugador.get_disparo()}", FUENTE, 32, BLANCO
                     ),
                     "PAS": self.__ajustar_texto(
-                        f"PAS {jugador.get_pase()}", FUENTE, 32, NEGRO
+                        f"PAS {jugador.get_pase()}", FUENTE, 32, BLANCO
                     ),
                     "DRI": self.__ajustar_texto(
-                        f"DRI {jugador.get_gambeta()}", FUENTE, 32, NEGRO
+                        f"DRI {jugador.get_gambeta()}", FUENTE, 32, BLANCO
                     ),
                     "DEF": self.__ajustar_texto(
-                        f"DEF {jugador.get_defensa()}", FUENTE, 32, NEGRO
+                        f"DEF {jugador.get_defensa()}", FUENTE, 32, BLANCO
                     ),
                     "PHY": self.__ajustar_texto(
-                        f"PHY {jugador.get_fisico()}", FUENTE, 32, NEGRO
+                        f"PHY {jugador.get_fisico()}", FUENTE, 32, BLANCO
                     ),
                     "DORSAL": self.__ajustar_texto(
                         f"{jugador.get_dorsal()}", FUENTE, 32, BLANCO
                     ),
                     "OVR": self.__ajustar_texto(
-                        f"{jugador.get_valoracion()}", FUENTE, 50, VERDE
+                        f"{jugador.get_valoracion()}", FUENTE, 50, BLANCO
                     ),
                 }
             self.__estadisticas[jugador.get_nombre()] = estadisticas
