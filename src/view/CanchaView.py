@@ -1,3 +1,4 @@
+import gif_pygame
 import pygame
 
 from settings import *
@@ -13,6 +14,7 @@ class CanchaView(VentanaView):
         self._botones = {}
         self._pantalla.fill(NEGRO)
         self._pantalla.blit(BG_CANCHA_OFICIAL, (0, 0))
+        ATAJADA_GIF.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.1)))
         CANCHA_ATRAS = self._mostrar_boton(
             boton_rojo_cuadrado,
             (ANCHO * 0.035, ALTO * 0.065),

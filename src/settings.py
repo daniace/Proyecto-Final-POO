@@ -1,3 +1,4 @@
+import gif_pygame
 import pygame
 
 from model.database.AbmCarta import AbmCarta
@@ -64,6 +65,9 @@ EMOJIS = "src/assets/font/NotoEmoji-Regular.ttf"
 IMAGEN_CANCHA_OFICIAL = "src/assets/images/canchita.png"
 FLECHA_IZQUIERDA = "src/assets/images/flechaIzquierda.png"
 FLECHA_DERECHA = "src/assets/images/flechaDerecha.png"
+# GIFS
+ATAJADA = "src/assets/images/atajada.gif"
+ATAJADA_GIF = gif_pygame.load(ATAJADA)
 
 pygame.font.init()
 
