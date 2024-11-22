@@ -9,6 +9,7 @@ from view.CanchaView import CanchaView
 
 class CanchaController(Controlador):
     def __init__(self, pantalla):
+        super().__init__()
         self._view = CanchaView(pantalla)
 
     def manejar_eventos(self, eventos, mouse_pos):

@@ -5,11 +5,14 @@ import pygame
 from .Controlador import Controlador
 from settings import *
 from view.OpcionesView import OpcionesView
+from controller.ReproductorMusica import ReproductorMusica
 
 
 class OpcionesController(Controlador):
     def __init__(self):
+        super().__init__()
         self._view = OpcionesView(pygame.display.set_mode((ANCHO, ALTO)))
+        self.__musica = ReproductorMusica()
 
     def manejar_eventos(self, eventos, mouse_pos):
         from controller.MenuViewControlador import MenuController
@@ -21,9 +24,9 @@ class OpcionesController(Controlador):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if botones[0].checkForInput(mouse_pos):
-                    pygame.mixer.music.set_volume(0.5)
+                    self.__musica.reanudar_soundtrack()
                 if botones[1].checkForInput(mouse_pos):
-                    pygame.mixer.music.set_volume(0)
+                    self.__musica.pausar_soundtrack()
                 if botones[2].checkForInput(mouse_pos):
                     menu_principal = MenuController()
                     menu_principal.main_loop()

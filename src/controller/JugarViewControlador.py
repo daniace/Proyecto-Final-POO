@@ -10,6 +10,7 @@ from .CanchaViewControlador import CanchaController
 
 class JugarController(Controlador):
     def __init__(self):
+        super().__init__()
         self._view = JugarView(pygame.display.set_mode((ANCHO, ALTO)))
         self.__cancha = CanchaController(pygame.display.set_mode((ANCHO, ALTO)))
         self.__formacion_actual = FORMACION_PREDETERMINADA

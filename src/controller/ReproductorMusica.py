@@ -1,6 +1,6 @@
 import pygame
 
-from src.settings import SONIDO_FONDO
+from settings import SONIDO_FONDO
 
 
 class ReproductorMusica:

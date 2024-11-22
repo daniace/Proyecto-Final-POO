@@ -9,6 +9,7 @@ class MenuView(VentanaView):
         super().__init__(pantalla)
 
     def mostrar(self):
+        self._botones = []
         # Fondo de pantalla
         self._pantalla.blit(BG, (0, 0))
 
@@ -51,12 +52,12 @@ class MenuView(VentanaView):
             NEGRO,
         )
         BOTON_SALIR = self._mostrar_boton(
-            boton_surface,
+            boton_rojo,
             (ANCHO * 0.5, ALTO * 0.5 + 270),
             "SALIR",
             get_fuente(75),
             BLANCO,
-            NEGRO,
+            ROJO,
         )
         for boton in [
             BOTON_LOGIN,

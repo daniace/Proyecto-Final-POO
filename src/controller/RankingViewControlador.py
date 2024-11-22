@@ -9,6 +9,7 @@ from view.RankingView import RankingView
 
 class RankingController(Controlador):
     def __init__(self):
+        super().__init__()
         self._view = RankingView(pygame.display.set_mode((ANCHO, ALTO)))
 
     def manejar_eventos(self, eventos, mouse_pos):

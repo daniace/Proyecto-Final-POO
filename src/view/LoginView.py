@@ -9,6 +9,7 @@ class LoginView(VentanaView):
         super().__init__(pantalla)
 
     def mostrar(self):
+        self._botones = []
         texto_usuario = ""
 
         # Fondo de pantalla

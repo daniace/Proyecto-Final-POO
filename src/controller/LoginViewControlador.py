@@ -9,6 +9,7 @@ from view.LoginView import LoginView
 
 class LoginController(Controlador):
     def __init__(self):
+        super().__init__()
         self._view = LoginView(pygame.display.set_mode((ANCHO, ALTO)))
 
     def manejar_eventos(self, eventos, mouse_pos):

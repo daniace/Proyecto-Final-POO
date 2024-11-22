@@ -15,6 +15,7 @@ from controller.JugarViewControlador import JugarController
 
 class MenuController(Controlador):
     def __init__(self):
+        super().__init__()
         self._view = MenuView(pygame.display.set_mode((ANCHO, ALTO)))
         self.__ranking = RankingController()
         self.__opciones = OpcionesController()

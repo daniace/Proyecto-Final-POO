@@ -9,6 +9,7 @@ class OpcionesView(VentanaView):
         super().__init__(pantalla)
 
     def mostrar(self):
+        self._botones = []
         self._pantalla.blit(BG_OPCIONES, (0, 0))
 
         TEXTO_OPCIONES = get_fuente(100).render("OPCIONES", True, "Black")
