@@ -28,6 +28,5 @@ class CanchaController(Controlador):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if botones["atras"].checkForInput(mouse_pos):
-                    print(f"se intento jugar en {self._dificultad}")
                     menu_jugar = JugarController(self._dificultad)
                     menu_jugar.main_loop()

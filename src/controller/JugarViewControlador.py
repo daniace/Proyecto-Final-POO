@@ -9,6 +9,7 @@ from .CanchaViewControlador import CanchaController
 from .Controlador import Controlador
 from model.logic.Dificultades import *
 from model.logic.Partido import Partido
+from model.logic.formacion import *
 
 
 class JugarController(Controlador):
@@ -38,7 +39,6 @@ class JugarController(Controlador):
                     self.__comienza_partida = True
                 elif botones["comienza"].checkForInput(mouse_pos):  # Boton Comenzar Partia
                     if self.__comienza_partida:
-                        print(f"voy a entrar en dificultad: {self._dificultad}")
                         self._view.ocultar_visibilidad()
                         self.__cancha.main_loop()
                 elif botones["atras"].checkForInput(mouse_pos):  # Boton Back
@@ -52,8 +52,10 @@ class JugarController(Controlador):
                 ):  # flechas para cambiar formacion
                     if self.__formacion_actual == "4-4-2":
                         self.__formacion_actual = "4-3-3"
+                        self.__genero_equipo.set_formacion(Formacion433())
                     else:
                         self.__formacion_actual = "4-4-2"
+                        self.__genero_equipo.set_formacion(Formacion442())
                     self._view.texto_formacion(self.__formacion_actual)
                 elif botones["cambiar_estadio_adelante"].checkForInput(mouse_pos):
                     self.__cambiar_estadio("Adelante")
