@@ -155,7 +155,7 @@ class JugarView(VentanaView):
                     SCREEN.blit(PHY, (x + 42.5, y + 65))
                     SCREEN.blit(NOMBRE_JUGADOR, (x + 14, y + 80))
                     SCREEN.blit(DOR, (x + 67.5, y + 115))
-                    SCREEN.blit(OVR, (x + 8, y + 10))
+                    SCREEN.blit(OVR, (x + 14, y + 12))
 
     def texto_formacion(self, formacion_actual):
         COLOR_FONDO = (120, 120, 120)
