@@ -132,7 +132,7 @@ class JugarView(VentanaView):
     ):
         if dado_apretado:
             CARTA_IMAGEN = pygame.image.load(IMAGEN_CARTA)
-            CARTA_IMAGEN = pygame.transform.scale(CARTA_IMAGEN, (100, 120))
+            CARTA_IMAGEN = pygame.transform.scale(CARTA_IMAGEN, (120, 140))
             jugadores_asignados = 0  # Contador para asignar jugadores de la lista
             for posicion in POSICIONES:
                 # Obtener las coordenadas para la posición actual
@@ -164,15 +164,15 @@ class JugarView(VentanaView):
                     # Dibujar carta y nombre del jugador
                     SCREEN.blit(CARTA_IMAGEN, (x, y))
                     SCREEN.blit(dorsal, (x + 55, y + 95))
-                    SCREEN.blit(PAC, (x + 5, y + 35))
-                    SCREEN.blit(SHO, (x + 5, y + 50))
-                    SCREEN.blit(PAS, (x + 5, y + 65))
+                    SCREEN.blit(PAC, (x + 14, y + 35))
+                    SCREEN.blit(SHO, (x + 14, y + 50))
+                    SCREEN.blit(PAS, (x + 14, y + 65))
                     SCREEN.blit(DRI, (x + 42.5, y + 35))
                     SCREEN.blit(DEF, (x + 42.5, y + 50))
                     SCREEN.blit(PHY, (x + 42.5, y + 65))
                     SCREEN.blit(NOMBRE_JUGADOR, (x + 14, y + 80))
                     SCREEN.blit(DOR, (x + 67.5, y + 115))
-                    SCREEN.blit(OVR, (x + 8, y + 10))
+                    SCREEN.blit(OVR, (x + 14, y + 12))
 
     def texto_formacion(self, formacion_actual):
         COLOR_FONDO = (120, 120, 120)
