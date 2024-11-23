@@ -43,7 +43,7 @@ class JugarController(Controlador):
                 if botones["dado"].checkForInput(mouse_pos):  # Boton del Dado
                     self.__dado_apretado = True
                     self.__genero_equipo.nuevo_equipo()
-                    self._view.renderizar_estadisticas(self.__genero_equipo._jugadores)
+                    self._view.renderizar(self.__genero_equipo._jugadores)
                     self.__comienza_partida = True
                 elif botones["comienza"].checkForInput(
                     mouse_pos

@@ -35,7 +35,7 @@ class JugarView(VentanaView):
         # BOTONES
         CAMBIAR_FORMACION_ATRAS = self._mostrar_boton(
             boton_flecha_izquierda,
-            (ANCHO * 0.31, ALTO * 0.077),
+            (ANCHO * 0.31, ALTO * 0.055),
             "  ",
             get_fuente(30),
             BLANCO,
@@ -44,7 +44,7 @@ class JugarView(VentanaView):
 
         CAMBIAR_FORMACION_ADELANTE = self._mostrar_boton(
             boton_flecha_derecha,
-            (ANCHO * 0.69, ALTO * 0.077),
+            (ANCHO * 0.69, ALTO * 0.055),
             "  ",
             get_fuente(30),
             BLANCO,
@@ -141,7 +141,7 @@ class JugarView(VentanaView):
                     # x,y calculan posición en pantalla para la carta, tambien se usa para guiarnos con el texto
                     x = int(ANCHO * cordenadas[0])
                     y = int(ALTO * cordenadas[1])
-                    # Utilizo el diccionario de estadisticas que se hizo con la funicon renderizar_estadisticas
+                    # Utilizo el diccionario de estadisticas que se hizo con la funicon renderizar
                     atributos_carta = self.__atributos_carta[jugador.get_nombre()]
                     PAC = atributos_carta["PAC"]
                     SHO = atributos_carta["SHO"]
@@ -201,7 +201,7 @@ class JugarView(VentanaView):
         return self.__estadio  # devuelve el estadio
 
     # Esta funcion es para optimizar el rendimiento, si alguien lee esto y necesita explicacion del porque mejora el rendimiento preguntenme soy BRUNO
-    def renderizar_estadisticas(self, equipo):
+    def renderizar(self, equipo):
         self.__atributos_carta = {}
         CARTA_IMAGEN = pygame.image.load(IMAGEN_CARTA)
         CARTA_IMAGEN = pygame.transform.scale(CARTA_IMAGEN, (120, 140))
