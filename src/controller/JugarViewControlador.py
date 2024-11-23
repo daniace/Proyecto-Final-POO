@@ -2,26 +2,34 @@ import sys
 
 import pygame
 
+from model.logic.Dificultades import *
+from model.logic.EquipoLogico import EquipoLogico
+from model.logic.formacion import *
+from model.logic.Partido import Partido
 from settings import *
 from view.JugarView import JugarView
-from model.logic.EquipoLogico import EquipoLogico
+
 from .CanchaViewControlador import CanchaController
 from .Controlador import Controlador
-from model.logic.Dificultades import *
-from model.logic.Partido import Partido
-from model.logic.formacion import *
 
 
 class JugarController(Controlador):
-    def __init__(self,dificultad:Dificultad):
+    def __init__(self, dificultad: Dificultad):
         super().__init__()
         self.__genero_equipo = EquipoLogico("Equipo FC")
-        self._view = JugarView(pygame.display.set_mode((ANCHO, ALTO)),str(self.__genero_equipo.get_nombre()))
+        self._view = JugarView(
+            pygame.display.set_mode((ANCHO, ALTO)),
+            str(self.__genero_equipo.get_nombre()),
+        )
         self.__formacion_actual = FORMACION_PREDETERMINADA
         self.__comienza_partida = False
         self.__dado_apretado = False
-        self._dificultad=dificultad
-        self.__cancha = CanchaController(pygame.display.set_mode((ANCHO, ALTO)),self._dificultad,self.__genero_equipo)
+        self._dificultad = dificultad
+        self.__cancha = CanchaController(
+            pygame.display.set_mode((ANCHO, ALTO)),
+            self._dificultad,
+            self.__genero_equipo,
+        )
 
     def manejar_eventos(self, eventos, mouse_pos):
         botones = self._view.get_botones()
@@ -37,7 +45,9 @@ class JugarController(Controlador):
                     self.__genero_equipo.nuevo_equipo()
                     self._view.renderizar_estadisticas(self.__genero_equipo._jugadores)
                     self.__comienza_partida = True
-                elif botones["comienza"].checkForInput(mouse_pos):  # Boton Comenzar Partia
+                elif botones["comienza"].checkForInput(
+                    mouse_pos
+                ):  # Boton Comenzar Partia
                     if self.__comienza_partida:
                         self._view.ocultar_visibilidad()
                         self.__cancha.main_loop()
@@ -61,6 +71,11 @@ class JugarController(Controlador):
                     self.__cambiar_estadio("Adelante")
                 elif botones["cambiar_estadio_atras"].checkForInput(mouse_pos):
                     self.__cambiar_estadio("Atras")
+                elif botones["nombre_equipo"].checkForInput(mouse_pos):
+                    pass
+                elif botones["nombre_usuario"].checkForInput(mouse_pos):
+                    pass
+
             clock.tick(FPS)
             pygame.display.update()
 

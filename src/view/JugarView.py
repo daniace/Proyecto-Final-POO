@@ -6,16 +6,16 @@ from .VentanaView import VentanaView
 
 
 class JugarView(VentanaView):
-    def __init__(self, pantalla,nombre):
+    def __init__(self, pantalla, nombre):
         super().__init__(pantalla)
         self.__estadio = camp_nou
         self.__estadisticas = {}
-        self._nuevo_nombre=nombre
+        self._nuevo_nombre = nombre
 
     def mostrar(self):
         self._botones = {}
         pygame.display.set_caption("JUGANDO")
-        
+
         # Dibuja el texto estadio que esta junto a los botones para cambiar los estadios del fondo
         COLOR_FONDO = (120, 120, 120)
         TEXTO_ESTADIO = get_fuente(60).render("ESTADIO", True, BLANCO)
@@ -70,10 +70,10 @@ class JugarView(VentanaView):
         )
 
         DADO = self._mostrar_boton(
-            boton_dado,
+            None,
             (ANCHO * 0.88, ALTO * 0.6),
-            "",
-            get_fuente(75),
+            "🎲",
+            pygame.font.Font(EMOJIS, 75),
             "White",
             "Green",
         )
@@ -94,12 +94,28 @@ class JugarView(VentanaView):
             BLANCO,
             ROJO,
         )
-        
-        CAMBIO_NOMBRE=self._mostrar_boton(boton_surface,(ANCHO*0.13,ALTO*0.3),f"MODIFICAR NOMBRE 🖊", get_fuente(30),BLANCO,NEGRO)
-        
-        superficie_texto = get_fuente(70).render(str(self._nuevo_nombre), True, NEGRO)
-        self._pantalla.blit(superficie_texto, (int(ANCHO * 0.05), int(ALTO * 0.18)))
-        
+
+        NOMBRE_USUARIO = self._mostrar_boton(
+            boton_surface,
+            (ANCHO * 0.13, ALTO * 0.25),
+            "NOMBRE DE USUARIO",
+            get_fuente(40),
+            BLANCO,
+            NEGRO,
+        )
+
+        CAMBIO_NOMBRE = self._mostrar_boton(
+            boton_surface,
+            (ANCHO * 0.13, ALTO * 0.4),
+            "NOMBRE DE EQUIPO",
+            get_fuente(40),
+            BLANCO,
+            NEGRO,
+        )
+
+        # superficie_texto = get_fuente(70).render(str(self._nuevo_nombre), True, NEGRO)
+        # self._pantalla.blit(superficie_texto, (int(ANCHO * 0.05), int(ALTO * 0.18)))
+
         # Guarda los botones como diccionario, recomendacion del profe Luis Luna A.K.A L.L(LA CABRA)
         self._botones["atras"] = JUGAR_ATRAS
         self._botones["comienza"] = JUGAR_COMIENZA
@@ -108,7 +124,8 @@ class JugarView(VentanaView):
         self._botones["cambiar_formacion_adelante"] = CAMBIAR_FORMACION_ADELANTE
         self._botones["cambiar_estadio_atras"] = CAMBIAR_ESTADIO_ATRAS
         self._botones["cambiar_estadio_adelante"] = CAMBIAR_ESTADIO_ADELANTE
-        self._botones["cambio_nombre"]=CAMBIO_NOMBRE
+        self._botones["nombre_equipo"] = CAMBIO_NOMBRE
+        self._botones["nombre_usuario"] = NOMBRE_USUARIO
 
     def dibujar_formaciones(
         self, SCREEN, formaciones, formacion_actual, equipo, dado_apretado

@@ -14,8 +14,14 @@ class CanchaView(VentanaView):
         self._botones = {}
         pygame.display.set_caption("GAMEPLAY")
         self._pantalla.fill(NEGRO)
-        self._pantalla.blit(BG_CANCHA_OFICIAL, (0, 0))
-        ATAJADA_GIF.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.1)))
+        # self._pantalla.blit(marcador, (int(ANCHO * 0.76), int(ALTO * 0.01)))
+        # self._pantalla.blit(marcador, (int(ANCHO * 0.2), int(ALTO * 0.55)))
+        self._pantalla.blit(BG_CANCHA_OFICIAL, (int(ANCHO * 0.01), int(ALTO * 0.01)))
+        TIEMPO = get_fuente(50).render("TIEMPO", True, BLANCO)
+        self._pantalla.blit(TIEMPO, (int(ANCHO * 0.84), int(ALTO * 0.05)))
+        ATAJADA_GIF.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05)))
+        ATAJADA_GIF.pause()
+
         CANCHA_ATRAS = self._mostrar_boton(
             boton_rojo_cuadrado,
             (ANCHO * 0.035, ALTO * 0.065),
@@ -24,4 +30,45 @@ class CanchaView(VentanaView):
             BLANCO,
             ROJO,
         )
+
+        PASE = self._mostrar_boton(
+            boton_negro2,
+            (ANCHO * 0.1, ALTO * 0.65),
+            "PASE",
+            get_fuente(50),
+            BLANCO,
+            "Green",
+        )
+
+        TIRO = self._mostrar_boton(
+            boton_negro2,
+            (ANCHO * 0.1, ALTO * 0.75),
+            "TIRO",
+            get_fuente(50),
+            BLANCO,
+            "Green",
+        )
+
+        GAMBETA = self._mostrar_boton(
+            boton_negro2,
+            (ANCHO * 0.1, ALTO * 0.85),
+            "GAMBETA",
+            get_fuente(50),
+            BLANCO,
+            "Green",
+        )
+
+        INTERCEPTAR = self._mostrar_boton(
+            boton_negro2,
+            (ANCHO * 0.1, ALTO * 0.95),
+            "INTERCEPTAR",
+            get_fuente(50),
+            BLANCO,
+            "Green",
+        )
+
+        self._botones["interceptar"] = INTERCEPTAR
+        self._botones["gambeta"] = GAMBETA
+        self._botones["tiro"] = TIRO
+        self._botones["pase"] = PASE
         self._botones["atras"] = CANCHA_ATRAS

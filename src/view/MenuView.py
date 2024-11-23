@@ -26,7 +26,7 @@ class MenuView(VentanaView):
             boton_cuadrado,
             (ANCHO * 0.1, ALTO * 0.1),
             "👤",
-            pygame.font.Font(EMOJIS),
+            pygame.font.Font(EMOJIS, 50),
             BLANCO,
             NEGRO,
         )

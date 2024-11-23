@@ -69,6 +69,7 @@ HOME = "src/assets/images/Home.png"
 IMAGEN_BOTON6 = "src/assets/images/boton6.png"
 IMAGEN_BOTON7 = "src/assets/images/boton7.png"
 BOTON_NEGRO = "src/assets/images/BotonNegro.png"
+RECTANGULO_NEGRO = "src/assets/images/RectanguloNegro.png"
 MESSI = "src/assets/images/messi.png"
 MESSI_COPA = "src/assets/images/messi_copa.png"
 D10S = "src/assets/images/d10s.png"
@@ -86,7 +87,6 @@ AZTECA = "src/assets/images/azteca.png"
 # GIFS
 ATAJADA = "src/assets/images/atajada.gif"
 ATAJADA_GIF = gif_pygame.load(ATAJADA)
-
 pygame.font.init()
 
 # Sonidos
@@ -104,7 +104,7 @@ BG_FORMACION = pygame.transform.scale(bg_formacion, TAMANIO_PANTALLA)
 bg_ranking = pygame.image.load(IMAGEN_RANKING)
 BG_RANKING = pygame.transform.scale(bg_ranking, TAMANIO_PANTALLA)
 bg_cancha_oficial = pygame.image.load(IMAGEN_CANCHA_OFICIAL)
-BG_CANCHA_OFICIAL = pygame.transform.scale(bg_cancha_oficial, (ANCHO, ALTO // 1.3))
+BG_CANCHA_OFICIAL = pygame.transform.scale(bg_cancha_oficial, (250, 400))
 bg_estadio = pygame.image.load(IMAGEN_ESTADIO)
 BG_ESTADIO = pygame.transform.scale(bg_estadio, TAMANIO_PANTALLA)
 clock = pygame.time.Clock()
@@ -183,6 +183,10 @@ boton_dado = pygame.transform.scale(boton_dado, (95, 95))
 
 boton_negro = pygame.image.load(BOTON_NEGRO)
 boton_negro = pygame.transform.scale(boton_negro, (250, 100))
+boton_negro2 = pygame.transform.scale(boton_negro, (250, 80))
+
+marcador = pygame.image.load(RECTANGULO_NEGRO)
+marcador = pygame.transform.scale(marcador, (300, 400))
 
 
 def get_fuente(tamanio):
