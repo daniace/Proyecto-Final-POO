@@ -10,11 +10,11 @@ from .Controlador import Controlador
 
 
 class OpcionesController(Controlador):
-    def __init__(self):
+    def __init__(self,dificultad:Dificultad):
         super().__init__()
         self._view = OpcionesView(pygame.display.set_mode((ANCHO, ALTO)))
         self.__musica = ReproductorMusica()
-        self.__dificultad = Medio()
+        self.__dificultad = dificultad
 
     def manejar_eventos(self, eventos, mouse_pos):
         from controller.MenuViewControlador import MenuController
@@ -31,16 +31,17 @@ class OpcionesController(Controlador):
                     self.__musica.pausar_soundtrack()
                 if botones["atras"].checkForInput(mouse_pos):
                     self._view.ocultar_visibilidad()
-                    menu_principal = MenuController()
+                    menu_principal = MenuController(self.__dificultad)
+                    print(menu_principal._dificultad)
                     menu_principal.main_loop()
                 if botones["facil"].checkForInput(mouse_pos):
-                    self.__dificultad = Facil()
-                    print("facil como la hermana de samuel")
+                    self.__dificultad=Facil()
+                    print("instanciado en FACIL")
                 if botones["normal"].checkForInput(mouse_pos):
-                    self.__dificultad = Medio()
-                    print("Medio como la prima de angelo")
+                    self.__dificultad=Medio()
+                    print("instanciado en MEDIO")
                 if botones["dificil"].checkForInput(mouse_pos):
-                    self.__dificultad = Dificil()
-                    print("Dificil como la abuela de jesus")
+                    self.__dificultad=Dificil()
+                    print("instanciado en Dificil")
         clock.tick(60)
         pygame.display.update()

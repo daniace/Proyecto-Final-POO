@@ -1,4 +1,4 @@
-from EquipoLogico import EquipoLogico
+from .EquipoLogico import EquipoLogico
 from collections import deque
 
 class Cancha:
@@ -157,17 +157,5 @@ class Cancha:
     "Si se ingresa 'aliado' busca los aliados mas cercanos, priorizando los que estan mas cerca del arco enemigo"
     "Si se ingresa 'enemigo' busca los enemigos mas cercanos, priorizando los que estan mas cerca del punto ingresado"
 
-if __name__ == "__main__":
-    e1 = EquipoLogico("equipo1", 1)
-    e2 = EquipoLogico("equipo2", 2)
-    c = Cancha(e1, e2)
-    c.mostrar_cancha()
-    # c.mostrar_diccionario()
-    print()
-    puntos = c.encontrar_puntos_cercanos((0,3), "aliado")
-    c.imprimir_jugadores(puntos)
-    print()
-    puntos = c.encontrar_puntos_cercanos((0,3), "enemigo")
-    c.imprimir_jugadores(puntos)
 
 "ELIMINAR FUNCIONES DE LOS DICCIONARIOS PARCIALES Y COSAS COMENTADAS QUE NO SE USAN"
