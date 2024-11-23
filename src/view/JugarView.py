@@ -107,7 +107,7 @@ class JugarView(VentanaView):
     ):
         if dado_apretado:
             CARTA_IMAGEN = pygame.image.load(IMAGEN_CARTA)
-            CARTA_IMAGEN = pygame.transform.scale(CARTA_IMAGEN, (100, 120))
+            CARTA_IMAGEN = pygame.transform.scale(CARTA_IMAGEN, (120, 140))
             jugadores_asignados = 0  # Contador para asignar jugadores de la lista
             for posicion in POSICIONES:
                 # Obtener las coordenadas para la posición actual
