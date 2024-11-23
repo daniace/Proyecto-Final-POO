@@ -147,9 +147,9 @@ class JugarView(VentanaView):
                     # Dibujar carta y nombre del jugador
                     SCREEN.blit(CARTA_IMAGEN, (x, y))
                     SCREEN.blit(dorsal, (x + 55, y + 95))
-                    SCREEN.blit(PAC, (x + 5, y + 35))
-                    SCREEN.blit(SHO, (x + 5, y + 50))
-                    SCREEN.blit(PAS, (x + 5, y + 65))
+                    SCREEN.blit(PAC, (x + 14, y + 35))
+                    SCREEN.blit(SHO, (x + 14, y + 50))
+                    SCREEN.blit(PAS, (x + 14, y + 65))
                     SCREEN.blit(DRI, (x + 42.5, y + 35))
                     SCREEN.blit(DEF, (x + 42.5, y + 50))
                     SCREEN.blit(PHY, (x + 42.5, y + 65))
