@@ -15,10 +15,10 @@ from model.logic.formacion import *
 class JugarController(Controlador):
     def __init__(self,dificultad:Dificultad):
         super().__init__()
-        self._view = JugarView(pygame.display.set_mode((ANCHO, ALTO)))
+        self.__genero_equipo = EquipoLogico("Equipo FC")
+        self._view = JugarView(pygame.display.set_mode((ANCHO, ALTO)),str(self.__genero_equipo.get_nombre()))
         self.__formacion_actual = FORMACION_PREDETERMINADA
         self.__comienza_partida = False
-        self.__genero_equipo = EquipoLogico("Equipo 1")
         self.__dado_apretado = False
         self._dificultad=dificultad
         self.__cancha = CanchaController(pygame.display.set_mode((ANCHO, ALTO)),self._dificultad,self.__genero_equipo)

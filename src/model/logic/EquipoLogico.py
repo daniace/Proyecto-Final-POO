@@ -22,7 +22,7 @@ class EquipoLogico:
             print(jugador.get_nombre())
 
     def get_nombre(self):
-        return self.__nombre_equipo
+        return str(self.__nombre_equipo)
 
     def get_nro_equipo(self):
         return self._nro_equipo
