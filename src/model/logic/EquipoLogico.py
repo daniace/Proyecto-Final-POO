@@ -10,9 +10,9 @@ import random
 
 
 class EquipoLogico:
-    def __init__(self, nombre_equipo, nro_equipo):
+    def __init__(self, nombre_equipo, es_cpu=False):
         self.__nombre_equipo = nombre_equipo
-        self._nro_equipo = nro_equipo  # NRO_EQUIPO TIENE 1 O 2
+        self._nro_equipo = 1 if not es_cpu else 2 # NRO_EQUIPO TIENE 1 O 2
         self._formacion = Formacion433()  # Tipo FORMACION A utilizar #433 DEFAULT
         self._jugadores = self.generar_equipo_random()  # LISTA JUGADORES
         self._distribucion = self.establecer_distribucion()  # MATRIZ DE JUGADORES

@@ -11,7 +11,7 @@ from Acciones import Acciones
 class Partido:
     def __init__(self, jugador1: EquipoLogico, dificultad: Dificultad):
         self._jugador1 = jugador1
-        self._jugador2 = EquipoLogico("CPU FC", 2)
+        self._jugador2 = EquipoLogico("CPU FC", es_cpu=True)
         self._partido_en_curso = True
         self._cronometro = None
         self._cancha = Cancha(self._jugador1, self._jugador2)
@@ -262,7 +262,7 @@ class Partido:
 
 # Ejemplo de uso1
 
-e = EquipoLogico("leo", 1)
+e = EquipoLogico("leo")
 e.set_formacion(Formacion352())
 e.nuevo_equipo()
 p = Partido(e, Facil())

@@ -16,7 +16,7 @@ class JugarController(Controlador):
         self.__cancha = CanchaController(pygame.display.set_mode((ANCHO, ALTO)))
         self.__formacion_actual = FORMACION_PREDETERMINADA
         self.__comienza_partida = False
-        self.__genero_equipo = EquipoLogico("Equipo 1", 1)
+        self.__genero_equipo = EquipoLogico("Equipo 1")
         self.__dado_apretado = False
 
     def manejar_eventos(self, eventos, mouse_pos):
