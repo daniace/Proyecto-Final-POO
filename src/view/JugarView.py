@@ -9,7 +9,7 @@ class JugarView(VentanaView):
     def __init__(self, pantalla, nombre):
         super().__init__(pantalla)
         self.__estadio = camp_nou
-        self.__estadisticas = {}
+        self.__atributos_carta = {}
         self._nuevo_nombre = nombre
 
     def mostrar(self):
@@ -112,10 +112,6 @@ class JugarView(VentanaView):
             BLANCO,
             NEGRO,
         )
-
-        # superficie_texto = get_fuente(70).render(str(self._nuevo_nombre), True, NEGRO)
-        # self._pantalla.blit(superficie_texto, (int(ANCHO * 0.05), int(ALTO * 0.18)))
-
         # Guarda los botones como diccionario, recomendacion del profe Luis Luna A.K.A L.L(LA CABRA)
         self._botones["atras"] = JUGAR_ATRAS
         self._botones["comienza"] = JUGAR_COMIENZA
@@ -131,8 +127,6 @@ class JugarView(VentanaView):
         self, SCREEN, formaciones, formacion_actual, equipo, dado_apretado
     ):
         if dado_apretado:
-            CARTA_IMAGEN = pygame.image.load(IMAGEN_CARTA)
-            CARTA_IMAGEN = pygame.transform.scale(CARTA_IMAGEN, (120, 140))
             jugadores_asignados = 0  # Contador para asignar jugadores de la lista
             for posicion in POSICIONES:
                 # Obtener las coordenadas para la posición actual
@@ -147,32 +141,30 @@ class JugarView(VentanaView):
                     # x,y calculan posición en pantalla para la carta, tambien se usa para guiarnos con el texto
                     x = int(ANCHO * cordenadas[0])
                     y = int(ALTO * cordenadas[1])
-                    # llama a ajustar texto para que el texto se ajuste al tamaño de la carta o a un ancho maximo
-                    NOMBRE_JUGADOR = self.__ajustar_texto(
-                        jugador.get_nombre(), FUENTE, 60, BLANCO
-                    )
                     # Utilizo el diccionario de estadisticas que se hizo con la funicon renderizar_estadisticas
-                    estadisticas_jugador = self.__estadisticas[jugador.get_nombre()]
-                    PAC = estadisticas_jugador["PAC"]
-                    SHO = estadisticas_jugador["SHO"]
-                    PAS = estadisticas_jugador["PAS"]
-                    DRI = estadisticas_jugador["DRI"]
-                    DEF = estadisticas_jugador["DEF"]
-                    PHY = estadisticas_jugador["PHY"]
-                    DOR = estadisticas_jugador["DORSAL"]
-                    OVR = estadisticas_jugador["OVR"]
+                    atributos_carta = self.__atributos_carta[jugador.get_nombre()]
+                    PAC = atributos_carta["PAC"]
+                    SHO = atributos_carta["SHO"]
+                    PAS = atributos_carta["PAS"]
+                    DRI = atributos_carta["DRI"]
+                    DEF = atributos_carta["DEF"]
+                    PHY = atributos_carta["PHY"]
+                    DOR = atributos_carta["DORSAL"]
+                    OVR = atributos_carta["OVR"]
+                    NOMBRE_JUGADOR = atributos_carta["NOMBRE_JUGADOR"]
+                    CARTA_IMAGEN = atributos_carta["CARTA"]
                     # Dibujar carta y nombre del jugador
                     SCREEN.blit(CARTA_IMAGEN, (x, y))
-                    SCREEN.blit(dorsal, (x + 55, y + 95))
-                    SCREEN.blit(PAC, (x + 14, y + 35))
-                    SCREEN.blit(SHO, (x + 14, y + 50))
-                    SCREEN.blit(PAS, (x + 14, y + 65))
-                    SCREEN.blit(DRI, (x + 42.5, y + 35))
-                    SCREEN.blit(DEF, (x + 42.5, y + 50))
-                    SCREEN.blit(PHY, (x + 42.5, y + 65))
-                    SCREEN.blit(NOMBRE_JUGADOR, (x + 14, y + 80))
-                    SCREEN.blit(DOR, (x + 67.5, y + 115))
-                    SCREEN.blit(OVR, (x + 14, y + 12))
+                    SCREEN.blit(dorsal, (x + 43, y + 112))
+                    SCREEN.blit(PAC, (x + 20, y + 35))
+                    SCREEN.blit(SHO, (x + 20, y + 50))
+                    SCREEN.blit(PAS, (x + 20, y + 65))
+                    SCREEN.blit(DRI, (x + 60.5, y + 35))
+                    SCREEN.blit(DEF, (x + 60.5, y + 50))
+                    SCREEN.blit(PHY, (x + 60.5, y + 65))
+                    SCREEN.blit(NOMBRE_JUGADOR, (x + 30, y + 80))
+                    SCREEN.blit(DOR, (x + 55, y + 132))
+                    SCREEN.blit(OVR, (x + 46.5, y + 12))
 
     def texto_formacion(self, formacion_actual):
         COLOR_FONDO = (120, 120, 120)
@@ -180,7 +172,7 @@ class JugarView(VentanaView):
             f"FORMACION {formacion_actual}", True, "White"
         )
         FORMACION_RECT = TEXTO_FORMACION.get_rect(
-            center=(int(ANCHO * 0.5), int(ALTO * 0.08))
+            center=(int(ANCHO * 0.5), int(ALTO * 0.055))
         )
         margen = 8
         fondo_rect = FORMACION_RECT.inflate(margen * 3, margen * 2)
@@ -188,7 +180,7 @@ class JugarView(VentanaView):
         self._pantalla.blit(TEXTO_FORMACION, FORMACION_RECT)
 
     def __ajustar_texto(self, texto, fuente, max_ancho, color):
-        tamaño = 22  # Tamaño inicial
+        tamaño = 25  # Tamaño inicial
         while True:
             # llama a la fuente con el tamaño inicial
             fuente_actual = pygame.font.Font(fuente, tamaño)
@@ -210,7 +202,9 @@ class JugarView(VentanaView):
 
     # Esta funcion es para optimizar el rendimiento, si alguien lee esto y necesita explicacion del porque mejora el rendimiento preguntenme soy BRUNO
     def renderizar_estadisticas(self, equipo):
-        self.__estadisticas = {}
+        self.__atributos_carta = {}
+        CARTA_IMAGEN = pygame.image.load(IMAGEN_CARTA)
+        CARTA_IMAGEN = pygame.transform.scale(CARTA_IMAGEN, (120, 140))
         for jugador in equipo:
             if jugador.get_posicion_arquero() == "GK":
                 estadisticas = {
@@ -236,8 +230,12 @@ class JugarView(VentanaView):
                         f"{jugador.get_dorsal()}", FUENTE, 32, BLANCO
                     ),
                     "OVR": self.__ajustar_texto(
-                        f"{jugador.get_valoracion()}", FUENTE, 50, BLANCO
+                        f"{jugador.get_valoracion()}", FUENTE, 50, VERDE
                     ),
+                    "NOMBRE_JUGADOR": self.__ajustar_texto(
+                        jugador.get_nombre(), FUENTE, 60, BLANCO
+                    ),
+                    "CARTA": CARTA_IMAGEN,
                 }
             else:
                 estadisticas = {
@@ -263,7 +261,11 @@ class JugarView(VentanaView):
                         f"{jugador.get_dorsal()}", FUENTE, 32, BLANCO
                     ),
                     "OVR": self.__ajustar_texto(
-                        f"{jugador.get_valoracion()}", FUENTE, 50, BLANCO
+                        f"{jugador.get_valoracion()}", FUENTE, 50, VERDE
                     ),
+                    "NOMBRE_JUGADOR": self.__ajustar_texto(
+                        jugador.get_nombre(), FUENTE, 60, BLANCO
+                    ),
+                    "CARTA": CARTA_IMAGEN,
                 }
-            self.__estadisticas[jugador.get_nombre()] = estadisticas
+            self.__atributos_carta[jugador.get_nombre()] = estadisticas
