@@ -1,11 +1,11 @@
-from EquipoLogico import EquipoLogico
-from Cancha import Cancha
-from Cronometro import Cronometro
-from formacion import *
-from Dificultades import *
+from model.logic.EquipoLogico import EquipoLogico
+from model.logic.Cancha import Cancha
+from model.logic.Cronometro import Cronometro
+from model.logic.formacion import *
+from model.logic.Dificultades import *
 import random
 import time
-from Acciones import Acciones
+from model.logic.Acciones import Acciones
 
 
 class Partido:
@@ -259,14 +259,6 @@ class Partido:
         print('RESULTADO -->', 'P1',self._goles[0], '- CPU ',self._goles[1])
         self._repartir_puntos(self._goles)
 
-
-# Ejemplo de uso1
-
-e = EquipoLogico("leo")
-e.set_formacion(Formacion352())
-e.nuevo_equipo()
-p = Partido(e, Facil())
-p.jugar_partido()
 
 
 # cosas que hacer:
