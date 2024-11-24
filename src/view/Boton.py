@@ -15,6 +15,7 @@ class Boton:
         self.rect = self.imagen.get_rect(center=(self.x_pos, self.y_pos))
         self.text_rect = self.texto.get_rect(center=(self.x_pos, self.y_pos))
         self.clickeado = False
+        self.seleccionado = False
 
     def update(self, screen):
         if self.imagen is not None:
@@ -28,10 +29,8 @@ class Boton:
             if pygame.mouse.get_pressed()[0] == 1 and self.clickeado == False:
                 self.clickeado = True
                 accionado = True
-
             if pygame.mouse.get_pressed()[0] == 0:
                 self.clickeado = False
-
         return accionado
 
     def changeColor(self, posicion):
@@ -41,3 +40,10 @@ class Boton:
             self.texto = self.fuente.render(self.texto_input, True, self.hovering_color)
         else:
             self.texto = self.fuente.render(self.texto_input, True, self.color_base)
+
+    def seleccionar(self):
+        self.seleccionado = True
+
+    def deseleccionar (self):
+        self.seleccionado = False
+

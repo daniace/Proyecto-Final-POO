@@ -6,7 +6,7 @@ import pygame
 class VentanaView(ABC):
     def __init__(self, pantalla):
         self._pantalla = pantalla  # La pantalla principal
-        self._botones = []
+        self._botones = {}
         self._visible = True
 
     @abstractmethod
