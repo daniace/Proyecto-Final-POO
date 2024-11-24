@@ -200,7 +200,7 @@ class JugarView(VentanaView):
     def get_estadio(self):
         return self.__estadio  # devuelve el estadio
 
-    # Esta funcion es para optimizar el rendimiento, si alguien lee esto y necesita explicacion del porque mejora el rendimiento preguntenme soy BRUNO
+    # Esta funcion es para optimizar el rendimiento, si alguien lee esto y necesita explicacion del porque mejora el rendimiento preguntenme soy BRUNO # la maldita cabra tío soy ANGELO
     def renderizar(self, equipo):
         self.__atributos_carta = {}
         CARTA_IMAGEN = pygame.image.load(IMAGEN_CARTA)
