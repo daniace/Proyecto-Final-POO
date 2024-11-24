@@ -144,7 +144,7 @@ class AbmCarta(DaoInterfaz):
 
     def get_delanteros(self):  # obtiene todas las cartas de delanteros
         resultado = self.__database.execute_query(
-            "SELECT * FROM carta WHERE player_positions LIKE '%ST%' OR player_positions LIKE '%CF%' OR player_positions LIKE '%LW%' OR player_positions LIKE '%RW%' AND deshabilitado = 0 ORDER BY random() LIMIT 10"
+            "SELECT * FROM carta WHERE player_positions LIKE '%ST%' OR player_positions LIKE '%CF%' OR player_positions LIKE '%LW%' OR player_positions LIKE '%RW%'AND player_positions NOT LIKE '%B%' AND deshabilitado = 0 ORDER BY random() LIMIT 10"
         )
         if not resultado:
             print("No se encontraron cartas")

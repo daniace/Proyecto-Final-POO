@@ -16,7 +16,7 @@ class Partido:
         self._cronometro = None
         self._cancha = Cancha(self._jugador1, self._jugador2)
         self._equipo_con_posesion = 1  # EQUIPO 1 O EQUIPO 2
-        self._posicion_pelota = (0, 3)
+        self._posicion_pelota = (0, 3)  #DONDE ARRANCA EL PARTIDO
         self._acciones = Acciones(dificultad)  # VER SI ESTO QUEDA ASI
         self._dificultad=dificultad
         self._goles = [0,0]
@@ -123,8 +123,6 @@ class Partido:
 
     def realizar_tiro(self) -> bool:
         jugador_actual = self._cancha.buscar_jugador(self._posicion_pelota)
-
-
         if self._acciones.calcular_efectividad_tiro(jugador_actual):
             return True
         else:
