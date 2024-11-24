@@ -21,6 +21,16 @@ VERDE = (0, 255, 0)
 AZUL = (0, 0, 255)
 COLOR_FONDO = NEGRO
 
+
+def color_ovr(ovr):
+    if ovr < 70:
+        return BLANCO
+    elif ovr < 80:
+        return VERDE
+    else:
+        return AZUL
+
+
 # Configuracion del juego
 FPS = 60
 FORMACION_PREDETERMINADA = "4-3-3"
