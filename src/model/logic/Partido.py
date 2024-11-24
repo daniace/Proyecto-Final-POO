@@ -70,7 +70,7 @@ class Partido:
         jugador_con_pelota = self._jugador_con_pelota()
         print(f"Pase de {self._posicion_pelota} a {aliado_destino}.")
 
-        if self._acciones.calcular_efectividad_pase(jugador_con_pelota):
+        if self._acciones.calcular_efectividad_pase(jugador_con_pelota,self._equipo_con_posesion):
             print("El pase fue exitoso.")
             self._posicion_pelota = aliado_destino
             return True
@@ -97,7 +97,7 @@ class Partido:
         print()
 
         enemigo_cercano = self._cancha.buscar_jugador(posicion_enemigo)
-        if self._acciones.calcular_efectividad_intercepcion(enemigo_cercano):
+        if self._acciones.calcular_efectividad_intercepcion(enemigo_cercano, 2 if self._equipo_con_posesion == 1 else 1):
             print("SE INTERCEPTO LA PELOTA")
             self._posicion_pelota = posicion_enemigo
             self._cambio_equipo()
@@ -114,7 +114,7 @@ class Partido:
         self._posicion_pelota = posicion_arquero
         self._cambio_equipo()
 
-        if self._acciones.calcular_efectividad_atajar(arquero):
+        if self._acciones.calcular_efectividad_atajar(arquero, self._equipo_con_posesion):
             print("SE ATAJÓ EL TIRO")
             return True
         else:
@@ -123,7 +123,7 @@ class Partido:
 
     def realizar_tiro(self) -> bool:
         jugador_actual = self._cancha.buscar_jugador(self._posicion_pelota)
-        if self._acciones.calcular_efectividad_tiro(jugador_actual):
+        if self._acciones.calcular_efectividad_tiro(jugador_actual,self._equipo_con_posesion):
             return True
         else:
             print("Se falló el tiro")
@@ -134,7 +134,7 @@ class Partido:
     
     def realizar_gambeta(self) -> bool:
         jugador_con_pelota = self._jugador_con_pelota() 
-        if self._acciones.calcular_efectividad_gambeta(jugador_con_pelota):
+        if self._acciones.calcular_efectividad_gambeta(jugador_con_pelota, self._equipo_con_posesion):
             print("¡Gambeta exitosa! El jugador contrario no pudo interceptar la pelota.")
             self._acciones.set_valor_bonificacion(True)
             if self._jugador_con_pelota().get_posicion()[0]=='DEFENSA':

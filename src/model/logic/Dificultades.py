@@ -28,7 +28,7 @@ class Facil(Dificultad):
     def get_mensaje(self):
         return f'reparto de puntos (FACIL):\n victoria (+ {self.get_pts_por_ganar()}pts) ;empate (+ {self.get_pts_por_empatar()}pts);derrota ({self.get_pts_por_perder()}pts)'
     def get_probabilidad(self):
-        return self._probabilidad * 1
+        return int(self._probabilidad * 0.8)
     
     def get_pts_por_ganar(self):
         return 3
@@ -38,7 +38,7 @@ class Medio(Dificultad):
     def get_mensaje(self):
         return f'reparto de puntos (MEDIO):\n victoria (+ {self.get_pts_por_ganar()}pts) ;empate (+ {self.get_pts_por_empatar()}pts);derrota ({self.get_pts_por_perder()}pts)'
     def get_probabilidad(self):
-        return int(self._probabilidad * 1.2)
+        return int(self._probabilidad * 1)
     
     def get_pts_por_ganar(self):
         return 4
