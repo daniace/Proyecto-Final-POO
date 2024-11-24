@@ -10,5 +10,7 @@ class ControladorBD:
         self.__usuario = AbmUsuario()
 
     def get_usuarios_ranking(self):
-        usuarios = self.__usuario.get_all()
+        self.__generador = AbmUsuario()
+        usuarios = self.__generador.get_all()
+        self.__generador.close()
         return usuarios
