@@ -9,7 +9,7 @@ from model.database.Usuario import Usuario
 ANCHO = 1280
 ALTO = 720
 TAMANIO_PANTALLA = (ANCHO, ALTO)
-FULLSCREEN = False
+FULLSCREEN = True
 SCREEN = pygame.display.set_mode(TAMANIO_PANTALLA)
 clock = pygame.time.Clock()
 
@@ -94,6 +94,7 @@ FLECHA_DERECHA = "src/assets/images/flechaDerecha.png"
 OLD_TRAFORD = "src/assets/images/oldtraford.png"
 MALASIA = "src/assets/images/malasia.png"
 AZTECA = "src/assets/images/azteca.png"
+TABLA_LOGIN = "src/assets/images/tablaLogin.png"
 # GIFS
 ATAJADA = "src/assets/images/atajada.gif"
 ATAJADA_GIF = gif_pygame.load(ATAJADA)
@@ -205,11 +206,5 @@ def get_fuente(tamanio):
 
 clock = pygame.time.Clock()
 
-
-abmcarta = AbmCarta()
-defensores = abmcarta.get_defensores()
-abmusuario = AbmUsuario()
-usuarios = abmusuario.get_all()
-usuario = Usuario()
 
 POS_MOUSE = pygame.mouse.get_pos()

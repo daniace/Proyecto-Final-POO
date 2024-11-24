@@ -10,9 +10,9 @@ from .Controlador import Controlador
 
 
 class OpcionesController(Controlador):
-    def __init__(self,dificultad:Dificultad):
+    def __init__(self, dificultad: Dificultad):
         super().__init__()
-        self._view = OpcionesView(pygame.display.set_mode((ANCHO, ALTO)))
+        self._view = OpcionesView(SCREEN)
         self.__musica = ReproductorMusica()
         self.__dificultad = dificultad
 
@@ -35,13 +35,13 @@ class OpcionesController(Controlador):
                     print(menu_principal._dificultad)
                     menu_principal.main_loop()
                 if botones["facil"].checkForInput(mouse_pos):
-                    self.__dificultad=Facil()
+                    self.__dificultad = Facil()
                     print("instanciado en FACIL")
                 if botones["normal"].checkForInput(mouse_pos):
-                    self.__dificultad=Medio()
+                    self.__dificultad = Medio()
                     print("instanciado en MEDIO")
                 if botones["dificil"].checkForInput(mouse_pos):
-                    self.__dificultad=Dificil()
+                    self.__dificultad = Dificil()
                     print("instanciado en Dificil")
         clock.tick(60)
         pygame.display.update()
