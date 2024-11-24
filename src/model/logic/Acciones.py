@@ -22,10 +22,15 @@ class Acciones:
 
     "VERIFICAR SI BONIFICACION VUELVE A FALSE"
 
-    def calcular_efectividad(self, jugador, metodo_atributo, descripcion):
+    def calcular_efectividad(self, jugador, equipo, metodo_atributo, descripcion):
         print(f'GAMBETA ACTIVA --> {self._bonificacion_de_gambeta}')
+        
         atributo = int(getattr(jugador, metodo_atributo)())
-        probabilidad = random.randint(0, self._dificultad.get_probabilidad())
+        print(f'jugador', jugador)
+        probabilidad = random.randint(0, self._dificultad.get_probabilidad() if equipo == 1 else 100)
+        print('EQUIPO ACTUAL PROBABILIDAD--> ', equipo)
+        print('probabilidad de 0 a ', self._dificultad.get_probabilidad() if equipo == 1 else 100)
+        
 
         if self._bonificacion_de_gambeta:
             atributo = self.valor_bonificacion(metodo_atributo, jugador, atributo)
@@ -37,24 +42,25 @@ class Acciones:
                 atributo = atributo * 0.4            
             if jugador.get_posicion()[0] == 'MEDIOCAMPISTA':
                 atributo = atributo * 0.5        
-        print(f"Probabilidad de {descripcion} correcta: ", str(int((atributo * 100)/self._dificultad.get_probabilidad())))
+        print(f"Probabilidad de {descripcion} correcta: ", str(int(atributo*100)/(self._dificultad.get_probabilidad() if equipo == 1 else 100)) + '%')
+        print(f'{probabilidad} vs {atributo}')
         return probabilidad <= atributo
         "Si no funciona sacar getattr"
 
-    def calcular_efectividad_pase(self, jugador):
-        return self.calcular_efectividad(jugador, 'get_pase', 'pase')
+    def calcular_efectividad_pase(self, jugador, equipo):
+        return self.calcular_efectividad(jugador, equipo, 'get_pase', 'pase')
 
-    def calcular_efectividad_tiro(self, jugador):
-        return self.calcular_efectividad(jugador, 'get_disparo', 'tiro')
+    def calcular_efectividad_tiro(self, jugador,equipo):
+        return self.calcular_efectividad(jugador,equipo, 'get_disparo', 'tiro')
 
-    def calcular_efectividad_intercepcion(self, jugador):
-        return self.calcular_efectividad(jugador, 'get_defensa', 'intercepción')
+    def calcular_efectividad_intercepcion(self, jugador, equipo):
+        return self.calcular_efectividad(jugador,equipo, 'get_defensa', 'intercepción')
 
-    def calcular_efectividad_atajar(self, jugador):
-        return self.calcular_efectividad(jugador, 'get_handling', 'atajar')
+    def calcular_efectividad_atajar(self, jugador,equipo):
+        return self.calcular_efectividad(jugador,equipo, 'get_handling', 'atajar')
     
-    def calcular_efectividad_gambeta(self, jugador):
-            return self.calcular_efectividad(jugador, 'get_gambeta', 'gambeta')
+    def calcular_efectividad_gambeta(self, jugador,equipo):
+            return self.calcular_efectividad(jugador,equipo, 'get_gambeta', 'gambeta')
 
 
 'COSAS PARA IMPLEMENTAR'
