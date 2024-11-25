@@ -1,26 +1,37 @@
 import sqlite3
 from sqlite3 import Error
+from threading import Lock
 
 
-class Database:
+class SingletonMeta(type):
+    _instancias = {}
+
+    _lock: Lock = Lock()
+
+    def __call__(cls, *args, **kwargs):
+        with cls._lock:
+            if cls not in cls._instancias:
+                instancia = super().__call__(*args, **kwargs)
+                cls._instancias[cls] = instancia
+        return cls._instancias[cls]
+
+
+class Database(metaclass=SingletonMeta):
     """Clase Singleton para la base de datos.
     Se encarga de establecer la conexión, ejecutar consultas y operaciones,
     y cerrar la conexión a la base de datos."""
 
-    _instance = None
-
-    def __new__(cls, db_path=r"src\model\database\heroesdelbalon.db"):
-        if cls._instance is None:
-            cls._instance = super(Database, cls).__new__(cls)
-            cls._instance.connection = None
-            cls._instance.db_path = db_path
-        return cls._instance
+    def __init__(self):
+        super().__init__()
+        self.connection = None
 
     def connect(self):
         """Establece la conexión a la base de datos."""
         if self.connection is None:
             try:
-                self.connection = sqlite3.connect(self.db_path)
+                self.connection = sqlite3.connect(
+                    r"src\model\database\heroesdelbalon.db"
+                )
                 print("Conexión a la base de datos establecida.")
             except Error as e:
                 print(f"Error al conectar a la base de datos: {e}")
@@ -54,9 +65,6 @@ class Database:
                 cursor.execute(query)
             results = cursor.fetchall()
             return results
-            # for row in results:
-            # return row
-            # print(row)
         except Error as e:
             print(f"Error al ejecutar la consulta: {e}")
 
@@ -82,3 +90,7 @@ class Database:
             print("Operación ejecutada exitosamente.")
         except Error as e:
             print(f"Error al ejecutar la operación: {e}")
+
+
+if __name__ == "__main__":
+    pass
