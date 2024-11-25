@@ -23,15 +23,8 @@ class CanchaView(VentanaView):
         self._pantalla.blit(estadio, (int(ANCHO * 0.01), int(ALTO * 0.01)))
         TIEMPO = get_fuente(50).render("TIEMPO", True, BLANCO)
         self._pantalla.blit(TIEMPO, (int(ANCHO * 0.84), int(ALTO * 0.05)))
-        # ATAJADA_GIF = gif_pygame.load(ATAJADA)
-        # gif_superficie = gif_pygame.GIFPygame(ATAJADA_GIF)
-        # self._pantalla.blit(
-        #     gif_superficie.blit_ready(), (int(ANCHO * 0.25), int(ALTO * 0.05))
-        # )
-        # # ATAJADA_GIF.render(gif_superficie, (int(ANCHO * 0.25), int(ALTO * 0.05)))
-        # if self.__pase:
-        #     PASE_GIF = gif_pygame.load(PASE)
-        #     PASE_GIF.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05)))
+        # ATAJADA_GIF = gif_pygame.load(ATAJADA, loops=-1)
+        # ATAJADA_GIF.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05)))
 
         PASE = self._mostrar_boton(
             boton_negro2,

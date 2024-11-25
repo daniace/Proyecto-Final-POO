@@ -67,9 +67,13 @@ class CanchaController(Controlador):
         # print(self.boton_texto) #ESTO SE SACA ES PARA VER SI SE CAMBIABA LOS BOTONES
 
     def main_loop(self):
-        self._view.renderizar()
+        # self._view.renderizar()
+        ATAJADA_GIF = gif_pygame.load(ATAJADA, loops=-1)
         while True:
             if self._view.get_visibilidad():
+                ATAJADA_GIF.render(
+                    self._view._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
+                )
                 mouse_pos = pygame.mouse.get_pos()
                 self._view.mostrar()  # Mostrar el menú
                 eventos = pygame.event.get()  # Manejar eventos
@@ -102,7 +106,6 @@ class CanchaController(Controlador):
             menu_jugar.main_loop()
         elif nombre_boton_seleccionado == "pase":
             print("hizo pasee")
-            self._view.set_pase(True)
         elif nombre_boton_seleccionado == "tiro":
             print("hizo tiro")
         elif nombre_boton_seleccionado == "gambeta":
