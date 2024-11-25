@@ -17,7 +17,7 @@ class Partido:
         self._cancha = Cancha(self._jugador1, self._jugador2)
         self._equipo_con_posesion = 1  # EQUIPO 1 O EQUIPO 2
         self._posicion_pelota = (0, 3)  #DONDE ARRANCA EL PARTIDO
-        self._acciones = Acciones(dificultad)  # VER SI ESTO QUEDA ASI
+        self._acciones = Acciones(Medio())  # VER SI ESTO QUEDA ASI
         self._dificultad=dificultad
         self._goles = [0,0]
         self._view = vista

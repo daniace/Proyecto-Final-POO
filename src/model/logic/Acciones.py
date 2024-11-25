@@ -1,5 +1,4 @@
 import random
-
 class Acciones:
     def __init__(self, dificultad):
         self._dificultad = dificultad

@@ -106,11 +106,15 @@ class CanchaController(Controlador):
             menu_jugar.main_loop()
         elif nombre_boton_seleccionado == "pase":
             print("hizo pasee")
+            self._partido.realizar_pase()
         elif nombre_boton_seleccionado == "tiro":
+            self._partido.realizar_tiro()
             print("hizo tiro")
         elif nombre_boton_seleccionado == "gambeta":
+            self._partido.realizar_gambeta()
             print("hizo gambeta")
         elif nombre_boton_seleccionado == "interceptar":
+            self._partido.realizar_intercepcion()
             print("hizo interceptar")
 
     def set_estadio(self, estadio):
