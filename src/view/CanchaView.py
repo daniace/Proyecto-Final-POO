@@ -73,3 +73,5 @@ class CanchaView(VentanaView):
         self._botones["pase"] = PASE
         self._botones["atras"] = CANCHA_ATRAS
 
+
+    

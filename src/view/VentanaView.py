@@ -17,8 +17,8 @@ class VentanaView(ABC):
         return self._botones
 
     def _mostrar_boton(self, imagen, pos, texto, fuente, color_base, hovering_color):
-        mouse_pos = pygame.mouse.get_pos()
         boton = Boton(imagen, pos, texto, fuente, color_base, hovering_color)
+        mouse_pos = pygame.mouse.get_pos()
         boton.changeColor(mouse_pos)
         boton.update(self._pantalla)
         return boton
