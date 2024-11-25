@@ -17,6 +17,33 @@ class CanchaController(Controlador):
         self._jugador = jugador
         self._partido = Partido(jugador, dificultad)
         self._indice_seleccionado = 0
+        self.boton_actual = None
+        self.boton_mouse = None  
+    
+    def cambiar_boton_actual (self):
+        botones = self._view.get_botones()
+        for boton in botones.values():
+                if boton.hovering:
+                    self.boton_actual = boton
+                elif boton.seleccionado:
+                    self.boton_actual = boton
+    
+    
+    def main_loop(self):
+        while True:
+            if self._view.get_visibilidad():
+                mouse_pos = pygame.mouse.get_pos()
+                self._view.mostrar()  # Mostrar el menú
+                eventos = pygame.event.get()  # Manejar eventos
+                self.manejar_eventos(eventos, mouse_pos)
+
+                # self.cambiar_boton_actual()
+                if self.boton_actual is not None:
+                    self.boton_actual.mantener_color()
+                    self.boton_actual.update(self._view._pantalla)
+                        
+                clock.tick(60)
+                pygame.display.update()
 
     def manejar_eventos(self, eventos, mouse_pos):
         from controller.JugarViewControlador import JugarController
