@@ -43,7 +43,7 @@ class EquipoJugarView(VentanaView):
         )
         boton_listo = self._mostrar_boton(
             None,
-            (ANCHO * 0.657, ALTO * 0.35),
+            (ANCHO * 0.68, ALTO * 0.35),
             "✔",
             pygame.font.Font(EMOJIS, 32),
             VERDE_FUERTE,
@@ -73,7 +73,7 @@ class EquipoJugarView(VentanaView):
 
     def mostrar_texto_equipo(self, texto_equipo):
         superficie_texto = self.__ajustar_texto(texto_equipo, FUENTE, 275, NEGRO)
-        self._pantalla.blit(superficie_texto, (ANCHO * 0.43, ALTO * 0.335))
+        self._pantalla.blit(superficie_texto, (ANCHO * 0.44, ALTO * 0.335))
 
     def __ajustar_texto(self, texto, fuente, max_ancho, color):
         tamaño = 50  # Tamaño inicial

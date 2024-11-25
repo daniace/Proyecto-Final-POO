@@ -15,57 +15,28 @@ class CanchaController(Controlador):
         self._view = CanchaView(pantalla)
         self._dificultad = dificultad
         self._jugador = jugador
-        self._partido = Partido(jugador, dificultad)
+        self._partido = Partido(jugador, dificultad, self._view)
         self._indice_seleccionado = 0
         self.boton_actual = None
-        self.boton_mouse = None  
-    
-    def cambiar_boton_actual (self):
-        botones = self._view.get_botones()
-        for boton in botones.values():
-                if boton.hovering:
-                    # print('entra al hovering')
-                    # self.boton_mouse = boton
-                    # anterior.deseleccionar()
-                    self.boton_actual = boton
-                    # self.boton_actual.seleccionar()
-                elif boton.seleccionado:
-                    self.boton_actual = boton
-                    # self.boton_actual.seleccionar()
-                    # self.boton_mouse = None
-    
-    
-    def main_loop(self):
-        while True:
-            if self._view.get_visibilidad():
-                mouse_pos = pygame.mouse.get_pos()
-                self._view.mostrar()  # Mostrar el menú
-                eventos = pygame.event.get()  # Manejar eventos
-                self.manejar_eventos(eventos, mouse_pos)
-                self.cambiar_boton_actual()
-                if self.boton_actual is not None: #and self.boton_mouse == None:
-                    self.boton_actual.mantener_color()
-                    self.boton_actual.update(self._view._pantalla)
-
-                clock.tick(60)
-                pygame.display.update()
+        self.boton_mouse = None
 
     def manejar_eventos(self, eventos, mouse_pos):
         from controller.JugarViewControlador import JugarController
 
         botones = self._view.get_botones()
-
         for event in eventos:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if botones["atras"].checkForInput(mouse_pos):
-                    self.actualizar_seleccion()
-                    menu_jugar = JugarController()
-                    menu_jugar.main_loop()
-
+            # if event.type == pygame.MOUSEBUTTONDOWN:
+            #     if botones["pase"].checkForInput(mouse_pos):
+            #         self.actualizar_seleccion()
+            #         self.ejecutar_accion()
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self._view.ocultar_visibilidad()
+                    jugar = JugarController()
+                    jugar.main_loop()
                 if event.key == pygame.K_DOWN:
                     self._indice_seleccionado = (self._indice_seleccionado - 1) % len(
                         botones
@@ -79,9 +50,38 @@ class CanchaController(Controlador):
                 elif event.key == pygame.K_RETURN:
                     self.ejecutar_accion()
 
+    def cambiar_boton_actual(self):
+        botones = self._view.get_botones()
+        for boton in botones.values():
+            if boton.hovering:
+                # print('entra al hovering')
+                # self.boton_mouse = boton
+                # anterior.deseleccionar()
+                self.boton_actual = boton
+                # self.boton_actual.seleccionar()
+            elif boton.seleccionado:
+                self.boton_actual = boton
+                # self.boton_actual.seleccionar()
+                # self.boton_mouse = None
+
+    def main_loop(self):
+        while True:
+            if self._view.get_visibilidad():
+                mouse_pos = pygame.mouse.get_pos()
+                self._view.mostrar()  # Mostrar el menú
+                eventos = pygame.event.get()  # Manejar eventos
+                self.manejar_eventos(eventos, mouse_pos)
+                self.cambiar_boton_actual()
+                if self.boton_actual is not None:  # and self.boton_mouse == None:
+                    self.boton_actual.mantener_color()
+                    self.boton_actual.update(self._view._pantalla)
+
+                clock.tick(60)
+                pygame.display.update()
+
     def actualizar_seleccion(self):
         botones = self._view.get_botones()
-        for indice,(boton) in enumerate(botones.values()):
+        for indice, (boton) in enumerate(botones.values()):
             if indice == self._indice_seleccionado:
                 boton.seleccionar()
                 self.cambiar_boton_actual()
@@ -104,8 +104,12 @@ class CanchaController(Controlador):
         elif nombre_boton_seleccionado == "gambeta":
             print("hizo gambeta")
         elif nombre_boton_seleccionado == "interceptar":
-            print('hizo interceptar')
-            
+            print("hizo interceptar")
+
+    def set_estadio(self, estadio):
+        self._view.set_estadio(estadio)
+        self._view.setear_estadio_cancha()
+
 
 "NOTA PARA SEGUIRLO -> EL BOTON ACTUAL ES EL BOTON SELECCIONADO, HAY QUE HACER QUE EL BOTON QUE SELECCIONA EL MOUSE SEA EL BOTON ACTUAL, ADEMAS DE CAMBIAR"
 "EL INDICE DEL EJECUTAR ACCION AL BOTON ACTUAL, PARA QUE SE ELIJA ESA OPCION"

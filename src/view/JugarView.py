@@ -34,7 +34,7 @@ class JugarView(VentanaView):
         # BOTONES
         CAMBIAR_FORMACION_ATRAS = self._mostrar_boton(
             boton_flecha_izquierda,
-            (ANCHO * 0.31, ALTO * 0.055),
+            (ANCHO * 0.305, ALTO * 0.055),
             "  ",
             get_fuente(30),
             BLANCO,
@@ -43,7 +43,7 @@ class JugarView(VentanaView):
 
         CAMBIAR_FORMACION_ADELANTE = self._mostrar_boton(
             boton_flecha_derecha,
-            (ANCHO * 0.69, ALTO * 0.055),
+            (ANCHO * 0.695, ALTO * 0.055),
             "  ",
             get_fuente(30),
             BLANCO,
@@ -78,7 +78,7 @@ class JugarView(VentanaView):
         )
         CAMBIAR_ESTADIO_ATRAS = self._mostrar_boton(
             boton_flecha_izquierda,
-            (ANCHO * 0.027, ALTO * 0.92),
+            (ANCHO * 0.025, ALTO * 0.92),
             "  ",
             get_fuente(30),
             BLANCO,
@@ -87,7 +87,7 @@ class JugarView(VentanaView):
 
         CAMBIAR_ESTADIO_ADELANTE = self._mostrar_boton(
             boton_flecha_derecha,
-            (ANCHO * 0.213, ALTO * 0.92),
+            (ANCHO * 0.215, ALTO * 0.92),
             "  ",
             get_fuente(30),
             BLANCO,

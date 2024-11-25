@@ -1,8 +1,6 @@
 import pygame
 
 from settings import *
-
-from .Boton import Boton
 from .VentanaView import VentanaView
 
 

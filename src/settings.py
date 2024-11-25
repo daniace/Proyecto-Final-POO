@@ -6,10 +6,10 @@ from model.database.AbmUsuario import AbmUsuario
 from model.database.Usuario import Usuario
 
 # Configuracion de la pantalla
-ANCHO = 1280
+ANCHO = 1200
 ALTO = 720
 TAMANIO_PANTALLA = (ANCHO, ALTO)
-FULLSCREEN = True
+FULLSCREEN = False
 SCREEN = pygame.display.set_mode(TAMANIO_PANTALLA)
 clock = pygame.time.Clock()
 
@@ -59,6 +59,13 @@ FORMACIONES = {
 }
 
 # Recursos
+MANCHESTER = "src/assets/images/Manchester.png"
+BARCELONA = "src/assets/images/Barcelona.png"
+MADRID = "src/assets/images/Madrid.png"
+MALASYA = "src/assets/images/Malasya.png"
+NUÑEZ = "src/assets/images/Nuñez.png"
+MEXICO = "src/assets/images/Mexico.png"
+BOCA = "src/assets/images/Boca.png"
 IMAGEN_FONDO = "src/assets/images/scene.jpg"
 IMAGEN_FORMACION = "src/assets/images/formacion.jpg"
 IMAGEN_FONDO_OPCIONES = "src/assets/images/options.png"
@@ -149,6 +156,28 @@ BG_ESTADIO = pygame.transform.scale(bg_estadio, TAMANIO_PANTALLA)
 clock = pygame.time.Clock()
 
 ##ESTADIOS##
+manchester = pygame.image.load(MANCHESTER)
+manchester = pygame.transform.scale(manchester, (250, 400))
+
+madrid = pygame.image.load(MADRID)
+madrid = pygame.transform.scale(madrid, (250, 400))
+
+barcelona = pygame.image.load(BARCELONA)
+barcelona = pygame.transform.scale(barcelona, (250, 400))
+
+mexico = pygame.image.load(MEXICO)
+mexico = pygame.transform.scale(mexico, (250, 400))
+
+nuñez = pygame.image.load(NUÑEZ)
+nuñez = pygame.transform.scale(nuñez, (250, 400))
+
+boca = pygame.image.load(BOCA)
+boca = pygame.transform.scale(boca, (250, 400))
+
+malasya = pygame.image.load(MALASYA)
+malasya = pygame.transform.scale(malasya, (250, 400))
+
+
 azteca = pygame.image.load(AZTECA)
 azteca = pygame.transform.scale(azteca, TAMANIO_PANTALLA)
 
@@ -190,10 +219,10 @@ boton_surface = pygame.image.load(IMAGEN_BOTON4)
 boton_surface = pygame.transform.scale(boton_surface, (250, 80))
 
 boton_flecha_izquierda = pygame.image.load(FLECHA_IZQUIERDA)
-boton_flecha_izquierda = pygame.transform.scale(boton_flecha_izquierda, (65, 65))
+boton_flecha_izquierda = pygame.transform.scale(boton_flecha_izquierda, (55, 55))
 
 boton_flecha_derecha = pygame.image.load(FLECHA_DERECHA)
-boton_flecha_derecha = pygame.transform.scale(boton_flecha_derecha, (65, 65))
+boton_flecha_derecha = pygame.transform.scale(boton_flecha_derecha, (55, 55))
 
 
 boton_cuadrado = pygame.image.load(IMAGEN_CUADRADO)

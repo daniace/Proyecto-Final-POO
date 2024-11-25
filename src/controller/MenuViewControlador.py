@@ -12,8 +12,6 @@ from view.MenuView import MenuView
 
 from .Controlador import Controlador
 
-# from .LoginViewControlador import LoginController
-
 
 class MenuController(Controlador):
     def __init__(self, dificultad=Medio):
@@ -22,7 +20,7 @@ class MenuController(Controlador):
         self._dificultad = dificultad  # dificultad predeterminada#
         self.__ranking = RankingController()
         self.__opciones = OpcionesController(self._dificultad)
-        self.__login = ControladorLogin()
+        # self.__login = ControladorLogin()
         self.__jugar = JugarController()
 
     def manejar_eventos(self, eventos, mouse_pos):

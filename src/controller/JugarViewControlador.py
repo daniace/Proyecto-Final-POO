@@ -22,6 +22,7 @@ class JugarController(Controlador):
     def __init__(self):
         super().__init__()
         self._view = JugarView(SCREEN)
+        self.__estadio_actual = camp_nou
         self.__genero_equipo = EquipoLogico("Equipo FC")
         self.__nombre_usuario = Usuario()
         self.__equipo = Equipo(None, "EquipoFC", None, 0)
@@ -130,6 +131,8 @@ class JugarController(Controlador):
         else:
             nuevo_indice = (indice_actual - 1) % len(estadios)
         self._view.cambiar_estadio(estadios[nuevo_indice])
+        self.__estadio_actual = estadios[nuevo_indice]
+        self.__cancha.set_estadio(self.__estadio_actual)
 
     def set_nombre_usuario(self, nombre):
         self.__nombre_usuario.set_nombre(nombre)
