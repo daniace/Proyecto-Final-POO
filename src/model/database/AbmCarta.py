@@ -76,7 +76,7 @@ class AbmCarta(DaoInterfaz):
 
     def get_defensores(self):  # obtiene todas las cartas de defensores
         resultado = self.__database.execute_query(
-            "SELECT * FROM carta WHERE player_positions LIKE '%CB%' OR player_positions LIKE '%LB%' OR player_positions LIKE '%RB%' OR player_positions LIKE '%LWB%' OR player_positions LIKE '%RWB%' AND deshabilitado = 0 ORDER BY random() LIMIT 10"
+            "SELECT * FROM carta WHERE (player_positions LIKE '%CB%' OR player_positions LIKE '%LB%' OR player_positions LIKE '%RB%' OR player_positions LIKE '%LWB%' OR player_positions LIKE '%RWB%') AND deshabilitado = 0 AND overall > 75 ORDER BY random() LIMIT 10"
         )
         if not resultado:
             print("No se encontraron cartas")
@@ -110,7 +110,7 @@ class AbmCarta(DaoInterfaz):
 
     def get_mediocampistas(self):  # obtiene todas las cartas de mediocampistas
         resultado = self.__database.execute_query(
-            "SELECT * FROM carta WHERE player_positions LIKE '%CM%' OR player_positions LIKE '%CDM%' OR player_positions LIKE '%CAM%' OR player_positions LIKE '%RM%' OR player_positions LIKE '%LM%' AND deshabilitado = 0 ORDER BY random() LIMIT 10"
+            "SELECT * FROM carta WHERE (player_positions LIKE '%CM%' OR player_positions LIKE '%CDM%' OR player_positions LIKE '%CAM%' OR player_positions LIKE '%RM%' OR player_positions LIKE '%LM%') AND deshabilitado = 0 AND overall > 75 ORDER BY random() LIMIT 10"
         )
         if not resultado:
             print("No se encontraron cartas")
@@ -144,7 +144,7 @@ class AbmCarta(DaoInterfaz):
 
     def get_delanteros(self):  # obtiene todas las cartas de delanteros
         resultado = self.__database.execute_query(
-            "SELECT * FROM carta WHERE player_positions LIKE '%ST%' OR player_positions LIKE '%CF%' OR player_positions LIKE '%LW%' OR player_positions LIKE '%RW%'AND player_positions NOT LIKE '%B%' AND deshabilitado = 0 ORDER BY random() LIMIT 10"
+            "SELECT * FROM carta WHERE (player_positions LIKE '%ST%' OR player_positions LIKE '%CF%' OR player_positions LIKE '%LW%' OR player_positions LIKE '%RW%'AND player_positions NOT LIKE '%B%') AND deshabilitado = 0 AND overall > 75 ORDER BY random() LIMIT 10"
         )
         if not resultado:
             print("No se encontraron cartas")
@@ -178,7 +178,7 @@ class AbmCarta(DaoInterfaz):
 
     def get_porteros(self):  # obtiene todas las cartas de porteros
         resultado = self.__database.execute_query(
-            "SELECT * FROM carta WHERE player_positions LIKE '%GK%' AND deshabilitado = 0 ORDER BY random() LIMIT 10"
+            "SELECT * FROM carta WHERE player_positions LIKE '%GK%' AND deshabilitado = 0 AND overall > 75 ORDER BY random() LIMIT 10"
         )
         if not resultado:
             print("No se encontraron cartas")

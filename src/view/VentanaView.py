@@ -6,7 +6,7 @@ import pygame
 class VentanaView(ABC):
     def __init__(self, pantalla):
         self._pantalla = pantalla  # La pantalla principal
-        self._botones = []
+        self._botones = {}
         self._visible = True
 
     @abstractmethod
@@ -17,8 +17,8 @@ class VentanaView(ABC):
         return self._botones
 
     def _mostrar_boton(self, imagen, pos, texto, fuente, color_base, hovering_color):
-        mouse_pos = pygame.mouse.get_pos()
         boton = Boton(imagen, pos, texto, fuente, color_base, hovering_color)
+        mouse_pos = pygame.mouse.get_pos()
         boton.changeColor(mouse_pos)
         boton.update(self._pantalla)
         return boton
@@ -31,3 +31,6 @@ class VentanaView(ABC):
 
     def get_visibilidad(self):
         return self._visible
+
+    def renderizar(self):
+        pass

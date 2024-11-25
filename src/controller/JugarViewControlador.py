@@ -8,28 +8,30 @@ from model.logic.formacion import *
 from model.logic.Partido import Partido
 from settings import *
 from view.JugarView import JugarView
-
+from model.database.AbmEquipo import AbmEquipo
 from .CanchaViewControlador import CanchaController
 from .Controlador import Controlador
+from controller.LoginJugarViewControlador import LoginJugarViewControlador
+from model.database.AbmUsuario import AbmUsuario
+from model.database.Usuario import Usuario
+from controller.EquipoJugarViewControlador import EquipoJugarViewControlador
+from model.database.Equipo import Equipo
 
 
 class JugarController(Controlador):
-    def __init__(self, dificultad: Dificultad):
+    def __init__(self):
         super().__init__()
+        self._view = JugarView(SCREEN)
         self.__genero_equipo = EquipoLogico("Equipo FC")
-        self._view = JugarView(
-            pygame.display.set_mode((ANCHO, ALTO)),
-            str(self.__genero_equipo.get_nombre()),
-        )
+        self.__nombre_usuario = Usuario()
+        self.__equipo = Equipo(None, "EquipoFC", None, 0)
         self.__formacion_actual = FORMACION_PREDETERMINADA
-        self.__comienza_partida = False
+        self.__usuario_ingresado = False
+        self.__equipo_ingresado = False
         self.__dado_apretado = False
-        self._dificultad = dificultad
-        self.__cancha = CanchaController(
-            pygame.display.set_mode((ANCHO, ALTO)),
-            self._dificultad,
-            self.__genero_equipo,
-        )
+        self.__cancha = CanchaController(SCREEN, "Facil", self.__genero_equipo)
+        self.__LoginUsuario = LoginJugarViewControlador(SCREEN, self)
+        self.__LoginEquipo = EquipoJugarViewControlador(SCREEN, self.__equipo, self)
 
     def manejar_eventos(self, eventos, mouse_pos):
         botones = self._view.get_botones()
@@ -41,14 +43,26 @@ class JugarController(Controlador):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if botones["dado"].checkForInput(mouse_pos):  # Boton del Dado
+                    print("HOLAHOLAHOLAOHLAasdsdasdsadasdas", self.__equipo_ingresado)
                     self.__dado_apretado = True
                     self.__genero_equipo.nuevo_equipo()
+                    self.__equipo.set_cartas(self.__genero_equipo._jugadores)
                     self._view.renderizar(self.__genero_equipo._jugadores)
-                    self.__comienza_partida = True
-                elif botones["comienza"].checkForInput(
-                    mouse_pos
-                ):  # Boton Comenzar Partia
-                    if self.__comienza_partida:
+                elif botones["comienza"].checkForInput(mouse_pos):
+                    if (
+                        self.__dado_apretado
+                        and self.__equipo_ingresado
+                        and self.__usuario_ingresado
+                    ):
+                        abmusuario = AbmUsuario()
+                        nombre_usuario = self.__nombre_usuario.get_nombre()
+                        print(nombre_usuario)
+                        self.__usuario = abmusuario.get_por_usuario(nombre_usuario)
+                        abmequipo = AbmEquipo()
+                        self.__genero_equipo.set_nombre(self.__equipo.get_nombre())
+                        self.__equipo.set_id_usuario(self.__usuario.get_id())
+                        abmequipo.insertar(self.__equipo)
+                        abmequipo.close()
                         self._view.ocultar_visibilidad()
                         self.__cancha.main_loop()
                 elif botones["atras"].checkForInput(mouse_pos):  # Boton Back
@@ -71,11 +85,14 @@ class JugarController(Controlador):
                     self.__cambiar_estadio("Adelante")
                 elif botones["cambiar_estadio_atras"].checkForInput(mouse_pos):
                     self.__cambiar_estadio("Atras")
-                elif botones["nombre_equipo"].checkForInput(mouse_pos):
-                    pass
-                elif botones["nombre_usuario"].checkForInput(mouse_pos):
-                    pass
-
+                elif botones["usuario"].checkForInput(mouse_pos):
+                    if not self.__usuario_ingresado:
+                        self._view.ocultar_visibilidad()
+                        self.__LoginUsuario.main_loop()
+                elif botones["equipo"].checkForInput(mouse_pos):
+                    if not self.__equipo_ingresado:
+                        self._view.ocultar_visibilidad()
+                        self.__LoginEquipo.main_loop()
             clock.tick(FPS)
             pygame.display.update()
 
@@ -113,3 +130,18 @@ class JugarController(Controlador):
         else:
             nuevo_indice = (indice_actual - 1) % len(estadios)
         self._view.cambiar_estadio(estadios[nuevo_indice])
+
+    def set_nombre_usuario(self, nombre):
+        self.__nombre_usuario.set_nombre(nombre)
+
+    def set_usuario_ingresado(self):
+        self.__usuario_ingresado = True
+
+    def set_equipo_ingresado(self):
+        self.__equipo_ingresado = True
+
+    def get_equipo_ingresado(self):
+        return self.__equipo_ingresado
+
+    def get_usuario_ingresado(self):
+        return self.__usuario_ingresado

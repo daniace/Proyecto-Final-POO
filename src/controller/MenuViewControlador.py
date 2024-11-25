@@ -18,12 +18,12 @@ from .Controlador import Controlador
 class MenuController(Controlador):
     def __init__(self, dificultad=Medio):
         super().__init__()
-        self._view = MenuView(pygame.display.set_mode((ANCHO, ALTO)))
+        self._view = MenuView(SCREEN)
         self._dificultad = dificultad  # dificultad predeterminada#
         self.__ranking = RankingController()
         self.__opciones = OpcionesController(self._dificultad)
         self.__login = ControladorLogin()
-        self.__jugar = JugarController(self._dificultad)
+        self.__jugar = JugarController()
 
     def manejar_eventos(self, eventos, mouse_pos):
         botones = self._view.get_botones()

@@ -453,7 +453,6 @@ def login():
                 if LOGIN.checkForInput(pygame.mouse.get_pos()):
                     usuario.set_nombre(texto_usuario)
                     abmusuario.insertar(usuario)
-                    menu_principal()
         superficie_texto = get_fuente(50).render(texto_usuario, True, NEGRO)
         SCREEN.blit(superficie_texto, (int(ANCHO * 0.4), int(ALTO * 0.5)))
         pygame.display.flip()

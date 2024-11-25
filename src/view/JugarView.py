@@ -6,11 +6,10 @@ from .VentanaView import VentanaView
 
 
 class JugarView(VentanaView):
-    def __init__(self, pantalla, nombre):
+    def __init__(self, pantalla):
         super().__init__(pantalla)
         self.__estadio = camp_nou
         self.__atributos_carta = {}
-        self._nuevo_nombre = nombre
 
     def mostrar(self):
         self._botones = {}
@@ -95,20 +94,19 @@ class JugarView(VentanaView):
             ROJO,
         )
 
-        NOMBRE_USUARIO = self._mostrar_boton(
-            boton_surface,
-            (ANCHO * 0.13, ALTO * 0.25),
-            "NOMBRE DE USUARIO",
-            get_fuente(40),
+        USUARIO = self._mostrar_boton(
+            boton_cuadrado2,
+            (ANCHO * 0.045, ALTO * 0.19),
+            "👤",
+            pygame.font.Font(EMOJIS, 38),
             BLANCO,
             NEGRO,
         )
-
-        CAMBIO_NOMBRE = self._mostrar_boton(
-            boton_surface,
-            (ANCHO * 0.13, ALTO * 0.4),
-            "NOMBRE DE EQUIPO",
-            get_fuente(40),
+        EQUIPO = self._mostrar_boton(
+            boton_cuadrado2,
+            (ANCHO * 0.045, ALTO * 0.28),
+            "⚽",
+            pygame.font.Font(EMOJIS, 38),
             BLANCO,
             NEGRO,
         )
@@ -120,8 +118,8 @@ class JugarView(VentanaView):
         self._botones["cambiar_formacion_adelante"] = CAMBIAR_FORMACION_ADELANTE
         self._botones["cambiar_estadio_atras"] = CAMBIAR_ESTADIO_ATRAS
         self._botones["cambiar_estadio_adelante"] = CAMBIAR_ESTADIO_ADELANTE
-        self._botones["nombre_equipo"] = CAMBIO_NOMBRE
-        self._botones["nombre_usuario"] = NOMBRE_USUARIO
+        self._botones["usuario"] = USUARIO
+        self._botones["equipo"] = EQUIPO
 
     def dibujar_formaciones(
         self, SCREEN, formaciones, formacion_actual, equipo, dado_apretado

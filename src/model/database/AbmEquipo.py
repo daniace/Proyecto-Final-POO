@@ -62,11 +62,12 @@ class AbmEquipo(DaoInterfaz):
 
     def insertar(self, objeto):  # FUNCIONA
         self.__database.execute_non_query(
-            "INSERT INTO equipo (id_equipo, id_usuario, nombre_equipo, id_carta1, id_carta2, id_carta3, id_carta4, id_carta5, id_carta6, id_carta7, id_carta8, id_carta9, id_carta10, id_carta11) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            "INSERT INTO equipo (id_equipo, id_usuario, nombre_equipo,baja_equipo, id_carta1, id_carta2, id_carta3, id_carta4, id_carta5, id_carta6, id_carta7, id_carta8, id_carta9, id_carta10, id_carta11) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
             (
                 objeto.get_id_equipo(),
-                objeto.get_nombre(),
                 objeto.get_id_usuario(),
+                objeto.get_nombre(),
+                objeto.get_baja_equipo(),
                 objeto.get_id_carta1(),
                 objeto.get_id_carta2(),
                 objeto.get_id_carta3(),
@@ -107,3 +108,6 @@ class AbmEquipo(DaoInterfaz):
             "UPDATE equipo SET baja_equipo = 1 WHERE id_equipo = ? AND baja_equipo = 0",
             (id),
         )
+
+    def close(self):
+        self.__database.close_connection()

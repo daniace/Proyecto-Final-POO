@@ -9,7 +9,7 @@ from model.database.Usuario import Usuario
 ANCHO = 1280
 ALTO = 720
 TAMANIO_PANTALLA = (ANCHO, ALTO)
-FULLSCREEN = False
+FULLSCREEN = True
 SCREEN = pygame.display.set_mode(TAMANIO_PANTALLA)
 clock = pygame.time.Clock()
 
@@ -17,7 +17,10 @@ clock = pygame.time.Clock()
 NEGRO = (0, 0, 0)
 BLANCO = (255, 255, 255)
 ROJO = (255, 0, 0)
+ROJO_CLARO = (255, 100, 100)
 VERDE = (0, 255, 0)
+VERDE_FUERTE = (0, 200, 0)
+VERDE_CLARO = (30, 255, 30)
 AZUL = (0, 0, 255)
 COLOR_FONDO = NEGRO
 
@@ -94,9 +97,35 @@ FLECHA_DERECHA = "src/assets/images/flechaDerecha.png"
 OLD_TRAFORD = "src/assets/images/oldtraford.png"
 MALASIA = "src/assets/images/malasia.png"
 AZTECA = "src/assets/images/azteca.png"
+TABLA_LOGIN = "src/assets/images/tablaLogin.png"
 # GIFS
-ATAJADA = "src/assets/images/atajada.gif"
+ATAJADA = "src/assets/images/gifs/atajada.gif"
+ATAJADA2 = "src/assets/images/gifs/atajada2.gif"
+GAMBETA = "src/assets/images/gifs/gambeta.gif"
+GAMBETA2 = "src/assets/images/gifs/gambeta2.gif"
+GAMBETA3 = "src/assets/images/gifs/gambeta3_maradona.gif"
+GAMBETA4 = "src/assets/images/gifs/gambeta4.gif"
+INTERCEPCION_PASE = "src/assets/images/gifs/intercepcion_pase.gif"
+INTERCEPCION_PASE2 = "src/assets/images/gifs/intercepcion_pase2.gif"
+INTERCEPCION_PASE3 = "src/assets/images/gifs/intercepcion_pase3.gif"
+PASE = "src/assets/images/gifs/pase.gif"
+PASE2 = "src/assets/images/gifs/pase2.gif"
+TIRO = "src/assets/images/gifs/tiro.gif"
+TIRO_LEJANO = "src/assets/images/gifs/tiro_lejano.gif"
+
 ATAJADA_GIF = gif_pygame.load(ATAJADA)
+ATAJADA2_GIF = gif_pygame.load(ATAJADA2)
+GAMBETA_GIF = gif_pygame.load(GAMBETA)
+GAMBETA2_GIF = gif_pygame.load(GAMBETA2)
+GAMBETA3_GIF = gif_pygame.load(GAMBETA3)
+GAMBETA4_GIF = gif_pygame.load(GAMBETA4)
+INTERCEPCION_PASE_GIF = gif_pygame.load(INTERCEPCION_PASE)
+INTERCEPCION_PASE2_GIF = gif_pygame.load(INTERCEPCION_PASE2)
+INTERCEPCION_PASE3_GIF = gif_pygame.load(INTERCEPCION_PASE3)
+PASE_GIF = gif_pygame.load(PASE)
+PASE2_GIF = gif_pygame.load(PASE2)
+TIRO_GIF = gif_pygame.load(TIRO)
+TIRO_LEJANO_GIF = gif_pygame.load(TIRO_LEJANO)
 pygame.font.init()
 
 # Sonidos
@@ -170,6 +199,9 @@ boton_flecha_derecha = pygame.transform.scale(boton_flecha_derecha, (65, 65))
 boton_cuadrado = pygame.image.load(IMAGEN_CUADRADO)
 boton_cuadrado = pygame.transform.scale(boton_cuadrado, (75, 75))
 
+boton_cuadrado2 = pygame.image.load(IMAGEN_CUADRADO)
+boton_cuadrado2 = pygame.transform.scale(boton_cuadrado2, (60, 60))
+
 boton_home = pygame.image.load(HOME)
 boton_home = pygame.transform.scale(boton_home, (70, 70))
 
@@ -205,11 +237,5 @@ def get_fuente(tamanio):
 
 clock = pygame.time.Clock()
 
-
-abmcarta = AbmCarta()
-defensores = abmcarta.get_defensores()
-abmusuario = AbmUsuario()
-usuarios = abmusuario.get_all()
-usuario = Usuario()
 
 POS_MOUSE = pygame.mouse.get_pos()
