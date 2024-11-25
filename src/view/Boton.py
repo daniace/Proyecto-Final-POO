@@ -38,9 +38,11 @@ class Boton:
         if posicion[0] in range(self.rect.left, self.rect.right) and posicion[1] in range(self.rect.top, self.rect.bottom):
             self.texto = self.fuente.render(self.texto_input, True, self.hovering_color)
             self.hovering = True
+    
         else:
             self.texto = self.fuente.render(self.texto_input, True, self.color_base)
             self.hovering = False
+    'el hovering lo puse para probar, si no me funciona lo que quier hacer lo borro - leo'
     
     def mantener_color(self):
         if self.seleccionado:
@@ -49,11 +51,10 @@ class Boton:
     
     def seleccionar(self):
         self.seleccionado = True
-        self.changeColor()
    
         
     def deseleccionar (self):
         self.seleccionado = False
-        self.changeColor()
+   
 
 

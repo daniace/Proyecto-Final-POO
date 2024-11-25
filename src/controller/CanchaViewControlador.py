@@ -22,9 +22,15 @@ class CanchaController(Controlador):
         botones = self._view.get_botones()
         for boton in botones.values():
                 if boton.hovering:
+                    # print('entra al hovering')
+                    # self.boton_mouse = boton
+                    # anterior.deseleccionar()
                     self.boton_actual = boton
+                    # self.boton_actual.seleccionar()
                 elif boton.seleccionado:
                     self.boton_actual = boton
+                    # self.boton_actual.seleccionar()
+                    # self.boton_mouse = None
     
     
     def main_loop(self):
@@ -34,12 +40,11 @@ class CanchaController(Controlador):
                 self._view.mostrar()  # Mostrar el menú
                 eventos = pygame.event.get()  # Manejar eventos
                 self.manejar_eventos(eventos, mouse_pos)
-
-                # self.cambiar_boton_actual()
-                if self.boton_actual is not None:
+                self.cambiar_boton_actual()
+                if self.boton_actual is not None: #and self.boton_mouse == None:
                     self.boton_actual.mantener_color()
                     self.boton_actual.update(self._view._pantalla)
-                        
+
                 clock.tick(60)
                 pygame.display.update()
 
@@ -71,7 +76,7 @@ class CanchaController(Controlador):
 
     def actualizar_seleccion(self):
         botones = self._view.get_botones()
-        for indice, (nombre_boton, boton) in enumerate(botones.items()):
+        for indice,(boton) in enumerate(botones.values()):
             if indice == self._indice_seleccionado:
                 boton.seleccionar()
                 self.cambiar_boton_actual()
@@ -95,3 +100,8 @@ class CanchaController(Controlador):
             print('hizo gambeta')
         elif nombre_boton_seleccionado == "interceptar":
             print('hizo interceptar')
+            
+
+"NOTA PARA SEGUIRLO -> EL BOTON ACTUAL ES EL BOTON SELECCIONADO, HAY QUE HACER QUE EL BOTON QUE SELECCIONA EL MOUSE SEA EL BOTON ACTUAL, ADEMAS DE CAMBIAR"
+"EL INDICE DEL EJECUTAR ACCION AL BOTON ACTUAL, PARA QUE SE ELIJA ESA OPCION"
+"MAÑANA LO SIGO - LEO"
