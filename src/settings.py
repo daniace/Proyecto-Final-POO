@@ -99,8 +99,33 @@ MALASIA = "src/assets/images/malasia.png"
 AZTECA = "src/assets/images/azteca.png"
 TABLA_LOGIN = "src/assets/images/tablaLogin.png"
 # GIFS
-ATAJADA = "src/assets/images/atajada.gif"
+ATAJADA = "src/assets/images/gifs/atajada.gif"
+ATAJADA2 = "src/assets/images/gifs/atajada2.gif"
+GAMBETA = "src/assets/images/gifs/gambeta.gif"
+GAMBETA2 = "src/assets/images/gifs/gambeta2.gif"
+GAMBETA3 = "src/assets/images/gifs/gambeta3_maradona.gif"
+GAMBETA4 = "src/assets/images/gifs/gambeta4.gif"
+INTERCEPCION_PASE = "src/assets/images/gifs/intercepcion_pase.gif"
+INTERCEPCION_PASE2 = "src/assets/images/gifs/intercepcion_pase2.gif"
+INTERCEPCION_PASE3 = "src/assets/images/gifs/intercepcion_pase3.gif"
+PASE = "src/assets/images/gifs/pase.gif"
+PASE2 = "src/assets/images/gifs/pase2.gif"
+TIRO = "src/assets/images/gifs/tiro.gif"
+TIRO_LEJANO = "src/assets/images/gifs/tiro_lejano.gif"
+
 ATAJADA_GIF = gif_pygame.load(ATAJADA)
+ATAJADA2_GIF = gif_pygame.load(ATAJADA2)
+GAMBETA_GIF = gif_pygame.load(GAMBETA)
+GAMBETA2_GIF = gif_pygame.load(GAMBETA2)
+GAMBETA3_GIF = gif_pygame.load(GAMBETA3)
+GAMBETA4_GIF = gif_pygame.load(GAMBETA4)
+INTERCEPCION_PASE_GIF = gif_pygame.load(INTERCEPCION_PASE)
+INTERCEPCION_PASE2_GIF = gif_pygame.load(INTERCEPCION_PASE2)
+INTERCEPCION_PASE3_GIF = gif_pygame.load(INTERCEPCION_PASE3)
+PASE_GIF = gif_pygame.load(PASE)
+PASE2_GIF = gif_pygame.load(PASE2)
+TIRO_GIF = gif_pygame.load(TIRO)
+TIRO_LEJANO_GIF = gif_pygame.load(TIRO_LEJANO)
 pygame.font.init()
 
 # Sonidos
