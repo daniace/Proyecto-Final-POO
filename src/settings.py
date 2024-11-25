@@ -17,7 +17,10 @@ clock = pygame.time.Clock()
 NEGRO = (0, 0, 0)
 BLANCO = (255, 255, 255)
 ROJO = (255, 0, 0)
+ROJO_CLARO = (255, 100, 100)
 VERDE = (0, 255, 0)
+VERDE_FUERTE = (0, 200, 0)
+VERDE_CLARO = (30, 255, 30)
 AZUL = (0, 0, 255)
 COLOR_FONDO = NEGRO
 
@@ -170,6 +173,9 @@ boton_flecha_derecha = pygame.transform.scale(boton_flecha_derecha, (65, 65))
 
 boton_cuadrado = pygame.image.load(IMAGEN_CUADRADO)
 boton_cuadrado = pygame.transform.scale(boton_cuadrado, (75, 75))
+
+boton_cuadrado2 = pygame.image.load(IMAGEN_CUADRADO)
+boton_cuadrado2 = pygame.transform.scale(boton_cuadrado2, (60, 60))
 
 boton_home = pygame.image.load(HOME)
 boton_home = pygame.transform.scale(boton_home, (70, 70))

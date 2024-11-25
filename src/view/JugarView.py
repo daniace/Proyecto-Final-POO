@@ -6,11 +6,10 @@ from .VentanaView import VentanaView
 
 
 class JugarView(VentanaView):
-    def __init__(self, pantalla, nombre):
+    def __init__(self, pantalla):
         super().__init__(pantalla)
         self.__estadio = camp_nou
         self.__atributos_carta = {}
-        self._nuevo_nombre = nombre
 
     def mostrar(self):
         self._botones = {}
@@ -96,10 +95,18 @@ class JugarView(VentanaView):
         )
 
         USUARIO = self._mostrar_boton(
-            boton_cuadrado,
-            (ANCHO * 0.15, ALTO * 0.08),
+            boton_cuadrado2,
+            (ANCHO * 0.045, ALTO * 0.19),
             "👤",
-            pygame.font.Font(EMOJIS, 50),
+            pygame.font.Font(EMOJIS, 38),
+            BLANCO,
+            NEGRO,
+        )
+        EQUIPO = self._mostrar_boton(
+            boton_cuadrado2,
+            (ANCHO * 0.045, ALTO * 0.28),
+            "⚽",
+            pygame.font.Font(EMOJIS, 38),
             BLANCO,
             NEGRO,
         )
@@ -112,6 +119,7 @@ class JugarView(VentanaView):
         self._botones["cambiar_estadio_atras"] = CAMBIAR_ESTADIO_ATRAS
         self._botones["cambiar_estadio_adelante"] = CAMBIAR_ESTADIO_ADELANTE
         self._botones["usuario"] = USUARIO
+        self._botones["equipo"] = EQUIPO
 
     def dibujar_formaciones(
         self, SCREEN, formaciones, formacion_actual, equipo, dado_apretado
