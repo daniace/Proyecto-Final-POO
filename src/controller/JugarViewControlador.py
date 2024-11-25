@@ -64,8 +64,8 @@ class JugarController(Controlador):
                         self.__equipo.set_id_usuario(self.__usuario.get_id())
                         abmequipo.insertar(self.__equipo)
                         abmequipo.close()
-                        self._view.ocultar_visibilidad()
-                        self.__cancha.main_loop()
+                    self._view.ocultar_visibilidad()
+                    self.__cancha.main_loop()
                 elif botones["atras"].checkForInput(mouse_pos):  # Boton Back
                     self._view.ocultar_visibilidad()
                     menu_principal = MenuController()
