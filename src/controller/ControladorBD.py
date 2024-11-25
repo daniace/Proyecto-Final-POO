@@ -9,3 +9,9 @@ class ControladorBD:
         usuarios = self.__generador.get_all()  # Trae una lista de Usuarios
         self.__generador.close()
         return usuarios
+
+    def get_usuarios(self, nombre):
+        self.__generador = AbmUsuario()
+        usuario = self.__generador.get_por_usuario(nombre)  # Trae una lista de Usuarios
+        self.__generador.close()
+        return usuario

@@ -16,6 +16,7 @@ class Boton:
         self.text_rect = self.texto.get_rect(center=(self.x_pos, self.y_pos))
         self.clickeado = False
         self.seleccionado = False
+        self.hovering = False
 
     def update(self, screen):
         if self.imagen is not None:
@@ -33,17 +34,26 @@ class Boton:
                 self.clickeado = False
         return accionado
 
-    def changeColor(self, posicion):
-        if posicion[0] in range(self.rect.left, self.rect.right) and posicion[
-            1
-        ] in range(self.rect.top, self.rect.bottom):
+    def changeColor(self, posicion = (-1,-1)):
+        if posicion[0] in range(self.rect.left, self.rect.right) and posicion[1] in range(self.rect.top, self.rect.bottom):
             self.texto = self.fuente.render(self.texto_input, True, self.hovering_color)
+            self.hovering = True
         else:
             self.texto = self.fuente.render(self.texto_input, True, self.color_base)
-
+            self.hovering = False
+    
+    def mantener_color(self):
+        if self.seleccionado:
+            self.texto = self.fuente.render(self.texto_input, True, self.hovering_color)
+        
+    
     def seleccionar(self):
         self.seleccionado = True
-
+        self.changeColor()
+   
+        
     def deseleccionar (self):
         self.seleccionado = False
+        self.changeColor()
+
 

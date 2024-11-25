@@ -80,3 +80,5 @@ class CanchaView(VentanaView):
         self._pantalla.blit(texto_render, (ANCHO / 2 - texto_render.get_width() / 2, y + 300))
         pygame.display.flip()
 
+
+    
