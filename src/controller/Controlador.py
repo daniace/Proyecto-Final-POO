@@ -16,12 +16,6 @@ class Controlador(ABC):
     def manejar_eventos(self, eventos, mouse_pos):
         pass
 
-    def cambiar_boton_actual(self):
-        botones = self._view.get_botones()
-        for boton_texto, boton in botones.items():
-            if boton.seleccionado:
-                self.boton_actual = boton
-
     def main_loop(self):
         while True:
             if self._view.get_visibilidad():
