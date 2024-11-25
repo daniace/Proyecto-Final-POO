@@ -20,6 +20,7 @@ class CanchaController(Controlador):
         self._indice_seleccionado = 0
         self.boton_actual = None
         self.boton_mouse = None
+        self.boton_texto = None  # esto se saca
 
     def manejar_eventos(self, eventos, mouse_pos):
         from controller.JugarViewControlador import JugarController
@@ -53,17 +54,17 @@ class CanchaController(Controlador):
 
     def cambiar_boton_actual(self):
         botones = self._view.get_botones()
-        for boton in botones.values():
+        for indice, (boton_texto, boton) in enumerate(botones.items()):
             if boton.hovering:
-                # print('entra al hovering')
-                # self.boton_mouse = boton
-                # anterior.deseleccionar()
                 self.boton_actual = boton
-                # self.boton_actual.seleccionar()
+                self._indice_seleccionado = indice
+                self.boton_texto = boton_texto
             elif boton.seleccionado:
                 self.boton_actual = boton
-                # self.boton_actual.seleccionar()
-                # self.boton_mouse = None
+                self._indice_seleccionado = indice
+                self.boton_texto = boton_texto
+
+        # print(self.boton_texto) #ESTO SE SACA ES PARA VER SI SE CAMBIABA LOS BOTONES
 
     def main_loop(self):
         self._view.renderizar()
