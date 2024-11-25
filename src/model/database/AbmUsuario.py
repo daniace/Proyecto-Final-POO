@@ -8,14 +8,32 @@ class AbmUsuario(DaoInterfaz):
         self.__database = Database()
         self.__database.connect()
 
+    def get_por_usuario(self, usuario):
+        resultado = self.__database.execute_query(
+            "SELECT * FROM usuario WHERE nombre_usuario = ? AND baja_usuario = 0",
+            (usuario,),
+        )
+        if not resultado:  # Si no se encontro la id o esta dado de baja, devuelve una lista vacia(Aunque solo busques un usuario) y se imprime un mensaje.
+            print(
+                f"No se encontró el usuario con el nombre: {usuario}, o está dado de baja"
+            )
+            return None
+        else:
+            return Usuario(
+                resultado[0][0],
+                resultado[0][1],
+                resultado[0][2],
+                resultado[0][3],
+                resultado[0][4],
+                resultado[0][5],
+            )
+
     def get_por_id(self, id: int) -> None | Usuario:  # ESTO ANDA
         resultado = self.__database.execute_query(
             "SELECT * FROM usuario WHERE id_usuario = ? AND baja_usuario = 0",
             (id,),  # Devuelve una lista de tuplas
         )
-        if (
-            not resultado
-        ):  # Si no se encontro la id o esta dado de baja, devuelve una lista vacia(Aunque solo busques un usuario) y se imprime un mensaje.
+        if not resultado:  # Si no se encontro la id o esta dado de baja, devuelve una lista vacia(Aunque solo busques un usuario) y se imprime un mensaje.
             print(f"No se encontró el usuario con el id: {id}, o está dado de baja")
             return None
         else:

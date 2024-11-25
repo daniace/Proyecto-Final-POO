@@ -26,8 +26,6 @@ class RankingController(Controlador):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if botones["actualizar"].checkForInput(mouse_pos):
                     self.__bd = ControladorBD().get_usuarios_ranking()
-                # usuarios_actualizado = abmusuario.get_all()
-                # actualizar_ranking(usuarios_actualizado)
                 if botones["atras"].checkForInput(mouse_pos):
                     menu_principal = MenuController()
                     menu_principal.main_loop()

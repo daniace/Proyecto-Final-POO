@@ -12,14 +12,10 @@ import random
 class EquipoLogico:
     def __init__(self, nombre_equipo, es_cpu=False):
         self.__nombre_equipo = nombre_equipo
-        self._nro_equipo = 1 if not es_cpu else 2 # NRO_EQUIPO TIENE 1 O 2
+        self._nro_equipo = 1 if not es_cpu else 2  # NRO_EQUIPO TIENE 1 O 2
         self._formacion = Formacion433()  # Tipo FORMACION A utilizar #433 DEFAULT
         self._jugadores = self.generar_equipo_random()  # LISTA JUGADORES
         self._distribucion = self.establecer_distribucion()  # MATRIZ DE JUGADORES
-
-    def mostrar_listaj(self):
-        for jugador in self._jugadores:
-            print(jugador.get_nombre())
 
     def get_nombre(self):
         return str(self.__nombre_equipo)
@@ -37,6 +33,9 @@ class EquipoLogico:
     @property
     def formacion(self):
         return self._formacion
+
+    def set_nombre(self, nombre_equipo):
+        self.__nombre_equipo = nombre_equipo
 
     def set_formacion(self, formacion):
         self._formacion = formacion
