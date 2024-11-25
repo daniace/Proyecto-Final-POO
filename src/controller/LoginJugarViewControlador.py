@@ -31,12 +31,12 @@ class LoginJugarViewControlador(Controlador):
                         self.__texto_usuario += event.unicode
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if boton["volver_atras"].checkForInput(mouse_pos):
-                    print(
-                        "HOLAHOLAHOLAOHLAasdsdasdsadasdas",
-                        self.__jugar.get_usuario_ingresado(),
-                    )
-                    self._view.ocultar_visibilidad()
-                    self.__jugar.main_loop()
+                    if self.__Ingresado:
+                        self._view.ocultar_visibilidad()
+                        self.__jugar.main_loop()
+                    else:
+                        self._view.set_no_ingresado(True)
+
                 if boton["aceptar"].checkForInput(mouse_pos):
                     if self.__usuarioIngresado:
                         abmusuario = AbmUsuario()
@@ -45,9 +45,10 @@ class LoginJugarViewControlador(Controlador):
                         self.__jugar.set_nombre_usuario(self.__texto_usuario)
                         abmusuario.insertar(self.__Usuario)
                         abmusuario.close()
-                        self.__Ingresado = True
+                        self._view.set_no_ingresado(False)
                         self.__texto_usuario = ""
-                        self._view.set_ingresado(self.__Ingresado)
+                        self._view.set_ingresado(True)
+                        self.__Ingresado = True
         self._view.mostrar_texto_usuario(self.__texto_usuario)
 
     def main_loop(self):

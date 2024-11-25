@@ -7,9 +7,11 @@ from model.logic.Dificultades import *
 from model.logic.EquipoLogico import EquipoLogico
 from .Controlador import Controlador
 
+
 class CanchaController(Controlador):
     def __init__(self, pantalla, dificultad: Dificultad, jugador: EquipoLogico):
         super().__init__()
+        self.__boton_actual = None
         self._view = CanchaView(pantalla)
         self._dificultad = dificultad
         self._jugador = jugador
@@ -49,7 +51,6 @@ class CanchaController(Controlador):
         botones = self._view.get_botones()
 
         for event in eventos:
-
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
@@ -58,13 +59,17 @@ class CanchaController(Controlador):
                     self.actualizar_seleccion()
                     menu_jugar = JugarController()
                     menu_jugar.main_loop()
-                    
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN:
-                    self._indice_seleccionado = (self._indice_seleccionado - 1) % len(botones)
+                    self._indice_seleccionado = (self._indice_seleccionado - 1) % len(
+                        botones
+                    )
                     self.actualizar_seleccion()
                 elif event.key == pygame.K_UP:
-                    self._indice_seleccionado = (self._indice_seleccionado + 1) % len(botones)
+                    self._indice_seleccionado = (self._indice_seleccionado + 1) % len(
+                        botones
+                    )
                     self.actualizar_seleccion()
                 elif event.key == pygame.K_RETURN:
                     self.ejecutar_accion()
@@ -78,20 +83,33 @@ class CanchaController(Controlador):
             else:
                 boton.deseleccionar()
 
-
     def ejecutar_accion(self):
         botones = self._view.get_botones()
         nombre_boton_seleccionado = list(botones.keys())[self._indice_seleccionado]
-        
+
         if nombre_boton_seleccionado == "atras":
             from controller.JugarViewControlador import JugarController
+
             menu_jugar = JugarController()
             menu_jugar.main_loop()
         elif nombre_boton_seleccionado == "pase":
-            print('hizo pasee')
+            print("hizo pasee")
         elif nombre_boton_seleccionado == "tiro":
-           print('hizo tiro')
+            print("hizo tiro")
         elif nombre_boton_seleccionado == "gambeta":
-            print('hizo gambeta')
+            print("hizo gambeta")
         elif nombre_boton_seleccionado == "interceptar":
-            print('hizo interceptar')
+            print("hizo interceptar")
+
+    def main_loop(self):
+        while True:
+            if self._view.get_visibilidad():
+                mouse_pos = pygame.mouse.get_pos()
+                self._view.mostrar()  # Mostrar el menú
+                eventos = pygame.event.get()  # Manejar eventos
+                self.manejar_eventos(eventos, mouse_pos)
+                if self.__boton_actual is not None:
+                    self.__boton_actual.changeColor()
+                    self.__boton_actual.update(self._view._pantalla)
+                clock.tick(60)
+                pygame.display.update()
