@@ -1,5 +1,6 @@
 import sys
 import pygame
+import gif_pygame
 from settings import *
 from view.CanchaView import CanchaView
 from model.logic.Partido import Partido
@@ -65,6 +66,7 @@ class CanchaController(Controlador):
                 # self.boton_mouse = None
 
     def main_loop(self):
+        self._view.renderizar()
         while True:
             if self._view.get_visibilidad():
                 mouse_pos = pygame.mouse.get_pos()
@@ -99,6 +101,7 @@ class CanchaController(Controlador):
             menu_jugar.main_loop()
         elif nombre_boton_seleccionado == "pase":
             print("hizo pasee")
+            self._view.set_pase(True)
         elif nombre_boton_seleccionado == "tiro":
             print("hizo tiro")
         elif nombre_boton_seleccionado == "gambeta":
