@@ -11,11 +11,10 @@ from abc import ABC, abstractmethod
 class Controlador(ABC):
     def __init__(self):
         self._view = None
-          
+
     @abstractmethod
     def manejar_eventos(self, eventos, mouse_pos):
         pass
-    
 
     def main_loop(self):
         while True:

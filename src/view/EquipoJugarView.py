@@ -10,6 +10,7 @@ class EquipoJugarView(VentanaView):
         super().__init__(pantalla)
         self.__renderizados = {}
         self.__ingresado = False
+        self.__no_ingresado = False
 
     def mostrar(self):
         self._botones = {}
@@ -19,6 +20,9 @@ class EquipoJugarView(VentanaView):
         self._pantalla.blit(texto_equipo, (ANCHO * 0.3, ALTO * 0.33))
         if self.__ingresado:
             texto = self.__renderizados["texto_ingresado"]
+            self._pantalla.blit(texto, (ANCHO * 0.43, ALTO * 0.415))
+        if self.__no_ingresado:
+            texto = self.__renderizados["texto_restriccion"]
             self._pantalla.blit(texto, (ANCHO * 0.43, ALTO * 0.415))
 
         boton_usuario = self._mostrar_boton(
@@ -57,11 +61,13 @@ class EquipoJugarView(VentanaView):
         tabla_login = pygame.transform.scale(tabla_login, (600, 200))
         texto_equipo = get_fuente(60).render("EQUIPO:", True, NEGRO)
         texto_ingresado = get_fuente(40).render("**INGRESO EXITOSO**", True, NEGRO)
+        texto_no_ingresado = get_fuente(40).render("**INGRESE UN NOMBRE**", True, NEGRO)
         renderizados = {
             "tabla_login": tabla_login,
             "texto_equipo": texto_equipo,
             "flecha_atras": flecha_atras,
             "texto_ingresado": texto_ingresado,
+            "texto_restriccion": texto_no_ingresado,
         }
         self.__renderizados = renderizados
 
@@ -83,3 +89,6 @@ class EquipoJugarView(VentanaView):
 
     def set_ingresado(self, ingresado):
         self.__ingresado = ingresado
+
+    def set_no_ingresado(self, no_ingresado):
+        self.__no_ingresado = no_ingresado

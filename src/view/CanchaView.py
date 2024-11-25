@@ -21,6 +21,7 @@ class CanchaView(VentanaView):
         self._pantalla.blit(TIEMPO, (int(ANCHO * 0.84), int(ALTO * 0.05)))
         ATAJADA_GIF.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05)))
         ATAJADA_GIF.pause()
+    
 
         CANCHA_ATRAS = self._mostrar_boton(
             boton_rojo_cuadrado,
@@ -72,6 +73,12 @@ class CanchaView(VentanaView):
         self._botones["tiro"] = TIRO
         self._botones["pase"] = PASE
         self._botones["atras"] = CANCHA_ATRAS
+        
+    def mostrar_mensaje(self, mensaje, y):
+        fuente = get_fuente(75)
+        texto_render = fuente.render(mensaje, True, "White")
+        self._pantalla.blit(texto_render, (ANCHO / 2 - texto_render.get_width() / 2, y + 300))
+        pygame.display.flip()
 
 
     
