@@ -36,6 +36,7 @@ class LoginController(Controlador):
                 if botones["login"].checkForInput(mouse_pos):
                     abmusuario = AbmUsuario()
                     self.__Usuarios.set_nombre(self.__texto_usuario)
+                    self.__jugar.set_nombre_usuario(self.__texto_usuario)
                     abmusuario.insertar(self.__Usuarios)
                     abmusuario.close()
         self._view.mostrar_texto_usuario(self.__texto_usuario)
