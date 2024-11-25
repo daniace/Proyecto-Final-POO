@@ -22,7 +22,7 @@ class JugarController(Controlador):
         self.__formacion_actual = FORMACION_PREDETERMINADA
         self.__comienza_partida = False
         self.__dado_apretado = False
-        self.__cancha = CanchaController(SCREEN, "Facil", self.__genero_equipo)
+        self.__cancha = CanchaController(SCREEN, Facil(), self.__genero_equipo)
         self.__LoginEquipo = LoginJugarViewControlador(SCREEN)
 
     def manejar_eventos(self, eventos, mouse_pos):

@@ -16,7 +16,7 @@ class CanchaController(Controlador):
         self._view = CanchaView(pantalla)
         self._dificultad=dificultad
         self._jugador=jugador
-        self._partido=Partido(jugador,dificultad)
+        self._partido=Partido(jugador,dificultad, self._view)
         self._indice_seleccionado = 0
         
 
@@ -33,7 +33,7 @@ class CanchaController(Controlador):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if botones["atras"].checkForInput(mouse_pos):
-                    menu_jugar = JugarController(self._dificultad)
+                    menu_jugar = JugarController()
                     menu_jugar.main_loop()
                     
             if event.type == pygame.KEYDOWN:
@@ -55,7 +55,22 @@ class CanchaController(Controlador):
             else:
                 boton.deseleccionar()
 
-               
+    def decision1(self): #Faltaria manejar la decision
+        while self._seleccionado is None:
+            for evento in pygame.event.get():
+                if evento.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif evento.type == pygame.KEYDOWN:
+                    if evento.key == pygame.K_1:
+                        self._seleccionado = 1
+                        return self._seleccionado
+                    elif evento.key == pygame.K_2:
+                        self._seleccionado = 2
+                        return self._seleccionado
+                    elif evento.key == pygame.K_3:
+                        self._seleccionado = 3   
+                        return self._seleccionado
 
     
     def ejecutar_accion(self):
@@ -67,6 +82,8 @@ class CanchaController(Controlador):
             menu_jugar = JugarController(self._dificultad)
             menu_jugar.main_loop()
         elif nombre_boton_seleccionado == "pase":
+            self._partido.realizar_pase()
+            #self._partido._obtener_decision_usuario()
             print('hizo pasee')
         elif nombre_boton_seleccionado == "tiro":
            print('hizo tiro')

@@ -9,7 +9,7 @@ from model.logic.Acciones import Acciones
 
 
 class Partido:
-    def __init__(self, jugador1: EquipoLogico, dificultad: Dificultad):
+    def __init__(self, jugador1: EquipoLogico, dificultad: Dificultad, vista): #Le agregue el atributo vista para poder utilizarlo en CanchaViewControlador y mostrar los mensajes
         self._jugador1 = jugador1
         self._jugador2 = EquipoLogico("CPU FC", es_cpu=True)
         self._partido_en_curso = True
@@ -20,6 +20,7 @@ class Partido:
         self._acciones = Acciones(dificultad)  # VER SI ESTO QUEDA ASI
         self._dificultad=dificultad
         self._goles = [0,0]
+        self._view = vista
 
     def _jugador_con_pelota(self):
         """Devuelve el jugador en base a la posición actual de la pelota"""
@@ -44,9 +45,13 @@ class Partido:
         print(
             "---------------------------------------------------------------------------------------"
         )
-        print("Pases disponibles")
-        self._cancha.imprimir_jugadores(aliados_cercanos)
-        print()
+        # print("Pases disponibles")
+        # self._cancha.imprimir_jugadores(aliados_cercanos)
+        self._view.mostrar_mensaje("Pases disponibles:", 100)
+        lista_jugadores = [jugador[0] for jugador in aliados_cercanos]
+        for i, jugador in enumerate(lista_jugadores):
+            self._view.mostrar_mensaje(f"{i+1} - {jugador}", 150 + (i * 40))
+        
 
         decision = self._obtener_decision_usuario(len(aliados_cercanos))
         return aliados_cercanos[decision - 1][0]
@@ -54,7 +59,7 @@ class Partido:
     def _obtener_decision_usuario(self, max_opciones: int) -> int:
         while True:
             try:
-                decision = int(input("\nSeleccione opción de pase: "))
+                decision = int(input("Seleccione un pase: ")) #input("Seleccione un pase: ") #Deberia ingresar un evento
                 if 1 <= decision <= max_opciones:
                     return decision
                 else:
