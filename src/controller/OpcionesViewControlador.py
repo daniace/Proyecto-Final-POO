@@ -3,9 +3,10 @@ import sys
 import pygame
 
 from controller.ReproductorMusica import ReproductorMusica
+from model.logic.Dificultades import *
 from settings import *
 from view.OpcionesView import OpcionesView
-from model.logic.Dificultades import *
+
 from .Controlador import Controlador
 
 
@@ -26,13 +27,12 @@ class OpcionesController(Controlador):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if botones["sonido_on"].checkForInput(mouse_pos):
-                    self.__musica.reanudar_soundtrack()
+                    self.__musica.reanudar()
                 if botones["sonido_off"].checkForInput(mouse_pos):
-                    self.__musica.pausar_soundtrack()
+                    self.__musica.pausar()
                 if botones["atras"].checkForInput(mouse_pos):
                     self._view.ocultar_visibilidad()
                     menu_principal = MenuController(self.__dificultad)
-                    print(menu_principal._dificultad)
                     menu_principal.main_loop()
                 if botones["facil"].checkForInput(mouse_pos):
                     self.__dificultad = Facil()

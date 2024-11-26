@@ -1,9 +1,10 @@
 from controller.MenuViewControlador import MenuController
 from controller.ReproductorMusica import ReproductorMusica
+from settings import SONIDO_FONDO
 
 if __name__ == "__main__":
-    # musica = ReproductorMusica()
-    # musica.reproducir_soundtrack()
-    # PONER LA MUSICA CUANDO ESTE EL JUEGO
+    reproductor = ReproductorMusica()
+    reproductor.cargar_musica(SONIDO_FONDO)
+    reproductor.reproducir()
     menu_principal = MenuController()
     menu_principal.main_loop()

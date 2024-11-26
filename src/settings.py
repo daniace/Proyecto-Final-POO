@@ -107,6 +107,7 @@ AZTECA = "src/assets/images/azteca.png"
 TABLA_LOGIN = "src/assets/images/tablaLogin.png"
 # GIFS
 ATAJADA = "src/assets/images/gifs/atajada.gif"
+ATAJADA_GIF = gif_pygame.load(ATAJADA)
 ATAJADA2 = "src/assets/images/gifs/atajada2.gif"
 GAMBETA = "src/assets/images/gifs/gambeta.gif"
 GAMBETA2 = "src/assets/images/gifs/gambeta2.gif"

@@ -1,11 +1,14 @@
 import sys
-import pygame
+
 import gif_pygame
-from settings import *
-from view.CanchaView import CanchaView
-from model.logic.Partido import Partido
+import pygame
+
 from model.logic.Dificultades import *
 from model.logic.EquipoLogico import EquipoLogico
+from model.logic.Partido import Partido
+from settings import *
+from view.CanchaView import CanchaView
+
 from .Controlador import Controlador
 
 
@@ -67,7 +70,7 @@ class CanchaController(Controlador):
         # print(self.boton_texto) #ESTO SE SACA ES PARA VER SI SE CAMBIABA LOS BOTONES
 
     def main_loop(self):
-        self._view.renderizar()
+        # self._view.renderizar()
         while True:
             if self._view.get_visibilidad():
                 mouse_pos = pygame.mouse.get_pos()

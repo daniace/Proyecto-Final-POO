@@ -1,58 +1,68 @@
 # controlador_abm_cartas.py
-from model.ModeloCarta import ModeloCartas
+from model.ModeloABMCarta import ModeloABMCartas
 from view.ABMCartaView import VistaABMCartas
 
 
 class ControladorABMCartas:
     def __init__(self):
-        self.modelo = ModeloCartas()
-        self.vista = VistaABMCartas()
+        self.__modelo = ModeloABMCartas()
+        self.__vista = VistaABMCartas()
 
         # Conectar eventos de la vista a métodos del controlador
-        self.vista.conectar_alta_carta(self.alta_carta)
-        self.vista.conectar_modificar_carta(self.modificar_carta)
-        self.vista.conectar_eliminar_carta(self.eliminar_carta)
-        self.vista.conectar_alta_arquero(self.alta_arquero)
-        self.vista.conectar_modificar_arquero(self.modificar_arquero)
+        self.__vista._conectar_alta_carta(self.__alta_carta)
+        self.__vista._conectar_modificar_carta(self.__modificar_carta)
+        self.__vista._conectar_eliminar_carta(self.__eliminar_carta)
+        self.__vista._conectar_alta_arquero(self.__alta_arquero)
+        self.__vista._conectar_modificar_arquero(self.__modificar_arquero)
+        self.__vista.protocol("WM_DELETE_WINDOW", self.cerrar)
+
+    def get_vista(self):
+        """Devuelve la vista."""
+        return self.__vista
 
     def iniciar(self):
         """Inicia la vista."""
-        self.actualizar_tabla()
-        self.vista.iniciar()
+        self.__actualizar_tabla()
+        self.__vista.iniciar()
 
     def cerrar(self):
         """Cierra la vista."""
-        self.vista.cerrar()
+        self.__vista.withdraw()
+        self.__vista = None
 
-    def actualizar_tabla(self):
+    def __actualizar_tabla(self):
         """Actualiza los datos de la tabla."""
-        cartas = self.modelo.obtener_cartas()
-        self.vista.cargar_cartas(cartas)
+        cartas = self.__modelo._obtener_cartas()
+        self.__vista._cargar_cartas(cartas)
 
-    def alta_carta(self, *datos):
+    def __alta_carta(self, *datos):
         """Llama al modelo para insertar una nueva carta."""
-        self.modelo.insertar_carta(*datos)
-        self.actualizar_tabla()
+        self.__modelo._insertar_carta(*datos)
+        self.__actualizar_tabla()
 
-    def alta_arquero(self, *datos):
+    def __alta_arquero(self, *datos):
         """Llama al modelo para insertar un nuevo arquero."""
-        self.modelo.insertar_arquero(*datos)
-        self.actualizar_tabla()
+        self.__modelo._insertar_arquero(*datos)
+        self.__actualizar_tabla()
 
-    def modificar_carta(self, id_carta, *datos):
+    def __modificar_carta(self, id_carta, *datos):
         """Llama al modelo para modificar una carta existente."""
-        self.modelo.actualizar_carta(id_carta, *datos)
-        self.actualizar_tabla()
+        self.__modelo._actualizar_carta(id_carta, *datos)
+        self.__actualizar_tabla()
 
-    def modificar_arquero(self, id_carta, *datos):
+    def __modificar_arquero(self, id_carta, *datos):
         """Llama al modelo para modificar un arquero existente."""
-        self.modelo.actualizar_arquero(id_carta, *datos)
-        self.actualizar_tabla()
+        self.__modelo._actualizar_arquero(id_carta, *datos)
+        self.__actualizar_tabla()
 
-    def eliminar_carta(self, id_carta):
+    def __eliminar_carta(self, id_carta):
         """Llama al modelo para eliminar (deshabilitar) una carta."""
-        self.modelo.eliminar_carta(id_carta)
-        self.actualizar_tabla()
+        self.__modelo._eliminar_carta(id_carta)
+        self.__actualizar_tabla()
+
+    def focus(self):
+        """Trae la vista al frente."""
+        self.__vista.focus()
 
 
 if __name__ == "__main__":
