@@ -32,7 +32,7 @@ class Partido:
         """Cambia el equipo que tiene la pelota"""
         self._equipo_con_posesion = 1 if self._equipo_con_posesion == 2 else 2
 
-    def imprimir_jugadores(self, lista_jugadores):
+    def eimprimir_jugadores(self, lista_jugadores):
         lista = []
         diccionario = self._cancha.get_diccionario()
         for i, j in lista_jugadores:

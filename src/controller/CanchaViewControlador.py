@@ -22,6 +22,7 @@ class CanchaController(Controlador):
         self.boton_mouse = None
         self.boton_texto = None  # esto se saca
         self.espera_intercepcion = False
+        self.__pase_seleccionado = False
 
     def iniciar_partido(self):
         self._partido.jugar_partido()
@@ -65,7 +66,7 @@ class CanchaController(Controlador):
                 self._indice_seleccionado = indice
                 self.boton_texto = boton_texto
 
-        # print(self.boton_texto) #ESTO SE SACA ES PARA VER SI SE CAMBIABA LOS BOTONES
+        # print(self.boton_texto)  # ESTO SE SACA ES PARA VER SI SE CAMBIABA LOS BOTONES
 
     def main_loop(self):
         # self._view.renderizar_acciones()
@@ -110,27 +111,32 @@ class CanchaController(Controlador):
     def ejecutar_accion(self):
         botones = self._view.get_botones()
         nombre_boton_seleccionado = list(botones.keys())[self._indice_seleccionado]
-
-        if nombre_boton_seleccionado == "atras":
-            from controller.JugarViewControlador import JugarController
-
-            menu_jugar = JugarController()
-            menu_jugar.main_loop()
-        elif nombre_boton_seleccionado == "pase":
-            print("hizo pasee")
+        if not self.__pase_seleccionado:
+            if nombre_boton_seleccionado == "pase":
+                self._view.set_pase_seleccionado()
+                print("hizo pasee")
+                self.__pase_seleccionado = True
+            elif nombre_boton_seleccionado == "tiro":
+                self._partido.jugar_turno_jugador(2)
+                print("hizo tiro")
+            elif nombre_boton_seleccionado == "gambeta":
+                self._partido.jugar_turno_jugador(3)
+                print("hizo gambeta")
+            elif nombre_boton_seleccionado == "interceptar":
+                self.espera_intercepcion = False
+                self._partido.realizar_intercepcion()
+        else:
             pases_disponibles = self._partido.mostrar_pases()
-            jugadores = self._partido.imprimir_jugadores(pases_disponibles)
-
-            self._partido.jugar_turno_jugador(1)
-        elif nombre_boton_seleccionado == "tiro":
-            self._partido.jugar_turno_jugador(2)
-            print("hizo tiro")
-        elif nombre_boton_seleccionado == "gambeta":
-            self._partido.jugar_turno_jugador(3)
-            print("hizo gambeta")
-        elif nombre_boton_seleccionado == "interceptar":
-            self.espera_intercepcion = False
-            self._partido.realizar_intercepcion()
+            # jugadores = self._partido.imprimir_jugadores(pases_disponibles)
+            if nombre_boton_seleccionado == "pase1":
+                self._partido.jugar_turno_jugador(1, pases_disponibles[0][0])
+            elif nombre_boton_seleccionado == "pase2":
+                self._partido.jugar_turno_jugador(1, pases_disponibles[1][0])
+            elif nombre_boton_seleccionado == "pase3":
+                self._partido.jugar_turno_jugador(1, pases_disponibles[2][0])
+            elif nombre_boton_seleccionado == "pase4":
+                self._partido.jugar_turno_jugador(1, pases_disponibles[3][0])
+            self.__pase_seleccionado = False
 
     def set_estadio(self, estadio):
         self._view.set_estadio(estadio)
