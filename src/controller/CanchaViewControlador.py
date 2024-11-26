@@ -7,6 +7,8 @@ import pygame
 from model.logic.Cronometro import Cronometro
 from model.logic.Dificultades import *
 from model.logic.EquipoLogico import EquipoLogico
+from view.CanchaView import CanchaView
+from model.logic.Partido import Partido
 
 from .Controlador import Controlador
 
