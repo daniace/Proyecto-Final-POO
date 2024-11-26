@@ -191,10 +191,7 @@ class Partido:
             " Equipo Actual -->",
             self._equipo_con_posesion,
         )
-        print()
-        print(
-            f"{self._jugador_con_pelota()} tiene la pelota, ¿qué desea hacer?:\n1 - Pase\n2 - Tiro\n3- Gambeta"
-        )
+
         # print(aliado_pase,'DENTRO DE TURBNO')
         match decision:
             case 1:
@@ -217,7 +214,7 @@ class Partido:
                     self.realizar_gambeta()
 
     def _jugar_turno_cpu(self) -> None:
-        
+        time.sleep(1.5)
         self.mostrar_cancha_con_pelota()  # despues esto se tiene que borrar#
         print(
             "---------------------------------------------------------------------------------------"
@@ -248,11 +245,6 @@ class Partido:
                             "GOLES -->", "P1", self._goles[0], "- CPU ", self._goles[1]
                         )
 
-    def _jugar_turno(self) -> None:
-        if self._equipo_con_posesion == 1:
-            self.jugar_turno_jugador()
-        else:
-            self.jugar_turno_cpu()
 
     def mostrar_cancha_con_pelota(self):  # esta funcion despues se tiene que borrar#
         matriz = self._cancha.get_matriz_cancha()
@@ -264,6 +256,11 @@ class Partido:
                 else:
                     print(elemento, end=" ")
             print()
+    
+    def mostrar_resultado(self):
+        print("\033[1;31m" + "Fin del partido" + "\033[0;m")
+        print("RESULTADO -->", "P1", self._goles[0], "- CPU ", self._goles[1])
+        self._repartir_puntos(self._goles)
 
     def _repartir_puntos(self, goles):  ##
         dificultades = [Facil, Medio, Dificil]
@@ -289,23 +286,6 @@ class Partido:
                         + "\033[0;m"
                     )
 
-    def iniciar_partido(self) -> None:
-        self._partido_en_curso = True
-        if self._cronometro is None or not self._cronometro.is_alive():
-            self._cronometro = Cronometro()
-            self._cronometro.start()
-
-        # while self._partido_en_curso:
-        #     if self._cronometro._evento_partido_terminado.is_set():
-        #         self._partido_en_curso = False
-        #     else:
-        #         pass
-                # self._jugar_turno()
-
-        # self._cronometro.join()
-        # print("\033[1;31m" + "Fin del partido" + "\033[0;m")
-        # print("RESULTADO -->", "P1", self._goles[0], "- CPU ", self._goles[1])
-        # self._repartir_puntos(self._goles)
 
 
 # cosas que hacer:

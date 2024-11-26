@@ -20,8 +20,12 @@ class CanchaView(VentanaView):
         # self.__
         self.__pase_botones = False
         self.__cantidad_pases = 0
+        self._equipo = 1
         
 
+    def cambiar_equipo(self, equipo):
+        self._equipo = equipo
+        
     def mostrar(self):
         self._botones = {}
         pygame.display.set_caption("GAMEPLAY")
@@ -96,8 +100,8 @@ class CanchaView(VentanaView):
                 (ANCHO * 0.1, ALTO * 0.65),
                 "PASE",
                 get_fuente(50),
-                BLANCO,
-                "Green",
+                BLANCO if self._equipo == 1 else NEGRO,
+                "Green" if self._equipo == 1 else NEGRO,
             )
 
         TIRO = self._mostrar_boton(
@@ -105,8 +109,8 @@ class CanchaView(VentanaView):
             (ANCHO * 0.1, ALTO * 0.75),
             "TIRO",
             get_fuente(50),
-            BLANCO,
-            "Green",
+            BLANCO if self._equipo == 1 else NEGRO,
+            "Green" if self._equipo == 1 else NEGRO,
         )
 
         GAMBETA = self._mostrar_boton(
@@ -114,8 +118,8 @@ class CanchaView(VentanaView):
             (ANCHO * 0.1, ALTO * 0.85),
             "GAMBETA",
             get_fuente(50),
-            BLANCO,
-            "Green",
+            BLANCO if self._equipo == 1 else NEGRO,
+            "Green" if self._equipo == 1 else NEGRO,
         )
 
         INTERCEPTAR = self._mostrar_boton(
@@ -123,8 +127,8 @@ class CanchaView(VentanaView):
             (ANCHO * 0.1, ALTO * 0.95),
             "INTERCEPTAR",
             get_fuente(50),
-            BLANCO,
-            "Green",
+            BLANCO if self._equipo == 2 else NEGRO,
+            "Green" if self._equipo == 2 else NEGRO,
         )
 
         self._botones["interceptar"] = INTERCEPTAR

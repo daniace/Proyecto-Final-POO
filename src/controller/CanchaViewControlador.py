@@ -26,8 +26,6 @@ class CanchaController(Controlador):
         self.__pase_seleccionado = False
         self.__cronometro = Cronometro()
 
-    def iniciar_partido(self):
-        self._partido.jugar_partido()
 
     def manejar_eventos(self, eventos, mouse_pos):
         from controller.JugarViewControlador import JugarController
@@ -74,15 +72,15 @@ class CanchaController(Controlador):
         # self._view.renderizar_acciones()
         # self._view.renderizar()
         ATAJADA_GIF = gif_pygame.load(ATAJADA, loops=-1)
-        # self._partido.jugar_partido()
+        print('Empieza partido')
         self.__cronometro.start()
         self._partido._partido_en_curso = True
         while True:
             if self._view.get_visibilidad():
                 if self.__cronometro._evento_partido_terminado.is_set():
                     self._partido_en_curso = False
-                    print('PARTIDDO TERMINADO')
-                    print('RESULTADOS -- >', self._partido._goles[0], '-', self._partido._goles[1])
+                    self._partido.mostrar_resultado()
+                    'ACA VA TODA LA LOGICA DE CUANDO TERMINE EL PARTIDO'
                     break
                 
                 ATAJADA_GIF.render(
@@ -91,6 +89,7 @@ class CanchaController(Controlador):
                 mouse_pos = pygame.mouse.get_pos()
                 self._view.mostrar()  # Mostrar el menú
                 eventos = pygame.event.get()  # Manejar eventos
+                self._view.cambiar_equipo(self._partido.get_equipo_con_posesion())
                 if (
                     self._partido.get_equipo_con_posesion() == 1
                     or self.espera_intercepcion == True
@@ -107,6 +106,9 @@ class CanchaController(Controlador):
                 if self.boton_actual is not None:  # and self.boton_mouse == None:
                     self.boton_actual.mantener_color()
                     self.boton_actual.update(self._view._pantalla)
+                    
+                        
+                    
                 clock.tick(60)
                 pygame.display.update()
 
@@ -122,11 +124,11 @@ class CanchaController(Controlador):
     def ejecutar_accion(self):
         botones = self._view.get_botones()
         nombre_boton_seleccionado = list(botones.keys())[self._indice_seleccionado]
-        if not self.__pase_seleccionado:
+        if not self.__pase_seleccionado and not self.espera_intercepcion and self._partido.get_equipo_con_posesion() ==1:
+            print('PRIMER BUCLE')
             if nombre_boton_seleccionado == "pase":
                 cantidad_pases = len(self._partido.mostrar_pases())
                 self._view.set_pase_seleccionado(cantidad_pases)
-                
                 pases_disponibles = self._partido.mostrar_pases()
                 for i in pases_disponibles:
                     print(i[0])
@@ -138,10 +140,7 @@ class CanchaController(Controlador):
             elif nombre_boton_seleccionado == "gambeta":
                 self._partido.jugar_turno_jugador(3)
                 print("hizo gambeta")
-            elif nombre_boton_seleccionado == "interceptar":
-                self.espera_intercepcion = False
-                self._partido.realizar_intercepcion()
-        else:
+        elif self.__pase_seleccionado:
             pases_disponibles = self._partido.mostrar_pases()
             # jugadores = self._partido.imprimir_jugadores(pases_disponibles)
             if nombre_boton_seleccionado == "pase1":
@@ -156,14 +155,17 @@ class CanchaController(Controlador):
             self.__pase_seleccionado = False
             self.boton_actual = None
             self._view.deseleccionar_pase()
+        
+        if self._partido.get_equipo_con_posesion() == 2 and self.espera_intercepcion:
+            nombre_boton_seleccionado == "interceptar"
+            self.espera_intercepcion = False
+            self._partido.realizar_intercepcion()
             
 
     def set_estadio(self, estadio):
         self._view.set_estadio(estadio)
         self._view.setear_estadio_cancha()
 
-    def turnos_partido(self):
-        pass
 
 
 "NOTA PARA SEGUIRLO -> EL BOTON ACTUAL ES EL BOTON SELECCIONADO, HAY QUE HACER QUE EL BOTON QUE SELECCIONA EL MOUSE SEA EL BOTON ACTUAL, ADEMAS DE CAMBIAR"
