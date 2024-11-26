@@ -23,16 +23,22 @@ class CanchaView(VentanaView):
         self.__equipo = 1
         self.__accion = None
 
-    def mostrar(self):
+    def mostrar(self, tiempo):
         self._botones = {}
         pygame.display.set_caption("GAMEPLAY")
         self._pantalla.fill(NEGRO)
-        # self._pantalla.blit(marcador, (int(ANCHO * 0.76), int(ALTO * 0.01)))
-        # self._pantalla.blit(marcador, (int(ANCHO * 0.2), int(ALTO * 0.55)))
-        estadio = self.__estadio_cancha
-        self._pantalla.blit(estadio, (int(ANCHO * 0.01), int(ALTO * 0.01)))
-        TIEMPO = get_fuente(50).render("TIEMPO", True, BLANCO)
-        self._pantalla.blit(TIEMPO, (int(ANCHO * 0.84), int(ALTO * 0.05)))
+        self._pantalla.blit(self.__estadio, (0, 0))
+        TIEMPO = get_fuente(50).render(f"      {tiempo}", True, NEGRO)
+        score = self.__renderizaciones["score"]
+        self._pantalla.blit(TIEMPO, (int(ANCHO * 0.81), int(ALTO * 0.04)))
+        self._pantalla.blit(score, (int(ANCHO * 0.7), int(ALTO * 0.001)))
+        self._pantalla.blit(
+            self.__estadio_cancha, (int(ANCHO * 0.01), int(ALTO * 0.01))
+        )
+        equipo = get_fuente(35).render("Equipo 1", True, BLANCO)
+        self._pantalla.blit(equipo, (int(ANCHO * 0.76), int(ALTO * 0.105)))
+        cpu = get_fuente(35).render("Equipo 2", True, BLANCO)
+        self._pantalla.blit(cpu, (int(ANCHO * 0.91), int(ALTO * 0.105)))
         # ATAJADA_GIF = gif_pygame.load(ATAJADA)
         # gif_superficie = gif_pygame.GIFPygame(ATAJADA_GIF)
         # self._pantalla.blit(
@@ -184,7 +190,6 @@ class CanchaView(VentanaView):
             BLANCO if self.__equipo == 2 else NEGRO,
             "Green" if self.__equipo == 2 else NEGRO,
         )
-
         self._botones["interceptar"] = INTERCEPTAR
         self._botones["gambeta"] = GAMBETA
         self._botones["tiro"] = TIRO
@@ -253,6 +258,8 @@ class CanchaView(VentanaView):
         self.__acciones = acciones
 
     def renderizar(self):
+        score = pygame.image.load(SCORE)
+        score = pygame.transform.scale(score, (400, 200))
         PASE_GIF = gif_pygame.load(PASE)
         PASE2_GIF = gif_pygame.load(PASE2)
 
@@ -272,6 +279,7 @@ class CanchaView(VentanaView):
         ATAJADA2_GIF = gif_pygame.load(ATAJADA2)
 
         gifs = {
+            "score": score,
             "pase": PASE_GIF.render(
                 self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
             ),

@@ -70,7 +70,7 @@ class CanchaController(Controlador):
 
     def main_loop(self):
         self._view.renderizar_acciones()
-        # self._view.renderizar()
+        self._view.renderizar()
         ATAJADA_GIF = gif_pygame.load(ATAJADA, loops=-1)
         print("Empieza partido")
         self.__cronometro.start()
@@ -81,12 +81,11 @@ class CanchaController(Controlador):
                     self._partido_en_curso = False
                     self._partido.mostrar_resultado()
                     break
-
                 ATAJADA_GIF.render(
                     self._view._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
                 )
                 mouse_pos = pygame.mouse.get_pos()
-                self._view.mostrar()  # Mostrar el menú
+                self._view.mostrar(self.__cronometro.get_contador())  # Mostrar el menú
                 eventos = pygame.event.get()  # Manejar eventos
                 self._view.cambiar_equipo(self._partido.get_equipo_con_posesion())
                 if (

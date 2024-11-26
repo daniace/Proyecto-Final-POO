@@ -30,7 +30,7 @@ class JugarController(Controlador):
         self.__usuario_ingresado = False
         self.__equipo_ingresado = False
         self.__dado_apretado = False
-        self.__cancha = CanchaController(SCREEN, Facil(), self.__genero_equipo)
+        self.__cancha = CanchaController(SCREEN, "Facil", self.__genero_equipo)
         self.__LoginUsuario = LoginJugarViewControlador(SCREEN, self)
         self.__LoginEquipo = EquipoJugarViewControlador(SCREEN, self.__equipo, self)
 
@@ -50,20 +50,20 @@ class JugarController(Controlador):
                     self.__equipo.set_cartas(self.__genero_equipo._jugadores)
                     self._view.renderizar(self.__genero_equipo._jugadores)
                 elif botones["comienza"].checkForInput(mouse_pos):
-                    if (
-                        self.__dado_apretado
-                        and self.__equipo_ingresado
-                        and self.__usuario_ingresado
-                    ):
-                        abmusuario = AbmUsuario()
-                        nombre_usuario = self.__nombre_usuario.get_nombre()
-                        print(nombre_usuario)
-                        self.__usuario = abmusuario.get_por_usuario(nombre_usuario)
-                        abmequipo = AbmEquipo()
-                        self.__genero_equipo.set_nombre(self.__equipo.get_nombre())
-                        self.__equipo.set_id_usuario(self.__usuario.get_id())
-                        abmequipo.insertar(self.__equipo)
-                        abmequipo.close()
+                    # if (
+                    #     self.__dado_apretado
+                    #     and self.__equipo_ingresado
+                    #     and self.__usuario_ingresado
+                    # ):
+                    #     abmusuario = AbmUsuario()
+                    #     nombre_usuario = self.__nombre_usuario.get_nombre()
+                    #     print(nombre_usuario)
+                    #     self.__usuario = abmusuario.get_por_usuario(nombre_usuario)
+                    #     abmequipo = AbmEquipo()
+                    #     self.__genero_equipo.set_nombre(self.__equipo.get_nombre())
+                    #     self.__equipo.set_id_usuario(self.__usuario.get_id())
+                    #     abmequipo.insertar(self.__equipo)
+                    #     abmequipo.close()
                     self._view.ocultar_visibilidad()
                     self.__cancha.main_loop()
                 elif botones["atras"].checkForInput(mouse_pos):  # Boton Back

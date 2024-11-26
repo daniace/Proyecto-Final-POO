@@ -5,6 +5,8 @@ import time
 class Cronometro(threading.Thread):
     def __init__(self):
         super().__init__()
+        self.__contador_global = 120
+        self.__contador = 120
         self.__duracion_del_partido = (
             120  # cantidad de segundos equivalentes a 2 minutos#
         )
@@ -18,5 +20,14 @@ class Cronometro(threading.Thread):
         while self.__contador < self.__duracion_del_partido:
             time.sleep(1)
             self.__contador += 1
+            self.__contador_global -= 1
 
         self._evento_partido_terminado.set()  # cuando se acaba el tiempo, dispara el evento al progarama en el que se ejecuta#
+
+    def get_contador(self):
+        minutos = self.__contador_global // 60  # Cálculo de minutos en cuenta regresiva
+        segundos = self.__contador_global % 60  # Segundos restantes
+        if segundos < 10:
+            return f"{abs(minutos)}:0{segundos}"
+        else:
+            return f"{abs(minutos)}:{segundos}"
