@@ -42,8 +42,8 @@ class Cancha:
         self.obtener_diccionario_jugadores()  # una vez se setean los equipos, se debe generar el diccionario
 
     def obtener_diccionario_jugadores(self):
-        # self._diccionario_equipo1 = {}
-        # self._diccionario_equipo2 = {}
+        self._diccionario_equipo1 = {}
+        self._diccionario_equipo2 = {}
         self._diccionario_completo = {}
         jugador_index = 0
         jugador_index2 = 0
@@ -55,16 +55,19 @@ class Cancha:
                 if (
                     self._cancha[i][j] == self._equipo1.get_nro_equipo()
                 ):  # NRO_EQUIPO TIENE 1 O 2
-                    # self._diccionario_equipo1[(i, j)] = equipo1[jugador_index]
+                    self._diccionario_equipo1[(i, j)] = equipo1[jugador_index]
                     self._diccionario_completo[(i, j)] = equipo1[jugador_index]
                     jugador_index += 1
                 if self._cancha[i][j] == self._equipo2.get_nro_equipo():
-                    # self._diccionario_equipo2[(i, j)] = equipo2[jugador_index2]
+                    self._diccionario_equipo2[(i, j)] = equipo2[jugador_index2]
                     self._diccionario_completo[(i, j)] = equipo2[jugador_index2]
                     jugador_index2 += 1
                     
         # return diccionario_jugadores_equipo1, diccionario_jugadores_equipo2
 
+    def get_diccionario_jugadores(self):
+        return self._diccionario_completo
+    
     def mostrar_diccionario(self):
         # print("DICCIONARIO EQUIPO 1")
         # for clave, valor in self._diccionario_equipo1.items():
@@ -79,9 +82,7 @@ class Cancha:
             print(f"{clave} : {valor}")
     "No es necesario separarlos en distintos diccionarios, es mas practico tener un solo diccionario con todos los jugadores"
 
-    def imprimir_jugadores(self,lista_jugadores):
-        for i,j in lista_jugadores:
-            print(">",str(i),self._diccionario_completo.get(i,"sorry brodel, no esta"), "esta a una distancia de ", j)
+
     
     def buscar_jugador(self, posicion):
         # posicion = jugador

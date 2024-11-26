@@ -12,6 +12,16 @@ class CanchaView(VentanaView):
         self.__renderizaciones = {}
         self.__estadio = camp_nou
         self.__estadio_cancha = barcelona
+        self.__acciones = {}
+        self.__pase_seleccionado = False
+        self.__pase = False
+        self.__tiro = True
+        self.__intercepcion = True
+        # self.__
+        self.__pase_botones = False
+        self.__cantidad_pases = 0
+        self.__equipo = 1
+        self.__accion = None
 
     def mostrar(self):
         self._botones = {}
@@ -21,8 +31,122 @@ class CanchaView(VentanaView):
         self._pantalla.blit(estadio, (int(ANCHO * 0.01), int(ALTO * 0.01)))
         TIEMPO = get_fuente(50).render("TIEMPO", True, BLANCO)
         self._pantalla.blit(TIEMPO, (int(ANCHO * 0.84), int(ALTO * 0.05)))
-        ATAJADA_GIF.render(self._pantalla, (int(ANCHO * 0.1), int(ALTO * 0.55)))
+        # ATAJADA_GIF = gif_pygame.load(ATAJADA)
+        # gif_superficie = gif_pygame.GIFPygame(ATAJADA_GIF)
+        # self._pantalla.blit(
+        #     gif_superficie.blit_ready(), (int(ANCHO * 0.25), int(ALTO * 0.05))
+        # )
+        # # ATAJADA_GIF.render(gif_superficie, (int(ANCHO * 0.25), int(ALTO * 0.05)))
+        # if self.__pase:
+        #     PASE_GIF = gif_pygame.load(PASE)
+        #     PASE_GIF.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05)))
+        if self.__accion is not None:
+            texto = self.__acciones[self.__accion]
+            self._pantalla.blit(texto, (int(ANCHO * 0.25), int(ALTO * 0.05)))
 
+        if self.__pase_seleccionado:
+            if self.__cantidad_pases >= 1:
+                PASE1 = self._mostrar_boton(
+                    boton_negro2,
+                    (ANCHO * 0.3, ALTO * 0.65),
+                    "PASE1",
+                    get_fuente(50),
+                    BLANCO,
+                    "Green",
+                )
+                atributos_carta = self.__atributos_carta[0]
+                CAMISETA = atributos_carta["CAMISETA"]
+                DOR = atributos_carta["DORSAL"]
+                NOMBRE_JUGADOR = atributos_carta["NOMBRE_JUGADOR"]
+                CARTA_IMAGEN = atributos_carta["CARTA"]
+                PASE = atributos_carta["PASE"]
+                self._pantalla.blit(CARTA_IMAGEN, (int(ANCHO * 0.2), int(ALTO * 0.8)))
+                self._pantalla.blit(PASE, (int(ANCHO * 0.228), int(ALTO * 0.82)))
+                self._pantalla.blit(
+                    NOMBRE_JUGADOR, (int(ANCHO * 0.22), int(ALTO * 0.86))
+                )
+                self._pantalla.blit(CAMISETA, (int(ANCHO * 0.225), int(ALTO * 0.89)))
+                self._pantalla.blit(DOR, (int(ANCHO * 0.24), int(ALTO * 0.935)))
+                self._botones["pase1"] = PASE1
+            if self.__cantidad_pases >= 2:
+                PASE2 = self._mostrar_boton(
+                    boton_negro2,
+                    (ANCHO * 0.5, ALTO * 0.65),
+                    "PASE2",
+                    get_fuente(50),
+                    BLANCO,
+                    "Green",
+                )
+                atributos_carta = self.__atributos_carta[1]
+                CAMISETA = atributos_carta["CAMISETA"]
+                DOR = atributos_carta["DORSAL"]
+                NOMBRE_JUGADOR = atributos_carta["NOMBRE_JUGADOR"]
+                CARTA_IMAGEN = atributos_carta["CARTA"]
+                PASE = atributos_carta["PASE"]
+                self._pantalla.blit(CARTA_IMAGEN, (int(ANCHO * 0.3), int(ALTO * 0.8)))
+                self._pantalla.blit(PASE, (int(ANCHO * 0.328), int(ALTO * 0.82)))
+                self._pantalla.blit(
+                    NOMBRE_JUGADOR, (int(ANCHO * 0.32), int(ALTO * 0.86))
+                )
+                self._pantalla.blit(CAMISETA, (int(ANCHO * 0.325), int(ALTO * 0.89)))
+                self._pantalla.blit(DOR, (int(ANCHO * 0.34), int(ALTO * 0.935)))
+                self._botones["pase2"] = PASE2
+            if self.__cantidad_pases >= 3:
+                PASE3 = self._mostrar_boton(
+                    boton_negro2,
+                    (ANCHO * 0.3, ALTO * 0.75),
+                    "PASE3",
+                    get_fuente(50),
+                    BLANCO,
+                    "Green",
+                )
+                atributos_carta = self.__atributos_carta[2]
+                CAMISETA = atributos_carta["CAMISETA"]
+                DOR = atributos_carta["DORSAL"]
+                NOMBRE_JUGADOR = atributos_carta["NOMBRE_JUGADOR"]
+                CARTA_IMAGEN = atributos_carta["CARTA"]
+                PASE = atributos_carta["PASE"]
+                self._pantalla.blit(CARTA_IMAGEN, (int(ANCHO * 0.4), int(ALTO * 0.8)))
+                self._pantalla.blit(PASE, (int(ANCHO * 0.428), int(ALTO * 0.82)))
+                self._pantalla.blit(
+                    NOMBRE_JUGADOR, (int(ANCHO * 0.42), int(ALTO * 0.86))
+                )
+                self._pantalla.blit(CAMISETA, (int(ANCHO * 0.425), int(ALTO * 0.89)))
+                self._pantalla.blit(DOR, (int(ANCHO * 0.44), int(ALTO * 0.935)))
+                self._botones["pase3"] = PASE3
+            if self.__cantidad_pases >= 4:
+                PASE4 = self._mostrar_boton(
+                    boton_negro2,
+                    (ANCHO * 0.5, ALTO * 0.75),
+                    "PASE4",
+                    get_fuente(50),
+                    BLANCO,
+                    "Green",
+                )
+                atributos_carta = self.__atributos_carta[3]
+                CAMISETA = atributos_carta["CAMISETA"]
+                DOR = atributos_carta["DORSAL"]
+                NOMBRE_JUGADOR = atributos_carta["NOMBRE_JUGADOR"]
+                CARTA_IMAGEN = atributos_carta["CARTA"]
+                PASE = atributos_carta["PASE"]
+                self._pantalla.blit(CARTA_IMAGEN, (int(ANCHO * 0.5), int(ALTO * 0.8)))
+                self._pantalla.blit(PASE, (int(ANCHO * 0.528), int(ALTO * 0.82)))
+                self._pantalla.blit(
+                    NOMBRE_JUGADOR, (int(ANCHO * 0.52), int(ALTO * 0.86))
+                )
+                self._pantalla.blit(CAMISETA, (int(ANCHO * 0.525), int(ALTO * 0.89)))
+                self._pantalla.blit(DOR, (int(ANCHO * 0.54), int(ALTO * 0.935)))
+
+                self._botones["pase4"] = PASE4
+            # self._botones[]
+            # if self.__pase:
+            #     pase = self.__acciones["pase_concretado"]
+            #     self._pantalla.blit(pase, (int(ANCHO * 0.8), int(ALTO * 0.7)))
+            # else:
+            #     pase = self.__acciones["pase_errado"]
+            #     self._pantalla.blit(pase, (int(ANCHO * 0.8), int(ALTO * 0.7)))
+
+        # if self.__pase_seleccionado:
         PASE = self._mostrar_boton(
             boton_negro2,
             (ANCHO * 0.1, ALTO * 0.65),
@@ -37,8 +161,8 @@ class CanchaView(VentanaView):
             (ANCHO * 0.1, ALTO * 0.75),
             "TIRO",
             get_fuente(50),
-            BLANCO,
-            "Green",
+            BLANCO if self.__equipo == 1 else NEGRO,
+            "Green" if self.__equipo == 1 else NEGRO,
         )
 
         GAMBETA = self._mostrar_boton(
@@ -46,8 +170,8 @@ class CanchaView(VentanaView):
             (ANCHO * 0.1, ALTO * 0.85),
             "GAMBETA",
             get_fuente(50),
-            BLANCO,
-            "Green",
+            BLANCO if self.__equipo == 1 else NEGRO,
+            "Green" if self.__equipo == 1 else NEGRO,
         )
 
         INTERCEPTAR = self._mostrar_boton(
@@ -55,8 +179,8 @@ class CanchaView(VentanaView):
             (ANCHO * 0.1, ALTO * 0.95),
             "INTERCEPTAR",
             get_fuente(50),
-            BLANCO,
-            "Green",
+            BLANCO if self.__equipo == 2 else NEGRO,
+            "Green" if self.__equipo == 2 else NEGRO,
         )
 
         self._botones["interceptar"] = INTERCEPTAR
@@ -90,6 +214,41 @@ class CanchaView(VentanaView):
             self.__estadio_cancha = mexico
         elif self.__estadio == malasia:
             self.__estadio_cancha = malasya
+
+    def __ajustar_texto(self, texto, fuente, max_ancho, color):
+        tamaño = 42  # Tamaño inicial
+        while True:
+            # llama a la fuente con el tamaño inicial
+            fuente_actual = pygame.font.Font(fuente, tamaño)
+            # renderiza el texto
+            texto_renderizado = fuente_actual.render(texto, True, NEGRO)
+            if texto_renderizado.get_width() <= max_ancho:
+                # si el texto entra en el ancho maximo lo devuelve
+                return get_fuente(tamaño).render(texto, True, color)
+            tamaño -= 1
+
+    def renderizar_acciones(self):
+        acciones = {
+            "pase_valido": self.__ajustar_texto("Pase exitoso", FUENTE, 250, BLANCO),
+            "pase_invalido": self.__ajustar_texto("Pase fallido", FUENTE, 250, BLANCO),
+            "tiro_al_arco": self.__ajustar_texto("Tiro al arco", FUENTE, 250, BLANCO),
+            "tiro_fallado": self.__ajustar_texto("Tiro fallido", FUENTE, 250, BLANCO),
+            "atajado": self.__ajustar_texto("Tiro atajado", FUENTE, 250, BLANCO),
+            "gol": self.__ajustar_texto("Gooooooolazoooo", FUENTE, 250, BLANCO),
+            "interseccion_valida": self.__ajustar_texto(
+                "Intercepcion exitosa", FUENTE, 250, BLANCO
+            ),
+            "interseccion_fallida": self.__ajustar_texto(
+                "Intercepcion fallida", FUENTE, 250, BLANCO
+            ),
+            "gambeta_exitosa": self.__ajustar_texto(
+                "Gambeta exitosa", FUENTE, 250, BLANCO
+            ),
+            "gambeta_fallida": self.__ajustar_texto(
+                "Gambeta fallida", FUENTE, 250, BLANCO
+            ),
+        }
+        self.__acciones = acciones
 
     def renderizar(self):
         PASE_GIF = gif_pygame.load(PASE)
@@ -152,3 +311,41 @@ class CanchaView(VentanaView):
             ),
         }
         self.__renderizaciones = gifs
+
+    def set_pase(self, pase):
+        self.__pase = pase
+
+    def set_pase_seleccionado(self, cantidad_pases):
+        self.__pase_seleccionado = True
+        self.__cantidad_pases = cantidad_pases
+
+    def deseleccionar_pase(self):
+        self.__pase_seleccionado = False
+
+    def renderizar_carta(self, jugadores):
+        self.__atributos_carta = []
+        CARTA_IMAGEN = pygame.image.load(IMAGEN_CARTA)
+        CARTA_IMAGEN = pygame.transform.scale(CARTA_IMAGEN, (120, 140))
+        CAMISETA = pygame.image.load(DORSAL)
+        CAMISETA = pygame.transform.scale(CAMISETA, (60, 60))
+        i = 0
+        for jugador in jugadores:
+            i += 1
+            estadisticas = {
+                "PASE": self.__ajustar_texto(f"PASE {i}", FUENTE, 50, VERDE_CLARO),
+                "CAMISETA": CAMISETA,
+                "DORSAL": self.__ajustar_texto(
+                    f"{jugador.get_dorsal()}", FUENTE, 30, BLANCO
+                ),
+                "NOMBRE_JUGADOR": self.__ajustar_texto(
+                    jugador.get_nombre(), FUENTE, 65, BLANCO
+                ),
+                "CARTA": CARTA_IMAGEN,
+            }
+            self.__atributos_carta.append(estadisticas)
+
+    def cambiar_equipo(self, equipo):
+        self.__equipo = equipo
+
+    def set_accion(self, accion):
+        self.__accion = accion

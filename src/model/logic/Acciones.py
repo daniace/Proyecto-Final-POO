@@ -25,6 +25,8 @@ class Acciones:
         print(f'GAMBETA ACTIVA --> {self._bonificacion_de_gambeta}')
         
         atributo = int(getattr(jugador, metodo_atributo)())
+        if descripcion == 'atajar':
+            atributo = int(atributo * 0.5)
         print(f'jugador', jugador)
         probabilidad = random.randint(0, self._dificultad.get_probabilidad() if equipo == 1 else 100)
         print('EQUIPO ACTUAL PROBABILIDAD--> ', equipo)
