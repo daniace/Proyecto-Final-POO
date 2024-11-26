@@ -1,46 +1,54 @@
-from model.ModeloUsuario import ModeloUsuarios
+from model.ModeloABMUsuario import ModeloABMUsuarios
 from view.ABMUsuarioView import VistaABMUsuarios
 
 
 class ControladorABMUsuarios:
     def __init__(self):
-        self.modelo = ModeloUsuarios()
-        self.vista = VistaABMUsuarios()
+        self.__modelo = ModeloABMUsuarios()
+        self.__vista = VistaABMUsuarios()
 
         # Conectar callbacks
-        self.vista.conectar_eliminar_usuario(self.eliminar_usuario)
-        self.vista.conectar_alta_usuario(self.alta_usuario)
-        self.vista.conectar_modificar_usuario(self.modificar_usuario)
+        self.__vista._conectar_eliminar_usuario(self.__eliminar_usuario)
+        self.__vista._conectar_alta_usuario(self.__alta_usuario)
+        self.__vista._conectar_modificar_usuario(self.__modificar_usuario)
+        self.__vista.protocol("WM_DELETE_WINDOW", self.cerrar)
 
         # Cargar usuarios
-        self.cargar_usuarios()
+        self.__cargar_usuarios()
 
-    def cargar_usuarios(self):
+    def get_vista(self):
+        """Devuelve la vista."""
+        return self.__vista
+
+    def __cargar_usuarios(self):
         """Carga los usuarios en la vista."""
-        usuarios = self.modelo.obtener_usuarios()
-        self.vista.cargar_usuarios(usuarios)
+        usuarios = self.__modelo._obtener_usuarios()
+        self.__vista._cargar_usuarios(usuarios)
 
-    def alta_usuario(self, nombre, password, admin, score):
+    def __alta_usuario(self, nombre, password, admin, score):
         """Agrega un nuevo usuario."""
-        self.modelo.insertar_usuario(nombre, password, admin, score)
-        self.cargar_usuarios()
+        self.__modelo._insertar_usuario(nombre, password, admin, score)
+        self.__cargar_usuarios()
 
-    def modificar_usuario(self, id_usuario, nombre, password, admin, score):
+    def __modificar_usuario(self, id_usuario, nombre, password, admin, score):
         """Modifica un usuario existente."""
-        self.modelo.actualizar_usuario(id_usuario, nombre, password, admin, score)
-        self.cargar_usuarios()
+        self.__modelo._actualizar_usuario(id_usuario, nombre, password, admin, score)
+        self.__cargar_usuarios()
 
-    def eliminar_usuario(self, id_usuario):
+    def __eliminar_usuario(self, id_usuario):
         """Elimina un usuario."""
-        self.modelo.eliminar_usuario(id_usuario)
-        self.cargar_usuarios()
+        self.__modelo._eliminar_usuario(id_usuario)
+        self.__cargar_usuarios()
 
     def iniciar(self):
         """Inicia la vista."""
-        self.vista.iniciar()
+        self.__vista.iniciar()
 
     def cerrar(self):
-        self.vista.cerrar()
+        self.__vista.withdraw()
+
+    def focus(self):
+        self.__vista.focus()
 
 
 if __name__ == "__main__":

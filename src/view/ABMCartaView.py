@@ -2,25 +2,26 @@ from tkinter import messagebox, ttk
 
 import customtkinter as ctk
 
+from view.ABMView import centrar_ventana, configurar_estilo_tabla
 from view.FormularioArqueroView import FormularioArquero
 from view.FormularioCartaView import FormularioCarta
 
 
 class VistaABMCartas(ctk.CTkToplevel):
     def __init__(self):
+        super().__init__()
         # Ventana principal
-        self.root = ctk.CTk()
-        self.root.title("ABM de Cartas")
-        self.centrar_ventana()
-
+        self.title("ABM de Cartas")
+        configurar_estilo_tabla(self)
+        centrar_ventana(self, 1200, 600)
         # Título
-        self.label_titulo = ctk.CTkLabel(
-            self.root, text="ABM de Cartas", font=("Arial", 20)
+        self.__label_titulo = ctk.CTkLabel(
+            self, text="ABM de Cartas", font=("Arial", 20)
         )
-        self.label_titulo.pack(pady=10)
+        self.__label_titulo.pack(pady=10)
 
         # Frame para la tabla y scrollbars
-        frame_tabla = ctk.CTkFrame(self.root)
+        frame_tabla = ctk.CTkFrame(self)
         frame_tabla.pack(fill="both", expand=True, padx=10, pady=10)
 
         # Scrollbars
@@ -28,7 +29,7 @@ class VistaABMCartas(ctk.CTkToplevel):
         scrollbar_horizontal = ttk.Scrollbar(frame_tabla, orient="horizontal")
 
         # Tabla para listar cartas
-        self.tabla = ttk.Treeview(
+        self.__tabla = ttk.Treeview(
             frame_tabla,
             columns=(
                 "ID",
@@ -56,146 +57,110 @@ class VistaABMCartas(ctk.CTkToplevel):
         )
 
         # Configuración de encabezados
-        self.tabla.heading("ID", text="ID")
-        self.tabla.heading("Nombre", text="Nombre")
-        self.tabla.heading("Nacionalidad", text="Nacionalidad")
-        self.tabla.heading("Club", text="Club")
-        self.tabla.heading("General", text="General")
-        self.tabla.heading("Posición", text="Posición")
-        self.tabla.heading("Pace", text="Pace")
-        self.tabla.heading("Shooting", text="Shooting")
-        self.tabla.heading("Passing", text="Passing")
-        self.tabla.heading("Dribbling", text="Dribbling")
-        self.tabla.heading("Defending", text="Defending")
-        self.tabla.heading("Physic", text="Physic")
-        self.tabla.heading("GK Diving", text="GK Diving")
-        self.tabla.heading("GK Handling", text="GK Handling")
-        self.tabla.heading("GK Kicking", text="GK Kicking")
-        self.tabla.heading("GK Reflexes", text="GK Reflexes")
-        self.tabla.heading("GK Speed", text="GK Speed")
-        self.tabla.heading("GK Positioning", text="GK Positioning")
+        self.__tabla.heading("ID", text="ID")
+        self.__tabla.heading("Nombre", text="Nombre")
+        self.__tabla.heading("Nacionalidad", text="Nacionalidad")
+        self.__tabla.heading("Club", text="Club")
+        self.__tabla.heading("General", text="General")
+        self.__tabla.heading("Posición", text="Posición")
+        self.__tabla.heading("Pace", text="Pace")
+        self.__tabla.heading("Shooting", text="Shooting")
+        self.__tabla.heading("Passing", text="Passing")
+        self.__tabla.heading("Dribbling", text="Dribbling")
+        self.__tabla.heading("Defending", text="Defending")
+        self.__tabla.heading("Physic", text="Physic")
+        self.__tabla.heading("GK Diving", text="GK Diving")
+        self.__tabla.heading("GK Handling", text="GK Handling")
+        self.__tabla.heading("GK Kicking", text="GK Kicking")
+        self.__tabla.heading("GK Reflexes", text="GK Reflexes")
+        self.__tabla.heading("GK Speed", text="GK Speed")
+        self.__tabla.heading("GK Positioning", text="GK Positioning")
 
         # Configuración de columnas
-        self.tabla.column("ID", width=50, anchor="center")
-        self.tabla.column("Nombre", width=100, anchor="center")
-        self.tabla.column("Nacionalidad", width=100, anchor="center")
-        self.tabla.column("Club", width=100, anchor="center")
-        self.tabla.column("General", width=60, anchor="center")
-        self.tabla.column("Posición", width=100, anchor="center")
-        self.tabla.column("Pace", width=50, anchor="center")
-        self.tabla.column("Shooting", width=50, anchor="center")
-        self.tabla.column("Passing", width=50, anchor="center")
-        self.tabla.column("Dribbling", width=50, anchor="center")
-        self.tabla.column("Defending", width=50, anchor="center")
-        self.tabla.column("Physic", width=50, anchor="center")
-        self.tabla.column("GK Diving", width=50, anchor="center")
-        self.tabla.column("GK Handling", width=50, anchor="center")
-        self.tabla.column("GK Kicking", width=50, anchor="center")
-        self.tabla.column("GK Reflexes", width=50, anchor="center")
-        self.tabla.column("GK Speed", width=50, anchor="center")
-        self.tabla.column("GK Positioning", width=50, anchor="center")
-
-        # Estilo de la tabla
-        style = ttk.Style()
-
-        style.theme_use("default")
-
-        style.configure(
-            "Treeview",
-            background="#2a2d2e",
-            foreground="white",
-            rowheight=25,
-            fieldbackground="#343638",
-            bordercolor="#343638",
-            borderwidth=0,
-        )
-        style.map("Treeview", background=[("selected", "#22559b")])
-
-        style.configure(
-            "Treeview.Heading", background="#565b5e", foreground="white", relief="flat"
-        )
-        style.map("Treeview.Heading", background=[("active", "#3484F0")])
+        self.__tabla.column("ID", width=50, anchor="center")
+        self.__tabla.column("Nombre", width=100, anchor="center")
+        self.__tabla.column("Nacionalidad", width=100, anchor="center")
+        self.__tabla.column("Club", width=100, anchor="center")
+        self.__tabla.column("General", width=60, anchor="center")
+        self.__tabla.column("Posición", width=100, anchor="center")
+        self.__tabla.column("Pace", width=50, anchor="center")
+        self.__tabla.column("Shooting", width=50, anchor="center")
+        self.__tabla.column("Passing", width=50, anchor="center")
+        self.__tabla.column("Dribbling", width=50, anchor="center")
+        self.__tabla.column("Defending", width=50, anchor="center")
+        self.__tabla.column("Physic", width=50, anchor="center")
+        self.__tabla.column("GK Diving", width=50, anchor="center")
+        self.__tabla.column("GK Handling", width=50, anchor="center")
+        self.__tabla.column("GK Kicking", width=50, anchor="center")
+        self.__tabla.column("GK Reflexes", width=50, anchor="center")
+        self.__tabla.column("GK Speed", width=50, anchor="center")
+        self.__tabla.column("GK Positioning", width=50, anchor="center")
 
         # Botones
-        self.btn_alta = ctk.CTkButton(
-            self.root, text="Agregar Carta", command=self.abrir_formulario_alta
+        self.__btn_alta = ctk.CTkButton(
+            self, text="Agregar Carta", command=self.__abrir_formulario_alta
         )
-        self.btn_alta.pack(side="left", padx=10, pady=10)
+        self.__btn_alta.pack(side="left", padx=10, pady=10)
 
-        self.btn_alta_arquero = ctk.CTkButton(
-            self.root,
+        self.__btn_alta_arquero = ctk.CTkButton(
+            self,
             text="Agregar Arquero",
-            command=self.abrir_formulario_alta_arquero,
+            command=self.__abrir_formulario_alta_arquero,
         )
-        self.btn_alta_arquero.pack(side="left", padx=10, pady=10)
+        self.__btn_alta_arquero.pack(side="left", padx=10, pady=10)
 
-        self.btn_modificar = ctk.CTkButton(
-            self.root, text="Modificar Carta", command=self.abrir_formulario_modificar
+        self.__btn_modificar = ctk.CTkButton(
+            self,
+            text="Modificar Carta",
+            command=self.__abrir_formulario_modificar,
         )
-        self.btn_modificar.pack(side="left", padx=10, pady=10)
+        self.__btn_modificar.pack(side="left", padx=10, pady=10)
 
-        self.btn_eliminar = ctk.CTkButton(
-            self.root, text="Eliminar Carta", command=self.eliminar_carta
+        self.__btn_eliminar = ctk.CTkButton(
+            self, text="Eliminar Carta", command=self._eliminar_carta
         )
-        self.btn_eliminar.pack(side="left", padx=10, pady=10)
+        self.__btn_eliminar.pack(side="left", padx=10, pady=10)
 
-        self.btn_cerrar = ctk.CTkButton(self.root, text="Cerrar", command=self.cerrar)
-        self.btn_cerrar.pack(side="right", padx=10, pady=10)
+        self.__btn_cerrar = ctk.CTkButton(self, text="Cerrar", command=self.withdraw)
+        self.__btn_cerrar.pack(side="right", padx=10, pady=10)
 
         # Configurar las scrollbars
-        scrollbar_vertical.config(command=self.tabla.yview)
-        scrollbar_horizontal.config(command=self.tabla.xview)
+        scrollbar_vertical.config(command=self.__tabla.yview)
+        scrollbar_horizontal.config(command=self.__tabla.xview)
 
         # Empaquetar elementos
         scrollbar_vertical.pack(side="right", fill="y")
         scrollbar_horizontal.pack(side="bottom", fill="x")
-        self.tabla.configure(style="Treeview")
-        self.tabla.pack(fill="both", expand=True)
+        self.__tabla.pack(fill="both", expand=True)
 
-    def centrar_ventana(self):
-        """Centra la ventana en la pantalla."""
-        ancho_ventana = 800  # Ancho de la ventana
-        alto_ventana = 400  # Alto de la ventana
-
-        # Obtener el tamaño de la pantalla
-        ancho_pantalla = self.root.winfo_screenwidth()
-        alto_pantalla = self.root.winfo_screenheight()
-
-        # Calcular la posición centrada
-        pos_x = int((ancho_pantalla - ancho_ventana) / 2)
-        pos_y = int((alto_pantalla - alto_ventana) / 2)
-
-        # Establecer la geometría de la ventana
-        self.root.geometry(f"{ancho_ventana}x{alto_ventana}+{pos_x}+{pos_y}")
-
-    def cargar_cartas(self, cartas):
+    def _cargar_cartas(self, cartas):
         """Carga la tabla con las cartas recibidas."""
-        for item in self.tabla.get_children():
-            self.tabla.delete(item)
+        for item in self.__tabla.get_children():
+            self.__tabla.delete(item)
         for carta in cartas:
-            self.tabla.insert("", "end", values=carta)
+            self.__tabla.insert("", "end", values=carta)
 
-    def abrir_formulario_alta(self):
+    def __abrir_formulario_alta(self):
         """Abre el formulario para agregar una carta."""
         FormularioCarta(
             self,
             modo="alta",
         ).iniciar()
 
-    def abrir_formulario_alta_arquero(self):
+    def __abrir_formulario_alta_arquero(self):
         """Abre el formulario para agregar un arquero."""
         FormularioArquero(
             self,
             modo="alta",
         ).iniciar()
 
-    def abrir_formulario_modificar(self):
+    def __abrir_formulario_modificar(self):
         """Abre el formulario para modificar la carta seleccionada."""
-        seleccion = self.tabla.focus()
+        seleccion = self.__tabla.focus()
         if not seleccion:
             messagebox.showerror("Error", "Debe seleccionar una carta para modificar.")
             return
-        datos_carta = self.tabla.item(
+        datos_carta = self.__tabla.item(
             seleccion,
             "values",
         )
@@ -214,35 +179,30 @@ class VistaABMCartas(ctk.CTkToplevel):
                 datos_carta=datos_carta_jugador,
             ).iniciar()
 
-    def eliminar_carta(self):
+    def _eliminar_carta(self):
         """Elimina la carta seleccionada."""
-        seleccion = self.tabla.focus()
+        seleccion = self.__tabla.focus()
         if not seleccion:
             messagebox.showerror("Error", "Debe seleccionar una carta para eliminar.")
             return
-        id_carta = self.tabla.item(seleccion, "values")[0]
+        id_carta = self.__tabla.item(seleccion, "values")[0]
         if messagebox.askyesno("Confirmar", "¿Seguro que desea eliminar esta carta?"):
-            self.eliminar_carta_callback(id_carta)
+            self._eliminar_carta_callback(id_carta)
 
-    def conectar_eliminar_carta(self, callback):
-        self.eliminar_carta_callback = callback
+    def _conectar_eliminar_carta(self, callback):
+        self._eliminar_carta_callback = callback
 
-    def conectar_alta_carta(self, callback):
-        self.alta_carta_callback = callback
+    def _conectar_alta_carta(self, callback):
+        self._alta_carta_callback = callback
 
-    def conectar_alta_arquero(self, callback):
-        self.alta_arquero_callback = callback
+    def _conectar_alta_arquero(self, callback):
+        self._alta_arquero_callback = callback
 
-    def conectar_modificar_carta(self, callback):
-        self.modificar_carta_callback = callback
+    def _conectar_modificar_carta(self, callback):
+        self._modificar_carta_callback = callback
 
-    def conectar_modificar_arquero(self, callback):
-        self.modificar_arquero_callback = callback
+    def _conectar_modificar_arquero(self, callback):
+        self._modificar_arquero_callback = callback
 
     def iniciar(self):
-        """Inicia la vista."""
-        self.root.deiconify()
-
-    def cerrar(self):
-        """Cierra la vista."""
-        self.root.withdraw()
+        self.deiconify()

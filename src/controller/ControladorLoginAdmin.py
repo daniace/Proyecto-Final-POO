@@ -1,39 +1,38 @@
-from model.ModeloLogin import ModeloLogin
+from controller.ControladorMenuABM import ControladorMenuABM
+from model.ModeloLoginAdmin import ModeloLoginAdmin
 from view.LoginAdminView import LoginAdmin
-from view.MenuABMView import MenuABM
 
 
-class ControladorLogin:
+class ControladorLoginaAdmin:
     def __init__(self):
-        self.modelo = ModeloLogin()
-        self.vista = LoginAdmin()
-        self.vista.conectar_boton_login(self.validar_login)
-        self.vista_menuabm = MenuABM()
+        self.__modelo = ModeloLoginAdmin()
+        self.__vista = LoginAdmin()
+        self.__vista._conectar_boton_login(self.__validar_login)
+        self.__vista_menuabm = ControladorMenuABM()
 
-    def validar_login(self):
+    def __validar_login(self):
         """Valida las credenciales ingresadas."""
-        username, password = self.vista.obtener_credenciales()
-        if self.modelo.validar_usuario(username, password):
-            self.vista.mostrar_resultado("Login exitoso")
-            self.abrir_ventana_principal()
+        username, password = self.__vista._obtener_credenciales()
+        if self.__modelo._validar_usuario(username, password):
+            self.__vista._mostrar_resultado("Login exitoso")
+            self.__abrir_ventana_menu_abm()
         else:
-            self.vista.mostrar_resultado("Login fallido")
+            self.__vista._mostrar_resultado("Login fallido")
 
-    def abrir_ventana_principal(self):
+    def __abrir_ventana_menu_abm(self):
         """Abre la ventana principal con los tres botones."""
         self.close()
-        self.vista_menuabm.iniciar()
+        self.__vista.after(1000, self.__vista_menuabm.run())
 
     def run(self):
         """Inicia la aplicación."""
-        self.visible = True
-        self.vista.iniciar()
+        self.__vista.iniciar()
 
     def close(self):
         """Cierra la ventana de la vista."""
-        self.vista.cerrar()
+        self.__vista.destroy()
 
 
 if __name__ == "__main__":
-    app = ControladorLogin()
+    app = ControladorLoginaAdmin()
     app.run()

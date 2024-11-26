@@ -1,13 +1,14 @@
 import sys
+import threading
 
 import pygame
 
-# from controller.ControladorLoginAdmin import ControladorLogin
+from controller.ControladorLoginAdmin import ControladorLoginaAdmin
 from controller.JugarViewControlador import JugarController
 from controller.OpcionesViewControlador import OpcionesController
 from controller.RankingViewControlador import RankingController
-from model.logic.Dificultades import *
-from settings import *
+from model.logic.Dificultades import Medio
+from settings import SCREEN
 from view.MenuView import MenuView
 
 from .Controlador import Controlador
@@ -20,7 +21,7 @@ class MenuController(Controlador):
         self._dificultad = dificultad  # dificultad predeterminada#
         self.__ranking = RankingController()
         self.__opciones = OpcionesController(self._dificultad)
-        # self.__login = ControladorLogin()
+        self.__login = ControladorLoginaAdmin()
         self.__jugar = JugarController()
 
     def manejar_eventos(self, eventos, mouse_pos):
@@ -31,7 +32,7 @@ class MenuController(Controlador):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if botones["login"].checkForInput(mouse_pos):
-                    self.__login.run()
+                    threading.Thread(target=self.__login.run(), daemon=True).start()
                 if botones["jugar"].checkForInput(mouse_pos):
                     self._view.ocultar_visibilidad()
                     self.__jugar.main_loop()

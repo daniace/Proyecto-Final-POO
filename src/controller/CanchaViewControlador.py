@@ -1,14 +1,14 @@
 import sys
-import pygame
+import time
+
 import gif_pygame
-from settings import *
-from view.CanchaView import CanchaView
-from model.logic.Partido import Partido
+import pygame
+
+from model.logic.Cronometro import Cronometro
 from model.logic.Dificultades import *
 from model.logic.EquipoLogico import EquipoLogico
-from model.logic.Cronometro import Cronometro
+
 from .Controlador import Controlador
-import time
 
 
 class CanchaController(Controlador):
