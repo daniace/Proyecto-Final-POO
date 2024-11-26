@@ -21,7 +21,6 @@ class CanchaController(Controlador):
         self._view = CanchaView(pantalla)
         self._dificultad = dificultad
         self._jugador = jugador
-        self._partido = Partido(jugador, dificultad, self)
         self._indice_seleccionado = 0
         self.boton_actual = None
         self.boton_mouse = None
@@ -72,6 +71,7 @@ class CanchaController(Controlador):
         # print(self.boton_texto)  # ESTO SE SACA ES PARA VER SI SE CAMBIABA LOS BOTONES
 
     def main_loop(self):
+        self._partido=Partido(self._jugador,self._dificultad,self._view)
         if self.__cronometro is None or not self.__cronometro.is_alive():
             self.__cronometro=Cronometro()
         self._view.renderizar_acciones()
