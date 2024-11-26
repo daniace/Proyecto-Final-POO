@@ -75,19 +75,18 @@ class Partido:
             except ValueError:
                 print("Entrada no válida... por favor ingrese un número.")
 
-    def realizar_pase(self,aliado_destino,es_cpu: bool = False) -> bool:
+    def realizar_pase(self, aliado_destino, es_cpu: bool = False) -> bool:
         # aliado_destino = self.mostrar_pases(es_cpu)
         if not aliado_destino:
-            print('no entro aliado destino')
+            print("no entro aliado destino")
             return False
 
-        
         jugador_con_pelota = self._jugador_con_pelota()
         print(f"Pase de {self._posicion_pelota} a {aliado_destino}.")
-
         if self._acciones.calcular_efectividad_pase(
             jugador_con_pelota, self._equipo_con_posesion
         ):
+            self._acciones.set_valor_bonificacion(False)
             print("El pase fue exitoso.")
             self._posicion_pelota = aliado_destino
             return True
@@ -103,6 +102,7 @@ class Partido:
                 "Equipo Actual -->",
                 self._equipo_con_posesion,
             )
+            self._acciones.set_valor_bonificacion(False)
             return False
 
     def realizar_intercepcion(self) -> bool:
@@ -120,10 +120,10 @@ class Partido:
             print("SE INTERCEPTO LA PELOTA")
             self._posicion_pelota = posicion_enemigo
             self._cambio_equipo()
-            return True
+            return "interseccion_valida"
         else:
             print("Intercepción Fallida")
-            return False
+            return "interseccion_fallida"
 
     def realizar_atajar(self) -> bool:
         """Únicamente ataja cuando el equipo enemigo tira al arco"""
@@ -147,12 +147,14 @@ class Partido:
         if self._acciones.calcular_efectividad_tiro(
             jugador_actual, self._equipo_con_posesion
         ):
+            self._acciones.set_valor_bonificacion(False)
             return True
         else:
             print("Se falló el tiro")
             print("SALE DEL ARCO ENEMIGO")
             self._posicion_pelota = (0, 3) if self._equipo_con_posesion == 2 else (7, 3)
             self._cambio_equipo()
+            self._acciones.set_valor_bonificacion(False)
             return False
 
     def realizar_gambeta(self) -> bool:
@@ -180,7 +182,7 @@ class Partido:
             return False
 
     def jugar_turno_jugador(self, decision, aliado_pase=None) -> None:
-        time.sleep(1)
+        # time.sleep(1)
         self.mostrar_cancha_con_pelota()  # despues esto se tiene que borrar#
         print(
             "---------------------------------------------------------------------------------------"
@@ -195,8 +197,10 @@ class Partido:
         # print(aliado_pase,'DENTRO DE TURBNO')
         match decision:
             case 1:
-                self.realizar_pase(aliado_pase)
-                self._acciones.set_valor_bonificacion(False)
+                if self.realizar_pase(aliado_pase):
+                    return "pase_valido"
+                else:
+                    return "pase_invalido"
             case 2:
                 print("TIRO DEL JUGADOR 1")
                 if self.realizar_tiro():
@@ -206,7 +210,11 @@ class Partido:
                         print(
                             "GOLES -->", "P1", self._goles[0], "- CPU ", self._goles[1]
                         )
-                self._acciones.set_valor_bonificacion(False)
+                        return "gol"
+                    else:
+                        return "atajado"
+                else:
+                    return "tiro_fallado"
             case 3:
                 if self._jugador_con_pelota().get_posicion()[0] == "ARQUERO":
                     print("el Aqruero no pude realizar gambeta")
@@ -214,7 +222,7 @@ class Partido:
                     self.realizar_gambeta()
 
     def _jugar_turno_cpu(self) -> None:
-        time.sleep(1.5)
+        # time.sleep(1.5)
         self.mostrar_cancha_con_pelota()  # despues esto se tiene que borrar#
         print(
             "---------------------------------------------------------------------------------------"
@@ -245,7 +253,6 @@ class Partido:
                             "GOLES -->", "P1", self._goles[0], "- CPU ", self._goles[1]
                         )
 
-
     def mostrar_cancha_con_pelota(self):  # esta funcion despues se tiene que borrar#
         matriz = self._cancha.get_matriz_cancha()
 
@@ -256,7 +263,7 @@ class Partido:
                 else:
                     print(elemento, end=" ")
             print()
-    
+
     def mostrar_resultado(self):
         print("\033[1;31m" + "Fin del partido" + "\033[0;m")
         print("RESULTADO -->", "P1", self._goles[0], "- CPU ", self._goles[1])
@@ -285,7 +292,6 @@ class Partido:
                         + f"{self._jugador2.get_nombre()} ha ganado!  {self._jugador1.get_nombre()} suma {self._dificultad.get_pts_por_perder()}"
                         + "\033[0;m"
                     )
-
 
 
 # cosas que hacer:

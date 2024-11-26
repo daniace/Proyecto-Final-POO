@@ -20,6 +20,8 @@ class CanchaView(VentanaView):
         # self.__
         self.__pase_botones = False
         self.__cantidad_pases = 0
+        self.__equipo = 1
+        self.__accion = None
 
     def mostrar(self):
         self._botones = {}
@@ -40,6 +42,10 @@ class CanchaView(VentanaView):
         # if self.__pase:
         #     PASE_GIF = gif_pygame.load(PASE)
         #     PASE_GIF.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05)))
+        if self.__accion is not None:
+            texto = self.__acciones[self.__accion]
+            self._pantalla.blit(texto, (int(ANCHO * 0.25), int(ALTO * 0.05)))
+
         if self.__pase_seleccionado:
             if self.__cantidad_pases >= 1:
                 PASE1 = self._mostrar_boton(
@@ -157,8 +163,8 @@ class CanchaView(VentanaView):
             (ANCHO * 0.1, ALTO * 0.75),
             "TIRO",
             get_fuente(50),
-            BLANCO if self._equipo == 1 else NEGRO,
-            "Green" if self._equipo == 1 else NEGRO,
+            BLANCO if self.__equipo == 1 else NEGRO,
+            "Green" if self.__equipo == 1 else NEGRO,
         )
 
         GAMBETA = self._mostrar_boton(
@@ -166,8 +172,8 @@ class CanchaView(VentanaView):
             (ANCHO * 0.1, ALTO * 0.85),
             "GAMBETA",
             get_fuente(50),
-            BLANCO if self._equipo == 1 else NEGRO,
-            "Green" if self._equipo == 1 else NEGRO,
+            BLANCO if self.__equipo == 1 else NEGRO,
+            "Green" if self.__equipo == 1 else NEGRO,
         )
 
         INTERCEPTAR = self._mostrar_boton(
@@ -175,8 +181,8 @@ class CanchaView(VentanaView):
             (ANCHO * 0.1, ALTO * 0.95),
             "INTERCEPTAR",
             get_fuente(50),
-            BLANCO if self._equipo == 2 else NEGRO,
-            "Green" if self._equipo == 2 else NEGRO,
+            BLANCO if self.__equipo == 2 else NEGRO,
+            "Green" if self.__equipo == 2 else NEGRO,
         )
 
         self._botones["interceptar"] = INTERCEPTAR
@@ -225,10 +231,24 @@ class CanchaView(VentanaView):
 
     def renderizar_acciones(self):
         acciones = {
-            "pase_concretado": self.__ajustar_texto(
-                "Pase exitoso", FUENTE, 250, BLANCO
+            "pase_valido": self.__ajustar_texto("Pase exitoso", FUENTE, 250, BLANCO),
+            "pase_invalido": self.__ajustar_texto("Pase fallido", FUENTE, 250, BLANCO),
+            "tiro_al_arco": self.__ajustar_texto("Tiro al arco", FUENTE, 250, BLANCO),
+            "tiro_fallado": self.__ajustar_texto("Tiro fallido", FUENTE, 250, BLANCO),
+            "atajado": self.__ajustar_texto("Tiro atajado", FUENTE, 250, BLANCO),
+            "gol": self.__ajustar_texto("Gooooooolazoooo", FUENTE, 250, BLANCO),
+            "interseccion_valida": self.__ajustar_texto(
+                "Intercepcion exitosa", FUENTE, 250, BLANCO
             ),
-            "pase_errado": self.__ajustar_texto("Pase fallido", FUENTE, 250, BLANCO),
+            "interseccion_fallida": self.__ajustar_texto(
+                "Intercepcion fallida", FUENTE, 250, BLANCO
+            ),
+            "gambeta_exitosa": self.__ajustar_texto(
+                "Gambeta exitosa", FUENTE, 250, BLANCO
+            ),
+            "gambeta_fallida": self.__ajustar_texto(
+                "Gambeta fallida", FUENTE, 250, BLANCO
+            ),
         }
         self.__acciones = acciones
 
@@ -325,3 +345,9 @@ class CanchaView(VentanaView):
                 "CARTA": CARTA_IMAGEN,
             }
             self.__atributos_carta.append(estadisticas)
+
+    def cambiar_equipo(self, equipo):
+        self.__equipo = equipo
+
+    def set_accion(self, accion):
+        self.__accion = accion

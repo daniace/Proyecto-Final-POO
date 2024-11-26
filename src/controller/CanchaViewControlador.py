@@ -8,6 +8,7 @@ from model.logic.Dificultades import *
 from model.logic.EquipoLogico import EquipoLogico
 from model.logic.Cronometro import Cronometro
 from .Controlador import Controlador
+import time
 
 
 class CanchaController(Controlador):
@@ -68,7 +69,7 @@ class CanchaController(Controlador):
         # print(self.boton_texto)  # ESTO SE SACA ES PARA VER SI SE CAMBIABA LOS BOTONES
 
     def main_loop(self):
-        # self._view.renderizar_acciones()
+        self._view.renderizar_acciones()
         # self._view.renderizar()
         ATAJADA_GIF = gif_pygame.load(ATAJADA, loops=-1)
         print("Empieza partido")
@@ -78,13 +79,7 @@ class CanchaController(Controlador):
             if self._view.get_visibilidad():
                 if self.__cronometro._evento_partido_terminado.is_set():
                     self._partido_en_curso = False
-                    print("PARTIDDO TERMINADO")
-                    print(
-                        "RESULTADOS -- >",
-                        self._partido._goles[0],
-                        "-",
-                        self._partido._goles[1],
-                    )
+                    self._partido.mostrar_resultado()
                     break
 
                 ATAJADA_GIF.render(
@@ -140,34 +135,48 @@ class CanchaController(Controlador):
                 self._view.renderizar_carta(jugadores)
                 self.__pase_seleccionado = True
             elif nombre_boton_seleccionado == "tiro":
-                self._partido.jugar_turno_jugador(2)
-                print("hizo tiro")
+                self._view.set_accion("tiro_al_arco")
+                self._view.mostrar()
+                time.sleep(1.5)
+                accion = self._partido.jugar_turno_jugador(2)
+                self._view.set_accion(accion)
             elif nombre_boton_seleccionado == "gambeta":
-                self._partido.jugar_turno_jugador(3)
-                print("hizo gambeta")
+                accion = self._partido.jugar_turno_jugador(3)
         elif self.__pase_seleccionado:
             pases_disponibles = self._partido.mostrar_pases()
             # jugadores = self._partido.imprimir_jugadores(pases_disponibles)
             if nombre_boton_seleccionado == "pase1":
                 # print(pases_disponibles[0][0])
-                self._partido.jugar_turno_jugador(
+                self.__pase_seleccionado = False
+                accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[0][0]
                 )
             elif nombre_boton_seleccionado == "pase2":
-                self._partido.jugar_turno_jugador(
+                self.__pase_seleccionado = False
+                accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[1][0]
                 )
             elif nombre_boton_seleccionado == "pase3":
-                self._partido.jugar_turno_jugador(
+                self.__pase_seleccionado = False
+                accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[2][0]
                 )
             elif nombre_boton_seleccionado == "pase4":
-                self._partido.jugar_turno_jugador(
+                self.__pase_seleccionado = False
+                accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[3][0]
                 )
+            if (
+                self._partido.get_equipo_con_posesion() == 2
+                and self.espera_intercepcion
+            ):
+                nombre_boton_seleccionado == "interceptar"
+                self.espera_intercepcion = False
+                accion = self._partido.realizar_intercepcion()
             self.__pase_seleccionado = False
             self.boton_actual = None
             self._view.deseleccionar_pase()
+            self._view.set_accion(accion)
 
     def set_estadio(self, estadio):
         self._view.set_estadio(estadio)
