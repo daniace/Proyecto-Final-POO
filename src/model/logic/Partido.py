@@ -32,7 +32,7 @@ class Partido:
         """Cambia el equipo que tiene la pelota"""
         self._equipo_con_posesion = 1 if self._equipo_con_posesion == 2 else 2
 
-    def eimprimir_jugadores(self, lista_jugadores):
+    def imprimir_jugadores(self, lista_jugadores):
         lista = []
         diccionario = self._cancha.get_diccionario()
         for i, j in lista_jugadores:
@@ -75,11 +75,13 @@ class Partido:
             except ValueError:
                 print("Entrada no válida... por favor ingrese un número.")
 
-    def realizar_pase(self, es_cpu: bool = False, aliado_destino=None) -> bool:
+    def realizar_pase(self,aliado_destino,es_cpu: bool = False) -> bool:
         # aliado_destino = self.mostrar_pases(es_cpu)
         if not aliado_destino:
+            print('no entro aliado destino')
             return False
 
+        
         jugador_con_pelota = self._jugador_con_pelota()
         print(f"Pase de {self._posicion_pelota} a {aliado_destino}.")
 
@@ -193,7 +195,7 @@ class Partido:
         print(
             f"{self._jugador_con_pelota()} tiene la pelota, ¿qué desea hacer?:\n1 - Pase\n2 - Tiro\n3- Gambeta"
         )
-
+        # print(aliado_pase,'DENTRO DE TURBNO')
         match decision:
             case 1:
                 self.realizar_pase(aliado_pase)
@@ -215,6 +217,7 @@ class Partido:
                     self.realizar_gambeta()
 
     def _jugar_turno_cpu(self) -> None:
+        
         self.mostrar_cancha_con_pelota()  # despues esto se tiene que borrar#
         print(
             "---------------------------------------------------------------------------------------"
@@ -227,7 +230,8 @@ class Partido:
         match decision:
             case 1:
                 print("PASE DE LA CPU")
-                if self.realizar_pase(es_cpu=True):
+                pase_cpu = self.mostrar_pases(es_cpu=True)
+                if self.realizar_pase(pase_cpu):
                     print("DESEA INTENTAR INTERCEPTAR?")
                     "ACA TENFRIA QUE ESPERAR A QUE EL USUARIO APRETE INTERCEPTAR"
                     return True

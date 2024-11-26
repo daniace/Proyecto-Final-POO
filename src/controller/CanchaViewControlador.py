@@ -90,7 +90,7 @@ class CanchaController(Controlador):
                     self._partido.get_equipo_con_posesion() == 2
                     and self.espera_intercepcion != True
                 ):
-                    self.espera_intercepcion = self._partido.jugar_turno_cpu()
+                    self.espera_intercepcion = self._partido._jugar_turno_cpu()
                     self.manejar_eventos(eventos, mouse_pos)
 
                 if self.boton_actual is not None:  # and self.boton_mouse == None:
@@ -114,6 +114,9 @@ class CanchaController(Controlador):
         if not self.__pase_seleccionado:
             if nombre_boton_seleccionado == "pase":
                 self._view.set_pase_seleccionado()
+                pases_disponibles = self._partido.mostrar_pases()
+                for i in pases_disponibles:
+                    print(i[0])
                 print("hizo pasee")
                 self.__pase_seleccionado = True
             elif nombre_boton_seleccionado == "tiro":
@@ -129,14 +132,16 @@ class CanchaController(Controlador):
             pases_disponibles = self._partido.mostrar_pases()
             # jugadores = self._partido.imprimir_jugadores(pases_disponibles)
             if nombre_boton_seleccionado == "pase1":
-                self._partido.jugar_turno_jugador(1, pases_disponibles[0][0])
+                # print(pases_disponibles[0][0])
+                self._partido.jugar_turno_jugador(1, aliado_pase=pases_disponibles[0][0])
             elif nombre_boton_seleccionado == "pase2":
-                self._partido.jugar_turno_jugador(1, pases_disponibles[1][0])
+                self._partido.jugar_turno_jugador(1, aliado_pase=pases_disponibles[1][0])
             elif nombre_boton_seleccionado == "pase3":
-                self._partido.jugar_turno_jugador(1, pases_disponibles[2][0])
+                self._partido.jugar_turno_jugador(1, aliado_pase=pases_disponibles[2][0])
             elif nombre_boton_seleccionado == "pase4":
-                self._partido.jugar_turno_jugador(1, pases_disponibles[3][0])
+                self._partido.jugar_turno_jugador(1, aliado_pase=pases_disponibles[3][0])
             self.__pase_seleccionado = False
+            print('aaaaaaaaaaaaaaaaaaaa')
 
     def set_estadio(self, estadio):
         self._view.set_estadio(estadio)
