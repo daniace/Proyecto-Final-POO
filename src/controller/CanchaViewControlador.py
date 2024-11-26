@@ -171,17 +171,16 @@ class CanchaController(Controlador):
                 accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[3][0]
                 )
-            if (
-                self._partido.get_equipo_con_posesion() == 2
-                and self.espera_intercepcion
-            ):
-                nombre_boton_seleccionado == "interceptar"
-                self.espera_intercepcion = False
-                accion = self._partido.realizar_intercepcion()
             self.__pase_seleccionado = False
             self.boton_actual = None
             self._view.deseleccionar_pase()
             self._view.set_accion(accion)
+            
+        if self._partido.get_equipo_con_posesion() == 2 and self.espera_intercepcion:
+            if nombre_boton_seleccionado == "interceptar":
+                self.espera_intercepcion = False
+                accion = self._partido.realizar_intercepcion()
+            
 
     def set_estadio(self, estadio):
         self._view.set_estadio(estadio)
