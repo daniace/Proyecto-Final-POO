@@ -22,6 +22,7 @@ class CanchaView(VentanaView):
         self.__cantidad_pases = 0
         self.__equipo = 1
         self.__accion = None
+        self.__gif = "PASE"
 
     def mostrar(self, tiempo):
         self._botones = {}
@@ -50,7 +51,18 @@ class CanchaView(VentanaView):
         #     PASE_GIF.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05)))
         if self.__accion is not None:
             texto = self.__acciones[self.__accion]
+            
+            #ACA TAL VEZ DEBERIA IR UNA BANDERA DE TIEMPO Y QUE CUANDO PASE DETERMINADO TIEMPO DESAPAREZCA 
+            self.__renderizaciones[self.__gif].render(
+            self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
+            )
+            
+
+            # self.__renderizaciones["pase"]
+            # self._pantalla.blit(gif, (int(ANCHO * 0.25), int(ALTO * 0.05))
+            # )
             self._pantalla.blit(texto, (int(ANCHO * 0.25), int(ALTO * 0.05)))
+            
 
         if self.__pase_seleccionado:
             if self.__cantidad_pases >= 1:
@@ -260,7 +272,7 @@ class CanchaView(VentanaView):
     def renderizar(self):
         score = pygame.image.load(SCORE)
         score = pygame.transform.scale(score, (400, 200))
-        PASE_GIF = gif_pygame.load(PASE)
+        PASE_GIF = gif_pygame.load(PASE, loops=1)
         PASE2_GIF = gif_pygame.load(PASE2)
 
         TIRO_GIF = gif_pygame.load(TIRO)
@@ -279,6 +291,7 @@ class CanchaView(VentanaView):
         ATAJADA2_GIF = gif_pygame.load(ATAJADA2)
 
         gifs = {
+            "PASE" : PASE_GIF,
             "score": score,
             "pase": PASE_GIF.render(
                 self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
