@@ -30,6 +30,16 @@ class Partido:
         """Cambia el equipo que tiene la pelota"""
         self._equipo_con_posesion = 1 if self._equipo_con_posesion == 2 else 2
 
+    def imprimir_jugadores(self,lista_jugadores):
+        lista = []
+        diccionario = self._cancha.get_diccionario()
+        for i,j in lista_jugadores:
+            lista.append(diccionario.get(i,None))
+        return lista
+    
+    def get_equipo_con_posesion(self) -> int:
+        return self._equipo_con_posesion
+    
     def mostrar_pases(self, es_cpu: bool = False):
         aliados_cercanos = self._cancha.encontrar_puntos_cercanos(
             self._posicion_pelota, "aliado"
@@ -46,20 +56,15 @@ class Partido:
             "---------------------------------------------------------------------------------------"
         )
         # print("Pases disponibles")
-        # self._cancha.imprimir_jugadores(aliados_cercanos)
-        self._view.mostrar_mensaje("Pases disponibles:", 100)
-        lista_jugadores = [jugador[0] for jugador in aliados_cercanos]
-        for i, jugador in enumerate(lista_jugadores):
-            self._view.mostrar_mensaje(f"{i+1} - {jugador}", 150 + (i * 40))
-        
+        return aliados_cercanos
+        # decision = self._obtener_decision_usuario(len(aliados_cercanos))
+        # return aliados_cercanos[decision - 1][0]
 
-        decision = self._obtener_decision_usuario(len(aliados_cercanos))
-        return aliados_cercanos[decision - 1][0]
-
-    def _obtener_decision_usuario(self, max_opciones: int) -> int:
+    def obtener_decision_usuario(self, max_opciones: int) -> int:
         while True:
             try:
-                decision = int(input("Seleccione un pase: ")) #input("Seleccione un pase: ") #Deberia ingresar un evento
+                decision = ("Seleccione un pase: ")#input("Seleccione un pase: ") #Deberia ingresar un evento
+                
                 if 1 <= decision <= max_opciones:
                     return decision
                 else:
@@ -67,8 +72,8 @@ class Partido:
             except ValueError:
                 print("Entrada no válida... por favor ingrese un número.")
 
-    def realizar_pase(self, es_cpu: bool = False) -> bool:
-        aliado_destino = self.mostrar_pases(es_cpu)
+    def realizar_pase(self, es_cpu: bool = False, aliado_destino=None) -> bool:
+        # aliado_destino = self.mostrar_pases(es_cpu)
         if not aliado_destino:
             return False
 
@@ -155,7 +160,7 @@ class Partido:
             self._posicion_pelota = self._cancha.encontrar_puntos_cercanos( self._posicion_pelota, "enemigo" )[0] 
             return False
 
-    def _jugar_turno_jugador(self) -> None:
+    def jugar_turno_jugador(self, decision, aliado_pase = None) -> None:
         time.sleep(1)
         self.mostrar_cancha_con_pelota()                #despues esto se tiene que borrar#
         print(
@@ -171,10 +176,10 @@ class Partido:
         print(
             f"{self._jugador_con_pelota()} tiene la pelota, ¿qué desea hacer?:\n1 - Pase\n2 - Tiro\n3- Gambeta"
         )
-        decision = self._obtener_decision_usuario(3)
+ 
         match decision:
             case 1:
-                self.realizar_pase()
+                self.realizar_pase(aliado_pase)
                 self._acciones.set_valor_bonificacion(False)
             case 2:
                 print("TIRO DEL JUGADOR 1")
@@ -189,7 +194,9 @@ class Partido:
                     print("el Aqruero no pude realizar gambeta")
                 else: self.realizar_gambeta()
 
-    def _jugar_turno_cpu(self) -> None:
+
+        
+    def jugar_turno_cpu(self) -> None:
         self.mostrar_cancha_con_pelota()        #despues esto se tiene que borrar#
         print(
             "---------------------------------------------------------------------------------------"
@@ -204,9 +211,11 @@ class Partido:
                 print("PASE DE LA CPU")
                 if self.realizar_pase(es_cpu=True):
                     print("DESEA INTENTAR INTERCEPTAR?")
-                    eleccion = self._obtener_decision_usuario(2)
-                    if eleccion == 1:
-                        self.realizar_intercepcion()
+                    'ACA TENFRIA QUE ESPERAR A QUE EL USUARIO APRETE INTERCEPTAR'
+                    return True
+                    # if decision == True:
+                    #     self.realizar_intercepcion()
+                    #     'OBTENER DECISION DEBERIA CONECTARSE CON EL EVENTO DE LA VISTA INTERCEPTAR'
             case 2:
                 print("TIRO DE LA CPU")
                 if self.realizar_tiro():
@@ -217,9 +226,9 @@ class Partido:
 
     def _jugar_turno(self) -> None:
         if self._equipo_con_posesion == 1:
-            self._jugar_turno_jugador()
+            self.jugar_turno_jugador()
         else:
-            self._jugar_turno_cpu()
+            self.jugar_turno_cpu()
 
     def mostrar_cancha_con_pelota(self):                #esta funcion despues se tiene que borrar#
         matriz = self._cancha.get_matriz_cancha()

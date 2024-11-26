@@ -65,6 +65,9 @@ class Cancha:
                     
         # return diccionario_jugadores_equipo1, diccionario_jugadores_equipo2
 
+    def get_diccionario_jugadores(self):
+        return self._diccionario_completo
+    
     def mostrar_diccionario(self):
         # print("DICCIONARIO EQUIPO 1")
         # for clave, valor in self._diccionario_equipo1.items():
@@ -79,9 +82,7 @@ class Cancha:
             print(f"{clave} : {valor}")
     "No es necesario separarlos en distintos diccionarios, es mas practico tener un solo diccionario con todos los jugadores"
 
-    def imprimir_jugadores(self,lista_jugadores):
-        for i,j in lista_jugadores:
-            print(">",str(i),self._diccionario_completo.get(i,"sorry brodel, no esta"), "esta a una distancia de ", j)
+
     
     def buscar_jugador(self, posicion):
         # posicion = jugador
