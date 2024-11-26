@@ -12,6 +12,10 @@ class CanchaView(VentanaView):
         self.__renderizaciones = {}
         self.__estadio = camp_nou
         self.__estadio_cancha = barcelona
+        self.__acciones = {}
+        self.__pase_seleccionado = False
+        self.__pase = False
+        self.__pase_botones = False
 
     def mostrar(self):
         self._botones = {}
@@ -32,6 +36,13 @@ class CanchaView(VentanaView):
         # if self.__pase:
         #     PASE_GIF = gif_pygame.load(PASE)
         #     PASE_GIF.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05)))
+        if self.__pase_seleccionado:
+            if self.__pase:
+                pase = self.__acciones["pase_concretado"]
+                self._pantalla.blit(pase, (int(ANCHO * 0.8), int(ALTO * 0.7)))
+            else:
+                pase = self.__acciones["pase_errado"]
+                self._pantalla.blit(pase, (int(ANCHO * 0.8), int(ALTO * 0.7)))
 
         PASE = self._mostrar_boton(
             boton_negro2,
@@ -101,6 +112,27 @@ class CanchaView(VentanaView):
         elif self.__estadio == malasia:
             self.__estadio_cancha = malasya
 
+    def __ajustar_texto(self, texto, fuente, max_ancho, color):
+        tamaño = 50  # Tamaño inicial
+        while True:
+            # llama a la fuente con el tamaño inicial
+            fuente_actual = pygame.font.Font(fuente, tamaño)
+            # renderiza el texto
+            texto_renderizado = fuente_actual.render(texto, True, NEGRO)
+            if texto_renderizado.get_width() <= max_ancho:
+                # si el texto entra en el ancho maximo lo devuelve
+                return get_fuente(tamaño).render(texto, True, color)
+            tamaño -= 1
+
+    def renderizar_acciones(self):
+        acciones = {
+            "pase_concretado": self.__ajustar_texto(
+                "Pase exitoso", FUENTE, 250, BLANCO
+            ),
+            "pase_errado": self.__ajustar_texto("Pase fallido", FUENTE, 250, BLANCO),
+        }
+        self.__acciones = acciones
+
     def renderizar(self):
         PASE_GIF = gif_pygame.load(PASE)
         PASE2_GIF = gif_pygame.load(PASE2)
@@ -162,3 +194,7 @@ class CanchaView(VentanaView):
             ),
         }
         self.__renderizaciones = gifs
+
+    def set_pase(self, pase):
+        self.__pase = pase
+        self.__pase_seleccionado = True

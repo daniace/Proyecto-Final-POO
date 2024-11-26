@@ -16,7 +16,7 @@ class CanchaController(Controlador):
         self._view = CanchaView(pantalla)
         self._dificultad = dificultad
         self._jugador = jugador
-        self._partido = Partido(jugador, dificultad, self._view)
+        self._partido = Partido(jugador, dificultad, self)
         self._indice_seleccionado = 0
         self.boton_actual = None
         self.boton_mouse = None
@@ -67,7 +67,8 @@ class CanchaController(Controlador):
         # print(self.boton_texto) #ESTO SE SACA ES PARA VER SI SE CAMBIABA LOS BOTONES
 
     def main_loop(self):
-        self._view.renderizar()
+        self._view.renderizar_acciones()
+        # self._view.renderizar()
         while True:
             if self._view.get_visibilidad():
                 mouse_pos = pygame.mouse.get_pos()
@@ -101,8 +102,11 @@ class CanchaController(Controlador):
             menu_jugar = JugarController()
             menu_jugar.main_loop()
         elif nombre_boton_seleccionado == "pase":
-            print("hizo pasee")
-            self._partido.realizar_pase()
+            self._view.set_pase_botones(True)
+            if self._partido.realizar_pase():
+                self._view.set_pase(True)
+            else:
+                self._view.set_pase(False)
         elif nombre_boton_seleccionado == "tiro":
             self._partido.realizar_tiro()
             print("hizo tiro")
