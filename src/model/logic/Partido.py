@@ -219,7 +219,10 @@ class Partido:
                 if self._jugador_con_pelota().get_posicion()[0] == "ARQUERO":
                     print("el Aqruero no pude realizar gambeta")
                 else:
-                    self.realizar_gambeta()
+                    if self.realizar_gambeta():
+                        return "gambeta_exitosa"
+                    else:
+                        return "gambeta_fallida"
 
     def _jugar_turno_cpu(self) -> None:
         # time.sleep(1.5)

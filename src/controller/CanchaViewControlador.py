@@ -71,9 +71,9 @@ class CanchaController(Controlador):
         # print(self.boton_texto)  # ESTO SE SACA ES PARA VER SI SE CAMBIABA LOS BOTONES
 
     def main_loop(self):
-        self._partido=Partido(self._jugador,self._dificultad,self._view)
+        self._partido = Partido(self._jugador, self._dificultad, self._view)
         if self.__cronometro is None or not self.__cronometro.is_alive():
-            self.__cronometro=Cronometro()
+            self.__cronometro = Cronometro()
         self._view.renderizar_acciones()
         self._view.renderizar()
         ATAJADA_GIF = gif_pygame.load(ATAJADA, loops=-1)
@@ -147,6 +147,7 @@ class CanchaController(Controlador):
                 self._view.set_accion(accion)
             elif nombre_boton_seleccionado == "gambeta":
                 accion = self._partido.jugar_turno_jugador(3)
+                self._view.set_accion(accion)
         elif self.__pase_seleccionado:
             pases_disponibles = self._partido.mostrar_pases()
             # jugadores = self._partido.imprimir_jugadores(pases_disponibles)
@@ -175,12 +176,12 @@ class CanchaController(Controlador):
             self.boton_actual = None
             self._view.deseleccionar_pase()
             self._view.set_accion(accion)
-            
+
         if self._partido.get_equipo_con_posesion() == 2 and self.espera_intercepcion:
             if nombre_boton_seleccionado == "interceptar":
                 self.espera_intercepcion = False
                 accion = self._partido.realizar_intercepcion()
-            
+                self._view.set_accion(accion)
 
     def set_estadio(self, estadio):
         self._view.set_estadio(estadio)
