@@ -9,6 +9,7 @@ from model.logic.Dificultades import *
 from model.logic.EquipoLogico import EquipoLogico
 from view.CanchaView import CanchaView
 from model.logic.Partido import Partido
+from settings import *
 
 from .Controlador import Controlador
 
@@ -27,7 +28,7 @@ class CanchaController(Controlador):
         self.boton_texto = None  # esto se saca
         self.espera_intercepcion = False
         self.__pase_seleccionado = False
-        self.__cronometro = Cronometro()
+        self.__cronometro = None
 
     def manejar_eventos(self, eventos, mouse_pos):
         from controller.JugarViewControlador import JugarController
@@ -71,6 +72,8 @@ class CanchaController(Controlador):
         # print(self.boton_texto)  # ESTO SE SACA ES PARA VER SI SE CAMBIABA LOS BOTONES
 
     def main_loop(self):
+        if self.__cronometro is None or not self.__cronometro.is_alive():
+            self.__cronometro=Cronometro()
         self._view.renderizar_acciones()
         self._view.renderizar()
         ATAJADA_GIF = gif_pygame.load(ATAJADA, loops=-1)
@@ -109,6 +112,7 @@ class CanchaController(Controlador):
 
                 clock.tick(60)
                 pygame.display.update()
+        self.__cronometro.join()
 
     def actualizar_seleccion(self):
         botones = self._view.get_botones()
@@ -137,7 +141,7 @@ class CanchaController(Controlador):
                 self.__pase_seleccionado = True
             elif nombre_boton_seleccionado == "tiro":
                 self._view.set_accion("tiro_al_arco")
-                self._view.mostrar()
+                self._view.mostrar(self.__cronometro.get_contador())
                 time.sleep(1.5)
                 accion = self._partido.jugar_turno_jugador(2)
                 self._view.set_accion(accion)
