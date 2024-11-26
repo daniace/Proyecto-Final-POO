@@ -42,8 +42,8 @@ class Cancha:
         self.obtener_diccionario_jugadores()  # una vez se setean los equipos, se debe generar el diccionario
 
     def obtener_diccionario_jugadores(self):
-        # self._diccionario_equipo1 = {}
-        # self._diccionario_equipo2 = {}
+        self._diccionario_equipo1 = {}
+        self._diccionario_equipo2 = {}
         self._diccionario_completo = {}
         jugador_index = 0
         jugador_index2 = 0
@@ -55,11 +55,11 @@ class Cancha:
                 if (
                     self._cancha[i][j] == self._equipo1.get_nro_equipo()
                 ):  # NRO_EQUIPO TIENE 1 O 2
-                    # self._diccionario_equipo1[(i, j)] = equipo1[jugador_index]
+                    self._diccionario_equipo1[(i, j)] = equipo1[jugador_index]
                     self._diccionario_completo[(i, j)] = equipo1[jugador_index]
                     jugador_index += 1
                 if self._cancha[i][j] == self._equipo2.get_nro_equipo():
-                    # self._diccionario_equipo2[(i, j)] = equipo2[jugador_index2]
+                    self._diccionario_equipo2[(i, j)] = equipo2[jugador_index2]
                     self._diccionario_completo[(i, j)] = equipo2[jugador_index2]
                     jugador_index2 += 1
                     

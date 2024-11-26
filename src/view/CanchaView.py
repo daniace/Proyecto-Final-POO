@@ -15,7 +15,12 @@ class CanchaView(VentanaView):
         self.__acciones = {}
         self.__pase_seleccionado = False
         self.__pase = False
+        self.__tiro = True
+        self.__intercepcion = True
+        # self.__
         self.__pase_botones = False
+        self.__cantidad_pases = 0
+        
 
     def mostrar(self):
         self._botones = {}
@@ -37,57 +42,63 @@ class CanchaView(VentanaView):
         #     PASE_GIF = gif_pygame.load(PASE)
         #     PASE_GIF.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05)))
         if self.__pase_seleccionado:
-            PASE1 = self._mostrar_boton(
-                boton_negro2,
-                (ANCHO * 0.3, ALTO * 0.65),
-                "PASE1",
-                get_fuente(50),
-                BLANCO,
-                "Green",
+            if self.__cantidad_pases >= 1 :
+                PASE1 = self._mostrar_boton(
+                    boton_negro2,
+                    (ANCHO * 0.3, ALTO * 0.65),
+                    "PASE1",
+                    get_fuente(50),
+                    BLANCO,
+                    "Green",
+                )
+                self._botones["pase1"] = PASE1
+            if self.__cantidad_pases >= 2:
+                PASE2 = self._mostrar_boton(
+                    boton_negro2,
+                    (ANCHO * 0.5, ALTO * 0.65),
+                    "PASE2",
+                    get_fuente(50),
+                    BLANCO,
+                    "Green",
             )
-            PASE2 = self._mostrar_boton(
-                boton_negro2,
-                (ANCHO * 0.5, ALTO * 0.65),
-                "PASE2",
-                get_fuente(50),
-                BLANCO,
-                "Green",
-            )
-            PASE3 = self._mostrar_boton(
-                boton_negro2,
-                (ANCHO * 0.3, ALTO * 0.75),
-                "PASE3",
-                get_fuente(50),
-                BLANCO,
-                "Green",
-            )
-            PASE4 = self._mostrar_boton(
-                boton_negro2,
-                (ANCHO * 0.5, ALTO * 0.75),
-                "PASE4",
-                get_fuente(50),
-                BLANCO,
-                "Green",
-            )
+                self._botones["pase2"] = PASE2
+            if self.__cantidad_pases >= 3:
+                PASE3 = self._mostrar_boton(
+                        boton_negro2,
+                        (ANCHO * 0.3, ALTO * 0.75),
+                        "PASE3",
+                        get_fuente(50),
+                        BLANCO,
+                        "Green",
+                    )
+                self._botones["pase3"] = PASE3
+            if self.__cantidad_pases >= 4:
+                PASE4 = self._mostrar_boton(
+                        boton_negro2,
+                        (ANCHO * 0.5, ALTO * 0.75),
+                        "PASE4",
+                        get_fuente(50),
+                        BLANCO,
+                        "Green",
+                    )
+                self._botones["pase4"] = PASE4
+            # self._botones[]
             # if self.__pase:
             #     pase = self.__acciones["pase_concretado"]
             #     self._pantalla.blit(pase, (int(ANCHO * 0.8), int(ALTO * 0.7)))
             # else:
             #     pase = self.__acciones["pase_errado"]
             #     self._pantalla.blit(pase, (int(ANCHO * 0.8), int(ALTO * 0.7)))
-            self._botones["pase1"] = PASE1
-            self._botones["pase2"] = PASE2
-            self._botones["pase3"] = PASE3
-            self._botones["pase4"] = PASE4
 
+        # if self.__pase_seleccionado:
         PASE = self._mostrar_boton(
-            boton_negro2,
-            (ANCHO * 0.1, ALTO * 0.65),
-            "PASE",
-            get_fuente(50),
-            BLANCO,
-            "Green",
-        )
+                boton_negro2,
+                (ANCHO * 0.1, ALTO * 0.65),
+                "PASE",
+                get_fuente(50),
+                BLANCO,
+                "Green",
+            )
 
         TIRO = self._mostrar_boton(
             boton_negro2,
@@ -234,5 +245,10 @@ class CanchaView(VentanaView):
     def set_pase(self, pase):
         self.__pase = pase
 
-    def set_pase_seleccionado(self):
+    def set_pase_seleccionado(self, cantidad_pases):    
         self.__pase_seleccionado = True
+        self.__cantidad_pases = cantidad_pases
+
+    
+    def deseleccionar_pase(self):
+        self.__pase_seleccionado = False

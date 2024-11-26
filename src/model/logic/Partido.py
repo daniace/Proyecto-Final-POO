@@ -289,23 +289,23 @@ class Partido:
                         + "\033[0;m"
                     )
 
-    def jugar_partido(self) -> None:
+    def iniciar_partido(self) -> None:
         self._partido_en_curso = True
-
         if self._cronometro is None or not self._cronometro.is_alive():
             self._cronometro = Cronometro()
             self._cronometro.start()
 
-        while self._partido_en_curso:
-            if self._cronometro._evento_partido_terminado.is_set():
-                self._partido_en_curso = False
-            else:
-                self._jugar_turno()
+        # while self._partido_en_curso:
+        #     if self._cronometro._evento_partido_terminado.is_set():
+        #         self._partido_en_curso = False
+        #     else:
+        #         pass
+                # self._jugar_turno()
 
-        self._cronometro.join()
-        print("\033[1;31m" + "Fin del partido" + "\033[0;m")
-        print("RESULTADO -->", "P1", self._goles[0], "- CPU ", self._goles[1])
-        self._repartir_puntos(self._goles)
+        # self._cronometro.join()
+        # print("\033[1;31m" + "Fin del partido" + "\033[0;m")
+        # print("RESULTADO -->", "P1", self._goles[0], "- CPU ", self._goles[1])
+        # self._repartir_puntos(self._goles)
 
 
 # cosas que hacer:

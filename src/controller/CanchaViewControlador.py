@@ -6,6 +6,7 @@ from view.CanchaView import CanchaView
 from model.logic.Partido import Partido
 from model.logic.Dificultades import *
 from model.logic.EquipoLogico import EquipoLogico
+from model.logic.Cronometro import Cronometro
 from .Controlador import Controlador
 
 
@@ -23,6 +24,7 @@ class CanchaController(Controlador):
         self.boton_texto = None  # esto se saca
         self.espera_intercepcion = False
         self.__pase_seleccionado = False
+        self.__cronometro = Cronometro()
 
     def iniciar_partido(self):
         self._partido.jugar_partido()
@@ -72,8 +74,17 @@ class CanchaController(Controlador):
         # self._view.renderizar_acciones()
         # self._view.renderizar()
         ATAJADA_GIF = gif_pygame.load(ATAJADA, loops=-1)
+        # self._partido.jugar_partido()
+        self.__cronometro.start()
+        self._partido._partido_en_curso = True
         while True:
             if self._view.get_visibilidad():
+                if self.__cronometro._evento_partido_terminado.is_set():
+                    self._partido_en_curso = False
+                    print('PARTIDDO TERMINADO')
+                    print('RESULTADOS -- >', self._partido._goles[0], '-', self._partido._goles[1])
+                    break
+                
                 ATAJADA_GIF.render(
                     self._view._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
                 )
@@ -113,7 +124,9 @@ class CanchaController(Controlador):
         nombre_boton_seleccionado = list(botones.keys())[self._indice_seleccionado]
         if not self.__pase_seleccionado:
             if nombre_boton_seleccionado == "pase":
-                self._view.set_pase_seleccionado()
+                cantidad_pases = len(self._partido.mostrar_pases())
+                self._view.set_pase_seleccionado(cantidad_pases)
+                
                 pases_disponibles = self._partido.mostrar_pases()
                 for i in pases_disponibles:
                     print(i[0])
@@ -141,7 +154,9 @@ class CanchaController(Controlador):
             elif nombre_boton_seleccionado == "pase4":
                 self._partido.jugar_turno_jugador(1, aliado_pase=pases_disponibles[3][0])
             self.__pase_seleccionado = False
-            print('aaaaaaaaaaaaaaaaaaaa')
+            self.boton_actual = None
+            self._view.deseleccionar_pase()
+            
 
     def set_estadio(self, estadio):
         self._view.set_estadio(estadio)
