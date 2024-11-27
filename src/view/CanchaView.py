@@ -211,29 +211,35 @@ class CanchaView(VentanaView):
         self._botones["pase"] = PASE
 
     def renderizar_gif(self):
-        gif = self.__renderizaciones[self.__gif_actual][
+        self.__gif_renderizado = self.__renderizaciones[self.__gif_actual][
             0 if self.__gif_actual == "corriendo" else self.__numero_random_seleccionado
         ]
-        gif.render(self._pantalla, (int(ANCHO * 0.232), int(ALTO * 0.018)))
+        self.__gif_renderizado.render(
+            self._pantalla, (int(ANCHO * 0.232), int(ALTO * 0.018))
+        )
 
-        if gif.ended:
+        if self.__gif_renderizado.ended or self.__accion_anterior != self.__accion:
             self.__gif_terminado = True
-            gif.reset()
+
+            # self.__gif_renderizado.pause()
+
             print(self.__gif_actual, "GIFFF ACTUAL")
             print(self.__gif_anterior, "GIFFF ANTERIOR")
-            if self.__gif_actual != self.__gif_anterior:
+            if self.__accion != self.__accion_anterior:
+                self.__gif_renderizado.reset()
                 self.cambiar_gif()
-        else:
-            self.__gif_terminado = False
+                self.__gif_terminado = False
+            else:
+                self.__gif_actual != "corriendo"
+                self.__gif_actual = "corriendo"
 
     def cambiar_gif(self):
-        if self.__gif_actual != "corriendo":
-            self.__gif_actual = "corriendo"
-        elif self.__accion is not None:  # and self.__accion_anterior != self.__accion:
-            if self.__gif_actual != "corriendo":
-                self.__gif_anterior = self.__gif_actual
-                self.__accion_anterior = self.__gif_actual
+        if self.__accion is not None:  # and self.__accion_anterior != self.__accion:
+            # if self.__gif_actual != "corriendo":
+            # self.__gif_actual
             self.__gif_actual = self.__accion
+            self.__accion_anterior = self.__gif_actual
+            # self.__gif_actual.reset()
             print(self.__gif_actual, "actual")
             print(self.__gif_anterior, "anterior")
             self.__numero_random_seleccionado = random.randint(

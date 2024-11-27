@@ -1,6 +1,7 @@
 import sys
 import time
-import multiprocessing
+
+# import multiprocessing
 import gif_pygame
 import pygame
 
@@ -99,12 +100,12 @@ class CanchaController(Controlador):
                 #     self._view._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
                 # )
                 self.mostrar_pelota()  # CAMBIAR NOMBRE
-                mouse_pos = pygame.mouse.get_pos()
+                mouse_pos = None
                 self._view.mostrar(self.__cronometro.get_contador())  # Mostrar el menú
                 eventos = pygame.event.get()  # Manejar eventos
                 self._view.cambiar_equipo(self._partido.get_equipo_con_posesion())
-
-                if self._view.get_gif_terminado() or self.__pase_seleccionado:
+                #  self._view.get_gif_terminado() or
+                if self._view.get_gif_terminado or self.__pase_seleccionado:
                     if (
                         self._partido.get_equipo_con_posesion() == 1
                         or self.espera_intercepcion == True
@@ -190,11 +191,14 @@ class CanchaController(Controlador):
                 accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[3][0]
                 )
+
             self.__pase_seleccionado = False
-            self.boton_actual = None
             self._view.deseleccionar_pase()
-            self._view.set_accion(accion)
             self.cambiar_boton_actual()
+            self._view.set_accion(accion)
+
+            self.boton_actual = None
+            # self._view.mostrar(self.__cronometro.get_contador())
         "ACAAAAAAAAAAAAAAA"
 
         if self._partido.get_equipo_con_posesion() == 2 and self.espera_intercepcion:

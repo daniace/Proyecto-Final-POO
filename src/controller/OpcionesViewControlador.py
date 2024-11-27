@@ -32,7 +32,7 @@ class OpcionesController(Controlador):
                     self.__musica.pausar()
                 if botones["atras"].checkForInput(mouse_pos):
                     self._view.ocultar_visibilidad()
-                    menu_principal = MenuController(self.__dificultad)
+                    menu_principal = MenuController()
                     menu_principal.main_loop()
                 if botones["facil"].checkForInput(mouse_pos):
                     self.__dificultad.set_dificultad(Facil())
