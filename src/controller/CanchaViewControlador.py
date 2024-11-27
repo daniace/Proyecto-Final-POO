@@ -47,10 +47,6 @@ class CanchaController(Controlador):
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    self._view.ocultar_visibilidad()
-                    jugar = JugarController()
-                    jugar.main_loop()
                 if event.key == pygame.K_DOWN:
                     self._indice_seleccionado = (self._indice_seleccionado - 1) % len(
                         botones
