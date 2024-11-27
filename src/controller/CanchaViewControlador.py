@@ -5,6 +5,7 @@ import time
 import gif_pygame
 import pygame
 
+from controller.ReproductorMusica import ReproductorMusica
 from model.logic.Cronometro import Cronometro
 from model.logic.Dificultades import *
 from model.logic.EquipoLogico import EquipoLogico
@@ -13,6 +14,7 @@ from settings import *
 from settings import dificultad_actual
 from view.CanchaView import CanchaView
 from view.PantallaCargaView import CargaView
+
 from .Controlador import Controlador
 from .GameOverViewControlador import GameOverViewControlador
 
@@ -33,6 +35,8 @@ class CanchaController(Controlador):
         self.__cronometro = None
         self.__diccionario_posiciones_jugadores = None
         self.__pantalla_de_carga = CargaView(SCREEN)
+        self.__formacion = None
+        self.__reproductor = ReproductorMusica()
 
     def manejar_eventos(self, eventos, mouse_pos):
         from controller.JugarViewControlador import JugarController
@@ -75,9 +79,10 @@ class CanchaController(Controlador):
         # print(self.boton_texto)  # ESTO SE SACA ES PARA VER SI SE CAMBIABA LOS BOTONES
 
     def main_loop(self):
+        self.__reproductor.detener()
         self.__pantalla_de_carga.main_loop()
         self._partido = Partido(self._jugador, self.__dificultad, self._view)
-        self.relacionar_posiciones(self._partido.get_diccionario())
+        self.relacionar_posiciones(self._partido.get_diccionario(), self.__formacion)
         if self.__cronometro is None or not self.__cronometro.is_alive():
             self.__cronometro = Cronometro()
         self._view.renderizar_acciones()
@@ -169,6 +174,8 @@ class CanchaController(Controlador):
                 self._view.set_accion(accion)
         elif self.__pase_seleccionado:
             pases_disponibles = self._partido.mostrar_pases()
+            self.boton_actual = None
+            self._view.mostrar(self.__cronometro.get_contador())
             # jugadores = self._partido.imprimir_jugadores(pases_disponibles)
             if nombre_boton_seleccionado == "pase1":
                 # print(pases_disponibles[0][0])
@@ -213,8 +220,11 @@ class CanchaController(Controlador):
         self._view.set_estadio(estadio)
         self._view.setear_estadio_cancha()
 
-    def relacionar_posiciones(self, diccionario_1):
-        formacion_usuario = FORMACION_USUARIO["4-3-3"]
+    def set_formacion(self, formacion):
+        self.__formacion = formacion
+
+    def relacionar_posiciones(self, diccionario_1, formacion_actual):
+        formacion_usuario = FORMACION_USUARIO[formacion_actual]
         formacion_cpu = FORMACION_CPU["4-3-3"]
 
         posiciones = {
@@ -244,13 +254,13 @@ class CanchaController(Controlador):
             self._partido.get_posicion_pelota()
         ]
         self._view.set_posicion_pelota(posicion)
+
     def mostrar_aliados(self):
-        pases=[]
-        lista= self._partido.mostrar_pases()
+        pases = []
+        lista = self._partido.mostrar_pases()
         for aliados in lista:
             pases.append(self.__diccionario_posiciones_jugadores[aliados[0]])
         self._view.set_pases(pases)
-            
         # "4-4-2": {
         #     "portero": [(137,320)],
         #     "defensas": [(169,287),(104,285),(209,271),(63,272)],

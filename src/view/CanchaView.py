@@ -1,7 +1,9 @@
-import gif_pygame
-import time
-import pygame
 import random
+import time
+
+import gif_pygame
+import pygame
+
 from settings import *
 
 from .VentanaView import VentanaView
@@ -140,6 +142,7 @@ class CanchaView(VentanaView):
                 )
                 self._pantalla.blit(CAMISETA, (int(ANCHO * 0.425), int(ALTO * 0.89)))
                 self._pantalla.blit(DOR, (int(ANCHO * 0.44), int(ALTO * 0.935)))
+
                 self._botones["pase3"] = PASE3
             if self.__cantidad_pases >= 4:
                 PASE4 = self._mostrar_boton(
@@ -173,46 +176,46 @@ class CanchaView(VentanaView):
             #     pase = self.__acciones["pase_errado"]
             #     self._pantalla.blit(pase, (int(ANCHO * 0.8), int(ALTO * 0.7)))
 
-        # if self.__pase_seleccionado:
-        PASE = self._mostrar_boton(
-            boton_negro2,
-            (ANCHO * 0.1, ALTO * 0.65),
-            "PASE",
-            get_fuente(50),
-            BLANCO,
-            "Green",
-        )
+        if not self.__pase_seleccionado:
+            PASE = self._mostrar_boton(
+                boton_negro2,
+                (ANCHO * 0.1, ALTO * 0.65),
+                "PASE",
+                get_fuente(50),
+                BLANCO if self.__equipo == 1 else NEGRO,
+                "Green" if self.__equipo == 1 else NEGRO,
+            )
 
-        TIRO = self._mostrar_boton(
-            boton_negro2,
-            (ANCHO * 0.1, ALTO * 0.75),
-            "TIRO",
-            get_fuente(50),
-            BLANCO if self.__equipo == 1 else NEGRO,
-            "Green" if self.__equipo == 1 else NEGRO,
-        )
+            TIRO = self._mostrar_boton(
+                boton_negro2,
+                (ANCHO * 0.1, ALTO * 0.75),
+                "TIRO",
+                get_fuente(50),
+                BLANCO if self.__equipo == 1 else NEGRO,
+                "Green" if self.__equipo == 1 else NEGRO,
+            )
 
-        GAMBETA = self._mostrar_boton(
-            boton_negro2,
-            (ANCHO * 0.1, ALTO * 0.85),
-            "GAMBETA",
-            get_fuente(50),
-            BLANCO if self.__equipo == 1 else NEGRO,
-            "Green" if self.__equipo == 1 else NEGRO,
-        )
+            GAMBETA = self._mostrar_boton(
+                boton_negro2,
+                (ANCHO * 0.1, ALTO * 0.85),
+                "GAMBETA",
+                get_fuente(50),
+                BLANCO if self.__equipo == 1 else NEGRO,
+                "Green" if self.__equipo == 1 else NEGRO,
+            )
 
-        INTERCEPTAR = self._mostrar_boton(
-            boton_negro2,
-            (ANCHO * 0.1, ALTO * 0.95),
-            "INTERCEPTAR",
-            get_fuente(50),
-            BLANCO if self.__equipo == 2 else NEGRO,
-            "Green" if self.__equipo == 2 else NEGRO,
-        )
-        self._botones["interceptar"] = INTERCEPTAR
-        self._botones["gambeta"] = GAMBETA
-        self._botones["tiro"] = TIRO
-        self._botones["pase"] = PASE
+            INTERCEPTAR = self._mostrar_boton(
+                boton_negro2,
+                (ANCHO * 0.1, ALTO * 0.95),
+                "INTERCEPTAR",
+                get_fuente(50),
+                BLANCO if self.__equipo == 2 else NEGRO,
+                "Green" if self.__equipo == 2 else NEGRO,
+            )
+            self._botones["interceptar"] = INTERCEPTAR
+            self._botones["gambeta"] = GAMBETA
+            self._botones["tiro"] = TIRO
+            self._botones["pase"] = PASE
 
     def renderizar_gif(self):
         self.__gif_renderizado = self.__renderizaciones[self.__gif_actual][
@@ -280,9 +283,9 @@ class CanchaView(VentanaView):
         self._pantalla.blit(pelota, self.__posicion_pelota)
 
     def mostrar_pases(self):
-        aliados = pygame.image.load(PELOTA)
-        aliados = pygame.transform.scale(aliados, (10, 10))
-        for jugador in self.__pases:
+        for i, jugador in enumerate(self.__pases):
+            aliados = pygame.image.load(lista_p[i])
+            aliados = pygame.transform.scale(aliados, (10, 10))
             self._pantalla.blit(aliados, jugador)
 
     def set_lista_jugadores(self, jugadores):
