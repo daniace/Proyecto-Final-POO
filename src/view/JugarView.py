@@ -33,12 +33,15 @@ class JugarView(VentanaView):
         self._pantalla.blit(TEXTO_ESTADIO, ESTADIO_RECT)
 
         if self.__mostrar_restriccion_botones:
-            texto = get_fuente(35).render(
-                "**Ingresa Usuario Equipo y Dado**",
-                True,
-                NEGRO,
+            texto = self._mostrar_boton(
+                boton_negro,
+                (ANCHO * 0.88, ALTO * 0.78),
+                "Ingrese Usuario Equipo Y Dado",
+                get_fuente(22),
+                BLANCO,
+                BLANCO,
             )
-            self._pantalla.blit(texto, (ANCHO * 0.01, ALTO * 0.8))
+
         # BOTONES
         CAMBIAR_FORMACION_ATRAS = self._mostrar_boton(
             boton_flecha_izquierda,
