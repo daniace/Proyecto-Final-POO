@@ -7,8 +7,9 @@ from .VentanaView import VentanaView
 
 
 class CanchaView(VentanaView):
-    def __init__(self, pantalla):
+    def __init__(self, pantalla, nombre_equipo):
         super().__init__(pantalla)
+        self.__nombre_equipo = nombre_equipo
         self.__renderizaciones = {}
         self.__estadio = camp_nou
         self.__estadio_cancha = barcelona
@@ -26,25 +27,29 @@ class CanchaView(VentanaView):
         self.__nroJugada = 0
         self.__gif_terminado = True
         self.__gif_anterior = None
+        self.__goles = []
 
     def mostrar(self, tiempo):
         self._botones = {}
         pygame.display.set_caption("GAMEPLAY")
         self._pantalla.fill(NEGRO)
         self._pantalla.blit(self.__estadio, (0, 0))
+        RECTANGULO = pygame.image.load(RECTANGULO_NEGRO)
+        RECATANGULO = pygame.transform.scale(RECTANGULO, (600, 400))
+        self._pantalla.blit(RECATANGULO, (ANCHO * 0.228, ALTO * 0.01))
         TIEMPO = get_fuente(50).render(f"      {tiempo}", True, NEGRO)
         self._pantalla.blit(boton_negro3, (ANCHO * 0.575, ALTO * 0.57))
         score = self.__renderizaciones["score"]
+        self.mostrar_goles()
         self._pantalla.blit(TIEMPO, (int(ANCHO * 0.81), int(ALTO * 0.04)))
         self._pantalla.blit(score, (int(ANCHO * 0.7), int(ALTO * 0.001)))
         self._pantalla.blit(
             self.__estadio_cancha, (int(ANCHO * 0.01), int(ALTO * 0.01))
         )
-
-        equipo = get_fuente(35).render("Equipo 1", True, BLANCO)
-        self._pantalla.blit(equipo, (int(ANCHO * 0.76), int(ALTO * 0.105)))
-        cpu = get_fuente(35).render("Equipo 2", True, BLANCO)
-        self._pantalla.blit(cpu, (int(ANCHO * 0.91), int(ALTO * 0.105)))
+        equipo = self.__ajustar_texto(f"{self.__nombre_equipo}", FUENTE, 85, BLANCO)
+        self._pantalla.blit(equipo, (int(ANCHO * 0.75), int(ALTO * 0.102)))
+        cpu = get_fuente(35).render("CPU", True, BLANCO)
+        self._pantalla.blit(cpu, (int(ANCHO * 0.93), int(ALTO * 0.105)))
         self.mostrar_jugadores()
         self.mostrar_pelota()
 
@@ -484,6 +489,48 @@ class CanchaView(VentanaView):
 
     def set_nroJugada(self):
         self.__nroJugada += 1
+
+    def set_goles(self, goles):
+        self.__goles = goles
+
+    def mostrar_goles(self):
+        CIRCULO = pygame.image.load(CIRCULONEGRO)
+        CIRCULO = pygame.transform.scale(CIRCULO, (50, 50))
+        self._pantalla.blit(CIRCULO, (ANCHO * 0.92, ALTO * 0.11))
+        self._pantalla.blit(CIRCULO, (ANCHO * 0.77, ALTO * 0.11))
+        COLOR1 = BLANCO
+        COLOR2 = BLANCO
+        if self.__goles[0] > self.__goles[1]:
+            COLOR1 = VERDE_CLARO
+            COLOR2 = ROJO
+        elif self.__goles[0] < self.__goles[1]:
+            COLOR1 = ROJO
+            COLOR2 = VERDE_CLARO
+        gol_equipo = get_fuente(50).render(f"{self.__goles[0]}", True, COLOR1)
+        self._pantalla.blit(gol_equipo, (int(ANCHO * 0.785), int(ALTO * 0.13)))
+        gol_rival = get_fuente(50).render(f"{self.__goles[1]}", True, COLOR2)
+        self._pantalla.blit(gol_rival, (int(ANCHO * 0.935), int(ALTO * 0.13)))
+
+    def set_goles(self, goles):
+        self.__goles = goles
+
+    def mostrar_goles(self):
+        CIRCULO = pygame.image.load(CIRCULONEGRO)
+        CIRCULO = pygame.transform.scale(CIRCULO, (50, 50))
+        self._pantalla.blit(CIRCULO, (ANCHO * 0.92, ALTO * 0.11))
+        self._pantalla.blit(CIRCULO, (ANCHO * 0.77, ALTO * 0.11))
+        COLOR1 = BLANCO
+        COLOR2 = BLANCO
+        if self.__goles[0] > self.__goles[1]:
+            COLOR1 = VERDE_CLARO
+            COLOR2 = ROJO
+        elif self.__goles[0] < self.__goles[1]:
+            COLOR1 = ROJO
+            COLOR2 = VERDE_CLARO
+        gol_equipo = get_fuente(50).render(f"{self.__goles[0]}", True, COLOR1)
+        self._pantalla.blit(gol_equipo, (int(ANCHO * 0.785), int(ALTO * 0.13)))
+        gol_rival = get_fuente(50).render(f"{self.__goles[1]}", True, COLOR2)
+        self._pantalla.blit(gol_rival, (int(ANCHO * 0.935), int(ALTO * 0.13)))
 
     def get_gif_terminado(self):
         if self.__gif_actual == 'corriendo':

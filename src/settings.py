@@ -141,7 +141,7 @@ CORRIENDO = "src/assets/images/gifs/corriendo.gif"
 GOL = "src/assets/images/gifs/gol.gif"
 GOL2 = "src/assets/images/gifs/gol2.gif"
 GOL3 = "src/assets/images/gifs/gol2.gif"
-
+CIRCULONEGRO = "src/assets/images/CirculoNegro.png"
 
 pygame.font.init()
 

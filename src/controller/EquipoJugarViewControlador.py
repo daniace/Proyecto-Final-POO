@@ -36,13 +36,17 @@ class EquipoJugarViewControlador(Controlador):
                     else:
                         self._view.set_no_ingresado(True)
                 if boton["aceptar"].checkForInput(mouse_pos):
-                    if self.__equipo_ingresado:
-                        self.__jugar.set_equipo_ingresado()
-                        self.__Equipo.set_nombre(self.__texto_equipo)
-                        self.__texto_equipo = ""
-                        self._view.set_no_ingresado(False)
-                        self._view.set_ingresado(True)
-                        self.__ingresado = True
+                    if len(self.__texto_equipo) < 10:
+                        if self.__equipo_ingresado:
+                            self.__jugar.set_equipo_ingresado()
+                            self.__Equipo.set_nombre(self.__texto_equipo)
+                            self.__jugar.set_equipo_cancha(self.__texto_equipo)
+                            self.__texto_equipo = ""
+                            self._view.set_no_ingresado(False)
+                            self._view.set_ingresado(True)
+                            self.__ingresado = True
+                    else:
+                        self._view.set_texto_excedido(True)
         self._view.mostrar_texto_equipo(self.__texto_equipo)
 
     def main_loop(self):

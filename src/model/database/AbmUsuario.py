@@ -8,6 +8,17 @@ class AbmUsuario(DaoInterfaz):
         self.__database = Database()
         self.__database.connect()
 
+    def validar_nombre(self, nombre):
+        if self.__database.execute_query(
+            "SELECT * FROM usuario WHERE nombre_usuario = ?",
+            (nombre,),
+        ):
+            self.__database.execute_non_query(
+                "UPDATE usuario SET baja_usuario = 0 WHERE nombre_usuario = ?",
+                (nombre,),
+            )
+            return True
+
     def get_por_usuario(self, usuario):
         resultado = self.__database.execute_query(
             "SELECT * FROM usuario WHERE nombre_usuario = ? AND baja_usuario = 0",
@@ -30,7 +41,7 @@ class AbmUsuario(DaoInterfaz):
 
     def get_por_id(self, id: int) -> None | Usuario:  # ESTO ANDA
         resultado = self.__database.execute_query(
-            "SELECT * FROM usuario WHERE id_usuario = ? AND baja_usuario = 0",
+            "SELECT * FROM usuario WHERE id_usuario = ?",
             (id,),  # Devuelve una lista de tuplas
         )
         if not resultado:  # Si no se encontro la id o esta dado de baja, devuelve una lista vacia(Aunque solo busques un usuario) y se imprime un mensaje.

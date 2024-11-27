@@ -40,9 +40,12 @@ class LoginJugarViewControlador(Controlador):
                 if boton["aceptar"].checkForInput(mouse_pos):
                     if self.__usuarioIngresado:
                         abmusuario = AbmUsuario()
+                        if abmusuario.validar_nombre(self.__texto_usuario):
+                            self.__jugar.set_nombre_usuario(self.__texto_usuario)
+                        else:
+                            self.__Usuario.set_nombre(self.__texto_usuario)
+                            self.__jugar.set_nombre_usuario(self.__texto_usuario)
                         self.__jugar.set_usuario_ingresado()
-                        self.__Usuario.set_nombre(self.__texto_usuario)
-                        self.__jugar.set_nombre_usuario(self.__texto_usuario)
                         abmusuario.insertar(self.__Usuario)
                         abmusuario.close()
                         self._view.set_no_ingresado(False)
