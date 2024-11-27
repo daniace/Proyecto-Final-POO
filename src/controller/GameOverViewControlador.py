@@ -5,6 +5,7 @@ import pygame
 from controller.Controlador import Controlador
 from settings import SCREEN
 from view.GameOverView import GameOverView
+from .ControladorBD import ControladorBD
 
 
 class GameOverViewControlador(Controlador):
@@ -34,13 +35,14 @@ class GameOverViewControlador(Controlador):
                     self._view.ocultar_visibilidad()
                     menu_principal = MenuController()
                     menu_principal.main_loop()
-                    
+
     def main_loop(self):
         self._view.set_resultado(self.__puntos_ganado, self.__goles)
         return super().main_loop()
-    
-    def set_puntos_ganado(self, puntos_ganado):
+
+    def set_puntos_ganado(self, id, puntos_ganado):
         self.__puntos_ganado = puntos_ganado
-    
+        bd = ControladorBD().set_score(id, puntos_ganado)
+
     def set_goles(self, goles):
         self.__goles = goles

@@ -24,7 +24,9 @@ class AbmUsuario(DaoInterfaz):
             "SELECT * FROM usuario WHERE nombre_usuario = ? AND baja_usuario = 0",
             (usuario,),
         )
-        if not resultado:  # Si no se encontro la id o esta dado de baja, devuelve una lista vacia(Aunque solo busques un usuario) y se imprime un mensaje.
+        if (
+            not resultado
+        ):  # Si no se encontro la id o esta dado de baja, devuelve una lista vacia(Aunque solo busques un usuario) y se imprime un mensaje.
             print(
                 f"No se encontró el usuario con el nombre: {usuario}, o está dado de baja"
             )
@@ -44,7 +46,9 @@ class AbmUsuario(DaoInterfaz):
             "SELECT * FROM usuario WHERE id_usuario = ?",
             (id,),  # Devuelve una lista de tuplas
         )
-        if not resultado:  # Si no se encontro la id o esta dado de baja, devuelve una lista vacia(Aunque solo busques un usuario) y se imprime un mensaje.
+        if (
+            not resultado
+        ):  # Si no se encontro la id o esta dado de baja, devuelve una lista vacia(Aunque solo busques un usuario) y se imprime un mensaje.
             print(f"No se encontró el usuario con el id: {id}, o está dado de baja")
             return None
         else:
@@ -113,3 +117,9 @@ class AbmUsuario(DaoInterfaz):
 
     def close(self):  # ESTO ANDA
         self.__database.close_connection()
+
+    def actualizar_score(self, id, score):
+        self.__database.execute_non_query(
+            "UPDATE usuario SET score = score + ? WHERE id_usuario = ?",
+            (score, id),
+        )

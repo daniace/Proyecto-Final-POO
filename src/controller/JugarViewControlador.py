@@ -63,6 +63,7 @@ class JugarController(Controlador):
                         self.__usuario = abmusuario.get_por_usuario(nombre_usuario)
                         abmequipo = AbmEquipo()
                         self.__genero_equipo.set_nombre(self.__equipo.get_nombre())
+                        self.__genero_equipo.set_id_usuario(self.__usuario.get_id())
                         self.__equipo.set_id_usuario(self.__usuario.get_id())
                         abmequipo.insertar(self.__equipo)
                         abmequipo.close()

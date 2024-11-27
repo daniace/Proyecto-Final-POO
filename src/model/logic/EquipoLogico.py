@@ -11,6 +11,7 @@ import random
 
 class EquipoLogico:
     def __init__(self, nombre_equipo, es_cpu=False):
+        self.__id_usuario = random.randint(1000, 999999)
         self.__nombre_equipo = nombre_equipo
         self._nro_equipo = 1 if not es_cpu else 2  # NRO_EQUIPO TIENE 1 O 2
         self._formacion = Formacion433()  # Tipo FORMACION A utilizar #433 DEFAULT
@@ -33,6 +34,12 @@ class EquipoLogico:
     @property
     def formacion(self):
         return self._formacion
+
+    def set_id_usuario(self, id_usuario):
+        self.__id_usuario = id_usuario
+
+    def get_id_usuario(self):
+        return self.__id_usuario
 
     def set_nombre(self, nombre_equipo):
         self.__nombre_equipo = nombre_equipo

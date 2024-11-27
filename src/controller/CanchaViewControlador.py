@@ -97,8 +97,11 @@ class CanchaController(Controlador):
                     self._view.ocultar_visibilidad()
                     game_over = GameOverViewControlador()
                     game_over.set_goles(self._partido.get_goles())
-                    game_over.set_puntos_ganado(self._partido.mostrar_resultado())
-                    #self._partido.mostrar_resultado()
+                    game_over.set_puntos_ganado(
+                        self._jugador.get_id_usuario(),
+                        self._partido.mostrar_resultado(),
+                    )
+                    # self._partido.mostrar_resultado()
                     game_over.main_loop()
                 # ATAJADA_GIF.render(
                 #     self._view._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
