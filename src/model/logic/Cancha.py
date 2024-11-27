@@ -6,8 +6,6 @@ class Cancha:
         self._equipo1 = equipo1
         self._equipo2 = equipo2
         self._cancha = [[0 for _ in range(8)] for _ in range(8)]
-        self._diccionario_equipo1 = None
-        self._diccionario_equipo2 = None
         self._diccionario_completo = None
         self.mapear_cancha()
 
@@ -18,12 +16,6 @@ class Cancha:
         for i in self._cancha:
             print(i)
 
-    # def get_diccionario_equipo1(self):
-    #     return self._diccionario_equipo1
-
-    # def get_diccionario_equipo2(self):
-    #     return self._diccionario_equipo2
-    
     def get_diccionario(self):
         return self._diccionario_completo
 
@@ -42,8 +34,6 @@ class Cancha:
         self.obtener_diccionario_jugadores()  # una vez se setean los equipos, se debe generar el diccionario
 
     def obtener_diccionario_jugadores(self):
-        self._diccionario_equipo1 = {}
-        self._diccionario_equipo2 = {}
         self._diccionario_completo = {}
         jugador_index = 0
         jugador_index2 = 0
@@ -55,11 +45,9 @@ class Cancha:
                 if (
                     self._cancha[i][j] == self._equipo1.get_nro_equipo()
                 ):  # NRO_EQUIPO TIENE 1 O 2
-                    self._diccionario_equipo1[(i, j)] = equipo1[jugador_index]
                     self._diccionario_completo[(i, j)] = equipo1[jugador_index]
                     jugador_index += 1
                 if self._cancha[i][j] == self._equipo2.get_nro_equipo():
-                    self._diccionario_equipo2[(i, j)] = equipo2[jugador_index2]
                     self._diccionario_completo[(i, j)] = equipo2[jugador_index2]
                     jugador_index2 += 1
                     
@@ -69,18 +57,9 @@ class Cancha:
         return self._diccionario_completo
     
     def mostrar_diccionario(self):
-        # print("DICCIONARIO EQUIPO 1")
-        # for clave, valor in self._diccionario_equipo1.items():
-        #     print(f"{clave}: {valor}")
-
-        # print("Diccionario EQUIPO 2")
-        # for clave, valor in self._diccionario_equipo2.items():
-        #     print(f"{clave} : {valor}")
-        
         print("Diccionario COMPLETO")
         for clave, valor in self._diccionario_completo.items():
             print(f"{clave} : {valor}")
-    "No es necesario separarlos en distintos diccionarios, es mas practico tener un solo diccionario con todos los jugadores"
 
 
     
@@ -152,11 +131,8 @@ class Cancha:
             puntos_cercanos.sort(key=lambda x: x[1])
             return puntos_cercanos [0]
 
-    "FUNCION MODIFICADA "
+
     "NOTA --> Se ingresa una posicion y un TIPO de busqueda"
     "Se retorna una lista de tuplas con los puntos cercanos y la distancia"
     "Si se ingresa 'aliado' busca los aliados mas cercanos, priorizando los que estan mas cerca del arco enemigo"
     "Si se ingresa 'enemigo' busca los enemigos mas cercanos, priorizando los que estan mas cerca del punto ingresado"
-
-
-"ELIMINAR FUNCIONES DE LOS DICCIONARIOS PARCIALES Y COSAS COMENTADAS QUE NO SE USAN"
