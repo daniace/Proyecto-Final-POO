@@ -21,7 +21,7 @@ class MenuController(Controlador):
         self._view = MenuView(SCREEN)
         self._dificultad = dificultad  # dificultad predeterminada#
         self.__ranking = RankingController()
-        self.__opciones = OpcionesController(self._dificultad)
+        self.__opciones = OpcionesController()
         self.__controlador_abm = ControllerABM()
         self.__jugar = JugarController()
 

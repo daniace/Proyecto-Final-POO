@@ -110,6 +110,7 @@ DORSAL = "src/assets/images/dorsal.png"
 EQUIPO_US = "src/assets/images/equipo_us.png"
 EQUIPO_CPU = "src/assets/images/equipo_cpu.png"
 JUG_CONPELOTA = "src/assets/images/jug_conpelota.png"
+PELOTA = "src/assets/images/pelota.png"
 # Fuentes
 
 FUENTE = "src/assets/font/Pixeltype.ttf"
