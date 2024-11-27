@@ -18,7 +18,7 @@ class CanchaController(Controlador):
     def __init__(self, pantalla, jugador: EquipoLogico):
         super().__init__()
         self.__boton_actual = None
-        self._view = CanchaView(pantalla)
+        self._view = CanchaView(pantalla, jugador.get_nombre())
         self.__dificultad = dificultad_actual().get_dificultad()
         self._jugador = jugador
         self._indice_seleccionado = 0
@@ -79,12 +79,11 @@ class CanchaController(Controlador):
         self._view.renderizar_acciones()
         self._view.renderizar()
         ATAJADA_GIF = gif_pygame.load(ATAJADA, loops=-1)
-        print("Empieza partido")
         self.__cronometro.start()
         self._partido._partido_en_curso = True
         while True:
-            print(type(self.__dificultad))
             if self._view.get_visibilidad():
+                self._view.set_goles(self._partido.get_goles())
                 if self.__cronometro._evento_partido_terminado.is_set():
                     self._partido_en_curso = False
                     self._partido.mostrar_resultado()

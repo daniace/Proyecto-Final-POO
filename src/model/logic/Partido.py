@@ -303,6 +303,9 @@ class Partido:
                         + "\033[0;m"
                     )
 
+    def get_goles(self):
+        return self._goles
+
 
 # cosas que hacer:
 # - implementar la dificultad de las acciones dependiendo de la posicion de la cancha
