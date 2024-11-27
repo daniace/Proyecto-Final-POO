@@ -50,12 +50,12 @@ class OpcionesView(VentanaView):
             self._pantalla.blit(TEXTO_SONIDO, CONTROLES_RECT)
 
             control1_img = pygame.image.load("src/assets/images/control1.png")
-            control1_img = pygame.transform.scale(control1_img, (300, 300))
+            control1_img = pygame.transform.scale(control1_img, (200, 100))
 
             control2_img = pygame.image.load("src/assets/images/control2.png")
             control2_img = pygame.transform.scale(control2_img, (300, 300))
 
-            self._pantalla.blit(control1_img, (int(ANCHO * 0.38), int(ALTO * 0.42)))
+            self._pantalla.blit(control1_img, (int(ANCHO * 0.38), int(ALTO * 0.58)))
             self._pantalla.blit(control2_img, (int(ANCHO * 0.59), int(ALTO * 0.42)))
 
             FACIL = self._mostrar_boton(
