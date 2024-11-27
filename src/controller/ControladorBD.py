@@ -15,3 +15,8 @@ class ControladorBD:
         usuario = self.__generador.get_por_usuario(nombre)  # Trae una lista de Usuarios
         self.__generador.close()
         return usuario
+
+    def set_score(self, id, score):
+        self.__generador = AbmUsuario()
+        self.__generador.actualizar_score(id, score)
+        self.__generador.close()

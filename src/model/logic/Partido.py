@@ -238,15 +238,14 @@ class Partido:
                         return "gambeta_fallida"
 
     def _jugar_turno_cpu(self) -> None:
-        # time.sleep(1.5)
-        self.mostrar_cancha_con_pelota()  # despues esto se tiene que borrar#
+        #time.sleep(2.5)
+        self.mostrar_cancha_con_pelota()
         print(
             "---------------------------------------------------------------------------------------"
         )
         print(
             f"{self._jugador_con_pelota()} tiene la pelota, CPU está tomando una decisión..."
         )
-        # time.sleep(2)
         decision = random.choices([1, 2], weights=[0.7, 0.3], k=1)[0]
         match decision:
             case 1:
@@ -255,9 +254,6 @@ class Partido:
                 if self.realizar_pase(pase_cpu):
                     self.__accion_cpu = "pase_a_interceptar"
                     return True
-                    # if decision == True:
-                    #     self.realizar_intercepcion()
-                    #     'OBTENER DECISION DEBERIA CONECTARSE CON EL EVENTO DE LA VISTA INTERCEPTAR'
             case 2:
                 print("TIRO DE LA CPU")
                 if self.realizar_tiro():
@@ -273,7 +269,7 @@ class Partido:
                 else:
                     self.__accion_cpu = "tiro_fallado_cpu"
 
-    def mostrar_cancha_con_pelota(self):  # esta funcion despues se tiene que borrar#
+    def mostrar_cancha_con_pelota(self):  
         matriz = self._cancha.get_matriz_cancha()
 
         for i, fila in enumerate(matriz):
@@ -322,10 +318,3 @@ class Partido:
     def get_accion_cpu(self):
         return self.__accion_cpu
 
-
-# cosas que hacer:
-# - implementar la dificultad de las acciones dependiendo de la posicion de la cancha
-# ES DECIR, SI HACE UN PASE UN DEFENSA, DEBERIA SE MAS FACIL QUE SI LO HACE UN DELANTERO
-# LO CONTRARIO CON EL TIRO AL ARCO
-
-# -DEVOLVER POSICION MAS GENERALIZADA (EJ: DELANTERO, DEFENSA, ETC)

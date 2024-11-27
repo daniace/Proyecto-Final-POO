@@ -3,7 +3,7 @@ import sys
 
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-)  # se agerego para que pueda leer la clase carta xd
+)  # se agerego para que pueda leer la clase carta
 from database.AbmCarta import AbmCarta
 from .formacion import *
 import random
@@ -11,6 +11,7 @@ import random
 
 class EquipoLogico:
     def __init__(self, nombre_equipo, es_cpu=False):
+        self.__id_usuario = random.randint(1000, 999999)
         self.__nombre_equipo = nombre_equipo
         self.__nro_equipo = 1 if not es_cpu else 2  # NRO_EQUIPO TIENE 1 O 2
         self.__formacion = Formacion433()  # Tipo FORMACION A utilizar #433 DEFAULT
@@ -34,6 +35,18 @@ class EquipoLogico:
     def formacion(self):
         return self.__formacion
 
+    def set_id_usuario(self, id_usuario):
+        self.__id_usuario = id_usuario
+
+    def get_id_usuario(self):
+        return self.__id_usuario
+
+    def set_id_usuario(self, id_usuario):
+        self.__id_usuario = id_usuario
+
+    def get_id_usuario(self):
+        return self.__id_usuario
+
     def set_nombre(self, nombre_equipo):
         self.__nombre_equipo = nombre_equipo
 
@@ -43,9 +56,6 @@ class EquipoLogico:
 
     def establecer_distribucion(self):
         return self.__formacion.formar(self.__nro_equipo)
-
-    "revisar si funciona correctamente, sino pasar valor a una variabloe y devolverla"
-    "Se encarga de establecer la distribucion de los jugadores en la cancha"
 
     def __generar_equipo_random(self):
         self.__generador = AbmCarta()
@@ -61,13 +71,10 @@ class EquipoLogico:
         cartas += random.sample(delanteros, self.__formacion.cantidad_dc())
 
         self.__generador.close()
-        "Debe devolver unicamente la lista de jugadores"
         return cartas
 
     def nuevo_equipo(self):
         self.__jugadores = self.__generar_equipo_random()
-
-    "es necesario tener dos funciones para generar un nuevo equipo? nuevo_equipo deveria retornar la lista de jugadores?"
 
     def mostrar_plantilla_lista(self):
         for i in self.__jugadores:
@@ -83,6 +90,3 @@ class EquipoLogico:
             self.__formacion.cantidad_dc(),
         )
         self.__formacion.mostrar_formacion()
-
-
-"Una vez funcione todo lo logico eliminar las funciones de imprimir y mostrar"
