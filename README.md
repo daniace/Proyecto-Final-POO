@@ -7,7 +7,8 @@
 ![PreGameplay LoginEquipo](https://github.com/daniace/Proyecto-Final-POO/blob/main/src/assets/presentacion/HEROESDELBALONJUGARLOGINEQUIPO.png)
 ![PreGamplay Formacion433](https://github.com/daniace/Proyecto-Final-POO/blob/main/src/assets/presentacion/HEROESDELBALONEQUIPO433.png)
 ![PreGameplay Formacion442](https://github.com/daniace/Proyecto-Final-POO/blob/main/src/assets/presentacion/HEROESDELBALONJUGAREQUIPO442.png)
-
+![Gameplay](https://github.com/daniace/Proyecto-Final-POO/blob/main/src/assets/presentacion/GAMEPLAY.png)
+![GameOver](https://github.com/daniace/Proyecto-Final-POO/blob/main/src/assets/presentacion/GAMEOVER.png)
 ![ABMLOGIN](https://github.com/daniace/Proyecto-Final-POO/blob/main/src/assets/presentacion/LOGINABM.png)
 ![ABMUSUARIO](https://github.com/daniace/Proyecto-Final-POO/blob/main/src/assets/presentacion/ABMUSUARIOS.png)
 ![ABMUSUARIOAGG](https://github.com/daniace/Proyecto-Final-POO/blob/main/src/assets/presentacion/AGREGARUSUARIOS.png)
