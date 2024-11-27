@@ -369,7 +369,9 @@ class CanchaView(VentanaView):
         CUADRADO_TEXTO = pygame.transform.scale(CUADRADO_TEXTO, (450, 250))
 
         TIRO_GIF = gif_pygame.load(TIRO, loops=0)
+        TIRO2_GIF = gif_pygame.load(TIRO2, loops=0)
         TIRO_LEJANO_GIF = gif_pygame.load(TIRO_LEJANO, loops=0)
+        TIRO_FALLADO_GIF = gif_pygame.load(TIRO_FALLADO, loops=0)
 
         GOL_GIF = gif_pygame.load(GOL, loops=0)
         GOL2_GIF = gif_pygame.load(GOL2, loops=0)
@@ -378,14 +380,23 @@ class CanchaView(VentanaView):
         GAMBETA_GIF = gif_pygame.load(GAMBETA, loops=0)
         GAMBETA2_GIF = gif_pygame.load(GAMBETA2, loops=0)
         GAMBETA3_GIF = gif_pygame.load(GAMBETA3, loops=0)
-        GAMBETA4_GIF = gif_pygame.load(GAMBETA4, loops=0)
+        GAMBETA_FALLIDA_GIF = gif_pygame.load(GAMBETA_FALLIDA, loops=0)
 
         INTERCEPCION_PASE_GIF = gif_pygame.load(INTERCEPCION_PASE, loops=0)
         INTERCEPCION_PASE2_GIF = gif_pygame.load(INTERCEPCION_PASE2, loops=0)
         INTERCEPCION_PASE3_GIF = gif_pygame.load(INTERCEPCION_PASE3, loops=0)
+        INTERCEPCION_FALLIDA_GIF = gif_pygame.load(INTERCEPCION_FALLIDA, loops=0)
+        INTERCEPCION_FALLIDA2_GIF = gif_pygame.load(INTERCEPCION_FALLIDA2, loops=0)
 
         ATAJADA_GIF = gif_pygame.load(ATAJADA, loops=0)
         ATAJADA2_GIF = gif_pygame.load(ATAJADA2, loops=0)
+
+        COMIENZA_PARTIDO_GIF = gif_pygame.load(COMIENZA_PARTIDO, loops=0)
+        COMIENZA_PARTIDO2_GIF = gif_pygame.load(COMIENZA_PARTIDO2, loops=0)
+
+        SAQUE_MEDIO_GIF = gif_pygame.load(SAQUE_MEDIO, loops=0)
+
+        FIN_PARTIDO_GIF = gif_pygame.load(FIN_PARTIDO, loops=0)
 
         gifs = {
             "pase_valido": [PASE_GIF, PASE2_GIF],
@@ -394,24 +405,26 @@ class CanchaView(VentanaView):
                 INTERCEPCION_PASE2_GIF,
                 INTERCEPCION_PASE3_GIF,
             ],
-            "tiro_al_arco": [TIRO_GIF, TIRO_LEJANO_GIF],
-            "tiro_fallado": [TIRO_GIF, TIRO_LEJANO_GIF],
+            "tiro_al_arco": [TIRO_GIF, TIRO2_GIF, TIRO_LEJANO_GIF],
+            "tiro_fallado": [TIRO_FALLADO_GIF, TIRO_LEJANO_GIF],
             "gol": [GOL_GIF, GOL2_GIF, GOL3_GIF],
-            "gambeta_exitosa": [GAMBETA_GIF, GAMBETA2_GIF, GAMBETA3_GIF, GAMBETA4_GIF],
-            "gambeta_fallida": [GAMBETA_GIF, GAMBETA2_GIF, GAMBETA3_GIF, GAMBETA4_GIF],
+            "gambeta_exitosa": [GAMBETA_GIF, GAMBETA2_GIF, GAMBETA3_GIF],
+            "gambeta_fallida": [GAMBETA_FALLIDA_GIF, GAMBETA_FALLIDA_GIF],
             "interseccion_valida": [
                 INTERCEPCION_PASE_GIF,
                 INTERCEPCION_PASE2_GIF,
                 INTERCEPCION_PASE3_GIF,
             ],
             "interseccion_fallida": [
-                INTERCEPCION_PASE_GIF,
-                INTERCEPCION_PASE2_GIF,
-                INTERCEPCION_PASE3_GIF,
+                INTERCEPCION_FALLIDA_GIF,
+                INTERCEPCION_FALLIDA2_GIF,
             ],
             "atajado": [ATAJADA_GIF, ATAJADA2_GIF],
             "corriendo": [CORRIENDO_1],
             "score": score,
+            "comienza": [COMIENZA_PARTIDO_GIF, COMIENZA_PARTIDO2_GIF],
+            "saque": [SAQUE_MEDIO_GIF, SAQUE_MEDIO_GIF],
+            "fin": [FIN_PARTIDO_GIF, FIN_PARTIDO_GIF],
         }
         "AGREGAR MAS GIFS"
 
