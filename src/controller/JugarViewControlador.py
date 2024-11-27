@@ -46,8 +46,8 @@ class JugarController(Controlador):
                 if botones["dado"].checkForInput(mouse_pos):  # Boton del Dado
                     self.__dado_apretado = True
                     self.__genero_equipo.nuevo_equipo()
-                    self.__equipo.set_cartas(self.__genero_equipo._jugadores)
-                    self._view.renderizar(self.__genero_equipo._jugadores)
+                    self.__equipo.set_cartas(self.__genero_equipo.get_jugadores())
+                    self._view.renderizar(self.__genero_equipo.get_jugadores())
                 elif botones["comienza"].checkForInput(mouse_pos):
                     if (
                         self.__dado_apretado
@@ -107,7 +107,7 @@ class JugarController(Controlador):
                 self._view._pantalla,
                 FORMACIONES,
                 self.__formacion_actual,
-                self.__genero_equipo._jugadores,
+                self.__genero_equipo.get_jugadores(),
                 self.__dado_apretado,
             )
             self._view.texto_formacion(self.__formacion_actual)
