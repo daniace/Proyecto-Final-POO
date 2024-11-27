@@ -575,16 +575,11 @@ class CanchaView(VentanaView):
         self.__accion_cpu = accion
 
     def texto_jugadas(self):
-        if self.__nro_jugada_global > 0:
-            texto_jugada = get_fuente(50).render(
-                f"Jugada Nro {self.__nroJugada}", True, BLANCO
-            )
-            self._pantalla.blit(texto_jugada, (int(ANCHO * 0.72), int(ALTO * 0.615)))
-        if self.__nro_jugada_global > 1 and self.__accion_cpu is not None:
-            texto_jugada = get_fuente(50).render(
-                f"Jugada Nro {self.__nroJugada_cpu}", True, BLANCO
-            )
-            self._pantalla.blit(texto_jugada, (int(ANCHO * 0.72), int(ALTO * 0.815)))
+        texto_jugada = get_fuente(50).render(f"{self.__nombre_equipo}", True, BLANCO)
+        self._pantalla.blit(texto_jugada, (int(ANCHO * 0.74), int(ALTO * 0.615)))
+
+        texto_jugada = get_fuente(50).render("CPU", True, BLANCO)
+        self._pantalla.blit(texto_jugada, (int(ANCHO * 0.777), int(ALTO * 0.815)))
 
         if self.__accion_cpu is not None:
             texto = self.__acciones[self.__accion_cpu]
@@ -594,7 +589,7 @@ class CanchaView(VentanaView):
             texto = self.__acciones[self.__accion]
             self._pantalla.blit(texto, (int(ANCHO * 0.63), int(ALTO * 0.67)))
 
-    def set_nroJugada_cpu(self):
+    def set_nroJugada_cpu(self):  # podría eliminarse
         self.__nroJugada_cpu += 1
 
     def ultima_jugada(self, equipo):
