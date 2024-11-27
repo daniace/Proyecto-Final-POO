@@ -10,16 +10,16 @@ from model.logic.EquipoLogico import EquipoLogico
 from view.CanchaView import CanchaView
 from model.logic.Partido import Partido
 from settings import *
-
+from settings import dificultad_actual
 from .Controlador import Controlador
 
 
 class CanchaController(Controlador):
-    def __init__(self, pantalla, dificultad: Dificultad, jugador: EquipoLogico):
+    def __init__(self, pantalla, jugador: EquipoLogico):
         super().__init__()
         self.__boton_actual = None
         self._view = CanchaView(pantalla)
-        self._dificultad = dificultad
+        self.__dificultad = dificultad_actual().get_dificultad()
         self._jugador = jugador
         self._indice_seleccionado = 0
         self.boton_actual = None
@@ -29,7 +29,7 @@ class CanchaController(Controlador):
         self.__pase_seleccionado = False
         self.__cronometro = None
         self.__diccionario_posiciones_jugadores = None
-        
+
     def manejar_eventos(self, eventos, mouse_pos):
         from controller.JugarViewControlador import JugarController
 
@@ -72,7 +72,7 @@ class CanchaController(Controlador):
         # print(self.boton_texto)  # ESTO SE SACA ES PARA VER SI SE CAMBIABA LOS BOTONES
 
     def main_loop(self):
-        self._partido = Partido(self._jugador, self._dificultad, self._view)
+        self._partido = Partido(self._jugador, self.__dificultad, self._view)
         self.relacionar_posiciones(self._partido.get_diccionario())
         if self.__cronometro is None or not self.__cronometro.is_alive():
             self.__cronometro = Cronometro()
@@ -83,6 +83,7 @@ class CanchaController(Controlador):
         self.__cronometro.start()
         self._partido._partido_en_curso = True
         while True:
+            print(type(self.__dificultad))
             if self._view.get_visibilidad():
                 if self.__cronometro._evento_partido_terminado.is_set():
                     self._partido_en_curso = False
@@ -145,7 +146,7 @@ class CanchaController(Controlador):
                 self._view.set_nroJugada()
                 self._view.set_accion("tiro_al_arco")
                 self._view.mostrar(self.__cronometro.get_contador())
-                time.sleep(3)
+                # time.sleep(3)
                 accion = self._partido.jugar_turno_jugador(2)
                 self._view.set_accion(accion)
             elif nombre_boton_seleccionado == "gambeta":
@@ -195,10 +196,8 @@ class CanchaController(Controlador):
     def set_estadio(self, estadio):
         self._view.set_estadio(estadio)
         self._view.setear_estadio_cancha()
-        
-    
 
-    def relacionar_posiciones(self,diccionario_1):
+    def relacionar_posiciones(self, diccionario_1):
         formacion_usuario = FORMACION_USUARIO["4-3-3"]
         formacion_cpu = FORMACION_CPU["4-3-3"]
 
@@ -210,7 +209,7 @@ class CanchaController(Controlador):
             4: ("mediocampistas", formacion_cpu),
             5: ("delanteros", formacion_usuario),
             6: ("defensas", formacion_cpu),
-            7: ("portero", formacion_cpu)
+            7: ("portero", formacion_cpu),
         }
 
         indices = {i: 0 for i in range(8)}
@@ -222,19 +221,20 @@ class CanchaController(Controlador):
             indices[coordenada[0]] += 1
         self._view.set_lista_jugadores(diccionario_jugadores)
         self.__diccionario_posiciones_jugadores = diccionario_jugadores
-        
 
     def mostrar_pelota(self):
-        posicion = self.__diccionario_posiciones_jugadores[self._partido.get_posicion_pelota()]
+        posicion = self.__diccionario_posiciones_jugadores[
+            self._partido.get_posicion_pelota()
+        ]
         self._view.set_posicion_pelota(posicion)
         # "4-4-2": {
         #     "portero": [(137,320)],
         #     "defensas": [(169,287),(104,285),(209,271),(63,272)],
         #     "mediocampistas": [(136,241),(204,192 ),(134,188 )],
         #     "delanteros": [(69,193),(183,143),(85,142)],
-        
-
 
     "NOTA PARA SEGUIRLO -> EL BOTON ACTUAL ES EL BOTON SELECCIONADO, HAY QUE HACER QUE EL BOTON QUE SELECCIONA EL MOUSE SEA EL BOTON ACTUAL, ADEMAS DE CAMBIAR"
+
+
 "EL INDICE DEL EJECUTAR ACCION AL BOTON ACTUAL, PARA QUE SE ELIJA ESA OPCION"
 "MAÑANA LO SIGO - LEO"

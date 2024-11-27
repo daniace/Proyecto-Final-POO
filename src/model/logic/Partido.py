@@ -26,7 +26,7 @@ class Partido:
 
     def get_diccionario(self):
         return self._cancha.get_diccionario()
-    
+
     def _jugador_con_pelota(self):
         """Devuelve el jugador en base a la posición actual de la pelota"""
         return self._cancha.get_diccionario().get(self._posicion_pelota, None)
@@ -47,7 +47,7 @@ class Partido:
 
     def get_posicion_pelota(self) -> tuple:
         return self._posicion_pelota
-    
+
     def mostrar_pases(self, es_cpu: bool = False):
         aliados_cercanos = self._cancha.encontrar_puntos_cercanos(
             self._posicion_pelota, "aliado"
@@ -224,6 +224,7 @@ class Partido:
             case 3:
                 if self._jugador_con_pelota().get_posicion()[0] == "ARQUERO":
                     print("el Aqruero no pude realizar gambeta")
+                    return "gambeta_fallida"
                 else:
                     if self.realizar_gambeta():
                         return "gambeta_exitosa"
@@ -239,7 +240,7 @@ class Partido:
         print(
             f"{self._jugador_con_pelota()} tiene la pelota, CPU está tomando una decisión..."
         )
-        time.sleep(2)
+        # time.sleep(2)
         decision = random.choices([1, 2], weights=[0.7, 0.3], k=1)[0]
         match decision:
             case 1:

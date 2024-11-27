@@ -1,9 +1,20 @@
 import gif_pygame
 import pygame
 
-from model.database.AbmCarta import AbmCarta
-from model.database.AbmUsuario import AbmUsuario
-from model.database.Usuario import Usuario
+from model.logic.Dificultades import Medio
+
+
+#
+class dificultad_actual:
+    def __init__(self):
+        self.dificultad = Medio()
+
+    def set_dificultad(self, dificultad):
+        self.dificultad = dificultad
+
+    def get_dificultad(self):
+        return self.dificultad
+
 
 # Configuracion de la pantalla
 ANCHO = 1200

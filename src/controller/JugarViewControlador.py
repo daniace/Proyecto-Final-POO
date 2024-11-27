@@ -30,7 +30,7 @@ class JugarController(Controlador):
         self.__usuario_ingresado = False
         self.__equipo_ingresado = False
         self.__dado_apretado = False
-        self.__cancha = CanchaController(SCREEN, "Facil", self.__genero_equipo)
+        self.__cancha = CanchaController(SCREEN, self.__genero_equipo)
         self.__LoginUsuario = LoginJugarViewControlador(SCREEN, self)
         self.__LoginEquipo = EquipoJugarViewControlador(SCREEN, self.__equipo, self)
 
