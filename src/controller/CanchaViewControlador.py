@@ -1,7 +1,6 @@
 import sys
 import time
 
-# import multiprocessing
 import gif_pygame
 import pygame
 
@@ -29,7 +28,7 @@ class CanchaController(Controlador):
         self._indice_seleccionado = 0
         self.boton_actual = None
         self.boton_mouse = None
-        self.boton_texto = None  # esto se saca
+        self.boton_texto = None
         self.espera_intercepcion = False
         self.__pase_seleccionado = False
         self.__cronometro = None
@@ -72,8 +71,6 @@ class CanchaController(Controlador):
                 self._indice_seleccionado = indice
                 self.boton_texto = boton_texto
 
-        # print(self.boton_texto)  # ESTO SE SACA ES PARA VER SI SE CAMBIABA LOS BOTONES
-
     def main_loop(self):
         self.__reproductor.detener()
         self.__pantalla_de_carga.main_loop()
@@ -83,11 +80,8 @@ class CanchaController(Controlador):
             self.__cronometro = Cronometro()
         self._view.renderizar_acciones()
         self._view.renderizar()
-        # ATAJADA_GIF = gif_pygame.load(ATAJADA, loops=-1)
-        print("Empieza partido")
         self.__cronometro.start()
         self._partido._partido_en_curso = True
-        # self._view.set_accion('corriendo')
         while True:
             if self._view.get_visibilidad():
                 self._view.set_goles(self._partido.get_goles())
@@ -103,15 +97,11 @@ class CanchaController(Controlador):
                     )
                     # self._partido.mostrar_resultado()
                     game_over.main_loop()
-                # ATAJADA_GIF.render(
-                #     self._view._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
-                # )
-                self.mostrar_pelota()  # CAMBIAR NOMBRE
+                self.mostrar_pelota()
                 mouse_pos = None
-                self._view.mostrar(self.__cronometro.get_contador())  # Mostrar el menú
-                eventos = pygame.event.get()  # Manejar eventos
+                self._view.mostrar(self.__cronometro.get_contador())
+                eventos = pygame.event.get()
                 self._view.cambiar_equipo(self._partido.get_equipo_con_posesion())
-                #  self._view.get_gif_terminado() or
                 if self._view.get_gif_terminado or self.__pase_seleccionado:
                     if (
                         self._partido.get_equipo_con_posesion() == 1
@@ -130,7 +120,7 @@ class CanchaController(Controlador):
                         self.manejar_eventos(eventos, mouse_pos)
                         self.cambiar_boton_actual()
 
-                    if self.boton_actual is not None:  # and self.boton_mouse == None:
+                    if self.boton_actual is not None:
                         self.boton_actual.mantener_color()
                         self.boton_actual.update(self._view._pantalla)
 
@@ -178,9 +168,7 @@ class CanchaController(Controlador):
             pases_disponibles = self._partido.mostrar_pases()
             self.boton_actual = None
             self._view.mostrar(self.__cronometro.get_contador())
-            # jugadores = self._partido.imprimir_jugadores(pases_disponibles)
             if nombre_boton_seleccionado == "pase1":
-                # print(pases_disponibles[0][0])
                 self.__pase_seleccionado = False
                 accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[0][0]
@@ -208,8 +196,6 @@ class CanchaController(Controlador):
             self._view.set_accion(accion)
 
             self.boton_actual = None
-            # self._view.mostrar(self.__cronometro.get_contador())
-        "ACAAAAAAAAAAAAAAA"
 
         if self._partido.get_equipo_con_posesion() == 2 and self.espera_intercepcion:
             if nombre_boton_seleccionado == "interceptar":
@@ -263,14 +249,3 @@ class CanchaController(Controlador):
         for aliados in lista:
             pases.append(self.__diccionario_posiciones_jugadores[aliados[0]])
         self._view.set_pases(pases)
-        # "4-4-2": {
-        #     "portero": [(137,320)],
-        #     "defensas": [(169,287),(104,285),(209,271),(63,272)],
-        #     "mediocampistas": [(136,241),(204,192 ),(134,188 )],
-        #     "delanteros": [(69,193),(183,143),(85,142)],
-
-    "NOTA PARA SEGUIRLO -> EL BOTON ACTUAL ES EL BOTON SELECCIONADO, HAY QUE HACER QUE EL BOTON QUE SELECCIONA EL MOUSE SEA EL BOTON ACTUAL, ADEMAS DE CAMBIAR"
-
-
-"EL INDICE DEL EJECUTAR ACCION AL BOTON ACTUAL, PARA QUE SE ELIJA ESA OPCION"
-"MAÑANA LO SIGO - LEO"

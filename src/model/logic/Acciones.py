@@ -19,7 +19,7 @@ class Acciones:
             atributo *= 1.15 # 15% más de tiro para delanteros
         return atributo
 
-    "VERIFICAR SI BONIFICACION VUELVE A FALSE"
+
 
     def calcular_efectividad(self, jugador, equipo, metodo_atributo, descripcion):
         print(f'GAMBETA ACTIVA --> {self._bonificacion_de_gambeta}')
@@ -46,7 +46,6 @@ class Acciones:
         print(f"Probabilidad de {descripcion} correcta: ", str(int(atributo*100)/(self._dificultad.get_probabilidad() if equipo == 1 else 100)) + '%')
         print(f'{probabilidad} vs {atributo}')
         return probabilidad <= atributo
-        "Si no funciona sacar getattr"
 
     def calcular_efectividad_pase(self, jugador, equipo):
         return self.calcular_efectividad(jugador, equipo, 'get_pase', 'pase')
@@ -64,8 +63,4 @@ class Acciones:
             return self.calcular_efectividad(jugador,equipo, 'get_gambeta', 'gambeta')
 
 
-'COSAS PARA IMPLEMENTAR'
-'- INTEGRAR LA VELOCIDADD, FISICO Y LA DEFENSA PARA LA INTERCEPCION'
-'- INTEGRAR LA GAMBETA PARA QUE TE HABILITE TIRAR UN PASE SI O SI (EL ENEMIGO NO PUEDE INTERCEPTAR)'
-'- INTEGRAR LA VELOCIDAD AL TIRO'
 

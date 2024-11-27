@@ -3,7 +3,7 @@ import sys
 
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-)  # se agerego para que pueda leer la clase carta xd
+)  # se agerego para que pueda leer la clase carta
 from database.AbmCarta import AbmCarta
 from .formacion import *
 import random
@@ -51,9 +51,6 @@ class EquipoLogico:
     def establecer_distribucion(self):
         return self._formacion.formar(self._nro_equipo)
 
-    "revisar si funciona correctamente, sino pasar valor a una variabloe y devolverla"
-    "Se encarga de establecer la distribucion de los jugadores en la cancha"
-
     def generar_equipo_random(self):
         self.__generador = AbmCarta()
         cartas = []
@@ -68,13 +65,11 @@ class EquipoLogico:
         cartas += random.sample(delanteros, self._formacion.cantidad_dc())
 
         self.__generador.close()
-        "Debe devolver unicamente la lista de jugadores"
         return cartas
 
     def nuevo_equipo(self):
         self._jugadores = self.generar_equipo_random()
 
-    "es necesario tener dos funciones para generar un nuevo equipo? nuevo_equipo deveria retornar la lista de jugadores?"
 
     def mostrar_plantilla_lista(self):
         for i in self._jugadores:
@@ -91,5 +86,3 @@ class EquipoLogico:
         )
         self._formacion.mostrar_formacion()
 
-
-"Una vez funcione todo lo logico eliminar las funciones de imprimir y mostrar"
