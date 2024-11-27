@@ -21,7 +21,7 @@ class MenuController(Controlador):
         self._dificultad = dificultad  # dificultad predeterminada#
         self.__ranking = RankingController()
         self.__opciones = OpcionesController(self._dificultad)
-        self.__login = ControladorLoginaAdmin()
+        # self.__login = ControladorLoginaAdmin()
         self.__jugar = JugarController()
 
     def manejar_eventos(self, eventos, mouse_pos):

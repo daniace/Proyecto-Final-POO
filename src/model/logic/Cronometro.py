@@ -5,10 +5,10 @@ import time
 class Cronometro(threading.Thread):
     def __init__(self):
         super().__init__()
-        self.__contador_global = 120
-        self.__contador = 120
+        self.__contador_global = 180
+        self.__contador = 180
         self.__duracion_del_partido = (
-            120  # cantidad de segundos equivalentes a 2 minutos#
+            180  # cantidad de segundos equivalentes a 3 minutos#
         )
         self.__contador = 0  # inicializa el cronometro en 0#
         self.daemon = True  # declaramos el hilo caomo daemon lo que permite que se ejecute en 2 plano, y que cuando se termine el programa muera el hilo#

@@ -248,6 +248,7 @@ boton_dado = pygame.transform.scale(boton_dado, (95, 95))
 boton_negro = pygame.image.load(BOTON_NEGRO)
 boton_negro = pygame.transform.scale(boton_negro, (250, 100))
 boton_negro2 = pygame.transform.scale(boton_negro, (250, 80))
+boton_negro3 = pygame.transform.scale(boton_negro, (530, 250))
 
 marcador = pygame.image.load(RECTANGULO_NEGRO)
 marcador = pygame.transform.scale(marcador, (300, 400))
