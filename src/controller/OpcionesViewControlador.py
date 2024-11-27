@@ -3,19 +3,19 @@ import sys
 import pygame
 
 from controller.ReproductorMusica import ReproductorMusica
-from model.logic.Dificultades import *
-from settings import *
+from model.logic.Dificultades import Facil, Medio, Dificil
+from settings import dificultad_actual
 from view.OpcionesView import OpcionesView
-
+from settings import *
 from .Controlador import Controlador
 
 
 class OpcionesController(Controlador):
-    def __init__(self, dificultad: Dificultad):
+    def __init__(self):
         super().__init__()
+        self.__dificultad = dificultad_actual()
         self._view = OpcionesView(SCREEN)
         self.__musica = ReproductorMusica()
-        self.__dificultad = dificultad
 
     def manejar_eventos(self, eventos, mouse_pos):
         from controller.MenuViewControlador import MenuController
@@ -35,13 +35,10 @@ class OpcionesController(Controlador):
                     menu_principal = MenuController(self.__dificultad)
                     menu_principal.main_loop()
                 if botones["facil"].checkForInput(mouse_pos):
-                    self.__dificultad = Facil()
-                    print("instanciado en FACIL")
+                    self.__dificultad.set_dificultad(Facil())
                 if botones["normal"].checkForInput(mouse_pos):
-                    self.__dificultad = Medio()
-                    print("instanciado en MEDIO")
+                    self.__dificultad.set_dificultad(Medio())
                 if botones["dificil"].checkForInput(mouse_pos):
-                    self.__dificultad = Dificil()
-                    print("instanciado en Dificil")
+                    self.__dificultad.set_dificultad(Dificil())
         clock.tick(60)
         pygame.display.update()
