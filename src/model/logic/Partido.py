@@ -24,6 +24,9 @@ class Partido:
         self._goles = [0, 0]
         self._view = vista
 
+    def get_diccionario(self):
+        return self._cancha.get_diccionario()
+    
     def _jugador_con_pelota(self):
         """Devuelve el jugador en base a la posición actual de la pelota"""
         return self._cancha.get_diccionario().get(self._posicion_pelota, None)
