@@ -20,6 +20,7 @@ class CanchaView(VentanaView):
         self.__nombre_gif = "corriendo"
         self.__numero_random_seleccionado = False
         self.__gif_actual = None
+        self.__posicion_pelota = None 
 
     def mostrar(self, tiempo):
         self._botones = {}
@@ -72,7 +73,7 @@ class CanchaView(VentanaView):
             self.renderizar_gif()
         # pygame.display.update()
 
-
+        print(self.__posicion_pelota)
 
         if self.__pase_seleccionado:
             if self.__cantidad_pases >= 1:
@@ -345,6 +346,9 @@ class CanchaView(VentanaView):
     def set_pase_seleccionado(self, cantidad_pases):
         self.__pase_seleccionado = True
         self.__cantidad_pases = cantidad_pases
+    
+    def set_posicion_pelota(self, posicion):
+        self.__posicion_pelota = posicion
 
     def deseleccionar_pase(self):
         self.__pase_seleccionado = False
