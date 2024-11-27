@@ -23,6 +23,7 @@ class Partido:
         self._dificultad = dificultad
         self._goles = [0, 0]
         self._view = vista
+        self.__accion_cpu = None
 
     def get_diccionario(self):
         return self._cancha.get_diccionario()
@@ -247,8 +248,7 @@ class Partido:
                 print("PASE DE LA CPU")
                 pase_cpu = self.mostrar_pases(es_cpu=True)
                 if self.realizar_pase(pase_cpu):
-                    print("DESEA INTENTAR INTERCEPTAR?")
-                    "ACA TENFRIA QUE ESPERAR A QUE EL USUARIO APRETE INTERCEPTAR"
+                    self.__accion_cpu = "pase_a_interceptar"
                     return True
                     # if decision == True:
                     #     self.realizar_intercepcion()
@@ -257,11 +257,16 @@ class Partido:
                 print("TIRO DE LA CPU")
                 if self.realizar_tiro():
                     if not self.realizar_atajar():
+                        self.__accion_cpu = "gol_cpu"
                         print("\033[4;31m" + "GOOOOL DE LA CPU!!!" + "\033[0;m")
                         self._goles[1] += 1
                         print(
                             "GOLES -->", "P1", self._goles[0], "- CPU ", self._goles[1]
                         )
+                    else:
+                        self.__accion_cpu = "atajado_cpu"
+                else:
+                    self.__accion_cpu = "tiro_fallado_cpu"
 
     def mostrar_cancha_con_pelota(self):  # esta funcion despues se tiene que borrar#
         matriz = self._cancha.get_matriz_cancha()
@@ -305,6 +310,9 @@ class Partido:
 
     def get_goles(self):
         return self._goles
+
+    def get_accion_cpu(self):
+        return self.__accion_cpu
 
 
 # cosas que hacer:

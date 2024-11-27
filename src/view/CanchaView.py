@@ -1,4 +1,5 @@
 import gif_pygame
+import time
 import pygame
 import random
 from settings import *
@@ -24,23 +25,30 @@ class CanchaView(VentanaView):
         self.__posicion_pelota = None
         self.__lista_jugadores = None
         self.__posicion_pelota = None
+        self.__nro_jugada_global = 0
         self.__nroJugada = 0
         self.__gif_terminado = True
         self.__gif_anterior = None
         self.__goles = []
+        self.__accion_cpu = None
+        self.__nroJugada_cpu = 0
 
     def mostrar(self, tiempo):
         self._botones = {}
         pygame.display.set_caption("GAMEPLAY")
         self._pantalla.fill(NEGRO)
         self._pantalla.blit(self.__estadio, (0, 0))
+        CIRCULO = pygame.image.load(CIRCULONEGRO)
+        CIRCULO = pygame.transform.scale(CIRCULO, (50, 50))
+        self._pantalla.blit(CIRCULO, (ANCHO * 0.92, ALTO * 0.12))
+        self._pantalla.blit(CIRCULO, (ANCHO * 0.77, ALTO * 0.12))
         RECTANGULO = pygame.image.load(RECTANGULO_NEGRO)
         RECATANGULO = pygame.transform.scale(RECTANGULO, (600, 400))
         self._pantalla.blit(RECATANGULO, (ANCHO * 0.228, ALTO * 0.01))
         TIEMPO = get_fuente(50).render(f"      {tiempo}", True, NEGRO)
         self._pantalla.blit(boton_negro3, (ANCHO * 0.575, ALTO * 0.57))
+        self._pantalla.blit(boton_negro4, (ANCHO * 0.575, ALTO * 0.77))
         score = self.__renderizaciones["score"]
-        self.mostrar_goles()
         self._pantalla.blit(TIEMPO, (int(ANCHO * 0.81), int(ALTO * 0.04)))
         self._pantalla.blit(score, (int(ANCHO * 0.7), int(ALTO * 0.001)))
         self._pantalla.blit(
@@ -52,37 +60,9 @@ class CanchaView(VentanaView):
         self._pantalla.blit(cpu, (int(ANCHO * 0.93), int(ALTO * 0.105)))
         self.mostrar_jugadores()
         self.mostrar_pelota()
+        self.mostrar_goles()
 
-        if self.__nroJugada > 0:
-            texto_jugada = get_fuente(50).render(
-                f"Jugada Nro {self.__nroJugada}", True, BLANCO
-            )
-            self._pantalla.blit(texto_jugada, (int(ANCHO * 0.72), int(ALTO * 0.65)))
-        # if self.__accion is not None:
-        #     texto = self.__acciones[self.__accion]
-
-        #     if self.__gif is not None:  #esto creo que se saca, siempre hay gif creo
-        #         if not self.__numero_random_seleccionado:
-        #             self.__numero_random_seleccionado = True
-        #             self.__num = random.randint(0, len(self.__renderizaciones[self.__gif]) - 1)
-        #             self.__gif_actual = self.__renderizaciones[self.__gif][self.__num if not self.__gif == 'corriendo' else 0]
-
-        #         self.__gif_actual.render(
-        #         self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
-        #         )
-        #         if self.__gif_actual.ended:
-        #             self.__gif = 'corriendo'
-        #             if self.__gif != self.__accion:
-        #                 self.__gif = self.__accion
-        #                 self.__numero_random_seleccionado = False
-
-        #             # self.__gif = None
-
-        #     self._pantalla.blit(texto, (int(ANCHO * 0.25), int(ALTO * 0.05)))
-
-        if self.__accion is not None:
-            texto = self.__acciones[self.__accion]
-            self._pantalla.blit(texto, (int(ANCHO * 0.63), int(ALTO * 0.7)))
+        self.texto_jugadas()
 
         self.renderizar_gif()
         # pygame.display.update()
@@ -231,11 +211,10 @@ class CanchaView(VentanaView):
         self._botones["pase"] = PASE
 
     def renderizar_gif(self):
-
         gif = self.__renderizaciones[self.__gif_actual][
             0 if self.__gif_actual == "corriendo" else self.__numero_random_seleccionado
         ]
-        gif.render(self._pantalla, (int(ANCHO * 0.232), int(ALTO * 0.0185)))
+        gif.render(self._pantalla, (int(ANCHO * 0.232), int(ALTO * 0.018)))
 
         if gif.ended:
             self.__gif_terminado = True
@@ -379,6 +358,30 @@ class CanchaView(VentanaView):
                 "                       Gambeta fallida \n      -- Mala gambeta chaval! -- \n                  no ankara messi :'(",
                 FUENTE,
                 380,
+                ROJO,
+            ),
+            "pase_a_interceptar": self.__ajustar_texto(
+                "                        Pase del rival \n-- Aqui va el balon companiero! --",
+                FUENTE,
+                450,
+                VERDE,
+            ),
+            "gol_cpu": self.__ajustar_texto(
+                "        El rival disparo al arco\n   -- Gooooooolazooooo --",
+                FUENTE,
+                400,
+                VERDE,
+            ),
+            "atajado_cpu": self.__ajustar_texto(
+                "                El rival disparo al arco\n-- QUE PARADON DEL ARQUERO!! --\n          TU ARQUERO PARA TODAS",
+                FUENTE,
+                400,
+                VERDE,
+            ),
+            "tiro_fallado_cpu": self.__ajustar_texto(
+                "               El rival disparo al arco\n      -- El rival la tiro a saturno --\n                       BURROOOOOOOO!!!",
+                FUENTE,
+                400,
                 ROJO,
             ),
         }
@@ -528,10 +531,6 @@ class CanchaView(VentanaView):
         self.__goles = goles
 
     def mostrar_goles(self):
-        CIRCULO = pygame.image.load(CIRCULONEGRO)
-        CIRCULO = pygame.transform.scale(CIRCULO, (50, 50))
-        self._pantalla.blit(CIRCULO, (ANCHO * 0.92, ALTO * 0.11))
-        self._pantalla.blit(CIRCULO, (ANCHO * 0.77, ALTO * 0.11))
         COLOR1 = BLANCO
         COLOR2 = BLANCO
         if self.__goles[0] > self.__goles[1]:
@@ -541,9 +540,9 @@ class CanchaView(VentanaView):
             COLOR1 = ROJO
             COLOR2 = VERDE_CLARO
         gol_equipo = get_fuente(50).render(f"{self.__goles[0]}", True, COLOR1)
-        self._pantalla.blit(gol_equipo, (int(ANCHO * 0.785), int(ALTO * 0.13)))
+        self._pantalla.blit(gol_equipo, (int(ANCHO * 0.785), int(ALTO * 0.142)))
         gol_rival = get_fuente(50).render(f"{self.__goles[1]}", True, COLOR2)
-        self._pantalla.blit(gol_rival, (int(ANCHO * 0.935), int(ALTO * 0.13)))
+        self._pantalla.blit(gol_rival, (int(ANCHO * 0.935), int(ALTO * 0.142)))
 
     def get_gif_terminado(self):
         if self.__gif_actual == "corriendo":
@@ -553,3 +552,36 @@ class CanchaView(VentanaView):
     def inicio_partido(self):
         self.__gif_actual = "corriendo"
         self.__accion = None
+
+    def set_accion_cpu(self, accion):
+        self.__accion_cpu = accion
+
+    def texto_jugadas(self):
+        if self.__nro_jugada_global > 0:
+            texto_jugada = get_fuente(50).render(
+                f"Jugada Nro {self.__nroJugada}", True, BLANCO
+            )
+            self._pantalla.blit(texto_jugada, (int(ANCHO * 0.72), int(ALTO * 0.615)))
+        if self.__nro_jugada_global > 1 and self.__accion_cpu is not None:
+            texto_jugada = get_fuente(50).render(
+                f"Jugada Nro {self.__nroJugada_cpu}", True, BLANCO
+            )
+            self._pantalla.blit(texto_jugada, (int(ANCHO * 0.72), int(ALTO * 0.815)))
+
+        if self.__accion_cpu is not None:
+            texto = self.__acciones[self.__accion_cpu]
+            self._pantalla.blit(texto, (int(ANCHO * 0.63), int(ALTO * 0.87)))
+
+        if self.__accion is not None:
+            texto = self.__acciones[self.__accion]
+            self._pantalla.blit(texto, (int(ANCHO * 0.63), int(ALTO * 0.67)))
+
+    def set_nroJugada_cpu(self):
+        self.__nroJugada_cpu += 1
+
+    def ultima_jugada(self, equipo):
+        self.__nro_jugada_global += 1
+        if equipo == 1:
+            self.__nroJugada = self.__nro_jugada_global
+        else:
+            self.__nroJugada_cpu = self.__nro_jugada_global

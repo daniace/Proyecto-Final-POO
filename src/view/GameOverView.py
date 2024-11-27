@@ -11,6 +11,7 @@ class GameOverView(VentanaView):
 
     def mostrar(self):
         self._botones = {}
+        self._pantalla.fill("Black")
         pygame.display.set_caption("GAME OVER")
         texto = get_fuente(200).render("GAME OVER", True, "White")
         rect = texto.get_rect(center=(ANCHO // 2, ALTO // 2))

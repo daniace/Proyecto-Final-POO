@@ -36,12 +36,10 @@ class CanchaController(Controlador):
         from controller.JugarViewControlador import JugarController
 
         botones = self._view.get_botones()
-        
         for event in eventos:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self._view.ocultar_visibilidad()
@@ -58,7 +56,7 @@ class CanchaController(Controlador):
                     )
                     self.actualizar_seleccion()
                 elif event.key == pygame.K_RETURN:
-                        self.ejecutar_accion()
+                    self.ejecutar_accion()
 
     def cambiar_boton_actual(self):
         botones = self._view.get_botones()
@@ -86,7 +84,7 @@ class CanchaController(Controlador):
         self.__cronometro.start()
         self._partido._partido_en_curso = True
         # self._view.set_accion('corriendo')
-        
+
         while True:
             # print(type(self.__dificultad))
             if self._view.get_visibilidad():
@@ -95,18 +93,17 @@ class CanchaController(Controlador):
                     self._partido_en_curso = False
                     self._partido.mostrar_resultado()
                     self._view.ocultar_visibilidad()
-                    game_over = GameOverViewControlador(self._view._pantalla)
+                    game_over = GameOverViewControlador()
                     game_over.main_loop()
-                    break
                 # ATAJADA_GIF.render(
                 #     self._view._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
                 # )
-                self.mostrar_pelota()#CAMBIAR NOMBRE 
+                self.mostrar_pelota()  # CAMBIAR NOMBRE
                 mouse_pos = pygame.mouse.get_pos()
                 self._view.mostrar(self.__cronometro.get_contador())  # Mostrar el menú
                 eventos = pygame.event.get()  # Manejar eventos
                 self._view.cambiar_equipo(self._partido.get_equipo_con_posesion())
-                
+
                 if self._view.get_gif_terminado() or self.__pase_seleccionado:
                     if (
                         self._partido.get_equipo_con_posesion() == 1
@@ -118,7 +115,10 @@ class CanchaController(Controlador):
                         self._partido.get_equipo_con_posesion() == 2
                         and self.espera_intercepcion != True
                     ):
+                        self._view.ultima_jugada(2)
                         self.espera_intercepcion = self._partido._jugar_turno_cpu()
+                        accion_cpu = self._partido.get_accion_cpu()
+                        self._view.set_accion_cpu(accion_cpu)
                         self.manejar_eventos(eventos, mouse_pos)
                         self.cambiar_boton_actual()
 
@@ -148,6 +148,7 @@ class CanchaController(Controlador):
             and self._partido.get_equipo_con_posesion() == 1
         ):
             if nombre_boton_seleccionado == "pase":
+                self._view.ultima_jugada(1)
                 cantidad_pases = len(self._partido.mostrar_pases())
                 self._view.set_pase_seleccionado(cantidad_pases)
                 pases_disponibles = self._partido.mostrar_pases()
@@ -155,14 +156,13 @@ class CanchaController(Controlador):
                 self._view.renderizar_carta(jugadores)
                 self.__pase_seleccionado = True
             elif nombre_boton_seleccionado == "tiro":
-                self._view.set_nroJugada()
+                self._view.ultima_jugada(1)
                 self._view.set_accion("tiro_al_arco")
                 self._view.mostrar(self.__cronometro.get_contador())
-                # time.sleep(3)
                 accion = self._partido.jugar_turno_jugador(2)
                 self._view.set_accion(accion)
             elif nombre_boton_seleccionado == "gambeta":
-                self._view.set_nroJugada()
+                self._view.ultima_jugada(1)
                 accion = self._partido.jugar_turno_jugador(3)
                 self._view.set_accion(accion)
         elif self.__pase_seleccionado:
@@ -170,39 +170,36 @@ class CanchaController(Controlador):
             # jugadores = self._partido.imprimir_jugadores(pases_disponibles)
             if nombre_boton_seleccionado == "pase1":
                 # print(pases_disponibles[0][0])
-                self._view.set_nroJugada()
                 self.__pase_seleccionado = False
                 accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[0][0]
                 )
 
             elif nombre_boton_seleccionado == "pase2":
-                self._view.set_nroJugada()
                 self.__pase_seleccionado = False
                 accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[1][0]
                 )
             elif nombre_boton_seleccionado == "pase3":
-                self._view.set_nroJugada()
                 self.__pase_seleccionado = False
                 accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[2][0]
                 )
             elif nombre_boton_seleccionado == "pase4":
-                self._view.set_nroJugada()
                 self.__pase_seleccionado = False
                 accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[3][0]
                 )
             self.__pase_seleccionado = False
-            self.boton_actual= None
+            self.boton_actual = None
             self._view.deseleccionar_pase()
             self._view.set_accion(accion)
             self.cambiar_boton_actual()
-        'ACAAAAAAAAAAAAAAA'
+        "ACAAAAAAAAAAAAAAA"
 
         if self._partido.get_equipo_con_posesion() == 2 and self.espera_intercepcion:
             if nombre_boton_seleccionado == "interceptar":
+                self._view.ultima_jugada(1)
                 self.espera_intercepcion = False
                 accion = self._partido.realizar_intercepcion()
                 self._view.set_accion(accion)
@@ -225,7 +222,7 @@ class CanchaController(Controlador):
             6: ("defensas", formacion_cpu),
             7: ("portero", formacion_cpu),
         }
-        'PONER QUE SE PUEDA CAMBIAR DE FORMACION'
+        "PONER QUE SE PUEDA CAMBIAR DE FORMACION"
 
         indices = {i: 0 for i in range(8)}
         diccionario_jugadores = {}

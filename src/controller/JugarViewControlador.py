@@ -55,6 +55,7 @@ class JugarController(Controlador):
                     #     and self.__usuario_ingresado
                     # ):
                     self.__cancha = CanchaController(SCREEN, self.__genero_equipo)
+                    self.__cancha.set_estadio(self.__estadio_actual)
                     #     abmusuario = AbmUsuario()
                     #     nombre_usuario = self.__nombre_usuario.get_nombre()
                     #     print(nombre_usuario)
@@ -132,7 +133,6 @@ class JugarController(Controlador):
             nuevo_indice = (indice_actual - 1) % len(estadios)
         self._view.cambiar_estadio(estadios[nuevo_indice])
         self.__estadio_actual = estadios[nuevo_indice]
-        self.__cancha.set_estadio(self.__estadio_actual)
 
     def set_nombre_usuario(self, nombre):
         self.__nombre_usuario.set_nombre(nombre)

@@ -149,7 +149,8 @@ COMIENZA_PARTIDO = "src/assets/images/gifs/comienza_partido.gif"
 COMIENZA_PARTIDO2 = "src/assets/images/gifs/comienza_partido2.gif"
 SAQUE_MEDIO = "src/assets/images/gifs/saque_medio.gif"
 FIN_PARTIDO = "src/assets/images/gifs/fin_partido.gif"
-
+BOTON_NEGRO3 = "src/assets/images/BotonNegro3.png"
+BOTON_NEGRO4 = "src/assets/images/BotonNegro4.png"
 
 pygame.font.init()
 
@@ -273,7 +274,10 @@ boton_dado = pygame.transform.scale(boton_dado, (95, 95))
 boton_negro = pygame.image.load(BOTON_NEGRO)
 boton_negro = pygame.transform.scale(boton_negro, (250, 100))
 boton_negro2 = pygame.transform.scale(boton_negro, (250, 80))
-boton_negro3 = pygame.transform.scale(boton_negro, (530, 250))
+boton_negro3 = pygame.image.load(BOTON_NEGRO3)
+boton_negro3 = pygame.transform.scale(boton_negro3, (530, 190))
+boton_negro4 = pygame.image.load(BOTON_NEGRO4)
+boton_negro4 = pygame.transform.scale(boton_negro4, (530, 190))
 
 marcador = pygame.image.load(RECTANGULO_NEGRO)
 marcador = pygame.transform.scale(marcador, (300, 400))
