@@ -126,6 +126,9 @@ PASE2 = "src/assets/images/gifs/pase2.gif"
 TIRO = "src/assets/images/gifs/tiro.gif"
 TIRO_LEJANO = "src/assets/images/gifs/tiro_lejano.gif"
 CORRIENDO = "src/assets/images/gifs/corriendo.gif"
+GOL = "src/assets/images/gifs/gol.gif"
+GOL2 = "src/assets/images/gifs/gol2.gif"
+GOL3 = "src/assets/images/gifs/gol2.gif"
 
 
 pygame.font.init()
@@ -250,6 +253,7 @@ boton_dado = pygame.transform.scale(boton_dado, (95, 95))
 boton_negro = pygame.image.load(BOTON_NEGRO)
 boton_negro = pygame.transform.scale(boton_negro, (250, 100))
 boton_negro2 = pygame.transform.scale(boton_negro, (250, 80))
+boton_negro3 = pygame.transform.scale(boton_negro, (530, 250))
 
 marcador = pygame.image.load(RECTANGULO_NEGRO)
 marcador = pygame.transform.scale(marcador, (300, 400))
