@@ -255,6 +255,30 @@ def get_fuente(tamanio):
     return pygame.font.Font(FUENTE, tamanio)
 
 
+
+#FORMACIONES 
+FORMACION_USUARIO={
+    "4-3-3": {
+        "portero": [(133, 92)],
+        "defensas": [(111,128), (161,129),(213,142),(55,141)],
+        "mediocampistas": [(137,188),(184,198),(88,197)],
+        "delanteros": [(185,264),(138,275),(88,262)],
+    },
+    "4-4-2": {
+        "portero": [(133, 92)],
+        "defensas": [(103,129), (168,127),(207,142 ),(64,143)],
+        "mediocampistas": [(135,174),(204,208),(69,207),(134,254 )],
+        "delanteros": [(183,292),(84,295)],
+    },
+}
+FORMACION_CPU={
+    "4-3-3": {
+        "portero": [(137,320)],
+        "defensas": [(159,289),(111,290),(214,273),(55,273)],
+        "mediocampistas": [(183,213),(136,221),(90,213)],
+        "delanteros": [(178,150),(134,142),(88,151)],
+    }}
+
 clock = pygame.time.Clock()
 
 

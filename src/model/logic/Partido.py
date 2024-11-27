@@ -45,6 +45,9 @@ class Partido:
     def get_equipo_con_posesion(self) -> int:
         return self._equipo_con_posesion
 
+    def get_posicion_pelota(self) -> tuple:
+        return self._posicion_pelota
+    
     def mostrar_pases(self, es_cpu: bool = False):
         aliados_cercanos = self._cancha.encontrar_puntos_cercanos(
             self._posicion_pelota, "aliado"
