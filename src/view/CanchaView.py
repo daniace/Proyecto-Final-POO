@@ -18,9 +18,9 @@ class CanchaView(VentanaView):
         self.__cantidad_pases = 0
         self.__equipo = 1
         self.__accion = None
-        self.__accion_anterior = None #esto creo que se saca
+        self.__accion_anterior = None  # esto creo que se saca
         self.__numero_random_seleccionado = False
-        self.__gif_actual = 'corriendo'
+        self.__gif_actual = "corriendo"
         self.__posicion_pelota = None
         self.__lista_jugadores = None
         self.__posicion_pelota = None
@@ -79,11 +79,11 @@ class CanchaView(VentanaView):
         #             # self.__gif = None
 
         #     self._pantalla.blit(texto, (int(ANCHO * 0.25), int(ALTO * 0.05)))
-    
+
         if self.__accion is not None:
             texto = self.__acciones[self.__accion]
             self._pantalla.blit(texto, (int(ANCHO * 0.63), int(ALTO * 0.7)))
-        
+
         self.renderizar_gif()
         # pygame.display.update()
 
@@ -231,17 +231,17 @@ class CanchaView(VentanaView):
         self._botones["pase"] = PASE
 
     def renderizar_gif(self):
-        
+
         gif = self.__renderizaciones[self.__gif_actual][
             0 if self.__gif_actual == "corriendo" else self.__numero_random_seleccionado
         ]
-        gif.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05)))
+        gif.render(self._pantalla, (int(ANCHO * 0.232), int(ALTO * 0.0185)))
 
         if gif.ended:
             self.__gif_terminado = True
             gif.reset()
-            print(self.__gif_actual,'GIFFF ACTUAL' )
-            print(self.__gif_anterior,'GIFFF ANTERIOR' )
+            print(self.__gif_actual, "GIFFF ACTUAL")
+            print(self.__gif_anterior, "GIFFF ANTERIOR")
             if self.__gif_actual != self.__gif_anterior:
                 self.cambiar_gif()
         else:
@@ -250,13 +250,13 @@ class CanchaView(VentanaView):
     def cambiar_gif(self):
         if self.__gif_actual != "corriendo":
             self.__gif_actual = "corriendo"
-        elif self.__accion is not None: #and self.__accion_anterior != self.__accion:
-            if self.__gif_actual != 'corriendo':
+        elif self.__accion is not None:  # and self.__accion_anterior != self.__accion:
+            if self.__gif_actual != "corriendo":
                 self.__gif_anterior = self.__gif_actual
                 self.__accion_anterior = self.__gif_actual
             self.__gif_actual = self.__accion
-            print(self.__gif_actual,'actual')
-            print(self.__gif_anterior,'anterior')
+            print(self.__gif_actual, "actual")
+            print(self.__gif_anterior, "anterior")
             self.__numero_random_seleccionado = random.randint(
                 0, int(len(self.__renderizaciones[self.__gif_actual]) - 1)
             )
@@ -282,7 +282,7 @@ class CanchaView(VentanaView):
                 self._pantalla.blit(jugador_punto, (x, y))
             elif coordenada[0] in jugadores_cpu:
                 self._pantalla.blit(punto_cpu, (x, y))
-    
+
     def mostrar_pelota(self):
         pelota = pygame.image.load(PELOTA)
         pelota = pygame.transform.scale(pelota, (10, 10))
@@ -546,10 +546,10 @@ class CanchaView(VentanaView):
         self._pantalla.blit(gol_rival, (int(ANCHO * 0.935), int(ALTO * 0.13)))
 
     def get_gif_terminado(self):
-        if self.__gif_actual == 'corriendo':
+        if self.__gif_actual == "corriendo":
             return True
         return self.__gif_terminado
-    
+
     def inicio_partido(self):
         self.__gif_actual = "corriendo"
         self.__accion = None
