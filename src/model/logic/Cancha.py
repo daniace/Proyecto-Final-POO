@@ -18,11 +18,11 @@ class Cancha:
         for i in self._cancha:
             print(i)
 
-    def get_diccionario_equipo1(self):
-        return self._diccionario_equipo1
+    # def get_diccionario_equipo1(self):
+    #     return self._diccionario_equipo1
 
-    def get_diccionario_equipo2(self):
-        return self._diccionario_equipo2
+    # def get_diccionario_equipo2(self):
+    #     return self._diccionario_equipo2
     
     def get_diccionario(self):
         return self._diccionario_completo
@@ -151,7 +151,7 @@ class Cancha:
             # Ordenar para que los enemigos más cercanos estén primero
             puntos_cercanos.sort(key=lambda x: x[1])
             return puntos_cercanos [0]
-  
+
     "FUNCION MODIFICADA "
     "NOTA --> Se ingresa una posicion y un TIPO de busqueda"
     "Se retorna una lista de tuplas con los puntos cercanos y la distancia"

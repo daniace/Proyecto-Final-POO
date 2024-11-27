@@ -1,6 +1,6 @@
 import gif_pygame
 import pygame
-
+import random
 from settings import *
 
 from .VentanaView import VentanaView
@@ -14,15 +14,13 @@ class CanchaView(VentanaView):
         self.__estadio_cancha = barcelona
         self.__acciones = {}
         self.__pase_seleccionado = False
-        self.__pase = False
-        self.__tiro = True
-        self.__intercepcion = True
-        # self.__
-        self.__pase_botones = False
         self.__cantidad_pases = 0
         self.__equipo = 1
         self.__accion = None
-        self.__gif = "PASE"
+        self.__nombre_gif = "corriendo"
+        self.__numero_random_seleccionado = False
+        self.__gif_actual = None
+        self.__posicion_pelota = None
         self.__nroJugada = 0
 
     def mostrar(self, tiempo):
@@ -49,27 +47,37 @@ class CanchaView(VentanaView):
                 f"Jugada Nro {self.__nroJugada}", True, BLANCO
             )
             self._pantalla.blit(texto_jugada, (int(ANCHO * 0.72), int(ALTO * 0.65)))
-        # ATAJADA_GIF = gif_pygame.load(ATAJADA)
-        # gif_superficie = gif_pygame.GIFPygame(ATAJADA_GIF)
-        # self._pantalla.blit(
-        #     gif_superficie.blit_ready(), (int(ANCHO * 0.25), int(ALTO * 0.05))
-        # )
-        # # ATAJADA_GIF.render(gif_superficie, (int(ANCHO * 0.25), int(ALTO * 0.05)))
-        # if self.__pase:
-        #     PASE_GIF = gif_pygame.load(PASE)
-        #     PASE_GIF.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05)))
+
+        # if self.__accion is not None:
+        #     texto = self.__acciones[self.__accion]
+
+        #     if self.__gif is not None:  #esto creo que se saca, siempre hay gif creo
+        #         if not self.__numero_random_seleccionado:
+        #             self.__numero_random_seleccionado = True
+        #             self.__num = random.randint(0, len(self.__renderizaciones[self.__gif]) - 1)
+        #             self.__gif_actual = self.__renderizaciones[self.__gif][self.__num if not self.__gif == 'corriendo' else 0]
+
+        #         self.__gif_actual.render(
+        #         self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
+        #         )
+        #         if self.__gif_actual.ended:
+        #             self.__gif = 'corriendo'
+        #             if self.__gif != self.__accion:
+        #                 self.__gif = self.__accion
+        #                 self.__numero_random_seleccionado = False
+
+        #             # self.__gif = None
+
+        #     self._pantalla.blit(texto, (int(ANCHO * 0.25), int(ALTO * 0.05)))
+
         if self.__accion is not None:
             texto = self.__acciones[self.__accion]
+            self._pantalla.blit(texto, (int(ANCHO * 0.25), int(ALTO * 0.05)))
 
-            # ACA TAL VEZ DEBERIA IR UNA BANDERA DE TIEMPO Y QUE CUANDO PASE DETERMINADO TIEMPO DESAPAREZCA
-            self.__renderizaciones[self.__gif].render(
-                self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
-            )
+            self.renderizar_gif()
+        # pygame.display.update()
 
-            # self.__renderizaciones["pase"]
-            # self._pantalla.blit(gif, (int(ANCHO * 0.25), int(ALTO * 0.05))
-            # )
-            self._pantalla.blit(texto, (int(ANCHO * 0.63), int(ALTO * 0.70)))
+        print(self.__posicion_pelota)
 
         if self.__pase_seleccionado:
             if self.__cantidad_pases >= 1:
@@ -214,6 +222,28 @@ class CanchaView(VentanaView):
         self._botones["tiro"] = TIRO
         self._botones["pase"] = PASE
 
+    def renderizar_gif(self):
+        if self.__gif_actual < len(self.__renderizaciones):
+            gif = self.__renderizaciones[self.__gif_actual][
+                0
+                if self.__gif_actual == "corriendo"
+                else self.__numero_random_seleccionado
+            ]
+            gif.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05)))
+
+            if gif.ended:
+                self.cambiar_gif()
+
+    def cambiar_gif(self):
+        if self.__gif_actual != "corriendo":
+            self.__gif_actual = "corriendo"
+        elif self.__accion is not None:
+            self.__gif_actual = self.__accion
+            self.__accion = None
+            self.__numero_random_seleccionado = random.randint(
+                0, len(self.__renderizaciones[self.__gif_actual]) - 1
+            )
+
     def mostrar_mensaje(self, mensaje, y):
         fuente = get_fuente(75)
         texto_render = fuente.render(mensaje, True, "White")
@@ -318,70 +348,59 @@ class CanchaView(VentanaView):
     def renderizar(self):
         score = pygame.image.load(SCORE)
         score = pygame.transform.scale(score, (400, 200))
-        PASE_GIF = gif_pygame.load(PASE, loops=1)
-        PASE2_GIF = gif_pygame.load(PASE2)
+        CORRIENDO_1 = gif_pygame.load(CORRIENDO, loops=0)
+        PASE_GIF = gif_pygame.load(PASE, loops=0)
+        PASE2_GIF = gif_pygame.load(PASE2, loops=0)
+
         CUADRADO_TEXTO = pygame.image.load(RECTANGULO_NEGRO)
         CUADRADO_TEXTO = pygame.transform.scale(CUADRADO_TEXTO, (450, 250))
 
-        TIRO_GIF = gif_pygame.load(TIRO)
-        TIRO_LEJANO_GIF = gif_pygame.load(TIRO_LEJANO)
+        TIRO_GIF = gif_pygame.load(TIRO, loops=0)
+        TIRO_LEJANO_GIF = gif_pygame.load(TIRO_LEJANO, loops=0)
 
-        GAMBETA_GIF = gif_pygame.load(GAMBETA)
-        GAMBETA2_GIF = gif_pygame.load(GAMBETA2)
-        GAMBETA3_GIF = gif_pygame.load(GAMBETA3)
-        GAMBETA4_GIF = gif_pygame.load(GAMBETA4)
+        GOL_GIF = gif_pygame.load(GOL, loops=0)
+        GOL2_GIF = gif_pygame.load(GOL2, loops=0)
 
-        INTERCEPCION_PASE_GIF = gif_pygame.load(INTERCEPCION_PASE)
-        INTERCEPCION_PASE2_GIF = gif_pygame.load(INTERCEPCION_PASE2)
-        INTERCEPCION_PASE3_GIF = gif_pygame.load(INTERCEPCION_PASE3)
+        GAMBETA_GIF = gif_pygame.load(GAMBETA, loops=0)
+        GAMBETA2_GIF = gif_pygame.load(GAMBETA2, loops=0)
+        GAMBETA3_GIF = gif_pygame.load(GAMBETA3, loops=0)
+        GAMBETA4_GIF = gif_pygame.load(GAMBETA4, loops=0)
 
-        ATAJADA_GIF = gif_pygame.load(ATAJADA)
-        ATAJADA2_GIF = gif_pygame.load(ATAJADA2)
+        INTERCEPCION_PASE_GIF = gif_pygame.load(INTERCEPCION_PASE, loops=0)
+        INTERCEPCION_PASE2_GIF = gif_pygame.load(INTERCEPCION_PASE2, loops=0)
+        INTERCEPCION_PASE3_GIF = gif_pygame.load(INTERCEPCION_PASE3, loops=0)
+
+        ATAJADA_GIF = gif_pygame.load(ATAJADA, loops=0)
+        ATAJADA2_GIF = gif_pygame.load(ATAJADA2, loops=0)
 
         gifs = {
-            "cuadrado_texto": CUADRADO_TEXTO,
-            "PASE": PASE_GIF,
+            "pase_valido": [PASE_GIF, PASE2_GIF],
+            "pase_invalido": [
+                INTERCEPCION_PASE_GIF,
+                INTERCEPCION_PASE2_GIF,
+                INTERCEPCION_PASE3_GIF,
+            ],
+            "tiro_al_arco": [TIRO_GIF, TIRO_LEJANO_GIF],
+            "tiro_fallado": [TIRO_GIF, TIRO_LEJANO_GIF],
+            "gol": [GOL_GIF, GOL2_GIF],
+            "gambeta_exitosa": [GAMBETA_GIF, GAMBETA2_GIF, GAMBETA3_GIF, GAMBETA4_GIF],
+            "gambeta_fallida": [GAMBETA_GIF, GAMBETA2_GIF, GAMBETA3_GIF, GAMBETA4_GIF],
+            "interseccion_valida": [
+                INTERCEPCION_PASE_GIF,
+                INTERCEPCION_PASE2_GIF,
+                INTERCEPCION_PASE3_GIF,
+            ],
+            "interseccion_fallida": [
+                INTERCEPCION_PASE_GIF,
+                INTERCEPCION_PASE2_GIF,
+                INTERCEPCION_PASE3_GIF,
+            ],
+            "atajado": [ATAJADA_GIF, ATAJADA2_GIF],
+            "corriendo": [CORRIENDO_1],
             "score": score,
-            "pase": PASE_GIF.render(
-                self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
-            ),
-            "pase2": PASE2_GIF.render(
-                self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
-            ),
-            "tiro": TIRO_GIF.render(
-                self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
-            ),
-            "tiro_lejano": TIRO_LEJANO_GIF.render(
-                self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
-            ),
-            "gambeta": GAMBETA_GIF.render(
-                self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
-            ),
-            "gambeta2": GAMBETA2_GIF.render(
-                self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
-            ),
-            "gambeta3": GAMBETA3_GIF.render(
-                self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
-            ),
-            "gambeta4": GAMBETA4_GIF.render(
-                self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
-            ),
-            "intercepcion_pase": INTERCEPCION_PASE_GIF.render(
-                self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
-            ),
-            "intercepcion_pase2": INTERCEPCION_PASE2_GIF.render(
-                self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
-            ),
-            "intercepcion_pase3": INTERCEPCION_PASE3_GIF.render(
-                self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
-            ),
-            "atajada": ATAJADA_GIF.render(
-                self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
-            ),
-            "atajada2": ATAJADA2_GIF.render(
-                self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
-            ),
         }
+        "AGREGAR MAS GIFS"
+
         self.__renderizaciones = gifs
 
     def set_pase(self, pase):
@@ -390,6 +409,9 @@ class CanchaView(VentanaView):
     def set_pase_seleccionado(self, cantidad_pases):
         self.__pase_seleccionado = True
         self.__cantidad_pases = cantidad_pases
+
+    def set_posicion_pelota(self, posicion):
+        self.__posicion_pelota = posicion
 
     def deseleccionar_pase(self):
         self.__pase_seleccionado = False
@@ -421,6 +443,7 @@ class CanchaView(VentanaView):
 
     def set_accion(self, accion):
         self.__accion = accion
+        self.__gif_actual = accion
 
     def set_nroJugada(self):
         self.__nroJugada += 1
