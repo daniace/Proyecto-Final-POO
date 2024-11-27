@@ -11,6 +11,7 @@ class EquipoJugarView(VentanaView):
         self.__renderizados = {}
         self.__ingresado = False
         self.__no_ingresado = False
+        self.__texto_excedido = False
 
     def mostrar(self):
         self._botones = {}
@@ -21,9 +22,14 @@ class EquipoJugarView(VentanaView):
         if self.__ingresado:
             texto = self.__renderizados["texto_ingresado"]
             self._pantalla.blit(texto, (ANCHO * 0.43, ALTO * 0.415))
+            self.__texto_excedido = False
         if self.__no_ingresado:
             texto = self.__renderizados["texto_restriccion"]
             self._pantalla.blit(texto, (ANCHO * 0.43, ALTO * 0.415))
+            self.__texto_excedido = False
+        if self.__texto_excedido:
+            texto = self.__renderizados["texto_excedido"]
+            self._pantalla.blit(texto, (ANCHO * 0.27, ALTO * 0.415))
 
         boton_usuario = self._mostrar_boton(
             None,
@@ -62,7 +68,11 @@ class EquipoJugarView(VentanaView):
         texto_equipo = get_fuente(60).render("EQUIPO:", True, NEGRO)
         texto_ingresado = get_fuente(40).render("**INGRESO EXITOSO**", True, NEGRO)
         texto_no_ingresado = get_fuente(40).render("**INGRESE UN NOMBRE**", True, NEGRO)
+        texto_excedido = get_fuente(40).render(
+            "**SE ADMITEN NOMBRES DE HASTA 10 LETRAS**", True, NEGRO
+        )
         renderizados = {
+            "texto_excedido": texto_excedido,
             "tabla_login": tabla_login,
             "texto_equipo": texto_equipo,
             "flecha_atras": flecha_atras,
@@ -92,3 +102,6 @@ class EquipoJugarView(VentanaView):
 
     def set_no_ingresado(self, no_ingresado):
         self.__no_ingresado = no_ingresado
+
+    def set_texto_excedido(self, excedido):
+        self.__texto_excedido = excedido
