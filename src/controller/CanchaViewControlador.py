@@ -7,11 +7,13 @@ import pygame
 from model.logic.Cronometro import Cronometro
 from model.logic.Dificultades import *
 from model.logic.EquipoLogico import EquipoLogico
-from view.CanchaView import CanchaView
 from model.logic.Partido import Partido
 from settings import *
 from settings import dificultad_actual
+from view.CanchaView import CanchaView
+
 from .Controlador import Controlador
+from .GameOverViewControlador import GameOverViewControlador
 
 
 class CanchaController(Controlador):
@@ -87,6 +89,9 @@ class CanchaController(Controlador):
                 if self.__cronometro._evento_partido_terminado.is_set():
                     self._partido_en_curso = False
                     self._partido.mostrar_resultado()
+                    self._view.ocultar_visibilidad()
+                    game_over = GameOverViewControlador(self._view._pantalla)
+                    game_over.main_loop()
                     break
                 ATAJADA_GIF.render(
                     self._view._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))

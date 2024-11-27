@@ -44,14 +44,15 @@ class LoginView(ctk.CTk):
         self.login_button = ctk.CTkButton(self, text="Login", command=self.login)
         self.login_button.pack(pady=20)
 
+        self.entry_usuario.focus_set()
+
+        self.bind("<Return>", lambda event: self.login())
+
     def login(self):
         # Lógica para login
         if self.controller.validar_login(
             self.entry_usuario.get(), self.entry_password.get()
         ):
-            # usuario = self.entry_usuario.get()
-            # password = self.entry_password.get()
-            # if usuario == "admin" and password == "admin":
             self.destroy()  # Cerrar ventana de login
             MainView(self.controller).mainloop()
         else:
@@ -149,7 +150,9 @@ class MainView(ctk.CTk):
             text="Agregar Usuario",
             command=self.formulario_agregar_usuario,
         )
-        self.btn_agregar_usuario.pack(side="left", pady=10, padx=10)
+        self.btn_agregar_usuario.pack(
+            side="left", pady=10, padx=10, fill="x", expand=True
+        )
 
         # Modificar Usuario
         self.btn_modificar_usuario = ctk.CTkButton(
@@ -157,7 +160,9 @@ class MainView(ctk.CTk):
             text="Modificar Usuario",
             command=self.modificar_usuario,
         )
-        self.btn_modificar_usuario.pack(side="left", pady=10, padx=10)
+        self.btn_modificar_usuario.pack(
+            side="left", pady=10, padx=10, fill="x", expand=True
+        )
 
         # Eliminar Usuario
         self.btn_eliminar_usuario = ctk.CTkButton(
@@ -165,7 +170,19 @@ class MainView(ctk.CTk):
             text="Eliminar Usuario",
             command=self.eliminar_usuario,
         )
-        self.btn_eliminar_usuario.pack(side="left", pady=10, padx=10)
+        self.btn_eliminar_usuario.pack(
+            side="left", pady=10, padx=10, fill="x", expand=True
+        )
+
+        # Cerrar
+        self.btn_cerrar = ctk.CTkButton(
+            frame_botones_usuarios,
+            text="Cerrar",
+            command=self.destroy,
+            fg_color="red",
+            hover_color="dark red",
+        )
+        self.btn_cerrar.pack(side="right", pady=10, padx=10, fill="x", expand=True)
 
         # Cargar datos
         self.load_usuarios()
@@ -379,7 +396,9 @@ class MainView(ctk.CTk):
             text="Agregar Equipo",
             command=self.formulario_agregar_equipo,
         )
-        self.btn_agregar_equipo.pack(side="left", pady=10, padx=10)
+        self.btn_agregar_equipo.pack(
+            side="left", pady=10, padx=10, expand=True, fill="x"
+        )
 
         # Modificar Equipo
         self.btn_modificar_equipo = ctk.CTkButton(
@@ -387,13 +406,27 @@ class MainView(ctk.CTk):
             text="Modificar Equipo",
             command=self.modificar_equipo,
         )
-        self.btn_modificar_equipo.pack(side="left", pady=10, padx=10)
+        self.btn_modificar_equipo.pack(
+            side="left", pady=10, padx=10, expand=True, fill="x"
+        )
 
         # Eliminar Equipo
         self.btn_eliminar_equipo = ctk.CTkButton(
             frame_botones_equipos, text="Eliminar Equipo", command=self.eliminar_equipo
         )
-        self.btn_eliminar_equipo.pack(side="left", pady=10, padx=10)
+        self.btn_eliminar_equipo.pack(
+            side="left", pady=10, padx=10, expand=True, fill="x"
+        )
+
+        # Cerrar
+        self.btn_cerrar = ctk.CTkButton(
+            frame_botones_equipos,
+            text="Cerrar",
+            command=self.destroy,
+            fg_color="red",
+            hover_color="dark red",
+        )
+        self.btn_cerrar.pack(side="right", pady=10, padx=10, expand=True, fill="x")
 
         # Cargar datos
         self.load_equipos()
@@ -515,146 +548,7 @@ class MainView(ctk.CTk):
         )
 
     def modificar_equipo(self):
-        seleccion = self.tree_equipos.focus()
-        equipo_seleccionado = self.tree_equipos.item(seleccion)["values"]
-
-        if not seleccion:
-            messagebox.showerror("Error", "Seleccione un equipo para modificar")
-            return
-
-        # Obtener los datos del equipo seleccionado
-        id_equipo = equipo_seleccionado[0]
-        nombre_equipo = equipo_seleccionado[1]
-        id_usuario = equipo_seleccionado[2]
-        cartas_ids = equipo_seleccionado[3:]
-
-        self.formulario_modificar_equipo(
-            id_equipo, nombre_equipo, id_usuario, *cartas_ids
-        )
-
-    def formulario_modificar_equipo(
-        self, id_equipo, nombre_equipo, id_usuario, *cartas_ids
-    ):
-        # Crear una nueva ventana para el formulario de modificar equipo
-        formulario_equipo = ctk.CTkToplevel(self)
-        formulario_equipo.attributes("-topmost", True)
-        formulario_equipo.title("Modificar Equipo")
-        formulario_equipo.resizable(False, False)
-        centrar_ventana(formulario_equipo, 350, 400)
-
-        frame_formulario = ctk.CTkFrame(formulario_equipo)
-        frame_formulario.pack(fill="both", expand=True, padx=10, pady=10)
-
-        # Obtener los diccionarios originales
-        dict_usuarios = self.controller.get_equipo_usuario()
-        dict_cartas = self.controller.get_equipo_carta()
-
-        # Campos del formulario
-        entry_nombre_equipo = ctk.CTkEntry(
-            frame_formulario, placeholder_text="Nombre Equipo"
-        )
-        entry_nombre_equipo.insert(0, nombre_equipo)
-
-        entry_nombre_usuario = ctk.CTkComboBox(
-            frame_formulario,
-            values=list(dict_usuarios.values()),
-            state="readonly",
-        )
-
-        # Seleccionar el usuario actual
-        entry_nombre_usuario.set(dict_usuarios[id_usuario])
-
-        # Verificar si id_usuario está en el diccionario
-        if id_usuario in dict_usuarios:
-            entry_nombre_usuario.set(dict_usuarios[id_usuario])
-        else:
-            # Manejar el caso en que no se encuentre el id_usuario
-            messagebox.showerror(
-                "Error", f"No se encontró el usuario con id {id_usuario}"
-            )
-            return
-
-        # Crear entradas de cartas dinámicamente
-        cartas_entries = []
-        for i in range(1, 12):
-            entry_carta = ctk.CTkComboBox(
-                frame_formulario,
-                values=list(dict_cartas.values()),
-                state="readonly",
-            )
-            entry_carta.set(dict_cartas[cartas_ids[i - 1]])
-            cartas_entries.append(entry_carta)
-
-        # Posicionar Widgets
-        entry_nombre_equipo.grid(row=0, pady=10, padx=10)
-        entry_nombre_usuario.grid(row=1, pady=10, padx=10)
-        for i, entry_carta in enumerate(cartas_entries, start=2):
-            entry_carta.grid(row=i, pady=10, padx=10)
-
-        def guardar_equipo():
-            nombre_equipo = entry_nombre_equipo.get()
-            nombre_usuario = entry_nombre_usuario.get()
-
-            # Validar nombre del equipo
-            if not nombre_equipo.strip():
-                messagebox.showerror(
-                    "Error", "El nombre del equipo no puede estar vacío."
-                )
-                return
-
-            # Obtener el ID del usuario seleccionado
-            id_usuario = next(
-                (
-                    id
-                    for id, nombre in dict_usuarios.items()
-                    if nombre == nombre_usuario
-                ),
-                None,
-            )
-
-            if not id_usuario:
-                messagebox.showerror("Error", "Debe seleccionar un usuario.")
-                return
-
-            # Obtener los IDs de las cartas seleccionadas
-            cartas_ids = []
-            for entry_carta in cartas_entries:
-                nombre_carta = entry_carta.get()
-                id_carta = next(
-                    (
-                        id
-                        for id, nombre in dict_cartas.items()
-                        if nombre == nombre_carta
-                    ),
-                    None,
-                )
-                if not id_carta:  # Validar que cada carta tenga un valor
-                    messagebox.showerror(
-                        "Error", "Debe seleccionar una carta para cada posición."
-                    )
-                    return
-                cartas_ids.append(id_carta)
-
-            # Llamar al controlador con los IDs
-            try:
-                self.controller.update_equipo(
-                    id_equipo,
-                    nombre_equipo,
-                    id_usuario,
-                    *cartas_ids,  # Pasar los IDs de las cartas como argumentos
-                )
-                formulario_equipo.destroy()
-                self.load_equipos()
-            except Exception as e:
-                messagebox.showerror("Error", f"Ocurrió un error al guardar: {e}")
-
-        # Botón para guardar
-        boton_guardar = ctk.CTkButton(
-            frame_formulario, text="Guardar", command=guardar_equipo, width=300
-        )
-        boton_guardar.grid(
-            row=8, column=0, columnspan=2, pady=10, padx=10, sticky="nsew"
-        )
+        pass
 
     def eliminar_equipo(self):
         seleccion = self.tree_equipos.focus()
@@ -762,27 +656,35 @@ class MainView(ctk.CTk):
             text="Agregar Carta",
             command=self.formulario_agregar_carta,
         )
-        btn_agregar_carta.pack(side="left", pady=10, padx=10)
+        btn_agregar_carta.pack(side="left", pady=10, padx=10, fill="x", expand=True)
 
         btn_agregar_arquero = ctk.CTkButton(
             frame_botones_cartas,
             text="Agregar Arquero",
             command=self.formulario_agregar_arquero,
         )
-        btn_agregar_arquero.pack(side="left", pady=10, padx=10)
+        btn_agregar_arquero.pack(side="left", pady=10, padx=10, fill="x", expand=True)
 
         btn_modificar_carta = ctk.CTkButton(
             frame_botones_cartas,
             text="Modificar Carta",
             command=self.modificar_carta,
         )
-        btn_modificar_carta.pack(side="left", pady=10, padx=10)
+        btn_modificar_carta.pack(side="left", pady=10, padx=10, fill="x", expand=True)
 
         btn_eliminar_carta = ctk.CTkButton(
             frame_botones_cartas, text="Eliminar Carta", command=self.eliminar_carta
         )
-        btn_eliminar_carta.pack(side="left", pady=10, padx=10)
+        btn_eliminar_carta.pack(side="left", pady=10, padx=10, fill="x", expand=True)
 
+        btn_cerrar = ctk.CTkButton(
+            frame_botones_cartas,
+            text="Cerrar",
+            command=self.destroy,
+            fg_color="red",
+            hover_color="dark red",
+        )
+        btn_cerrar.pack(side="right", pady=10, padx=10, fill="x", expand=True)
         # Cargar datos
         self.load_cartas()
 

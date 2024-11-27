@@ -1,5 +1,5 @@
-from model.database.AbmEquipo import AbmEquipo
 from model.database.AbmCarta import AbmCarta
+from model.database.AbmEquipo import AbmEquipo
 from model.database.AbmUsuario import AbmUsuario
 
 
