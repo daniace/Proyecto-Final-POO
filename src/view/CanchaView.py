@@ -356,6 +356,7 @@ class CanchaView(VentanaView):
 
         GOL_GIF = gif_pygame.load(GOL, loops=0)
         GOL2_GIF = gif_pygame.load(GOL2, loops=0)
+        GOL3_GIF = gif_pygame.load(GOL3, loops=0)
 
         GAMBETA_GIF = gif_pygame.load(GAMBETA, loops=0)
         GAMBETA2_GIF = gif_pygame.load(GAMBETA2, loops=0)
@@ -378,7 +379,7 @@ class CanchaView(VentanaView):
             ],
             "tiro_al_arco": [TIRO_GIF, TIRO_LEJANO_GIF],
             "tiro_fallado": [TIRO_GIF, TIRO_LEJANO_GIF],
-            "gol": [GOL_GIF, GOL2_GIF],
+            "gol": [GOL_GIF, GOL2_GIF, GOL3_GIF],
             "gambeta_exitosa": [GAMBETA_GIF, GAMBETA2_GIF, GAMBETA3_GIF, GAMBETA4_GIF],
             "gambeta_fallida": [GAMBETA_GIF, GAMBETA2_GIF, GAMBETA3_GIF, GAMBETA4_GIF],
             "interseccion_valida": [
