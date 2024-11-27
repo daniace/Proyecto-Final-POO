@@ -32,6 +32,7 @@ class CanchaView(VentanaView):
         self.__goles = []
         self.__accion_cpu = None
         self.__nroJugada_cpu = 0
+        self.__pases = []
 
     def mostrar(self, tiempo):
         self._botones = {}
@@ -70,6 +71,7 @@ class CanchaView(VentanaView):
         # print(self.__posicion_pelota)
 
         if self.__pase_seleccionado:
+            self.mostrar_pases()
             if self.__cantidad_pases >= 1:
                 PASE1 = self._mostrar_boton(
                     boton_negro2,
@@ -274,7 +276,11 @@ class CanchaView(VentanaView):
         pelota = pygame.image.load(JUG_CONPELOTA)
         pelota = pygame.transform.scale(pelota, (10, 10))
         self._pantalla.blit(pelota, self.__posicion_pelota)
-
+    def mostrar_pases(self):
+        aliados= pygame.image.load(PELOTA)
+        aliados= pygame.transform.scale(aliados,(10,10))
+        for jugador in self.__pases:
+            self._pantalla.blit(aliados,jugador)
     def set_lista_jugadores(self, jugadores):
         self.__lista_jugadores = jugadores
 
@@ -296,6 +302,8 @@ class CanchaView(VentanaView):
             self.__estadio_cancha = mexico
         elif self.__estadio == malasia:
             self.__estadio_cancha = malasya
+    def set_pases(self,pases):
+        self.__pases = pases
 
     def __ajustar_texto(self, texto, fuente, max_ancho, color):
         tamaño = 50  # Tamaño inicial

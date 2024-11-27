@@ -151,6 +151,7 @@ class CanchaController(Controlador):
             if nombre_boton_seleccionado == "pase":
                 self._view.ultima_jugada(1)
                 cantidad_pases = len(self._partido.mostrar_pases())
+                self.mostrar_aliados()
                 self._view.set_pase_seleccionado(cantidad_pases)
                 pases_disponibles = self._partido.mostrar_pases()
                 jugadores = self._partido.imprimir_jugadores(pases_disponibles)
@@ -243,6 +244,13 @@ class CanchaController(Controlador):
             self._partido.get_posicion_pelota()
         ]
         self._view.set_posicion_pelota(posicion)
+    def mostrar_aliados(self):
+        pases=[]
+        lista= self._partido.mostrar_pases()
+        for aliados in lista:
+            pases.append(self.__diccionario_posiciones_jugadores[aliados[0]])
+        self._view.set_pases(pases)
+            
         # "4-4-2": {
         #     "portero": [(137,320)],
         #     "defensas": [(169,287),(104,285),(209,271),(63,272)],
