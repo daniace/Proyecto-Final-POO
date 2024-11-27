@@ -232,6 +232,8 @@ class CanchaView(VentanaView):
             else:
                 self.__gif_actual != "corriendo"
                 self.__gif_actual = "corriendo"
+                if self.__gif_renderizado.ended:
+                    self.__gif_renderizado.reset()
 
     def cambiar_gif(self):
         if self.__accion is not None:  # and self.__accion_anterior != self.__accion:
