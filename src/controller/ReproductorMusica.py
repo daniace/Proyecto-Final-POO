@@ -5,7 +5,7 @@ import pygame
 
 
 class ReproductorMusica:
-    def __init__(self, volumen=0.5):
+    def __init__(self, volumen=1.0):
         """
         Inicializa el reproductor de música.
         :param volumen: Volumen inicial (entre 0.0 y 1.0).
