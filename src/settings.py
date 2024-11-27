@@ -122,6 +122,8 @@ PASE2 = "src/assets/images/gifs/pase2.gif"
 TIRO = "src/assets/images/gifs/tiro.gif"
 TIRO_LEJANO = "src/assets/images/gifs/tiro_lejano.gif"
 CORRIENDO = "src/assets/images/gifs/corriendo.gif"
+GOL = "src\assets\images\gifs\gol.gif"
+GOL2 = "src\assets\images\gifs\gol2.gif"
 
 
 pygame.font.init()

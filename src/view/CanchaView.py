@@ -218,6 +218,7 @@ class CanchaView(VentanaView):
         self._botones["pase"] = PASE
 
     def renderizar_gif(self):
+        if self.__gif_actual < len(self.__renderizaciones):
             gif = self.__renderizaciones[self.__gif_actual][0 if self.__gif_actual == 'corriendo' else self.__numero_random_seleccionado]
             gif.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05)))
 
@@ -230,7 +231,7 @@ class CanchaView(VentanaView):
         elif self.__accion is not None:
             self.__gif_actual = self.__accion
             self.__accion = None
-            self.__numero_random_seleccionado = random.randint(0, len(self.__renderizaciones[self.__gif]) - 1)
+            self.__numero_random_seleccionado = random.randint(0, len(self.__renderizaciones[self.__gif_actual]) - 1)
 
     def mostrar_mensaje(self, mensaje, y):
         fuente = get_fuente(75)
@@ -304,6 +305,9 @@ class CanchaView(VentanaView):
 
         TIRO_GIF = gif_pygame.load(TIRO, loops=0)
         TIRO_LEJANO_GIF = gif_pygame.load(TIRO_LEJANO, loops=0)
+        
+        GOL_GIF = gif_pygame.load(GOL, loops=0)
+        GOL2_GIF = gif_pygame.load(GOL2, loops=0)
 
         
         GAMBETA_GIF = gif_pygame.load(GAMBETA, loops=0)
@@ -322,7 +326,7 @@ class CanchaView(VentanaView):
                 'pase_invalido': [INTERCEPCION_PASE_GIF, INTERCEPCION_PASE2_GIF, INTERCEPCION_PASE3_GIF],
                 'tiro_al_arco': [TIRO_GIF, TIRO_LEJANO_GIF],
                 'tiro_fallado': [TIRO_GIF, TIRO_LEJANO_GIF],
-                'gol': [TIRO_GIF, TIRO_LEJANO_GIF],
+                'gol': [GOL_GIF, GOL2_GIF],
                 'gambeta_exitosa': [GAMBETA_GIF, GAMBETA2_GIF, GAMBETA3_GIF, GAMBETA4_GIF],
                 'gambeta_fallida': [GAMBETA_GIF, GAMBETA2_GIF, GAMBETA3_GIF, GAMBETA4_GIF],
                 'interseccion_valida': [INTERCEPCION_PASE_GIF, INTERCEPCION_PASE2_GIF, INTERCEPCION_PASE3_GIF],
