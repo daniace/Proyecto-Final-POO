@@ -4,6 +4,7 @@ import threading
 import pygame
 
 from controller.ControladorABM import ControllerABM
+from controller.GameOverViewControlador import GameOverViewControlador
 from controller.JugarViewControlador import JugarController
 from controller.OpcionesViewControlador import OpcionesController
 from controller.RankingViewControlador import RankingController
