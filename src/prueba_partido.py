@@ -27,50 +27,29 @@ FORMACION_CPU={
     }}
 
 def relacionar_posiciones(diccionario_1):
-        diccionario = diccionario_1
-        formacion_usuario = FORMACION_USUARIO["4-3-3"]
-        formcion_cpu = FORMACION_CPU["4-3-3"]
-        
-        diccionario_jugadores = {}
-        indice1 = 0
-        indice2 = 0
-        indice3 = 0
-        indice4 = 0
-        indice5 = 0
-        indice6 = 0
-        
-        for coordenada in diccionario.keys():
-            
-            if coordenada[0] == 0:
-                diccionario_jugadores[coordenada] = formacion_usuario["portero"][0]
-            
-            if coordenada[0] == 1:
-                diccionario_jugadores[coordenada] = formacion_usuario["defensas"][indice1]
-                indice1 +=1
-            
-            if coordenada[0] == 2:
-                diccionario_jugadores[coordenada] = formcion_cpu["delanteros"][indice2]
-                indice2 +=1
-            
-            if coordenada[0] == 3:
-                diccionario_jugadores[coordenada] = formacion_usuario["mediocampistas"][indice3]
-                indice3 +=1
-                
-            if coordenada[0] == 4:
-                diccionario_jugadores[coordenada] = formcion_cpu["mediocampistas"][indice4]
-                indice4 +=1
-                
-            if coordenada[0] == 5:
-                diccionario_jugadores[coordenada] = formacion_usuario["delanteros"][indice5]
-                indice5 +=1
-                
-            if coordenada[0] == 6:
-                diccionario_jugadores[coordenada] = formcion_cpu["defensas"][indice6]
-                indice6 +=1
-                
-            if coordenada[0] == 7:
-                diccionario_jugadores[coordenada] = formcion_cpu["portero"][0]
-        return diccionario_jugadores
+    formacion_usuario = FORMACION_USUARIO["4-3-3"]
+    formacion_cpu = FORMACION_CPU["4-3-3"]
+
+    posiciones = {
+        0: ("portero", formacion_usuario),
+        1: ("defensas", formacion_usuario),
+        2: ("delanteros", formacion_cpu),
+        3: ("mediocampistas", formacion_usuario),
+        4: ("mediocampistas", formacion_cpu),
+        5: ("delanteros", formacion_usuario),
+        6: ("defensas", formacion_cpu),
+        7: ("portero", formacion_cpu)
+    }
+
+    indices = {i: 0 for i in range(8)}
+    diccionario_jugadores = {}
+
+    for coordenada in diccionario_1.keys():
+        tipo, formacion = posiciones[coordenada[0]]
+        diccionario_jugadores[coordenada] = formacion[tipo][indices[coordenada[0]]]
+        indices[coordenada[0]] += 1
+
+    return diccionario_jugadores
 
 cancha = Cancha(e,e2)
 cancha.mostrar_cancha()
