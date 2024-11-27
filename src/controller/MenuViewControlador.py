@@ -8,7 +8,6 @@ from controller.GameOverViewControlador import GameOverViewControlador
 from controller.JugarViewControlador import JugarController
 from controller.OpcionesViewControlador import OpcionesController
 from controller.RankingViewControlador import RankingController
-from model.logic.Dificultades import Medio
 from settings import SCREEN
 from view.MenuView import MenuView
 from view.VistaABM import LoginView
@@ -17,10 +16,9 @@ from .Controlador import Controlador
 
 
 class MenuController(Controlador):
-    def __init__(self, dificultad=Medio):
+    def __init__(self):
         super().__init__()
-        self._view = MenuView(SCREEN)
-        self._dificultad = dificultad  # dificultad predeterminada#
+        self._view = MenuView(SCREEN)  # dificultad predeterminada#
         self.__ranking = RankingController()
         self.__opciones = OpcionesController()
         self.__controlador_abm = ControllerABM()

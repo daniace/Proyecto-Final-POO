@@ -1,6 +1,6 @@
 import sys
 import time
-
+import multiprocessing
 import gif_pygame
 import pygame
 
@@ -11,7 +11,7 @@ from model.logic.Partido import Partido
 from settings import *
 from settings import dificultad_actual
 from view.CanchaView import CanchaView
-
+from view.PantallaCargaView import CargaView
 from .Controlador import Controlador
 from .GameOverViewControlador import GameOverViewControlador
 
@@ -31,6 +31,7 @@ class CanchaController(Controlador):
         self.__pase_seleccionado = False
         self.__cronometro = None
         self.__diccionario_posiciones_jugadores = None
+        self.__pantalla_de_carga = CargaView(SCREEN)
 
     def manejar_eventos(self, eventos, mouse_pos):
         from controller.JugarViewControlador import JugarController
@@ -73,6 +74,7 @@ class CanchaController(Controlador):
         # print(self.boton_texto)  # ESTO SE SACA ES PARA VER SI SE CAMBIABA LOS BOTONES
 
     def main_loop(self):
+        self.__pantalla_de_carga.main_loop()
         self._partido = Partido(self._jugador, self.__dificultad, self._view)
         self.relacionar_posiciones(self._partido.get_diccionario())
         if self.__cronometro is None or not self.__cronometro.is_alive():
@@ -84,9 +86,7 @@ class CanchaController(Controlador):
         self.__cronometro.start()
         self._partido._partido_en_curso = True
         # self._view.set_accion('corriendo')
-
         while True:
-            # print(type(self.__dificultad))
             if self._view.get_visibilidad():
                 self._view.set_goles(self._partido.get_goles())
                 if self.__cronometro._evento_partido_terminado.is_set():
