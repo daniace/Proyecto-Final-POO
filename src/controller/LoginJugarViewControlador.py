@@ -48,7 +48,7 @@ class LoginJugarViewControlador(Controlador):
                         self.__jugar.set_usuario_ingresado()
                         abmusuario.insertar(self.__Usuario)
                         abmusuario.close()
-                        self._view.set_no_ingresado(False)
+                        self._view.set_ingresado(False)
                         self.__texto_usuario = ""
                         self._view.set_ingresado(True)
                         self.__Ingresado = True

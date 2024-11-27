@@ -18,6 +18,7 @@ class LoginJugarView(VentanaView):
         self._pantalla.blit(tabla_login, (ANCHO * 0.25, ALTO * 0.2))
         texto_usuario = self.__renderizados["texto_usuario"]
         self._pantalla.blit(texto_usuario, (ANCHO * 0.28, ALTO * 0.33))
+
         if self.__ingresado:
             texto_aceptado = self.__renderizados["texto_ingresado"]
             self._pantalla.blit(texto_aceptado, (ANCHO * 0.43, ALTO * 0.415))
@@ -89,6 +90,3 @@ class LoginJugarView(VentanaView):
 
     def set_ingresado(self, ingresado):
         self.__ingresado = ingresado
-
-    def set_no_ingresado(self, no_ingresado):
-        self.__no_ingresado = no_ingresado

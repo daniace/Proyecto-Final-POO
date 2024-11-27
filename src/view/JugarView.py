@@ -10,6 +10,7 @@ class JugarView(VentanaView):
         super().__init__(pantalla)
         self.__estadio = camp_nou
         self.__atributos_carta = {}
+        self.__mostrar_restriccion_botones = False
 
     def mostrar(self):
         self._botones = {}
@@ -31,6 +32,13 @@ class JugarView(VentanaView):
         pygame.draw.rect(self._pantalla, COLOR_FONDO, fondo_rect, border_radius=20)
         self._pantalla.blit(TEXTO_ESTADIO, ESTADIO_RECT)
 
+        if self.__mostrar_restriccion_botones:
+            texto = get_fuente(35).render(
+                "**Ingresa Usuario Equipo y Dado**",
+                True,
+                NEGRO,
+            )
+            self._pantalla.blit(texto, (ANCHO * 0.01, ALTO * 0.8))
         # BOTONES
         CAMBIAR_FORMACION_ATRAS = self._mostrar_boton(
             boton_flecha_izquierda,
@@ -267,3 +275,6 @@ class JugarView(VentanaView):
                     "CARTA": CARTA_IMAGEN,
                 }
             self.__atributos_carta[jugador.get_nombre()] = estadisticas
+
+    def set_cambiar_restriccion(self, valor):
+        self.__mostrar_restriccion_botones = valor

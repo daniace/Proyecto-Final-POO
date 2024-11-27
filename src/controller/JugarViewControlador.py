@@ -69,6 +69,9 @@ class JugarController(Controlador):
                         abmequipo.close()
                         self._view.ocultar_visibilidad()
                         self.__cancha.main_loop()
+                        self._view.set_cambiar_restriccion(False)
+                    else:
+                        self._view.set_cambiar_restriccion(True)
                 elif botones["atras"].checkForInput(mouse_pos):  # Boton Back
                     self._view.ocultar_visibilidad()
                     menu_principal = MenuController()
