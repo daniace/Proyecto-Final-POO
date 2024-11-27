@@ -29,7 +29,7 @@ class CanchaController(Controlador):
         self.__pase_seleccionado = False
         self.__cronometro = None
         self.__diccionario_posiciones_jugadores = None
-
+        
     def manejar_eventos(self, eventos, mouse_pos):
         from controller.JugarViewControlador import JugarController
 
@@ -73,6 +73,7 @@ class CanchaController(Controlador):
 
     def main_loop(self):
         self._partido = Partido(self._jugador, self._dificultad, self._view)
+        self.relacionar_posiciones(self._partido.get_diccionario())
         if self.__cronometro is None or not self.__cronometro.is_alive():
             self.__cronometro = Cronometro()
         self._view.renderizar_acciones()
@@ -90,6 +91,7 @@ class CanchaController(Controlador):
                 ATAJADA_GIF.render(
                     self._view._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
                 )
+                self.mostrar_pelota()
                 mouse_pos = pygame.mouse.get_pos()
                 self._view.mostrar(self.__cronometro.get_contador())  # Mostrar el menú
                 eventos = pygame.event.get()  # Manejar eventos
@@ -132,7 +134,6 @@ class CanchaController(Controlador):
             and not self.espera_intercepcion
             and self._partido.get_equipo_con_posesion() == 1
         ):
-            print("PRIMER BUCLE")
             if nombre_boton_seleccionado == "pase":
                 cantidad_pases = len(self._partido.mostrar_pases())
                 self._view.set_pase_seleccionado(cantidad_pases)
@@ -141,12 +142,14 @@ class CanchaController(Controlador):
                 self._view.renderizar_carta(jugadores)
                 self.__pase_seleccionado = True
             elif nombre_boton_seleccionado == "tiro":
+                self._view.set_nroJugada()
                 self._view.set_accion("tiro_al_arco")
                 self._view.mostrar(self.__cronometro.get_contador())
-                time.sleep(1.5)
+                time.sleep(3)
                 accion = self._partido.jugar_turno_jugador(2)
                 self._view.set_accion(accion)
             elif nombre_boton_seleccionado == "gambeta":
+                self._view.set_nroJugada()
                 accion = self._partido.jugar_turno_jugador(3)
                 self._view.set_accion(accion)
         elif self.__pase_seleccionado:
@@ -154,21 +157,26 @@ class CanchaController(Controlador):
             # jugadores = self._partido.imprimir_jugadores(pases_disponibles)
             if nombre_boton_seleccionado == "pase1":
                 # print(pases_disponibles[0][0])
+                self._view.set_nroJugada()
                 self.__pase_seleccionado = False
                 accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[0][0]
                 )
+
             elif nombre_boton_seleccionado == "pase2":
+                self._view.set_nroJugada()
                 self.__pase_seleccionado = False
                 accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[1][0]
                 )
             elif nombre_boton_seleccionado == "pase3":
+                self._view.set_nroJugada()
                 self.__pase_seleccionado = False
                 accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[2][0]
                 )
             elif nombre_boton_seleccionado == "pase4":
+                self._view.set_nroJugada()
                 self.__pase_seleccionado = False
                 accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[3][0]
@@ -190,40 +198,43 @@ class CanchaController(Controlador):
         
     
 
-def relacionar_posiciones(diccionario_1):
-    formacion_usuario = FORMACION_USUARIO["4-3-3"]
-    formacion_cpu = FORMACION_CPU["4-3-3"]
+    def relacionar_posiciones(self,diccionario_1):
+        formacion_usuario = FORMACION_USUARIO["4-3-3"]
+        formacion_cpu = FORMACION_CPU["4-3-3"]
 
-    posiciones = {
-        0: ("portero", formacion_usuario),
-        1: ("defensas", formacion_usuario),
-        2: ("delanteros", formacion_cpu),
-        3: ("mediocampistas", formacion_usuario),
-        4: ("mediocampistas", formacion_cpu),
-        5: ("delanteros", formacion_usuario),
-        6: ("defensas", formacion_cpu),
-        7: ("portero", formacion_cpu)
-    }
+        posiciones = {
+            0: ("portero", formacion_usuario),
+            1: ("defensas", formacion_usuario),
+            2: ("delanteros", formacion_cpu),
+            3: ("mediocampistas", formacion_usuario),
+            4: ("mediocampistas", formacion_cpu),
+            5: ("delanteros", formacion_usuario),
+            6: ("defensas", formacion_cpu),
+            7: ("portero", formacion_cpu)
+        }
 
-    indices = {i: 0 for i in range(8)}
-    diccionario_jugadores = {}
+        indices = {i: 0 for i in range(8)}
+        diccionario_jugadores = {}
 
-    for coordenada in diccionario_1.keys():
-        tipo, formacion = posiciones[coordenada[0]]
-        diccionario_jugadores[coordenada] = formacion[tipo][indices[coordenada[0]]]
-        indices[coordenada[0]] += 1
+        for coordenada in diccionario_1.keys():
+            tipo, formacion = posiciones[coordenada[0]]
+            diccionario_jugadores[coordenada] = formacion[tipo][indices[coordenada[0]]]
+            indices[coordenada[0]] += 1
 
-    return diccionario_jugadores
-
-
-    # "4-4-2": {
-    #     "portero": [(137,320)],
-    #     "defensas": [(169,287),(104,285),(209,271),(63,272)],
-    #     "mediocampistas": [(136,241),(204,192 ),(134,188 )],
-    #     "delanteros": [(69,193),(183,143),(85,142)],
-    
+        self.__diccionario_posiciones_jugadores = diccionario_jugadores
 
 
-"NOTA PARA SEGUIRLO -> EL BOTON ACTUAL ES EL BOTON SELECCIONADO, HAY QUE HACER QUE EL BOTON QUE SELECCIONA EL MOUSE SEA EL BOTON ACTUAL, ADEMAS DE CAMBIAR"
+    def mostrar_pelota(self):
+        posicion = self.__diccionario_posiciones_jugadores[self._partido.get_posicion_pelota()]
+        self._view.set_posicion_pelota(posicion)
+        # "4-4-2": {
+        #     "portero": [(137,320)],
+        #     "defensas": [(169,287),(104,285),(209,271),(63,272)],
+        #     "mediocampistas": [(136,241),(204,192 ),(134,188 )],
+        #     "delanteros": [(69,193),(183,143),(85,142)],
+        
+
+
+    "NOTA PARA SEGUIRLO -> EL BOTON ACTUAL ES EL BOTON SELECCIONADO, HAY QUE HACER QUE EL BOTON QUE SELECCIONA EL MOUSE SEA EL BOTON ACTUAL, ADEMAS DE CAMBIAR"
 "EL INDICE DEL EJECUTAR ACCION AL BOTON ACTUAL, PARA QUE SE ELIJA ESA OPCION"
 "MAÑANA LO SIGO - LEO"
