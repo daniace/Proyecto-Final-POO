@@ -134,7 +134,6 @@ class CanchaController(Controlador):
             and not self.espera_intercepcion
             and self._partido.get_equipo_con_posesion() == 1
         ):
-            print("PRIMER BUCLE")
             if nombre_boton_seleccionado == "pase":
                 cantidad_pases = len(self._partido.mostrar_pases())
                 self._view.set_pase_seleccionado(cantidad_pases)
@@ -143,12 +142,14 @@ class CanchaController(Controlador):
                 self._view.renderizar_carta(jugadores)
                 self.__pase_seleccionado = True
             elif nombre_boton_seleccionado == "tiro":
+                self._view.set_nroJugada()
                 self._view.set_accion("tiro_al_arco")
                 self._view.mostrar(self.__cronometro.get_contador())
                 time.sleep(3)
                 accion = self._partido.jugar_turno_jugador(2)
                 self._view.set_accion(accion)
             elif nombre_boton_seleccionado == "gambeta":
+                self._view.set_nroJugada()
                 accion = self._partido.jugar_turno_jugador(3)
                 self._view.set_accion(accion)
         elif self.__pase_seleccionado:
@@ -156,21 +157,26 @@ class CanchaController(Controlador):
             # jugadores = self._partido.imprimir_jugadores(pases_disponibles)
             if nombre_boton_seleccionado == "pase1":
                 # print(pases_disponibles[0][0])
+                self._view.set_nroJugada()
                 self.__pase_seleccionado = False
                 accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[0][0]
                 )
+
             elif nombre_boton_seleccionado == "pase2":
+                self._view.set_nroJugada()
                 self.__pase_seleccionado = False
                 accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[1][0]
                 )
             elif nombre_boton_seleccionado == "pase3":
+                self._view.set_nroJugada()
                 self.__pase_seleccionado = False
                 accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[2][0]
                 )
             elif nombre_boton_seleccionado == "pase4":
+                self._view.set_nroJugada()
                 self.__pase_seleccionado = False
                 accion = self._partido.jugar_turno_jugador(
                     1, aliado_pase=pases_disponibles[3][0]
