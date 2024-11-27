@@ -23,6 +23,7 @@ class CanchaView(VentanaView):
         self.__equipo = 1
         self.__accion = None
         self.__gif = "PASE"
+        self.__nroJugada = 0
 
     def mostrar(self, tiempo):
         self._botones = {}
@@ -30,6 +31,7 @@ class CanchaView(VentanaView):
         self._pantalla.fill(NEGRO)
         self._pantalla.blit(self.__estadio, (0, 0))
         TIEMPO = get_fuente(50).render(f"      {tiempo}", True, NEGRO)
+        self._pantalla.blit(boton_negro3, (ANCHO * 0.575, ALTO * 0.57))
         score = self.__renderizaciones["score"]
         self._pantalla.blit(TIEMPO, (int(ANCHO * 0.81), int(ALTO * 0.04)))
         self._pantalla.blit(score, (int(ANCHO * 0.7), int(ALTO * 0.001)))
@@ -40,6 +42,13 @@ class CanchaView(VentanaView):
         self._pantalla.blit(equipo, (int(ANCHO * 0.76), int(ALTO * 0.105)))
         cpu = get_fuente(35).render("Equipo 2", True, BLANCO)
         self._pantalla.blit(cpu, (int(ANCHO * 0.91), int(ALTO * 0.105)))
+        # cuadrado_texto = self.__renderizaciones["cuadrado_texto"]
+        # self._pantalla.blit(cuadrado_texto, (int(ANCHO * 0.61), int(ALTO * 0.625)))
+        if self.__nroJugada > 0:
+            texto_jugada = get_fuente(50).render(
+                f"Jugada Nro {self.__nroJugada}", True, BLANCO
+            )
+            self._pantalla.blit(texto_jugada, (int(ANCHO * 0.72), int(ALTO * 0.65)))
         # ATAJADA_GIF = gif_pygame.load(ATAJADA)
         # gif_superficie = gif_pygame.GIFPygame(ATAJADA_GIF)
         # self._pantalla.blit(
@@ -51,18 +60,16 @@ class CanchaView(VentanaView):
         #     PASE_GIF.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05)))
         if self.__accion is not None:
             texto = self.__acciones[self.__accion]
-            
-            #ACA TAL VEZ DEBERIA IR UNA BANDERA DE TIEMPO Y QUE CUANDO PASE DETERMINADO TIEMPO DESAPAREZCA 
+
+            # ACA TAL VEZ DEBERIA IR UNA BANDERA DE TIEMPO Y QUE CUANDO PASE DETERMINADO TIEMPO DESAPAREZCA
             self.__renderizaciones[self.__gif].render(
-            self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
+                self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
             )
-            
 
             # self.__renderizaciones["pase"]
             # self._pantalla.blit(gif, (int(ANCHO * 0.25), int(ALTO * 0.05))
             # )
-            self._pantalla.blit(texto, (int(ANCHO * 0.25), int(ALTO * 0.05)))
-            
+            self._pantalla.blit(texto, (int(ANCHO * 0.63), int(ALTO * 0.70)))
 
         if self.__pase_seleccionado:
             if self.__cantidad_pases >= 1:
@@ -235,7 +242,7 @@ class CanchaView(VentanaView):
             self.__estadio_cancha = malasya
 
     def __ajustar_texto(self, texto, fuente, max_ancho, color):
-        tamaño = 42  # Tamaño inicial
+        tamaño = 50  # Tamaño inicial
         while True:
             # llama a la fuente con el tamaño inicial
             fuente_actual = pygame.font.Font(fuente, tamaño)
@@ -248,23 +255,62 @@ class CanchaView(VentanaView):
 
     def renderizar_acciones(self):
         acciones = {
-            "pase_valido": self.__ajustar_texto("Pase exitoso", FUENTE, 250, BLANCO),
-            "pase_invalido": self.__ajustar_texto("Pase fallido", FUENTE, 250, BLANCO),
-            "tiro_al_arco": self.__ajustar_texto("Tiro al arco", FUENTE, 250, BLANCO),
-            "tiro_fallado": self.__ajustar_texto("Tiro fallido", FUENTE, 250, BLANCO),
-            "atajado": self.__ajustar_texto("Tiro atajado", FUENTE, 250, BLANCO),
-            "gol": self.__ajustar_texto("Gooooooolazoooo", FUENTE, 250, BLANCO),
+            "pase_valido": self.__ajustar_texto(
+                "                               Buen Pase \n    -- Has hacertado el pase :) --",
+                FUENTE,
+                400,
+                VERDE,
+            ),
+            "pase_invalido": self.__ajustar_texto(
+                "                                Mal Pase \n       -- Has errado el pase :) --",
+                FUENTE,
+                400,
+                ROJO,
+            ),
+            "tiro_al_arco": self.__ajustar_texto(
+                "\n        CHUTASTEEEEEEEEEE!", FUENTE, 350, BLANCO
+            ),
+            "tiro_fallado": self.__ajustar_texto(
+                "                          Erraste el tiro\n-- La tiraste a la segunda bandeja --\n                        BURROOOOOOOO!!!",
+                FUENTE,
+                450,
+                ROJO,
+            ),
+            "atajado": self.__ajustar_texto(
+                "                       ATAJADA RIVAL\n-- QUE PARADON DEL ARQUERO!! --",
+                FUENTE,
+                435,
+                ROJO,
+            ),
+            "gol": self.__ajustar_texto(
+                "               Acertaste el tiro\n   -- Gooooooolazooooo --",
+                FUENTE,
+                450,
+                VERDE,
+            ),
             "interseccion_valida": self.__ajustar_texto(
-                "Intercepcion exitosa", FUENTE, 250, BLANCO
+                "                 Interseccion exitosa \n-- Le quitaste el balon al rival! --",
+                FUENTE,
+                400,
+                VERDE,
             ),
             "interseccion_fallida": self.__ajustar_texto(
-                "Intercepcion fallida", FUENTE, 250, BLANCO
+                "                   Interseccion fallida \n -- No le quitaste el balon al rival :( --",
+                FUENTE,
+                435,
+                ROJO,
             ),
             "gambeta_exitosa": self.__ajustar_texto(
-                "Gambeta exitosa", FUENTE, 250, BLANCO
+                "                       Gambeta exitosa \n      -- Buena gambeta chaval! -- \n                         ankara messi",
+                FUENTE,
+                380,
+                VERDE,
             ),
             "gambeta_fallida": self.__ajustar_texto(
-                "Gambeta fallida", FUENTE, 250, BLANCO
+                "                       Gambeta fallida \n      -- Mala gambeta chaval! -- \n                  no ankara messi :'(",
+                FUENTE,
+                380,
+                ROJO,
             ),
         }
         self.__acciones = acciones
@@ -274,6 +320,8 @@ class CanchaView(VentanaView):
         score = pygame.transform.scale(score, (400, 200))
         PASE_GIF = gif_pygame.load(PASE, loops=1)
         PASE2_GIF = gif_pygame.load(PASE2)
+        CUADRADO_TEXTO = pygame.image.load(RECTANGULO_NEGRO)
+        CUADRADO_TEXTO = pygame.transform.scale(CUADRADO_TEXTO, (450, 250))
 
         TIRO_GIF = gif_pygame.load(TIRO)
         TIRO_LEJANO_GIF = gif_pygame.load(TIRO_LEJANO)
@@ -291,7 +339,8 @@ class CanchaView(VentanaView):
         ATAJADA2_GIF = gif_pygame.load(ATAJADA2)
 
         gifs = {
-            "PASE" : PASE_GIF,
+            "cuadrado_texto": CUADRADO_TEXTO,
+            "PASE": PASE_GIF,
             "score": score,
             "pase": PASE_GIF.render(
                 self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05))
@@ -372,3 +421,6 @@ class CanchaView(VentanaView):
 
     def set_accion(self, accion):
         self.__accion = accion
+
+    def set_nroJugada(self):
+        self.__nroJugada += 1
