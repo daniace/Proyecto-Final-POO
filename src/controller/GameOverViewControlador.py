@@ -11,6 +11,8 @@ class GameOverViewControlador(Controlador):
     def __init__(self):
         super().__init__()
         self._view = GameOverView(SCREEN)
+        self.__puntos_ganado = None
+        self.__goles = None
 
     def manejar_eventos(self, eventos, mouse_pos):
         from controller.JugarViewControlador import JugarController
@@ -32,3 +34,13 @@ class GameOverViewControlador(Controlador):
                     self._view.ocultar_visibilidad()
                     menu_principal = MenuController()
                     menu_principal.main_loop()
+                    
+    def main_loop(self):
+        self._view.set_resultado(self.__puntos_ganado, self.__goles)
+        return super().main_loop()
+    
+    def set_puntos_ganado(self, puntos_ganado):
+        self.__puntos_ganado = puntos_ganado
+    
+    def set_goles(self, goles):
+        self.__goles = goles

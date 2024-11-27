@@ -282,7 +282,7 @@ class Partido:
     def mostrar_resultado(self):
         print("\033[1;31m" + "Fin del partido" + "\033[0;m")
         print("RESULTADO -->", "P1", self._goles[0], "- CPU ", self._goles[1])
-        self._repartir_puntos(self._goles)
+        return self._repartir_puntos(self._goles)
 
     def _repartir_puntos(self, goles):  ##
         dificultades = [Facil, Medio, Dificil]
@@ -295,18 +295,21 @@ class Partido:
                         + f"{self._jugador1.get_nombre()} ha ganado {self._dificultad.get_pts_por_ganar()}"
                         + "\033[0;m"
                     )
+                    return self._dificultad.get_pts_por_ganar()
                 elif goles[0] == goles[1]:
                     print(
                         "\033[1;36m"
                         + f"{self._jugador1.get_nombre()} empato con {self._jugador2.get_nombre()}  , suma {self._dificultad.get_pts_por_empatar()}"
                         + "\033[0;m"
                     )
+                    return self._dificultad.get_pts_por_empatar()
                 else:
                     print(
                         "\033[1:31m"
                         + f"{self._jugador2.get_nombre()} ha ganado!  {self._jugador1.get_nombre()} suma {self._dificultad.get_pts_por_perder()}"
                         + "\033[0;m"
                     )
+                    return self._dificultad.get_pts_por_perder()
 
     def get_goles(self):
         return self._goles
