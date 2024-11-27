@@ -7,6 +7,46 @@ class ControllerABM:
     def __init__(self):
         self.db = Database()
 
+    def consistencia_carta(
+        self,
+        nombre,
+        nacionalidad,
+        club,
+        promedio,
+        posicion,
+        dorsal,
+        stat1,
+        stat2,
+        stat3,
+        stat4,
+        stat5,
+        stat6,
+    ):
+        if nombre == "":
+            raise ValueError("El nombre de la carta no puede estar vacío")
+        if nacionalidad == "":
+            raise ValueError("La nacionalidad de la carta no puede estar vacía")
+        if club == "":
+            raise ValueError("El club de la carta no puede estar vacío")
+        if int(promedio) < 0 or int(promedio) > 100:
+            raise ValueError("El promedio de la carta debe estar entre 0 y 100")
+        if posicion == "":
+            raise ValueError("La posición de la carta no puede estar vacía")
+        if int(dorsal) < 0 or int(dorsal) > 100:
+            raise ValueError("El dorsal de la carta debe estar entre 0 y 100")
+        if int(stat1) < 0 or int(stat1) > 100:
+            raise ValueError(f"El {stat1} de la carta debe estar entre 0 y 100")
+        if int(stat2) < 0 or int(stat2) > 100:
+            raise ValueError(f"El {stat2} de la carta debe estar entre 0 y 100")
+        if int(stat3) < 0 or int(stat3) > 100:
+            raise ValueError(f"El {stat3} de la carta debe estar entre 0 y 100")
+        if int(stat4) < 0 or int(stat4) > 100:
+            raise ValueError(f"El {stat4} de la carta debe estar entre 0 y 100")
+        if int(stat5) < 0 or int(stat5) > 100:
+            raise ValueError(f"El {stat5} de la carta debe estar entre 0 y 100")
+        if int(stat6) < 0 or int(stat6) > 100:
+            raise ValueError(f"El {stat6} de la carta debe estar entre 0 y 100")
+
     # validar login admin
     def validar_login(self, nombre_usuario, password):
         self.db.connect()
@@ -25,6 +65,10 @@ class ControllerABM:
         )
 
     def add_usuario(self, nombre_usuario, password, admin):
+        if nombre_usuario == "":
+            raise ValueError("El nombre de usuario no puede estar vacío")
+        if password == "":
+            raise ValueError("La contraseña no puede estar vacía")
         password = hashlib.sha256(password.encode()).hexdigest()
         self.db.execute_non_query(
             "INSERT INTO usuario (nombre_usuario, password, admin) VALUES (?, ?, ?)",
@@ -32,6 +76,10 @@ class ControllerABM:
         )
 
     def update_usuario(self, user_id, nombre_usuario, password, admin, score):
+        if nombre_usuario == "":
+            raise ValueError("El nombre de usuario no puede estar vacío")
+        if password == "":
+            raise ValueError("La contraseña no puede estar vacía")
         password = hashlib.sha256(password.encode()).hexdigest()
         self.db.execute_non_query(
             "UPDATE usuario SET nombre_usuario = ?, password = ?, admin = ?, score = ? WHERE id_usuario = ?",
@@ -108,6 +156,9 @@ class ControllerABM:
         id_carta10,
         id_carta11,
     ):
+        if nombre_equipo == "":
+            raise ValueError("El nombre del equipo no puede estar vacío")
+
         self.db.execute_non_query(
             "INSERT INTO equipo (nombre_equipo, id_usuario, id_carta1, id_carta2, id_carta3, id_carta4, id_carta5, id_carta6, id_carta7, id_carta8, id_carta9, id_carta10, id_carta11) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (
@@ -197,19 +248,34 @@ class ControllerABM:
 
     def add_carta_jugador(
         self,
-        nombre,
-        nacionalidad,
-        club,
-        promedio,
-        posicion,
-        dorsal,
-        velocidad,
-        tiro,
-        pase,
-        gambeta,
-        defensa,
-        fisico,
+        nombre: str,
+        nacionalidad: str,
+        club: str,
+        promedio: int,
+        posicion: str,
+        dorsal: int,
+        velocidad: int,
+        tiro: int,
+        pase: int,
+        gambeta: int,
+        defensa: int,
+        fisico: int,
     ):
+        self.consistencia_carta(
+            nombre=nombre,
+            nacionalidad=nacionalidad,
+            club=club,
+            promedio=promedio,
+            posicion=posicion,
+            dorsal=dorsal,
+            stat1=velocidad,
+            stat2=tiro,
+            stat3=pase,
+            stat4=gambeta,
+            stat5=defensa,
+            stat6=fisico,
+        )
+
         self.db.execute_non_query(
             "INSERT INTO carta (short_name, nationality, club_name, overall, player_positions, team_jersey_number, pace, shooting, passing, dribbling, defending, physic) VALUES (?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (
@@ -230,18 +296,32 @@ class ControllerABM:
 
     def add_carta_arquero(
         self,
-        nombre,
-        nacionalidad,
-        club,
-        promedio,
-        dorsal,
-        diving,
-        handling,
-        kicking,
-        reflexes,
-        speed,
-        positioning,
+        nombre: str,
+        nacionalidad: str,
+        club: str,
+        promedio: int,
+        dorsal: int,
+        diving: int,
+        handling: int,
+        kicking: int,
+        reflexes: int,
+        speed: int,
+        positioning: int,
     ):
+        self.consistencia_carta(
+            nombre=nombre,
+            nacionalidad=nacionalidad,
+            club=club,
+            promedio=promedio,
+            posicion="",
+            dorsal=dorsal,
+            stat1=diving,
+            stat2=handling,
+            stat3=kicking,
+            stat4=reflexes,
+            stat5=speed,
+            stat6=positioning,
+        )
         self.db.execute_non_query(
             "INSERT INTO carta (short_name, nationality, club_name, overall, team_jersey_number, gk_diving, gk_handling, gk_kicking, gk_reflexes, gk_speed, gk_positioning, player_positions) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'GK')",
             (
@@ -261,20 +341,34 @@ class ControllerABM:
 
     def update_carta_jugador(
         self,
-        id_carta,
-        nombre,
-        nacionalidad,
-        club,
-        promedio,
-        posicion,
-        dorsal,
-        velocidad,
-        tiro,
-        pase,
-        gambeta,
-        defensa,
-        fisico,
+        id_carta: int,
+        nombre: str,
+        nacionalidad: str,
+        club: str,
+        promedio: int,
+        posicion: str,
+        dorsal: int,
+        velocidad: int,
+        tiro: int,
+        pase: int,
+        gambeta: int,
+        defensa: int,
+        fisico: int,
     ):
+        self.consistencia_carta(
+            nombre=nombre,
+            nacionalidad=nacionalidad,
+            club=club,
+            promedio=promedio,
+            posicion=posicion,
+            dorsal=dorsal,
+            stat1=velocidad,
+            stat2=tiro,
+            stat3=pase,
+            stat4=gambeta,
+            stat5=defensa,
+            stat6=fisico,
+        )
         self.db.execute_non_query(
             "UPDATE carta SET short_name = ?, nationality = ?, club_name = ?, overall = ?, player_positions = ?, team_jersey_number = ?, pace = ?, shooting = ?, passing = ?, dribbling = ?, defending = ?, physic = ? WHERE id_carta = ?",
             (
@@ -296,19 +390,34 @@ class ControllerABM:
 
     def update_carta_arquero(
         self,
-        id_carta,
-        nombre,
-        nacionalidad,
-        club,
-        promedio,
-        dorsal,
-        diving,
-        handling,
-        kicking,
-        reflexes,
-        speed,
-        positioning,
+        id_carta: int,
+        nombre: str,
+        nacionalidad: str,
+        club: str,
+        promedio: int,
+        dorsal: int,
+        diving: int,
+        handling: int,
+        kicking: int,
+        reflexes: int,
+        speed: int,
+        positioning: int,
     ):
+        self.consistencia_carta(
+            nombre=nombre,
+            nacionalidad=nacionalidad,
+            club=club,
+            promedio=promedio,
+            posicion="",
+            dorsal=dorsal,
+            stat1=diving,
+            stat2=handling,
+            stat3=kicking,
+            stat4=reflexes,
+            stat5=speed,
+            stat6=positioning,
+        )
+
         self.db.execute_non_query(
             "UPDATE carta SET short_name = ?, nationality = ?, club_name = ?, overall = ?, team_jersey_number = ?, gk_diving = ?, gk_handling = ?, gk_kicking = ?, gk_reflexes = ?, gk_speed = ?, gk_positioning = ? WHERE id_carta = ?",
             (

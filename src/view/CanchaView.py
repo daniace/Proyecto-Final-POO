@@ -32,6 +32,7 @@ class CanchaView(VentanaView):
         self.__goles = []
         self.__accion_cpu = None
         self.__nroJugada_cpu = 0
+        self.__pases = []
 
     def mostrar(self, tiempo):
         self._botones = {}
@@ -70,6 +71,7 @@ class CanchaView(VentanaView):
         # print(self.__posicion_pelota)
 
         if self.__pase_seleccionado:
+            self.mostrar_pases()
             if self.__cantidad_pases >= 1:
                 PASE1 = self._mostrar_boton(
                     boton_negro2,
@@ -232,6 +234,8 @@ class CanchaView(VentanaView):
             else:
                 self.__gif_actual != "corriendo"
                 self.__gif_actual = "corriendo"
+                if self.__gif_renderizado.ended:
+                    self.__gif_renderizado.reset()
 
     def cambiar_gif(self):
         if self.__accion is not None:  # and self.__accion_anterior != self.__accion:
@@ -272,6 +276,12 @@ class CanchaView(VentanaView):
         pelota = pygame.image.load(JUG_CONPELOTA)
         pelota = pygame.transform.scale(pelota, (10, 10))
         self._pantalla.blit(pelota, self.__posicion_pelota)
+    def mostrar_pases(self):
+        for i,jugador in enumerate(self.__pases):
+            aliados= pygame.image.load(lista_p[i])
+            aliados= pygame.transform.scale(aliados,(10,10))
+            self._pantalla.blit(aliados,jugador)
+
 
     def set_lista_jugadores(self, jugadores):
         self.__lista_jugadores = jugadores
@@ -294,6 +304,8 @@ class CanchaView(VentanaView):
             self.__estadio_cancha = mexico
         elif self.__estadio == malasia:
             self.__estadio_cancha = malasya
+    def set_pases(self,pases):
+        self.__pases = pases
 
     def __ajustar_texto(self, texto, fuente, max_ancho, color):
         tamaño = 50  # Tamaño inicial
@@ -563,16 +575,11 @@ class CanchaView(VentanaView):
         self.__accion_cpu = accion
 
     def texto_jugadas(self):
-        if self.__nro_jugada_global > 0:
-            texto_jugada = get_fuente(50).render(
-                f"Jugada Nro {self.__nroJugada}", True, BLANCO
-            )
-            self._pantalla.blit(texto_jugada, (int(ANCHO * 0.72), int(ALTO * 0.615)))
-        if self.__nro_jugada_global > 1 and self.__accion_cpu is not None:
-            texto_jugada = get_fuente(50).render(
-                f"Jugada Nro {self.__nroJugada_cpu}", True, BLANCO
-            )
-            self._pantalla.blit(texto_jugada, (int(ANCHO * 0.72), int(ALTO * 0.815)))
+        texto_jugada = get_fuente(50).render(f"{self.__nombre_equipo}", True, BLANCO)
+        self._pantalla.blit(texto_jugada, (int(ANCHO * 0.74), int(ALTO * 0.615)))
+
+        texto_jugada = get_fuente(50).render("CPU", True, BLANCO)
+        self._pantalla.blit(texto_jugada, (int(ANCHO * 0.777), int(ALTO * 0.815)))
 
         if self.__accion_cpu is not None:
             texto = self.__acciones[self.__accion_cpu]
@@ -582,7 +589,7 @@ class CanchaView(VentanaView):
             texto = self.__acciones[self.__accion]
             self._pantalla.blit(texto, (int(ANCHO * 0.63), int(ALTO * 0.67)))
 
-    def set_nroJugada_cpu(self):
+    def set_nroJugada_cpu(self):  # podría eliminarse
         self.__nroJugada_cpu += 1
 
     def ultima_jugada(self, equipo):
