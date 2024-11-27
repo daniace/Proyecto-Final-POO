@@ -111,6 +111,11 @@ EQUIPO_US = "src/assets/images/equipo_us.png"
 EQUIPO_CPU = "src/assets/images/equipo_cpu.png"
 JUG_CONPELOTA = "src/assets/images/jug_conpelota.png"
 PELOTA = "src/assets/images/pelota.png"
+PELOTA1 = "src/assets/images/pelota1.png"
+PELOTA2 = "src/assets/images/pelota2.png"
+PELOTA3 = "src/assets/images/pelota3.png"
+PELOTA4 = "src/assets/images/pelota4.png"
+lista_p = [PELOTA1,PELOTA2,PELOTA3,PELOTA4]
 # Fuentes
 
 FUENTE = "src/assets/font/Pixeltype.ttf"

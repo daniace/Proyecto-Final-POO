@@ -277,10 +277,12 @@ class CanchaView(VentanaView):
         pelota = pygame.transform.scale(pelota, (10, 10))
         self._pantalla.blit(pelota, self.__posicion_pelota)
     def mostrar_pases(self):
-        aliados= pygame.image.load(PELOTA)
-        aliados= pygame.transform.scale(aliados,(10,10))
-        for jugador in self.__pases:
+        for i,jugador in enumerate(self.__pases):
+            aliados= pygame.image.load(lista_p[i])
+            aliados= pygame.transform.scale(aliados,(10,10))
             self._pantalla.blit(aliados,jugador)
+
+
     def set_lista_jugadores(self, jugadores):
         self.__lista_jugadores = jugadores
 
