@@ -30,7 +30,7 @@ class JugarController(Controlador):
         self.__usuario_ingresado = False
         self.__equipo_ingresado = False
         self.__dado_apretado = False
-        self.__cancha = CanchaController(SCREEN, self.__genero_equipo)
+        self.__cancha = None
         self.__LoginUsuario = LoginJugarViewControlador(SCREEN, self)
         self.__LoginEquipo = EquipoJugarViewControlador(SCREEN, self.__equipo, self)
 
@@ -44,7 +44,6 @@ class JugarController(Controlador):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if botones["dado"].checkForInput(mouse_pos):  # Boton del Dado
-                    print("HOLAHOLAHOLAOHLAasdsdasdsadasdas", self.__equipo_ingresado)
                     self.__dado_apretado = True
                     self.__genero_equipo.nuevo_equipo()
                     self.__equipo.set_cartas(self.__genero_equipo._jugadores)
@@ -55,6 +54,7 @@ class JugarController(Controlador):
                     #     and self.__equipo_ingresado
                     #     and self.__usuario_ingresado
                     # ):
+                    self.__cancha = CanchaController(SCREEN, self.__genero_equipo)
                     #     abmusuario = AbmUsuario()
                     #     nombre_usuario = self.__nombre_usuario.get_nombre()
                     #     print(nombre_usuario)
@@ -148,3 +148,6 @@ class JugarController(Controlador):
 
     def get_usuario_ingresado(self):
         return self.__usuario_ingresado
+
+    def set_equipo_cancha(self, equipo):
+        self.__genero_equipo.set_nombre(equipo)
