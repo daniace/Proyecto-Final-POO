@@ -69,11 +69,10 @@ class CanchaView(VentanaView):
         #             # self.__gif = None
 
         #     self._pantalla.blit(texto, (int(ANCHO * 0.25), int(ALTO * 0.05)))
-
+        print(self.__accion)
         if self.__accion is not None:
             texto = self.__acciones[self.__accion]
-            self._pantalla.blit(texto, (int(ANCHO * 0.25), int(ALTO * 0.05)))
-
+            self._pantalla.blit(texto, (int(ANCHO * 0.63), int(ALTO * 0.7)))
             self.renderizar_gif()
         # pygame.display.update()
 
@@ -223,10 +222,13 @@ class CanchaView(VentanaView):
         self._botones["pase"] = PASE
 
     def renderizar_gif(self):
-        gif = self.__renderizaciones[self.__gif_actual][0 if self.__gif_actual == 'corriendo' else self.__numero_random_seleccionado]
+        gif = self.__renderizaciones[self.__gif_actual][
+            0 if self.__gif_actual == "corriendo" else self.__numero_random_seleccionado
+        ]
         gif.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05)))
 
         if gif.ended:
+            gif.reset()
             self.cambiar_gif()
 
     def cambiar_gif(self):
@@ -234,8 +236,9 @@ class CanchaView(VentanaView):
             self.__gif_actual = "corriendo"
         elif self.__accion is not None:
             self.__gif_actual = self.__accion
-            self.__numero_random_seleccionado = random.randint(0, int(len(self.__renderizaciones[self.__gif_actual]) - 1))
-            self.__accion = None
+            self.__numero_random_seleccionado = random.randint(
+                0, int(len(self.__renderizaciones[self.__gif_actual]) - 1)
+            )
 
     def mostrar_mensaje(self, mensaje, y):
         fuente = get_fuente(75)
