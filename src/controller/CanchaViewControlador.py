@@ -214,9 +214,9 @@ class CanchaController(Controlador):
             tipo, formacion = posiciones[coordenada[0]]
             diccionario_jugadores[coordenada] = formacion[tipo][indices[coordenada[0]]]
             indices[coordenada[0]] += 1
-
+        self._view.set_lista_jugadores(diccionario_jugadores)
         self.__diccionario_posiciones_jugadores = diccionario_jugadores
-
+        
 
     def mostrar_pelota(self):
         posicion = self.__diccionario_posiciones_jugadores[self._partido.get_posicion_pelota()]

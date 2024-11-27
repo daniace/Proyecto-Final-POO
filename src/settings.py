@@ -96,7 +96,11 @@ MESSI_COPA = "src/assets/images/messi_copa.png"
 D10S = "src/assets/images/d10s.png"
 DIBU = "src/assets/images/dibu.png"
 DORSAL = "src/assets/images/dorsal.png"
+EQUIPO_US= "src/assets/images/equipo_us.png"
+EQUIPO_CPU= "src/assets/images/equipo_cpu.png"
+JUG_CONPELOTA= "src/assets/images/jug_conpelota.png"
 # Fuentes
+
 FUENTE = "src/assets/font/Pixeltype.ttf"
 EMOJIS = "src/assets/font/NotoEmoji-Regular.ttf"
 IMAGEN_CANCHA_OFICIAL = "src/assets/images/canchita.png"
