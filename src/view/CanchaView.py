@@ -135,7 +135,9 @@ class CanchaView(VentanaView):
                 PASE = atributos_carta["PASE"]
                 self._pantalla.blit(CARTA_IMAGEN, (int(ANCHO * 0.4), int(ALTO * 0.8)))
                 self._pantalla.blit(PASE, (int(ANCHO * 0.428), int(ALTO * 0.82)))
-                NOMBRE_JUGADOR, (int(ANCHO * 0.42), int(ALTO * 0.86))
+                self._pantalla.blit(
+                    NOMBRE_JUGADOR, (int(ANCHO * 0.42), int(ALTO * 0.86))
+                )
                 self._pantalla.blit(CAMISETA, (int(ANCHO * 0.425), int(ALTO * 0.89)))
                 self._pantalla.blit(DOR, (int(ANCHO * 0.44), int(ALTO * 0.935)))
                 self._botones["pase3"] = PASE3
@@ -276,11 +278,13 @@ class CanchaView(VentanaView):
         pelota = pygame.image.load(JUG_CONPELOTA)
         pelota = pygame.transform.scale(pelota, (10, 10))
         self._pantalla.blit(pelota, self.__posicion_pelota)
+
     def mostrar_pases(self):
-        aliados= pygame.image.load(PELOTA)
-        aliados= pygame.transform.scale(aliados,(10,10))
+        aliados = pygame.image.load(PELOTA)
+        aliados = pygame.transform.scale(aliados, (10, 10))
         for jugador in self.__pases:
-            self._pantalla.blit(aliados,jugador)
+            self._pantalla.blit(aliados, jugador)
+
     def set_lista_jugadores(self, jugadores):
         self.__lista_jugadores = jugadores
 
@@ -302,7 +306,8 @@ class CanchaView(VentanaView):
             self.__estadio_cancha = mexico
         elif self.__estadio == malasia:
             self.__estadio_cancha = malasya
-    def set_pases(self,pases):
+
+    def set_pases(self, pases):
         self.__pases = pases
 
     def __ajustar_texto(self, texto, fuente, max_ancho, color):
