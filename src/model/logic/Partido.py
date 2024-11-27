@@ -1,11 +1,13 @@
-from model.logic.EquipoLogico import EquipoLogico
-from model.logic.Cancha import Cancha
-from model.logic.Cronometro import Cronometro
-from model.logic.formacion import *
-from model.logic.Dificultades import *
 import random
 import time
+
+from controller.ReproductorMusica import ReproductorMusica
 from model.logic.Acciones import Acciones
+from model.logic.Cancha import Cancha
+from model.logic.Cronometro import Cronometro
+from model.logic.Dificultades import *
+from model.logic.EquipoLogico import EquipoLogico
+from model.logic.formacion import *
 
 
 class Partido:
@@ -24,6 +26,7 @@ class Partido:
         self._goles = [0, 0]
         self._view = vista
         self.__accion_cpu = None
+        self.__reproductor_musica = ReproductorMusica()
 
     def get_diccionario(self):
         return self._cancha.get_diccionario()
@@ -155,6 +158,8 @@ class Partido:
             jugador_actual, self._equipo_con_posesion
         ):
             self._acciones.set_valor_bonificacion(False)
+            self.__reproductor_musica.cargar_musica(r"src\assets\audio\gool.wav")
+            self.__reproductor_musica.reproducir(1)
             return True
         else:
             print("Se falló el tiro")

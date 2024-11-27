@@ -1,7 +1,9 @@
-import gif_pygame
-import time
-import pygame
 import random
+import time
+
+import gif_pygame
+import pygame
+
 from settings import *
 
 from .VentanaView import VentanaView
@@ -138,6 +140,7 @@ class CanchaView(VentanaView):
                 NOMBRE_JUGADOR, (int(ANCHO * 0.42), int(ALTO * 0.86))
                 self._pantalla.blit(CAMISETA, (int(ANCHO * 0.425), int(ALTO * 0.89)))
                 self._pantalla.blit(DOR, (int(ANCHO * 0.44), int(ALTO * 0.935)))
+
                 self._botones["pase3"] = PASE3
             if self.__cantidad_pases >= 4:
                 PASE4 = self._mostrar_boton(
