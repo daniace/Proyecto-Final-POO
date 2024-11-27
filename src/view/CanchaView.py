@@ -20,6 +20,8 @@ class CanchaView(VentanaView):
         self.__nombre_gif = "corriendo"
         self.__numero_random_seleccionado = False
         self.__gif_actual = None
+        self.__posicion_pelota = None 
+        self.__lista_jugadores = None
         self.__posicion_pelota = None
         self.__nroJugada = 0
 
@@ -33,20 +35,13 @@ class CanchaView(VentanaView):
         score = self.__renderizaciones["score"]
         self._pantalla.blit(TIEMPO, (int(ANCHO * 0.81), int(ALTO * 0.04)))
         self._pantalla.blit(score, (int(ANCHO * 0.7), int(ALTO * 0.001)))
-        self._pantalla.blit(
-            self.__estadio_cancha, (int(ANCHO * 0.01), int(ALTO * 0.01))
-        )
+        self._pantalla.blit(self.__estadio_cancha, (int(ANCHO * 0.01), int(ALTO * 0.01)))
+        
         equipo = get_fuente(35).render("Equipo 1", True, BLANCO)
         self._pantalla.blit(equipo, (int(ANCHO * 0.76), int(ALTO * 0.105)))
         cpu = get_fuente(35).render("Equipo 2", True, BLANCO)
         self._pantalla.blit(cpu, (int(ANCHO * 0.91), int(ALTO * 0.105)))
-        # cuadrado_texto = self.__renderizaciones["cuadrado_texto"]
-        # self._pantalla.blit(cuadrado_texto, (int(ANCHO * 0.61), int(ALTO * 0.625)))
-        if self.__nroJugada > 0:
-            texto_jugada = get_fuente(50).render(
-                f"Jugada Nro {self.__nroJugada}", True, BLANCO
-            )
-            self._pantalla.blit(texto_jugada, (int(ANCHO * 0.72), int(ALTO * 0.65)))
+        self.mostrar_jugadores()
 
         # if self.__accion is not None:
         #     texto = self.__acciones[self.__accion]
@@ -69,11 +64,10 @@ class CanchaView(VentanaView):
         #             # self.__gif = None
 
         #     self._pantalla.blit(texto, (int(ANCHO * 0.25), int(ALTO * 0.05)))
-
+        print(self.__accion)
         if self.__accion is not None:
             texto = self.__acciones[self.__accion]
-            self._pantalla.blit(texto, (int(ANCHO * 0.25), int(ALTO * 0.05)))
-
+            self._pantalla.blit(texto, (int(ANCHO * 0.63), int(ALTO * 0.7)))
             self.renderizar_gif()
         # pygame.display.update()
 
@@ -143,9 +137,7 @@ class CanchaView(VentanaView):
                 PASE = atributos_carta["PASE"]
                 self._pantalla.blit(CARTA_IMAGEN, (int(ANCHO * 0.4), int(ALTO * 0.8)))
                 self._pantalla.blit(PASE, (int(ANCHO * 0.428), int(ALTO * 0.82)))
-                self._pantalla.blit(
-                    NOMBRE_JUGADOR, (int(ANCHO * 0.42), int(ALTO * 0.86))
-                )
+                NOMBRE_JUGADOR, (int(ANCHO * 0.42), int(ALTO * 0.86))
                 self._pantalla.blit(CAMISETA, (int(ANCHO * 0.425), int(ALTO * 0.89)))
                 self._pantalla.blit(DOR, (int(ANCHO * 0.44), int(ALTO * 0.935)))
                 self._botones["pase3"] = PASE3
@@ -223,10 +215,13 @@ class CanchaView(VentanaView):
         self._botones["pase"] = PASE
 
     def renderizar_gif(self):
-        gif = self.__renderizaciones[self.__gif_actual][0 if self.__gif_actual == 'corriendo' else self.__numero_random_seleccionado]
+        gif = self.__renderizaciones[self.__gif_actual][
+            0 if self.__gif_actual == "corriendo" else self.__numero_random_seleccionado
+        ]
         gif.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05)))
 
         if gif.ended:
+            gif.reset()
             self.cambiar_gif()
 
     def cambiar_gif(self):
@@ -234,8 +229,9 @@ class CanchaView(VentanaView):
             self.__gif_actual = "corriendo"
         elif self.__accion is not None:
             self.__gif_actual = self.__accion
-            self.__numero_random_seleccionado = random.randint(0, int(len(self.__renderizaciones[self.__gif_actual]) - 1))
-            self.__accion = None
+            self.__numero_random_seleccionado = random.randint(
+                0, int(len(self.__renderizaciones[self.__gif_actual]) - 1)
+            )
 
     def mostrar_mensaje(self, mensaje, y):
         fuente = get_fuente(75)
@@ -244,6 +240,22 @@ class CanchaView(VentanaView):
             texto_render, (ANCHO / 2 - texto_render.get_width() / 2, y + 300)
         )
         pygame.display.flip()
+    def mostrar_jugadores(self):
+        jug_us= pygame.image.load(EQUIPO_US)
+        jug_chica_us=pygame.transform.scale(jug_us,(10,10))
+        jug_cpu= pygame.image.load(EQUIPO_CPU)
+        jug_cpu_chica=pygame.transform.scale(jug_cpu,(10,10))
+        jugadores_usuario=[0,1,3,5]
+        jugadores_cpu= [2,4,6,7]
+        for coordenada,tipo in self.__lista_jugadores.items():
+            x,y= tipo
+            if coordenada[0] in jugadores_usuario:
+                self._pantalla.blit(jug_chica_us,(x,y))
+            elif coordenada[0] in jugadores_cpu:
+                self._pantalla.blit(jug_cpu_chica,(x,y))
+
+    def set_lista_jugadores(self,jugadores):
+        self.__lista_jugadores=jugadores
 
     def set_estadio(self, estadio):
         self.__estadio = estadio
