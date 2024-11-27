@@ -219,20 +219,19 @@ class CanchaView(VentanaView):
         self._botones["pase"] = PASE
 
     def renderizar_gif(self):
-        if self.__gif_actual < len(self.__renderizaciones):
-            gif = self.__renderizaciones[self.__gif_actual][0 if self.__gif_actual == 'corriendo' else self.__numero_random_seleccionado]
-            gif.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05)))
+        gif = self.__renderizaciones[self.__gif_actual][0 if self.__gif_actual == 'corriendo' else self.__numero_random_seleccionado]
+        gif.render(self._pantalla, (int(ANCHO * 0.25), int(ALTO * 0.05)))
 
-            if gif.ended:
-                self.cambiar_gif()
+        if gif.ended:
+            self.cambiar_gif()
 
     def cambiar_gif(self):
         if self.__gif_actual != "corriendo":
             self.__gif_actual = "corriendo"
         elif self.__accion is not None:
             self.__gif_actual = self.__accion
+            self.__numero_random_seleccionado = random.randint(0, int(len(self.__renderizaciones[self.__gif_actual]) - 1))
             self.__accion = None
-            self.__numero_random_seleccionado = random.randint(0, len(self.__renderizaciones[self.__gif_actual]) - 1)
 
     def mostrar_mensaje(self, mensaje, y):
         fuente = get_fuente(75)

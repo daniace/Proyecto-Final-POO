@@ -145,7 +145,7 @@ class CanchaController(Controlador):
             elif nombre_boton_seleccionado == "tiro":
                 self._view.set_accion("tiro_al_arco")
                 self._view.mostrar(self.__cronometro.get_contador())
-                time.sleep(1.5)
+                time.sleep(3)
                 accion = self._partido.jugar_turno_jugador(2)
                 self._view.set_accion(accion)
             elif nombre_boton_seleccionado == "gambeta":
