@@ -328,13 +328,13 @@ class CanchaView(VentanaView):
     def renderizar_acciones(self):
         acciones = {
             "pase_valido": self.__ajustar_texto(
-                "                               Buen Pase \n    -- Has hacertado el pase :) --",
+                "                               Buen Pase \n    -- Has acertado el pase :) --",
                 FUENTE,
                 400,
                 VERDE,
             ),
             "pase_invalido": self.__ajustar_texto(
-                "                                Mal Pase \n       -- Has errado el pase :) --",
+                "                                Mal Pase \n       -- Has errado el pase :( --",
                 FUENTE,
                 400,
                 ROJO,
