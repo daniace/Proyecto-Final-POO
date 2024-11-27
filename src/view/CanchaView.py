@@ -263,7 +263,7 @@ class CanchaView(VentanaView):
                 self._pantalla.blit(punto_cpu, (x, y))
 
     def mostrar_pelota(self):
-        pelota = pygame.image.load(PELOTA)
+        pelota = pygame.image.load(JUG_CONPELOTA)
         pelota = pygame.transform.scale(pelota, (10, 10))
         self._pantalla.blit(pelota, self.__posicion_pelota)
 
