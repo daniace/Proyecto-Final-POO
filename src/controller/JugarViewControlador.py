@@ -56,6 +56,7 @@ class JugarController(Controlador):
                     # ):
                     self.__cancha = CanchaController(SCREEN, self.__genero_equipo)
                     self.__cancha.set_estadio(self.__estadio_actual)
+                    self.__cancha.set_formacion(self.__formacion_actual)
                     #     abmusuario = AbmUsuario()
                     #     nombre_usuario = self.__nombre_usuario.get_nombre()
                     #     print(nombre_usuario)

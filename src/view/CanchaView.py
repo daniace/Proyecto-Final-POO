@@ -169,46 +169,46 @@ class CanchaView(VentanaView):
             #     pase = self.__acciones["pase_errado"]
             #     self._pantalla.blit(pase, (int(ANCHO * 0.8), int(ALTO * 0.7)))
 
-        # if self.__pase_seleccionado:
-        PASE = self._mostrar_boton(
-            boton_negro2,
-            (ANCHO * 0.1, ALTO * 0.65),
-            "PASE",
-            get_fuente(50),
-            BLANCO,
-            "Green",
-        )
+        if not self.__pase_seleccionado:
+            PASE = self._mostrar_boton(
+                boton_negro2,
+                (ANCHO * 0.1, ALTO * 0.65),
+                "PASE",
+                get_fuente(50),
+                BLANCO if self.__equipo == 1 else NEGRO,
+                "Green" if self.__equipo == 1 else NEGRO,
+            )
 
-        TIRO = self._mostrar_boton(
-            boton_negro2,
-            (ANCHO * 0.1, ALTO * 0.75),
-            "TIRO",
-            get_fuente(50),
-            BLANCO if self.__equipo == 1 else NEGRO,
-            "Green" if self.__equipo == 1 else NEGRO,
-        )
+            TIRO = self._mostrar_boton(
+                boton_negro2,
+                (ANCHO * 0.1, ALTO * 0.75),
+                "TIRO",
+                get_fuente(50),
+                BLANCO if self.__equipo == 1 else NEGRO,
+                "Green" if self.__equipo == 1 else NEGRO,
+            )
 
-        GAMBETA = self._mostrar_boton(
-            boton_negro2,
-            (ANCHO * 0.1, ALTO * 0.85),
-            "GAMBETA",
-            get_fuente(50),
-            BLANCO if self.__equipo == 1 else NEGRO,
-            "Green" if self.__equipo == 1 else NEGRO,
-        )
+            GAMBETA = self._mostrar_boton(
+                boton_negro2,
+                (ANCHO * 0.1, ALTO * 0.85),
+                "GAMBETA",
+                get_fuente(50),
+                BLANCO if self.__equipo == 1 else NEGRO,
+                "Green" if self.__equipo == 1 else NEGRO,
+            )
 
-        INTERCEPTAR = self._mostrar_boton(
-            boton_negro2,
-            (ANCHO * 0.1, ALTO * 0.95),
-            "INTERCEPTAR",
-            get_fuente(50),
-            BLANCO if self.__equipo == 2 else NEGRO,
-            "Green" if self.__equipo == 2 else NEGRO,
-        )
-        self._botones["interceptar"] = INTERCEPTAR
-        self._botones["gambeta"] = GAMBETA
-        self._botones["tiro"] = TIRO
-        self._botones["pase"] = PASE
+            INTERCEPTAR = self._mostrar_boton(
+                boton_negro2,
+                (ANCHO * 0.1, ALTO * 0.95),
+                "INTERCEPTAR",
+                get_fuente(50),
+                BLANCO if self.__equipo == 2 else NEGRO,
+                "Green" if self.__equipo == 2 else NEGRO,
+            )
+            self._botones["interceptar"] = INTERCEPTAR
+            self._botones["gambeta"] = GAMBETA
+            self._botones["tiro"] = TIRO
+            self._botones["pase"] = PASE
 
     def renderizar_gif(self):
         self.__gif_renderizado = self.__renderizaciones[self.__gif_actual][
