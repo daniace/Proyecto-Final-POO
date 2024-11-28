@@ -1,4 +1,36 @@
 # HEORES DEL BALON
+---
+
+Este es un proyecto académico desarrollado como parte de la asignatura de Programación Orientada a Objetos.
+
+---
+
+## Participantes del Proyecto
+
+El proyecto fue desarrollado por los siguientes integrantes:
+
+- Acevedo Daniel 
+- Aguinaga Bruno 
+- Berro Franco
+- Canario Leonel
+- DeLaTorre Axel
+- Duarte Angelo
+- Enegron Daniel
+- Gonzalez Ian
+- Williams Walter
+
+---
+
+## Descargo de Responsabilidad
+
+Para más detalles sobre el uso de los materiales con derechos de autor utilizados en este proyecto, consulta el archivo [DISCLAIMER.md](DISCLAIMER.md).
+
+---
+
+## Licencia
+
+El código original de este proyecto está licenciado bajo la [Licencia MIT](LICENSE).
+
 ![Menu HDB](https://github.com/daniace/Proyecto-Final-POO/blob/main/src/assets/presentacion/HEROESDELBALONMENU.png?raw=true)
 ![Opciones HDB](https://github.com/daniace/Proyecto-Final-POO/blob/main/src/assets/presentacion/HEROESDELBALONOPCIONES.png)
 ![Ranking HDB](https://github.com/daniace/Proyecto-Final-POO/blob/main/src/assets/presentacion/HEROESDELBALONRANKING.png)
