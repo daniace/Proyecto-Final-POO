@@ -23,7 +23,7 @@ class CanchaController(Controlador):
         super().__init__()
         self.__boton_actual = None
         self._view = CanchaView(pantalla, jugador.get_nombre())
-        self.__dificultad = dificultad_actual().get_dificultad()
+        self.__dificultad = dificultad.get_dificultad()
         self._jugador = jugador
         self._indice_seleccionado = 0
         self.boton_actual = None
@@ -36,6 +36,7 @@ class CanchaController(Controlador):
         self.__pantalla_de_carga = CargaView(SCREEN)
         self.__formacion = None
         self.__reproductor = ReproductorMusica()
+        print(self.__dificultad)
 
     def manejar_eventos(self, eventos, mouse_pos):
         from controller.JugarViewControlador import JugarController

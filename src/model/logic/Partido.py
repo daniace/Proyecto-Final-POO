@@ -12,7 +12,7 @@ from model.logic.formacion import *
 
 class Partido:
     def __init__(
-        self, jugador1: EquipoLogico, dificultad: Dificultad, vista
+        self, jugador1: EquipoLogico, dificultad, vista
     ):  # Le agregue el atributo vista para poder utilizarlo en CanchaViewControlador y mostrar los mensajes
         self._jugador1 = jugador1
         self._jugador2 = EquipoLogico("CPU FC", es_cpu=True)
@@ -21,7 +21,7 @@ class Partido:
         self._cancha = Cancha(self._jugador1, self._jugador2)
         self._equipo_con_posesion = 1  # EQUIPO 1 O EQUIPO 2
         self._posicion_pelota = (0, 3)  # DONDE ARRANCA EL PARTIDO
-        self._acciones = Acciones(Medio())  # VER SI ESTO QUEDA ASI
+        self._acciones = Acciones(dificultad)  # VER SI ESTO QUEDA ASI
         self._dificultad = dificultad
         self._goles = [0, 0]
         self._view = vista
@@ -238,7 +238,7 @@ class Partido:
                         return "gambeta_fallida"
 
     def _jugar_turno_cpu(self) -> None:
-        #time.sleep(2.5)
+        # time.sleep(2.5)
         self.mostrar_cancha_con_pelota()
         print(
             "---------------------------------------------------------------------------------------"
@@ -269,7 +269,7 @@ class Partido:
                 else:
                     self.__accion_cpu = "tiro_fallado_cpu"
 
-    def mostrar_cancha_con_pelota(self):  
+    def mostrar_cancha_con_pelota(self):
         matriz = self._cancha.get_matriz_cancha()
 
         for i, fila in enumerate(matriz):
@@ -317,4 +317,3 @@ class Partido:
 
     def get_accion_cpu(self):
         return self.__accion_cpu
-

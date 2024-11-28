@@ -36,9 +36,12 @@ class OpcionesController(Controlador):
                     menu_principal.main_loop()
                 if botones["facil"].checkForInput(mouse_pos):
                     self.__dificultad.set_dificultad(Facil())
+                    dificultad.set_dificultad(Facil())
                 if botones["normal"].checkForInput(mouse_pos):
                     self.__dificultad.set_dificultad(Medio())
+                    dificultad.set_dificultad(Medio())
                 if botones["dificil"].checkForInput(mouse_pos):
                     self.__dificultad.set_dificultad(Dificil())
+                    dificultad.set_dificultad(Dificil())
         clock.tick(60)
         pygame.display.update()

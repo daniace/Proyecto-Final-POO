@@ -16,6 +16,8 @@ class dificultad_actual:
         return self.dificultad
 
 
+dificultad = dificultad_actual()
+
 # Configuracion de la pantalla
 ANCHO = 1200
 ALTO = 720
@@ -115,7 +117,7 @@ PELOTA1 = "src/assets/images/pelota1.png"
 PELOTA2 = "src/assets/images/pelota2.png"
 PELOTA3 = "src/assets/images/pelota3.png"
 PELOTA4 = "src/assets/images/pelota4.png"
-lista_p = [PELOTA1,PELOTA2,PELOTA3,PELOTA4]
+lista_p = [PELOTA1, PELOTA2, PELOTA3, PELOTA4]
 # Fuentes
 
 FUENTE = "src/assets/font/Pixeltype.ttf"
