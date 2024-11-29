@@ -8,6 +8,7 @@ from model.logic.Dificultades import Medio
 class dificultad_actual:
     def __init__(self):
         self.dificultad = Medio()
+        self.dificultad_string = "medio"
 
     def set_dificultad(self, dificultad):
         self.dificultad = dificultad
@@ -15,8 +16,29 @@ class dificultad_actual:
     def get_dificultad(self):
         return self.dificultad
 
+    def get_dificultad_string(self):
+        return self.dificultad_string
+
+    def set_dificultad_string(self, dificultad_string):
+        self.dificultad_string = dificultad_string
+
 
 dificultad = dificultad_actual()
+
+
+class sonido_actual:
+    def __init__(self):
+        self.sonido = "on"
+
+    def set_sonido(self, sonido):
+        self.sonido = sonido
+
+    def get_sonido(self):
+        return self.sonido
+
+
+sonido = sonido_actual()
+
 
 # Configuracion de la pantalla
 ANCHO = 1200

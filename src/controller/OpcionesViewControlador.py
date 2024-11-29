@@ -29,9 +29,11 @@ class OpcionesController(Controlador):
                 if botones["sonido_on"].checkForInput(mouse_pos):
                     self.__musica.reanudar()
                     self._view.set_sonido("on")
+                    sonido.set_sonido("on")
                 if botones["sonido_off"].checkForInput(mouse_pos):
                     self.__musica.pausar()
                     self._view.set_sonido("off")
+                    sonido.set_sonido("off")
                 if botones["atras"].checkForInput(mouse_pos):
                     self._view.ocultar_visibilidad()
                     menu_principal = MenuController()
@@ -39,14 +41,17 @@ class OpcionesController(Controlador):
                 if botones["facil"].checkForInput(mouse_pos):
                     self.__dificultad.set_dificultad(Facil())
                     dificultad.set_dificultad(Facil())
+                    dificultad.set_dificultad_string("facil")
                     self._view.set_dificultad("facil")
                 if botones["normal"].checkForInput(mouse_pos):
                     self.__dificultad.set_dificultad(Medio())
                     dificultad.set_dificultad(Medio())
+                    dificultad.set_dificultad_string("medio")
                     self._view.set_dificultad("medio")
                 if botones["dificil"].checkForInput(mouse_pos):
                     self.__dificultad.set_dificultad(Dificil())
                     dificultad.set_dificultad(Dificil())
+                    dificultad.set_dificultad_string("dificil")
                     self._view.set_dificultad("dificil")
         clock.tick(60)
         pygame.display.update()

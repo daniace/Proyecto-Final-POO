@@ -9,8 +9,8 @@ from .VentanaView import VentanaView
 class OpcionesView(VentanaView):
     def __init__(self, pantalla):
         super().__init__(pantalla)
-        self.__dificultad = "medio"
-        self.__sonido = "on"
+        self.__dificultad = dificultad.get_dificultad_string()
+        self.__sonido = sonido.get_sonido()
 
     def mostrar(self):
         if self._visible:
