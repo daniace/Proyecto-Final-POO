@@ -53,14 +53,22 @@ class MenuView(VentanaView):
             NEGRO,
         )
         BOTON_SALIR = self._mostrar_boton(
-            boton_rojo,
+            boton_rojo2,
             (ANCHO * 0.5, ALTO * 0.5 + 270),
             "SALIR",
             get_fuente(75),
             BLANCO,
             ROJO,
         )
-
+        BOTON_MIEMBROS = self._mostrar_boton(
+            boton_cuadrado,
+            (ANCHO * 0.95, ALTO * 0.93),
+            "👥",
+            pygame.font.Font(EMOJIS, 50),
+            BLANCO,
+            NEGRO,
+        )
+        self._botones["miembros"] = BOTON_MIEMBROS
         self._botones["login"] = BOTON_LOGIN
         self._botones["jugar"] = BOTON_JUGAR
         self._botones["opciones"] = BOTON_OPCIONES

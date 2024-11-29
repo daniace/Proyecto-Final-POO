@@ -11,6 +11,7 @@ from controller.RankingViewControlador import RankingController
 from settings import SCREEN
 from view.MenuView import MenuView
 from view.VistaABM import LoginView
+from controller.MiembrosController import MiembrosController
 
 from .Controlador import Controlador
 
@@ -23,6 +24,7 @@ class MenuController(Controlador):
         self.__opciones = OpcionesController()
         self.__controlador_abm = ControllerABM()
         self.__jugar = JugarController()
+        self.__miembros = MiembrosController()
 
     def manejar_eventos(self, eventos, mouse_pos):
         botones = self._view.get_botones()
@@ -46,3 +48,6 @@ class MenuController(Controlador):
                 if botones["salir"].checkForInput(mouse_pos):
                     pygame.quit()
                     sys.exit()
+                if botones["miembros"].checkForInput(mouse_pos):
+                    self._view.ocultar_visibilidad()
+                    self.__miembros.main_loop()

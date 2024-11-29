@@ -4,6 +4,7 @@ import pygame
 
 from settings import *
 from view.RankingView import RankingView
+
 from .ControladorBD import ControladorBD
 from .Controlador import Controlador
 

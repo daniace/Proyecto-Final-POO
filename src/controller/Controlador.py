@@ -2,8 +2,7 @@ import sys
 
 import pygame
 
-from settings import *
-from view.VentanaView import VentanaView  # la Ventana padre
+from settings import *  # la Ventana padre
 
 from abc import ABC, abstractmethod
 

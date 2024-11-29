@@ -1,49 +1,34 @@
 import pygame
-from .VentanaView import VentanaView
-from settings import *
+import gif_pygame  # Importa la biblioteca gif_pygame
 
+# Inicializa Pygame
+pygame.init()
 
-class CargaView(VentanaView):
-    def __init__(self, pantalla):
-        super().__init__(pantalla)
-        self.__mostrar_pantalla = True
+# Configura la ventana
+screen = pygame.display.set_mode((600, 400))
+pygame.display.set_caption("Reproduciendo un GIF con gif_pygame")
 
-    def mostrar(self):
-        pygame.display.set_caption("Pantalla de carga")
-        self._pantalla.fill(NEGRO)
-        texto = f"Cargando... {progreso}%"
-        mensaje = get_fuente(50).render(texto, True, BLANCO)
-        pantalla.blit(
-            mensaje,
-            (
-                ANCHO // 2 - mensaje.get_width() // 2,
-                ALTO // 2 - mensaje.get_height() // 2 - 40,
-            ),
-        )
-        # Barra de carga
-        x = ANCHO // 2 - 200  # Posición X de la barra (centrada)
-        y = ALTO // 2  # Posición Y de la barra
-        largo_barra = 400  # Longitud total de la barra
-        alto_barra = 30  # Alto de la barra
-        pygame.draw.rect(
-            pantalla, BLANCO, (x, y, largo_barra, alto_barra), 2
-        )  # Borde de la barra
-        # Calcular el ancho lleno de la barra según el porcentaje
-        ancho_lleno = (largo_barra * progreso) // 100
-        pygame.draw.rect(
-            pantalla, VERDE, (x + 2, y + 2, ancho_lleno, alto_barra - 4)
-        )  # Barra verde
-        pygame.display.flip()
+# Carga el GIF animado
 
-    # Simula el progreso de carga
-    for progreso in range(0, 101, 10):  # Incrementos de 10% en el progreso
-        mostrar_barra_carga(progreso)
-        pygame.time.delay(500)  # Simula tiempo de carga (0.5 segundos por paso)
+gif = gif_pygame.load(
+    "src/assets/images/gifs/7ae3c7ad104a968dc735871c0bf17608.gif", loops=1
+)
+
+# Variables de control
+running = True
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pass
+
+    # Limpia la pantalla
+    screen.fill((0, 0, 0))
+
+    # Dibuja el GIF en la posición deseada
+    gif.render(screen, (50, 50))  # Cambia las coordenadas según lo necesites
+
+    # Actualiza la pantalla
     pygame.display.flip()
 
-    def main_loop(self):
-        while self.__mostrar_pantalla:
-            self.mostrar()
-
-    def set_mostrar_pantalla(self, mostrar_pantalla):
-        self.__mostrar_pantalla = mostrar_pantalla
+pygame.quit()

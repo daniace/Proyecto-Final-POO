@@ -36,6 +36,10 @@ VERDE_FUERTE = (0, 200, 0)
 VERDE_CLARO = (30, 255, 30)
 AZUL = (0, 0, 255)
 COLOR_FONDO = NEGRO
+AMARILLO = (255, 255, 0)
+AMARILLO_FUERTE = (255, 150, 0)
+ROJO_FUERTE = (200, 0, 0)
+VERDE_FUERTE = (0, 200, 0)
 
 
 def color_ovr(ovr):
@@ -102,6 +106,7 @@ IMAGEN_DADO = "src/assets/images/dado_1.png"
 HOME = "src/assets/images/Home.png"
 IMAGEN_BOTON6 = "src/assets/images/boton6.png"
 IMAGEN_BOTON7 = "src/assets/images/boton7.png"
+IMAGEN_BOTON72 = "src/assets/images/boton72.png"
 BOTON_NEGRO = "src/assets/images/BotonNegro.png"
 RECTANGULO_NEGRO = "src/assets/images/RectanguloNegro.png"
 MESSI = "src/assets/images/messi.png"
@@ -117,6 +122,9 @@ PELOTA1 = "src/assets/images/pelota1.png"
 PELOTA2 = "src/assets/images/pelota2.png"
 PELOTA3 = "src/assets/images/pelota3.png"
 PELOTA4 = "src/assets/images/pelota4.png"
+FONDO1 = "src/assets/images/gifs/f9576fca9fc8ef79976a1d6327bbe9ae.gif"
+FONDO2 = "src/assets/images/gifs/7ae3c7ad104a968dc735871c0bf17608.gif"
+FLECHITA = "src/assets/images/flechita.png"
 lista_p = [PELOTA1, PELOTA2, PELOTA3, PELOTA4]
 # Fuentes
 
@@ -158,13 +166,15 @@ SAQUE_MEDIO = "src/assets/images/gifs/saque_medio.gif"
 FIN_PARTIDO = "src/assets/images/gifs/fin_partido.gif"
 BOTON_NEGRO3 = "src/assets/images/BotonNegro3.png"
 BOTON_NEGRO4 = "src/assets/images/BotonNegro4.png"
+FLECHITA2 = "src/assets/images/flechita2.png"
 
 pygame.font.init()
 
 # Sonidos
 SONIDO_FONDO = "src/assets/audio/soundtrack.wav"
 SONIDO_PELE = "src/assets/audio/reypele.wav"
-
+flechita = pygame.image.load(FLECHITA)
+flechita = pygame.transform.scale(flechita, (70, 70))
 scene_bg = pygame.image.load(IMAGEN_FONDO)
 BG = pygame.transform.scale(scene_bg, TAMANIO_PANTALLA)
 bg_opciones = pygame.image.load(IMAGEN_FONDO_OPCIONES)
@@ -224,7 +234,7 @@ bernabeu = pygame.transform.scale(bernabeu, TAMANIO_PANTALLA)
 
 bombonera = pygame.image.load(BOMBONERA)
 bombonera = pygame.transform.scale(bombonera, TAMANIO_PANTALLA)
-##ESTADIOS##
+# ESTADIOS##
 
 dorsal = pygame.image.load(DORSAL)
 dorsal = pygame.transform.scale(dorsal, (35, 35))
@@ -261,25 +271,28 @@ boton_home = pygame.image.load(HOME)
 boton_home = pygame.transform.scale(boton_home, (70, 70))
 
 boton_rojo = pygame.image.load(IMAGEN_BOTON5)
-boton_rojo = pygame.transform.scale(boton_rojo, (250, 80))
+boton_rojo = pygame.transform.scale(boton_rojo, (230, 80))
+boton_rojo2 = pygame.transform.scale(boton_rojo, (250, 80))
 
 boton_rojo_cuadrado = pygame.image.load(IMAGEN_BOTON5)
 boton_rojo_cuadrado = pygame.transform.scale(boton_rojo_cuadrado, (75, 75))
 
 boton_verde = pygame.image.load(IMAGEN_BOTON6)
-boton_verde = pygame.transform.scale(boton_verde, (250, 80))
+boton_verde = pygame.transform.scale(boton_verde, (230, 80))
 
 boton_verde_cuadrado = pygame.image.load(IMAGEN_BOTON6)
 boton_verde_cuadrado = pygame.transform.scale(boton_verde_cuadrado, (75, 75))
 
 boton_amarillo = pygame.image.load(IMAGEN_BOTON7)
-boton_amarillo = pygame.transform.scale(boton_amarillo, (250, 80))
+boton_amarillo = pygame.transform.scale(boton_amarillo, (230, 80))
+boton_amarillo2 = pygame.image.load(IMAGEN_BOTON72)
+boton_amarillo2 = pygame.transform.scale(boton_amarillo2, (250, 80))
 
 boton_dado = pygame.image.load(IMAGEN_DADO)
 boton_dado = pygame.transform.scale(boton_dado, (95, 95))
-
 boton_negro = pygame.image.load(BOTON_NEGRO)
 boton_negro = pygame.transform.scale(boton_negro, (250, 100))
+boton_negro_grande = pygame.transform.scale(boton_negro, (300, 115))
 boton_negro2 = pygame.transform.scale(boton_negro, (250, 80))
 boton_negro3 = pygame.image.load(BOTON_NEGRO3)
 boton_negro3 = pygame.transform.scale(boton_negro3, (530, 190))
@@ -288,6 +301,8 @@ boton_negro4 = pygame.transform.scale(boton_negro4, (530, 190))
 
 marcador = pygame.image.load(RECTANGULO_NEGRO)
 marcador = pygame.transform.scale(marcador, (300, 400))
+flechita2 = pygame.image.load(FLECHITA2)
+flechita2 = pygame.transform.scale(flechita2, (70, 70))
 
 
 def get_fuente(tamanio):
