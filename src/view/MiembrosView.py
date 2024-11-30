@@ -100,9 +100,13 @@ class MiembrosView(VentanaView):
         marco = pygame.transform.scale(marco, (150, 150))
         bruno = pygame.image.load("src/assets/images/bruno.png")
         bruno = pygame.transform.scale(bruno, (150, 150))
-        marco2= pygame.image.load("src/assets/images/cuadro.png")
+        marco2 = pygame.image.load("src/assets/images/cuadro.png")
         marco2 = pygame.transform.scale(marco, (150, 150))
-        daniel = pygame.image.load("src/assets/images/daniel.png")
-        daniel= pygame.transform.scale(daniel,(150,150))
-        self.__fotos_integrantes = {"bruno": bruno, "marco": marco,
-                                    "daniel": daniel, "marco2": marco2}
+        daniel = pygame.image.load("src/assets/images/daniel.jpg")
+        daniel = pygame.transform.scale(daniel, (150, 150))
+        self.__fotos_integrantes = {
+            "bruno": bruno,
+            "marco": marco,
+            "daniel": daniel,
+            "marco2": marco2,
+        }

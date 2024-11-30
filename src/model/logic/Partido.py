@@ -61,78 +61,41 @@ class Partido:
             return random.choice(aliados_cercanos)[0] if aliados_cercanos else None
 
         if not aliados_cercanos:
-            print("No hay jugadores disponibles para recibir el pase.")
             return None
-
-        print(
-            "---------------------------------------------------------------------------------------"
-        )
-        # print("Pases disponibles")
         return aliados_cercanos
-        # decision = self._obtener_decision_usuario(len(aliados_cercanos))
-        # return aliados_cercanos[decision - 1][0]
-
-    def obtener_decision_usuario(self, max_opciones: int) -> int:
-        while True:
-            try:
-                decision = int(
-                    input("Seleccione un pase: ")
-                )  # input("Seleccione un pase: ") #Deberia ingresar un evento
-                if 1 <= decision <= max_opciones:
-                    return decision
-                else:
-                    print("Selección no válida... seleccione un pase válido.")
-            except ValueError:
-                print("Entrada no válida... por favor ingrese un número.")
 
     def realizar_pase(self, aliado_destino, es_cpu: bool = False) -> bool:
-        # aliado_destino = self.mostrar_pases(es_cpu)
         if not aliado_destino:
-            print("no entro aliado destino")
             return False
 
         jugador_con_pelota = self._jugador_con_pelota()
-        print(f"Pase de {self._posicion_pelota} a {aliado_destino}.")
         if self._acciones.calcular_efectividad_pase(
             jugador_con_pelota, self._equipo_con_posesion
         ):
             self._acciones.set_valor_bonificacion(False)
-            print("El pase fue exitoso.")
             self._posicion_pelota = aliado_destino
             return True
         else:
-            print("El pase fue FALLADO.")
             self._posicion_pelota = self._cancha.encontrar_puntos_cercanos(
                 self._posicion_pelota, "enemigo"
             )[0]
             self._cambio_equipo()
-            print(
-                "Pelota en -->",
-                self._posicion_pelota,
-                "Equipo Actual -->",
-                self._equipo_con_posesion,
-            )
             self._acciones.set_valor_bonificacion(False)
             return False
 
     def realizar_intercepcion(self) -> bool:
-        print("INTENTANDO INTERCEPTAR...")
         posicion_enemigo = self._cancha.encontrar_puntos_cercanos(
             self._posicion_pelota, "enemigo"
         )[0]
-        print("ENEMIGO A INTERCEPTAR -->", posicion_enemigo)
-        print()
 
         enemigo_cercano = self._cancha.buscar_jugador(posicion_enemigo)
         if self._acciones.calcular_efectividad_intercepcion(
             enemigo_cercano, 2 if self._equipo_con_posesion == 1 else 1
         ):
-            print("SE INTERCEPTO LA PELOTA")
             self._posicion_pelota = posicion_enemigo
             self._cambio_equipo()
             return "interseccion_valida"
         else:
-            print("Intercepción Fallida")
             return "interseccion_fallida"
 
     def realizar_atajar(self) -> bool:
@@ -146,10 +109,8 @@ class Partido:
         if self._acciones.calcular_efectividad_atajar(
             arquero, self._equipo_con_posesion
         ):
-            print("SE ATAJÓ EL TIRO")
             return True
         else:
-            print("NO SE ATAJÓ EL TIRO")
             return False
 
     def realizar_tiro(self) -> bool:
@@ -162,8 +123,6 @@ class Partido:
             self.__reproductor_musica.reproducir(1)
             return True
         else:
-            print("Se falló el tiro")
-            print("SALE DEL ARCO ENEMIGO")
             self._posicion_pelota = (0, 3) if self._equipo_con_posesion == 2 else (7, 3)
             self._cambio_equipo()
             self._acciones.set_valor_bonificacion(False)
@@ -194,19 +153,6 @@ class Partido:
             return False
 
     def jugar_turno_jugador(self, decision, aliado_pase=None) -> None:
-        # time.sleep(1)
-        self.mostrar_cancha_con_pelota()  # despues esto se tiene que borrar#
-        print(
-            "---------------------------------------------------------------------------------------"
-        )
-        print(
-            "POSICION ACTUAL -->",
-            self._posicion_pelota,
-            " Equipo Actual -->",
-            self._equipo_con_posesion,
-        )
-
-        # print(aliado_pase,'DENTRO DE TURBNO')
         match decision:
             case 1:
                 if self.realizar_pase(aliado_pase):
@@ -214,7 +160,6 @@ class Partido:
                 else:
                     return "pase_invalido"
             case 2:
-                print("TIRO DEL JUGADOR 1")
                 if self.realizar_tiro():
                     if not self.realizar_atajar():
                         print("\033[1;32m" + "GOOOOL DEL JUGADOR 1!!!" + "\033[0;m")
@@ -229,7 +174,6 @@ class Partido:
                     return "tiro_fallado"
             case 3:
                 if self._jugador_con_pelota().get_posicion()[0] == "ARQUERO":
-                    print("el Aqruero no pude realizar gambeta")
                     return "gambeta_fallida"
                 else:
                     if self.realizar_gambeta():
@@ -238,24 +182,23 @@ class Partido:
                         return "gambeta_fallida"
 
     def _jugar_turno_cpu(self) -> None:
-        # time.sleep(2.5)
-        self.mostrar_cancha_con_pelota()
-        print(
-            "---------------------------------------------------------------------------------------"
-        )
-        print(
-            f"{self._jugador_con_pelota()} tiene la pelota, CPU está tomando una decisión..."
-        )
-        decision = random.choices([1, 2], weights=[0.7, 0.3], k=1)[0]
+        pesos = {}
+        pesos["ARQUERO"] = [1, 0]
+        pesos["DEFENSOR"] = [0.8, 0.2]
+        pesos["MEDIOCAMPISTA"] = [0.7, 0.3]
+        pesos["DELANTERO"] = [0, 1]
+
+        jugador_cpu = self._jugador_con_pelota().get_posicion()[0]
+        print(type(jugador_cpu))
+        decision = random.choices([1, 2], weights=pesos.get(jugador_cpu), k=1)[0]
+        # if self._posicion_pelota
         match decision:
             case 1:
-                print("PASE DE LA CPU")
                 pase_cpu = self.mostrar_pases(es_cpu=True)
                 if self.realizar_pase(pase_cpu):
                     self.__accion_cpu = "pase_a_interceptar"
                     return True
             case 2:
-                print("TIRO DE LA CPU")
                 if self.realizar_tiro():
                     if not self.realizar_atajar():
                         self.__accion_cpu = "gol_cpu"

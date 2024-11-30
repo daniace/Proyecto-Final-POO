@@ -12,7 +12,7 @@ class Controlador(ABC):
         self._view = None
 
     @abstractmethod
-    def manejar_eventos(self, eventos, mouse_pos):
+    def manejar_eventos(self, eventos, mouse_pos=(-1, -1)):
         pass
 
     def main_loop(self):

@@ -1,5 +1,4 @@
 import random
-import time
 
 import gif_pygame
 import pygame
@@ -68,9 +67,6 @@ class CanchaView(VentanaView):
         self.texto_jugadas()
 
         self.renderizar_gif()
-        # pygame.display.update()
-
-        # print(self.__posicion_pelota)
 
         if self.__pase_seleccionado:
             self.mostrar_pases()
@@ -82,6 +78,7 @@ class CanchaView(VentanaView):
                     get_fuente(50),
                     BLANCO,
                     "Green",
+                    solo_flechas=True,
                 )
                 atributos_carta = self.__atributos_carta[0]
                 CAMISETA = atributos_carta["CAMISETA"]
@@ -105,6 +102,7 @@ class CanchaView(VentanaView):
                     get_fuente(50),
                     BLANCO,
                     "Green",
+                    solo_flechas=True,
                 )
                 atributos_carta = self.__atributos_carta[1]
                 CAMISETA = atributos_carta["CAMISETA"]
@@ -128,6 +126,7 @@ class CanchaView(VentanaView):
                     get_fuente(50),
                     BLANCO,
                     "Green",
+                    solo_flechas=True,
                 )
                 atributos_carta = self.__atributos_carta[2]
                 CAMISETA = atributos_carta["CAMISETA"]
@@ -152,6 +151,7 @@ class CanchaView(VentanaView):
                     get_fuente(50),
                     BLANCO,
                     "Green",
+                    solo_flechas=True,
                 )
                 atributos_carta = self.__atributos_carta[3]
                 CAMISETA = atributos_carta["CAMISETA"]
@@ -168,13 +168,6 @@ class CanchaView(VentanaView):
                 self._pantalla.blit(DOR, (int(ANCHO * 0.54), int(ALTO * 0.935)))
 
                 self._botones["pase4"] = PASE4
-            # self._botones[]
-            # if self.__pase:
-            #     pase = self.__acciones["pase_concretado"]
-            #     self._pantalla.blit(pase, (int(ANCHO * 0.8), int(ALTO * 0.7)))
-            # else:
-            #     pase = self.__acciones["pase_errado"]
-            #     self._pantalla.blit(pase, (int(ANCHO * 0.8), int(ALTO * 0.7)))
 
         if not self.__pase_seleccionado:
             PASE = self._mostrar_boton(
@@ -184,6 +177,7 @@ class CanchaView(VentanaView):
                 get_fuente(50),
                 BLANCO if self.__equipo == 1 else NEGRO,
                 "Green" if self.__equipo == 1 else NEGRO,
+                solo_flechas=True,
             )
 
             TIRO = self._mostrar_boton(
@@ -193,6 +187,7 @@ class CanchaView(VentanaView):
                 get_fuente(50),
                 BLANCO if self.__equipo == 1 else NEGRO,
                 "Green" if self.__equipo == 1 else NEGRO,
+                solo_flechas=True,
             )
 
             GAMBETA = self._mostrar_boton(
@@ -202,6 +197,7 @@ class CanchaView(VentanaView):
                 get_fuente(50),
                 BLANCO if self.__equipo == 1 else NEGRO,
                 "Green" if self.__equipo == 1 else NEGRO,
+                solo_flechas=True,
             )
 
             INTERCEPTAR = self._mostrar_boton(
@@ -211,6 +207,7 @@ class CanchaView(VentanaView):
                 get_fuente(50),
                 BLANCO if self.__equipo == 2 else NEGRO,
                 "Green" if self.__equipo == 2 else NEGRO,
+                solo_flechas=True,
             )
             self._botones["interceptar"] = INTERCEPTAR
             self._botones["gambeta"] = GAMBETA

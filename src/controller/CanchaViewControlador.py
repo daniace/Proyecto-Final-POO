@@ -21,7 +21,6 @@ from .GameOverViewControlador import GameOverViewControlador
 class CanchaController(Controlador):
     def __init__(self, pantalla, jugador: EquipoLogico):
         super().__init__()
-        self.__boton_actual = None
         self._view = CanchaView(pantalla, jugador.get_nombre())
         self.__dificultad = dificultad.get_dificultad()
         self._jugador = jugador
@@ -29,16 +28,15 @@ class CanchaController(Controlador):
         self.boton_actual = None
         self.boton_mouse = None
         self.boton_texto = None
-        self.espera_intercepcion = False
+        self.__espera_intercepcion = False
         self.__pase_seleccionado = False
         self.__cronometro = None
         self.__diccionario_posiciones_jugadores = None
         self.__pantalla_de_carga = CargaView(SCREEN)
         self.__formacion = None
         self.__reproductor = ReproductorMusica()
-        print(self.__dificultad)
 
-    def manejar_eventos(self, eventos, mouse_pos):
+    def manejar_eventos(self, eventos):
         from controller.JugarViewControlador import JugarController
 
         botones = self._view.get_botones()
@@ -72,21 +70,31 @@ class CanchaController(Controlador):
                 self._indice_seleccionado = indice
                 self.boton_texto = boton_texto
 
-    def main_loop(self):
+    def inicializar_partido(self):
         self.__reproductor.detener()
         self.__pantalla_de_carga.main_loop()
+
         self._partido = Partido(self._jugador, self.__dificultad, self._view)
+        # se instancia el partido
+
         self.relacionar_posiciones(self._partido.get_diccionario(), self.__formacion)
+        # se relacionan las posiciones logicas con las posiciones visuales del minimapa
+
         if self.__cronometro is None or not self.__cronometro.is_alive():
             self.__cronometro = Cronometro()
+            # se instancia el cronometro
         self._view.renderizar_acciones()
         self._view.renderizar()
+
+    def main_loop(self):
+        self.inicializar_partido()
         self.__cronometro.start()
         self._partido._partido_en_curso = True
         while True:
             if self._view.get_visibilidad():
                 self._view.set_goles(self._partido.get_goles())
                 if self.__cronometro._evento_partido_terminado.is_set():
+                    # LOGICA LUEGO DEL PARTIDO
                     self._partido_en_curso = False
                     self._partido.mostrar_resultado()
                     self._view.ocultar_visibilidad()
@@ -96,29 +104,29 @@ class CanchaController(Controlador):
                         self._jugador.get_id_usuario(),
                         self._partido.mostrar_resultado(),
                     )
-                    # self._partido.mostrar_resultado()
                     game_over.main_loop()
+                    # LOOP DE GAME OVER
+
                 self.mostrar_pelota()
-                mouse_pos = None
                 self._view.mostrar(self.__cronometro.get_contador())
                 eventos = pygame.event.get()
                 self._view.cambiar_equipo(self._partido.get_equipo_con_posesion())
                 if self._view.get_gif_terminado or self.__pase_seleccionado:
                     if (
                         self._partido.get_equipo_con_posesion() == 1
-                        or self.espera_intercepcion == True
+                        or self.__espera_intercepcion == True
                     ):
-                        self.manejar_eventos(eventos, mouse_pos)
+                        self.manejar_eventos(eventos)
                         self.cambiar_boton_actual()
                     elif (
                         self._partido.get_equipo_con_posesion() == 2
-                        and self.espera_intercepcion != True
+                        and self.__espera_intercepcion != True
                     ):
                         self._view.ultima_jugada(2)
-                        self.espera_intercepcion = self._partido._jugar_turno_cpu()
+                        self.__espera_intercepcion = self._partido._jugar_turno_cpu()
                         accion_cpu = self._partido.get_accion_cpu()
                         self._view.set_accion_cpu(accion_cpu)
-                        self.manejar_eventos(eventos, mouse_pos)
+                        self.manejar_eventos(eventos)
                         self.cambiar_boton_actual()
 
                     if self.boton_actual is not None:
@@ -127,7 +135,6 @@ class CanchaController(Controlador):
 
                 clock.tick(60)
                 pygame.display.update()
-        self.__cronometro.join()
 
     def actualizar_seleccion(self):
         botones = self._view.get_botones()
@@ -143,7 +150,7 @@ class CanchaController(Controlador):
         nombre_boton_seleccionado = list(botones.keys())[self._indice_seleccionado]
         if (
             not self.__pase_seleccionado
-            and not self.espera_intercepcion
+            and not self.__espera_intercepcion
             and self._partido.get_equipo_con_posesion() == 1
         ):
             if nombre_boton_seleccionado == "pase":
@@ -198,10 +205,10 @@ class CanchaController(Controlador):
 
             self.boton_actual = None
 
-        if self._partido.get_equipo_con_posesion() == 2 and self.espera_intercepcion:
+        if self._partido.get_equipo_con_posesion() == 2 and self.__espera_intercepcion:
             if nombre_boton_seleccionado == "interceptar":
                 self._view.ultima_jugada(1)
-                self.espera_intercepcion = False
+                self.__espera_intercepcion = False
                 accion = self._partido.realizar_intercepcion()
                 self._view.set_accion(accion)
 
@@ -214,7 +221,9 @@ class CanchaController(Controlador):
 
     def relacionar_posiciones(self, diccionario_1, formacion_actual):
         formacion_usuario = FORMACION_USUARIO[formacion_actual]
-        formacion_cpu = FORMACION_CPU["4-3-3"]
+        formacion_cpu = FORMACION_CPU[
+            "4-3-3"
+        ]  # SE PODRIAN AGREGAR FORMACIONES RANDOM DE LA MAQUINA
 
         posiciones = {
             0: ("portero", formacion_usuario),
