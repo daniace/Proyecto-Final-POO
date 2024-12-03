@@ -98,6 +98,7 @@ FORMACIONES = {
 }
 
 # Recursos
+ICONO = "src/assets/images/icono.png"
 SCORE = "src/assets/images/scoreboard3.png"
 MANCHESTER = "src/assets/images/Manchester.png"
 BARCELONA = "src/assets/images/Barcelona.png"
@@ -211,7 +212,7 @@ bg_cancha_oficial = pygame.image.load(IMAGEN_CANCHA_OFICIAL)
 BG_CANCHA_OFICIAL = pygame.transform.scale(bg_cancha_oficial, (250, 400))
 bg_estadio = pygame.image.load(IMAGEN_ESTADIO)
 BG_ESTADIO = pygame.transform.scale(bg_estadio, TAMANIO_PANTALLA)
-clock = pygame.time.Clock()
+
 
 ##ESTADIOS##
 manchester = pygame.image.load(MANCHESTER)
@@ -326,6 +327,8 @@ marcador = pygame.transform.scale(marcador, (300, 400))
 flechita2 = pygame.image.load(FLECHITA2)
 flechita2 = pygame.transform.scale(flechita2, (70, 70))
 
+icono = pygame.image.load(ICONO)
+
 
 def get_fuente(tamanio):
     return pygame.font.Font(FUENTE, tamanio)
@@ -354,8 +357,6 @@ FORMACION_CPU = {
         "delanteros": [(178, 150), (134, 142), (88, 151)],
     }
 }
-
-clock = pygame.time.Clock()
 
 
 POS_MOUSE = pygame.mouse.get_pos()

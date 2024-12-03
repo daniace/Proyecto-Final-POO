@@ -1,7 +1,8 @@
 import pygame
-from view.PantallaCargaView import CargaView
 from Controlador import Controlador
+
 from settings import *
+from view.PantallaCargaView import CargaView
 
 
 class PantallaCargaController(Controlador):

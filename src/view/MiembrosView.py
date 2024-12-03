@@ -1,6 +1,8 @@
-from .VentanaView import VentanaView
-from settings import *
 import gif_pygame
+
+from settings import *
+
+from .VentanaView import VentanaView
 
 
 class MiembrosView(VentanaView):
@@ -50,7 +52,7 @@ class MiembrosView(VentanaView):
             # Imagenes
             bruno = self.__fotos_integrantes["bruno"]
             angelo = self.__fotos_integrantes["marco"]
-            dani = self.__fotos_integrantes["marco"]
+            dani = self.__fotos_integrantes["daniace"]
             leo = self.__fotos_integrantes["marco"]
             valentin = self.__fotos_integrantes["marco"]
             axel = self.__fotos_integrantes["marco"]
@@ -104,9 +106,12 @@ class MiembrosView(VentanaView):
         marco2 = pygame.transform.scale(marco, (150, 150))
         daniel = pygame.image.load("src/assets/images/daniel.png")
         daniel = pygame.transform.scale(daniel, (150, 150))
+        daniace = pygame.image.load("src/assets/images/daniace.png")
+        daniace = pygame.transform.scale(daniace, (150, 150))
         self.__fotos_integrantes = {
             "bruno": bruno,
             "marco": marco,
             "daniel": daniel,
             "marco2": marco2,
+            "daniace": daniace,
         }

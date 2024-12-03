@@ -1,10 +1,9 @@
 import sys
+from abc import ABC, abstractmethod
 
 import pygame
 
 from settings import *  # la Ventana padre
-
-from abc import ABC, abstractmethod
 
 
 class Controlador(ABC):

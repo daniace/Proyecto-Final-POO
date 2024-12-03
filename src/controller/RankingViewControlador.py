@@ -5,8 +5,8 @@ import pygame
 from settings import *
 from view.RankingView import RankingView
 
-from .ControladorBD import ControladorBD
 from .Controlador import Controlador
+from .ControladorBD import ControladorBD
 
 
 class RankingController(Controlador):
@@ -25,8 +25,6 @@ class RankingController(Controlador):
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if botones["actualizar"].checkForInput(mouse_pos):
-                    self.__bd = ControladorBD().get_usuarios_ranking()
                 if botones["atras"].checkForInput(mouse_pos):
                     menu_principal = MenuController()
                     menu_principal.main_loop()

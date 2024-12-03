@@ -1,0 +1,3 @@
+customtkinter==5.2.2
+gif_pygame==1.1.2
+pygame==2.6.1

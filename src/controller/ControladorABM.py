@@ -67,9 +67,8 @@ class ControllerABM:
     def add_usuario(self, nombre_usuario, password, admin):
         if nombre_usuario == "":
             raise ValueError("El nombre de usuario no puede estar vacío")
-        if password == "":
-            raise ValueError("La contraseña no puede estar vacía")
-        password = hashlib.sha256(password.encode()).hexdigest()
+        if password != "":
+            password = hashlib.sha256(password.encode()).hexdigest()
         self.db.execute_non_query(
             "INSERT INTO usuario (nombre_usuario, password, admin) VALUES (?, ?, ?)",
             (nombre_usuario, password, admin),
@@ -78,9 +77,10 @@ class ControllerABM:
     def update_usuario(self, user_id, nombre_usuario, password, admin, score):
         if nombre_usuario == "":
             raise ValueError("El nombre de usuario no puede estar vacío")
-        if password == "":
+        if admin == 1 and password == "":
             raise ValueError("La contraseña no puede estar vacía")
-        password = hashlib.sha256(password.encode()).hexdigest()
+        if admin == 1 and password != "":
+            password = hashlib.sha256(password.encode()).hexdigest()
         self.db.execute_non_query(
             "UPDATE usuario SET nombre_usuario = ?, password = ?, admin = ?, score = ? WHERE id_usuario = ?",
             (nombre_usuario, password, admin, score, user_id),

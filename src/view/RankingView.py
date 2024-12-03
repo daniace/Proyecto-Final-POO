@@ -24,14 +24,6 @@ class RankingView(VentanaView):
             IMAGEN_RANKING_USUARIOS, (int(ANCHO * 0.35), int(ALTO * 0.1))
         )
 
-        RANKING_ACTUALIZAR = self._mostrar_boton(
-            boton_cuadrado,
-            (ANCHO * 0.73, ALTO * 0.9),
-            "🔄",
-            pygame.font.FontType(EMOJIS, 50),
-            BLANCO,
-            VERDE,
-        )
         RANKING_ATRAS = self._mostrar_boton(
             boton_rojo,
             (ANCHO * 0.88, ALTO * 0.9),
@@ -42,7 +34,6 @@ class RankingView(VentanaView):
         )
 
         self._botones["atras"] = RANKING_ATRAS
-        self._botones["actualizar"] = RANKING_ACTUALIZAR
 
     def mostrar_ranking(self, usuarios):
         for i, usuario in enumerate(usuarios):

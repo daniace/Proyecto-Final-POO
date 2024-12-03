@@ -64,7 +64,6 @@ class MainView(ctk.CTk):
         super().__init__()
         self.controller = controller
         self.title("Gestión de la Aplicación")
-        # self.geometry("800x600")
         centrar_ventana(self, 800, 600)
         # Crear pestañas
         self.tabview = ctk.CTkTabview(self)
@@ -119,7 +118,9 @@ class MainView(ctk.CTk):
             frame_tabla_usuarios,
             columns=("ID", "Nombre", "Password", "Admin", "Score"),
             show="headings",
+            displaycolumns=(1, 3, 4),
         )
+
         self.tree_usuarios.heading("ID", text="ID")
         self.tree_usuarios.heading("Nombre", text="Nombre")
         self.tree_usuarios.heading("Password", text="Password")
@@ -222,16 +223,27 @@ class MainView(ctk.CTk):
         label_password = ctk.CTkLabel(formulario_usuario, text="Password")
         label_password.pack(pady=10)
 
-        entry_password = ctk.CTkEntry(formulario_usuario, show="*")
+        entry_password = ctk.CTkEntry(formulario_usuario, show="*", state="disabled")
         entry_password.pack()
 
-        entry_admin = ctk.CTkCheckBox(formulario_usuario, text="Admin")
+        def __toggle_password():
+            """Habilita o deshabilita el campo de contraseña según el estado del checkbox."""
+            if entry_admin.get() == 1:  # Si el checkbox está marcado
+                entry_password.configure(state="normal")
+            else:
+                entry_password.configure(state="disabled")
+
+        entry_admin = ctk.CTkCheckBox(
+            formulario_usuario, text="Admin", command=__toggle_password
+        )
         entry_admin.pack(pady=10)
 
         def guardar_usuario():
             nombre = entry_nombre.get()
             password = entry_password.get()
             admin = entry_admin.get()
+            if admin == 0:
+                password = ""
             self.controller.add_usuario(nombre, password, admin)
             formulario_usuario.destroy()
             self.load_usuarios()
@@ -280,7 +292,7 @@ class MainView(ctk.CTk):
         label_password = ctk.CTkLabel(formulario_usuario, text="Password")
         label_password.pack(pady=10)
 
-        entry_password = ctk.CTkEntry(formulario_usuario, show="*")
+        entry_password = ctk.CTkEntry(formulario_usuario, show="*", state="disabled")
         entry_password.insert(0, password)
         entry_password.pack()
 
@@ -291,7 +303,16 @@ class MainView(ctk.CTk):
         entry_score.insert(0, score)
         entry_score.pack()
 
-        entry_admin = ctk.CTkCheckBox(formulario_usuario, text="Admin")
+        def __toggle_password():
+            """Habilita o deshabilita el campo de contraseña según el estado del checkbox."""
+            if entry_admin.get() == 1:  # Si el checkbox está marcado
+                entry_password.configure(state="normal")
+            else:
+                entry_password.configure(state="disabled")
+
+        entry_admin = ctk.CTkCheckBox(
+            formulario_usuario, text="Admin", command=__toggle_password
+        )
         if admin == 1:
             entry_admin.select()
         entry_admin.pack(pady=10)
@@ -302,6 +323,8 @@ class MainView(ctk.CTk):
             password = entry_password.get()
             admin = entry_admin.get()
             score = entry_score.get()
+            if admin == 0:
+                password = ""
             self.controller.update_usuario(id_usuario, nombre, password, admin, score)
             formulario_usuario.destroy()
             self.load_usuarios()
@@ -345,6 +368,7 @@ class MainView(ctk.CTk):
                 "Carta 11",
             ),
             show="headings",
+            displaycolumns=(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
         )
 
         self.tree_equipos.heading("ID Equipo", text="ID Equipo")
@@ -596,6 +620,26 @@ class MainView(ctk.CTk):
                 "(GK) Posicionamiento",
             ),
             show="headings",
+            displaycolumns=(
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+            ),
         )
 
         self.tree_cartas.heading("ID Carta", text="ID Carta")

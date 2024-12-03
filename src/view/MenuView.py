@@ -1,6 +1,7 @@
 import pygame
 
 from settings import *
+
 from .VentanaView import VentanaView
 
 
@@ -13,7 +14,6 @@ class MenuView(VentanaView):
         # Fondo de pantalla
         pygame.display.set_caption("HEROES DEL BALON")
         self._pantalla.blit(BG, (0, 0))
-
         # Título del menú
         MENU_TEXTO = get_fuente(120).render("HEROES DEL BALON", True, "White")
         MENU_RECT = MENU_TEXTO.get_rect(center=(int(ANCHO * 0.5), 180))
